@@ -56,15 +56,47 @@
 		718BE8092486BA8000CA328B /* Aweh */ = {
 			isa = PBXGroup;
 			children = (
+				718BE81F2486BCE500CA328B /* Elements */,
+				718BE81E2486BA9600CA328B /* HomeScreen */,
 				718BE80A2486BA8000CA328B /* AppDelegate.swift */,
 				718BE80C2486BA8000CA328B /* SceneDelegate.swift */,
-				718BE80E2486BA8000CA328B /* ViewController.swift */,
 				718BE8102486BA8000CA328B /* Main.storyboard */,
 				718BE8132486BA8200CA328B /* Assets.xcassets */,
 				718BE8152486BA8200CA328B /* LaunchScreen.storyboard */,
 				718BE8182486BA8200CA328B /* Info.plist */,
 			);
 			path = Aweh;
+			sourceTree = "<group>";
+		};
+		718BE81E2486BA9600CA328B /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				71ECFDF62487060500943917 /* CollectionView */,
+				71ECFDF5248705F400943917 /* ViewController */,
+			);
+			path = HomeScreen;
+			sourceTree = "<group>";
+		};
+		718BE81F2486BCE500CA328B /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Elements;
+			sourceTree = "<group>";
+		};
+		71ECFDF5248705F400943917 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				718BE80E2486BA8000CA328B /* ViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		71ECFDF62487060500943917 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CollectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
