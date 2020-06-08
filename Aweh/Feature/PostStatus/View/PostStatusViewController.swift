@@ -1,0 +1,18 @@
+//
+//  PostStatusViewController.swift
+//  Aweh
+//
+//  Created by Divine.Dube on 2020/06/07.
+//  Copyright © 2020 com.github.aweh. All rights reserved.
+//
+
+import UIKit
+
+class PostStatusViewController: ViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+    }
+}

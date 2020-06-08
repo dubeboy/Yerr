@@ -7,15 +7,54 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		713549B1248BE45A0009EE6A /* UICollectionView+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */; };
+		713549B3248BE8F10009EE6A /* StatusCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713549B2248BE8F10009EE6A /* StatusCellPresenter.swift */; };
+		7157C21D24886DB400F0A7F0 /* HomeScreenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7157C21C24886DB400F0A7F0 /* HomeScreenRepository.swift */; };
+		7157C22024886E2100F0A7F0 /* BaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7157C21F24886E2100F0A7F0 /* BaseRepository.swift */; };
+		7157C22524886EB300F0A7F0 /* AwehService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7157C22424886EB300F0A7F0 /* AwehService.swift */; };
+		7157C2322488761900F0A7F0 /* SimpleDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7157C2312488761900F0A7F0 /* SimpleDependencyInjector.swift */; };
+		7157C2342488766F00F0A7F0 /* NSLayoutConstraints+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7157C2332488766F00F0A7F0 /* NSLayoutConstraints+Elements.swift */; };
+		7162C60B24884BAB002D8ED4 /* HomeScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7162C60A24884BAB002D8ED4 /* HomeScreenPresenter.swift */; };
+		7162C60D24884BBB002D8ED4 /* StatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7162C60C24884BBB002D8ED4 /* StatusViewModel.swift */; };
+		7162C61024886320002D8ED4 /* HomeScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7162C60F24886320002D8ED4 /* HomeScreenInteractor.swift */; };
+		7162C6132488637F002D8ED4 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7162C6122488637F002D8ED4 /* Status.swift */; };
+		716DA6BB248C581F001B74E2 /* Theme+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA6BA248C581F001B74E2 /* Theme+Elements.swift */; };
+		716DA6C2248D7E55001B74E2 /* PostStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA6C1248D7E55001B74E2 /* PostStatusViewController.swift */; };
+		716DA6C4248D7E69001B74E2 /* PostStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA6C3248D7E69001B74E2 /* PostStatusPresenter.swift */; };
+		716DA6C9248D899B001B74E2 /* PostStatusViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 716DA6C8248D899B001B74E2 /* PostStatusViewController.xib */; };
+		716DA6CB248EE4D2001B74E2 /* UIViewController+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA6CA248EE4D2001B74E2 /* UIViewController+Elements.swift */; };
+		716DA6CE248EE57D001B74E2 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA6CD248EE57D001B74E2 /* MainCoordinator.swift */; };
 		718BE80B2486BA8000CA328B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718BE80A2486BA8000CA328B /* AppDelegate.swift */; };
 		718BE80D2486BA8000CA328B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718BE80C2486BA8000CA328B /* SceneDelegate.swift */; };
 		718BE80F2486BA8000CA328B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718BE80E2486BA8000CA328B /* ViewController.swift */; };
 		718BE8122486BA8000CA328B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 718BE8102486BA8000CA328B /* Main.storyboard */; };
 		718BE8142486BA8200CA328B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 718BE8132486BA8200CA328B /* Assets.xcassets */; };
 		718BE8172486BA8200CA328B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 718BE8152486BA8200CA328B /* LaunchScreen.storyboard */; };
+		71ECFDF82487066B00943917 /* StatusCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ECFDF72487066B00943917 /* StatusCollectionViewFlowLayout.swift */; };
+		71ECFDFB2487187000943917 /* StatusCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ECFDF92487187000943917 /* StatusCollectionViewCell.swift */; };
+		71ECFDFC2487187000943917 /* StatusCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71ECFDFA2487187000943917 /* StatusCollectionViewCell.xib */; };
+		FF3A507039947AD2A1A2C68A /* Pods_Aweh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB762DF26E2E46FFACEB991 /* Pods_Aweh.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		265F7EC230D448B878C43061 /* Pods-Aweh.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.debug.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.debug.xcconfig"; sourceTree = "<group>"; };
+		713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Elements.swift"; sourceTree = "<group>"; };
+		713549B2248BE8F10009EE6A /* StatusCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCellPresenter.swift; sourceTree = "<group>"; };
+		7157C21C24886DB400F0A7F0 /* HomeScreenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenRepository.swift; sourceTree = "<group>"; };
+		7157C21F24886E2100F0A7F0 /* BaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRepository.swift; sourceTree = "<group>"; };
+		7157C22424886EB300F0A7F0 /* AwehService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwehService.swift; sourceTree = "<group>"; };
+		7157C2312488761900F0A7F0 /* SimpleDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleDependencyInjector.swift; sourceTree = "<group>"; };
+		7157C2332488766F00F0A7F0 /* NSLayoutConstraints+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraints+Elements.swift"; sourceTree = "<group>"; };
+		7162C60A24884BAB002D8ED4 /* HomeScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenPresenter.swift; sourceTree = "<group>"; };
+		7162C60C24884BBB002D8ED4 /* StatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewModel.swift; sourceTree = "<group>"; };
+		7162C60F24886320002D8ED4 /* HomeScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenInteractor.swift; sourceTree = "<group>"; };
+		7162C6122488637F002D8ED4 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		716DA6BA248C581F001B74E2 /* Theme+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Theme+Elements.swift"; sourceTree = "<group>"; };
+		716DA6C1248D7E55001B74E2 /* PostStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStatusViewController.swift; sourceTree = "<group>"; };
+		716DA6C3248D7E69001B74E2 /* PostStatusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStatusPresenter.swift; sourceTree = "<group>"; };
+		716DA6C8248D899B001B74E2 /* PostStatusViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostStatusViewController.xib; sourceTree = "<group>"; };
+		716DA6CA248EE4D2001B74E2 /* UIViewController+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Elements.swift"; sourceTree = "<group>"; };
+		716DA6CD248EE57D001B74E2 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		718BE8072486BA8000CA328B /* Aweh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aweh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		718BE80A2486BA8000CA328B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		718BE80C2486BA8000CA328B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +63,11 @@
 		718BE8132486BA8200CA328B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		718BE8162486BA8200CA328B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		718BE8182486BA8200CA328B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		71ECFDF72487066B00943917 /* StatusCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		71ECFDF92487187000943917 /* StatusCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCollectionViewCell.swift; sourceTree = "<group>"; };
+		71ECFDFA2487187000943917 /* StatusCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusCollectionViewCell.xib; sourceTree = "<group>"; };
+		B607C0A1A87FE1D0A8B4E53C /* Pods-Aweh.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.release.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.release.xcconfig"; sourceTree = "<group>"; };
+		CBB762DF26E2E46FFACEB991 /* Pods_Aweh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aweh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +75,163 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF3A507039947AD2A1A2C68A /* Pods_Aweh.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7157C21E24886E0700F0A7F0 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				716DA6BD248D7DBE001B74E2 /* HomeScreen */,
+				7157C21F24886E2100F0A7F0 /* BaseRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		7157C22124886E8B00F0A7F0 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				7157C22324886E9A00F0A7F0 /* Local */,
+				7157C22224886E9100F0A7F0 /* Remote */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		7157C22224886E9100F0A7F0 /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				7157C22424886EB300F0A7F0 /* AwehService.swift */,
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
+		7157C22324886E9A00F0A7F0 /* Local */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
+		7157C22E24886FAE00F0A7F0 /* Feature */ = {
+			isa = PBXGroup;
+			children = (
+				716DA6C5248D7E91001B74E2 /* Shared */,
+				716DA6BE248D7E04001B74E2 /* PostStatus */,
+				718BE81E2486BA9600CA328B /* HomeScreen */,
+			);
+			path = Feature;
+			sourceTree = "<group>";
+		};
+		7157C22F248875EF00F0A7F0 /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				7157C230248875FF00F0A7F0 /* DI */,
+				718BE81F2486BCE500CA328B /* Elements */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		7157C230248875FF00F0A7F0 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				7157C2312488761900F0A7F0 /* SimpleDependencyInjector.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		7162C60924884B93002D8ED4 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				7162C60C24884BBB002D8ED4 /* StatusViewModel.swift */,
+				7162C60A24884BAB002D8ED4 /* HomeScreenPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		7162C60E24886307002D8ED4 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				716DA6BC248D7D76001B74E2 /* HomeScreen */,
+				7162C60F24886320002D8ED4 /* HomeScreenInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		7162C61124886369002D8ED4 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				7162C6122488637F002D8ED4 /* Status.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		716DA6BC248D7D76001B74E2 /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HomeScreen;
+			sourceTree = "<group>";
+		};
+		716DA6BD248D7DBE001B74E2 /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				7157C21C24886DB400F0A7F0 /* HomeScreenRepository.swift */,
+			);
+			path = HomeScreen;
+			sourceTree = "<group>";
+		};
+		716DA6BE248D7E04001B74E2 /* PostStatus */ = {
+			isa = PBXGroup;
+			children = (
+				716DA6C0248D7E2E001B74E2 /* View */,
+				716DA6BF248D7E1C001B74E2 /* Presenter */,
+			);
+			path = PostStatus;
+			sourceTree = "<group>";
+		};
+		716DA6BF248D7E1C001B74E2 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				716DA6C3248D7E69001B74E2 /* PostStatusPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		716DA6C0248D7E2E001B74E2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				716DA6C1248D7E55001B74E2 /* PostStatusViewController.swift */,
+				716DA6C8248D899B001B74E2 /* PostStatusViewController.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		716DA6C5248D7E91001B74E2 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				716DA6CC248EE55F001B74E2 /* Coordinator */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		716DA6CC248EE55F001B74E2 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				716DA6CD248EE57D001B74E2 /* MainCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		718BE7FE2486BA8000CA328B = {
 			isa = PBXGroup;
 			children = (
 				718BE8092486BA8000CA328B /* Aweh */,
 				718BE8082486BA8000CA328B /* Products */,
+				8EBD9E0B790EE9692A460572 /* Pods */,
+				E059DE5EBEECDCA4DB9AFA6B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,11 +246,14 @@
 		718BE8092486BA8000CA328B /* Aweh */ = {
 			isa = PBXGroup;
 			children = (
-				718BE81F2486BCE500CA328B /* Elements */,
-				718BE81E2486BA9600CA328B /* HomeScreen */,
+				7157C22F248875EF00F0A7F0 /* Infrastructure */,
+				7162C60E24886307002D8ED4 /* Interactor */,
+				7157C22E24886FAE00F0A7F0 /* Feature */,
+				7157C22124886E8B00F0A7F0 /* Data */,
+				7157C21E24886E0700F0A7F0 /* Repository */,
+				7162C61124886369002D8ED4 /* Entity */,
 				718BE80A2486BA8000CA328B /* AppDelegate.swift */,
 				718BE80C2486BA8000CA328B /* SceneDelegate.swift */,
-				718BE8102486BA8000CA328B /* Main.storyboard */,
 				718BE8132486BA8200CA328B /* Assets.xcassets */,
 				718BE8152486BA8200CA328B /* LaunchScreen.storyboard */,
 				718BE8182486BA8200CA328B /* Info.plist */,
@@ -71,8 +264,8 @@
 		718BE81E2486BA9600CA328B /* HomeScreen */ = {
 			isa = PBXGroup;
 			children = (
-				71ECFDF62487060500943917 /* CollectionView */,
-				71ECFDF5248705F400943917 /* ViewController */,
+				7162C60924884B93002D8ED4 /* Presenter */,
+				71C78E5424886A0000E29082 /* View */,
 			);
 			path = HomeScreen;
 			sourceTree = "<group>";
@@ -80,23 +273,58 @@
 		718BE81F2486BCE500CA328B /* Elements */ = {
 			isa = PBXGroup;
 			children = (
+				7157C2332488766F00F0A7F0 /* NSLayoutConstraints+Elements.swift */,
+				713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */,
+				716DA6BA248C581F001B74E2 /* Theme+Elements.swift */,
+				716DA6CA248EE4D2001B74E2 /* UIViewController+Elements.swift */,
 			);
 			path = Elements;
+			sourceTree = "<group>";
+		};
+		71C78E5424886A0000E29082 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				71ECFDF62487060500943917 /* StatusCollectionView */,
+				71ECFDF5248705F400943917 /* ViewController */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		71ECFDF5248705F400943917 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				718BE80E2486BA8000CA328B /* ViewController.swift */,
+				718BE8102486BA8000CA328B /* Main.storyboard */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		71ECFDF62487060500943917 /* CollectionView */ = {
+		71ECFDF62487060500943917 /* StatusCollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				71ECFDF92487187000943917 /* StatusCollectionViewCell.swift */,
+				71ECFDFA2487187000943917 /* StatusCollectionViewCell.xib */,
+				71ECFDF72487066B00943917 /* StatusCollectionViewFlowLayout.swift */,
+				713549B2248BE8F10009EE6A /* StatusCellPresenter.swift */,
 			);
-			path = CollectionView;
+			path = StatusCollectionView;
+			sourceTree = "<group>";
+		};
+		8EBD9E0B790EE9692A460572 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				265F7EC230D448B878C43061 /* Pods-Aweh.debug.xcconfig */,
+				B607C0A1A87FE1D0A8B4E53C /* Pods-Aweh.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E059DE5EBEECDCA4DB9AFA6B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CBB762DF26E2E46FFACEB991 /* Pods_Aweh.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -106,6 +334,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 718BE81B2486BA8200CA328B /* Build configuration list for PBXNativeTarget "Aweh" */;
 			buildPhases = (
+				6255A4B8E85EB5CA79E07E14 /* [CP] Check Pods Manifest.lock */,
 				718BE8032486BA8000CA328B /* Sources */,
 				718BE8042486BA8000CA328B /* Frameworks */,
 				718BE8052486BA8000CA328B /* Resources */,
@@ -159,20 +388,65 @@
 			files = (
 				718BE8172486BA8200CA328B /* LaunchScreen.storyboard in Resources */,
 				718BE8142486BA8200CA328B /* Assets.xcassets in Resources */,
+				71ECFDFC2487187000943917 /* StatusCollectionViewCell.xib in Resources */,
 				718BE8122486BA8000CA328B /* Main.storyboard in Resources */,
+				716DA6C9248D899B001B74E2 /* PostStatusViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6255A4B8E85EB5CA79E07E14 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Aweh-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		718BE8032486BA8000CA328B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7157C21D24886DB400F0A7F0 /* HomeScreenRepository.swift in Sources */,
 				718BE80F2486BA8000CA328B /* ViewController.swift in Sources */,
+				716DA6BB248C581F001B74E2 /* Theme+Elements.swift in Sources */,
+				7162C61024886320002D8ED4 /* HomeScreenInteractor.swift in Sources */,
+				716DA6CE248EE57D001B74E2 /* MainCoordinator.swift in Sources */,
+				7162C60B24884BAB002D8ED4 /* HomeScreenPresenter.swift in Sources */,
+				7162C60D24884BBB002D8ED4 /* StatusViewModel.swift in Sources */,
+				7157C2342488766F00F0A7F0 /* NSLayoutConstraints+Elements.swift in Sources */,
+				713549B1248BE45A0009EE6A /* UICollectionView+Elements.swift in Sources */,
+				716DA6C4248D7E69001B74E2 /* PostStatusPresenter.swift in Sources */,
+				716DA6C2248D7E55001B74E2 /* PostStatusViewController.swift in Sources */,
 				718BE80B2486BA8000CA328B /* AppDelegate.swift in Sources */,
+				7157C22024886E2100F0A7F0 /* BaseRepository.swift in Sources */,
+				7162C6132488637F002D8ED4 /* Status.swift in Sources */,
+				71ECFDFB2487187000943917 /* StatusCollectionViewCell.swift in Sources */,
+				7157C2322488761900F0A7F0 /* SimpleDependencyInjector.swift in Sources */,
+				71ECFDF82487066B00943917 /* StatusCollectionViewFlowLayout.swift in Sources */,
+				713549B3248BE8F10009EE6A /* StatusCellPresenter.swift in Sources */,
+				7157C22524886EB300F0A7F0 /* AwehService.swift in Sources */,
 				718BE80D2486BA8000CA328B /* SceneDelegate.swift in Sources */,
+				716DA6CB248EE4D2001B74E2 /* UIViewController+Elements.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +588,7 @@
 		};
 		718BE81C2486BA8200CA328B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 265F7EC230D448B878C43061 /* Pods-Aweh.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -332,6 +607,7 @@
 		};
 		718BE81D2486BA8200CA328B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B607C0A1A87FE1D0A8B4E53C /* Pods-Aweh.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
