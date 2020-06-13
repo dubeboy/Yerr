@@ -21,12 +21,22 @@ const Comment = require("../models/Comment");
 
 const router = express.Router();
 
-//Create Post
+/**
+ * Function for creating a new post.
+ *
+ * @route POST /posts
+ * @group posts - Post information
+ * @operationId createPost
+ * @param {Post.model} post.body.required - post content
+ * @returns {object} 200 - Success
+ * @returns {Error}  default - No posts found
+ */
 router.post("/", (req, res, next) => {
     let newPost = new Post({
         body: req.body.body,
         timestamp: req.body.timestamp,
         author: {
+            id: req.body.author.id,
             username: req.body.username,
             profilePicUUID: req.body.profilePictureUUID,
         },
@@ -42,23 +52,52 @@ router.post("/", (req, res, next) => {
         timeLimit: req.body.timeLimit,
     });
 
-    newPost.save();
+    newPost
+        .save(newPost)
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((error) => {
+            res.status(500).send({
+                message: error.message || "Unable to save. Please try again.",
+            });
+        });
 });
 
-//Get All Users
+/**
+ * Function for retrieving a specific post.
+ *
+ * @route GET /posts
+ * @group posts - Post information
+ * @operationId getAllPosts
+ * @param {string} postId - ID to retrieve the post with
+ * @returns {object} 200 - Success
+ * @returns {Array.<Post>} PostList - Array of posts
+ * @returns {Error}  default - No post found, may be deleted
+ */
 router.get("/", async (req, res) => {
-    const users = await User.find({});
+    const posts = await Post.find({});
 
     try {
-        res.send(users);
+        res.send(posts);
     } catch (err) {
         res.status(500).send(err);
     }
 });
 
-//GetUser
-router.get("/user/:userId", (req, res, next, id) => {
-    User.findOne({ _id: id }, function (err, user) {
+/**
+ * Function for retrieving a specific post.
+ *
+ * @route GET /posts/{postId}
+ * @group posts - Post information
+ * @operationId getPostByID
+ * @param {string} postId - ID to retrieve the post with
+ * @returns {object} 200 - Success
+ * @returns {Post.model} Post - Public post made by user
+ * @returns {Error}  default - No post found, may be deleted
+ */
+router.get("/posts/:postId", (req, res, next, id) => {
+    User.findOne({ _id: postId }, function (err, user) {
         if (err) {
             next(err);
         } else {
@@ -67,39 +106,5 @@ router.get("/user/:userId", (req, res, next, id) => {
         }
     });
 });
-
-/**
- * Function for retrieving profile information.
- *
- * @route GET /user/profile/{userId}
- * @group user - User information
- * @param {string} userId - user ID to retrieve the profile with
- * @returns {object} 200 - Success
- * @returns {Profile.model} Profile - Profile of user
- * @returns {Error}  default - No profile found
- */
-router.get(
-    "/user/profile/:userId",
-    /*passport.authenticate('jwt', { session: false }),*/ (
-        req,
-        res,
-        next,
-        id
-    ) => {
-        User.findOne({ _id: id }, (err, user) => {
-            if (err) {
-                throw err;
-            } else if (!user) {
-                return res.json({
-                    success: false,
-                    msg: "No profile found for username:" + name,
-                });
-            }
-
-            res.json({ profile: user.profile });
-            next();
-        });
-    }
-);
 
 module.exports = router;

@@ -7,16 +7,18 @@ const ProfileSchema = mongoose.Schema({
         totalPoints: Number,
         level: {
             name: String,
-            description: String
+            description: String,
         },
     },
-    interests: [{
-        title: String,
-        description: String,
-    }],
+    interests: [
+        {
+            title: String,
+            description: String,
+        },
+    ],
     rating: Number,
 });
 
-const Profile = module.exports = mongoose.model('Profile', ProfileSchema);
+const Profile = (module.exports = mongoose.model("Profile", ProfileSchema));
 
 module.exports = Profile;

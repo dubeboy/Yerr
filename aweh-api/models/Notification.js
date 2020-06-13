@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 //Schema
 const NotificationSchema = mongoose.Schema({
@@ -12,6 +12,9 @@ const NotificationSchema = mongoose.Schema({
     isRead: Boolean,
 });
 
-const Notification = module.exports = mongoose.model('Notification', NotificationSchema);
+const Notification = (module.exports = mongoose.model(
+    "Notification",
+    NotificationSchema
+));
 
 module.exports = Notification;

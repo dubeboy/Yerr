@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 //Schema
 const MessageSchema = mongoose.Schema({
@@ -14,9 +14,9 @@ const MessageSchema = mongoose.Schema({
     },
     isSent: Boolean,
     isRead: Boolean,
-    isDeleted: Boolean
+    isDeleted: Boolean,
 });
 
-const Message = module.exports = mongoose.model('Message', MessageSchema);
+const Message = (module.exports = mongoose.model("Message", MessageSchema));
 
 module.exports = Message;
