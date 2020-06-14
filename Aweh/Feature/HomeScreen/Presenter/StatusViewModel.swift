@@ -23,7 +23,7 @@ extension StatusViewModel {
         StatusViewModel(
             status: NSAttributedString(string: status.status),
             userName: status.userName,
-            statusImage: UIImage(named: status.statusImageLink ?? ""),
+            statusImage: status.statusImageLink == nil ? nil : UIImage(named: status.statusImageLink!),
             userImage: UIImage(named: status.userImageLink!)!,
             timeSincePosted: prettifyDate(date: status.timeSincePosted),
             distanceFromYou: String(status.distanceFromYou)

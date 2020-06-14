@@ -8,10 +8,22 @@
 
 import UIKit
 
-extension UIViewController {
+protocol Storyborded {
+    static func instantiate() -> Self
+}
+
+extension Storyborded where Self: UIViewController {
+    static func instantiate() -> Self {
+        let storyboard = UIStoryboard(name: String(describing: Self.self), bundle: Bundle.main)
+        let viewController = storyboard.instantiateViewController(withIdentifier: String(describing: Self.self)) as! Self
+        return viewController
+    }
+}
+
+extension UIViewController: Storyborded {
+
     func pushViewController<T: UIViewController>(_ fromNib: T) {
-        let storyboard = UIStoryboard(name: String(describing: T.self), bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: String(describing: T.self)) as! T
+        let viewController = T.instantiate()
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

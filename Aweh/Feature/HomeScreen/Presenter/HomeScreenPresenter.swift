@@ -14,7 +14,7 @@ protocol StatusPresenter {
     func getStatuses(status: @escaping (_ status: [StatusViewModel]) -> Void)
     func getStatus(at index: IndexPath) -> StatusViewModel
     
-    var statusCellPresenter: StatusCellPresenter { get }
+    var statusCellPresenter: FeedCellPresenter { get }
     
     func index(for item: StatusViewModel) -> Int
 
@@ -24,13 +24,9 @@ protocol StoriesPresenter {
     
 }
 
-protocol PostStatusPresenter {
-    
-}
-
 class HomeScreenPresenter {
     
-    var statusCellPresenter: StatusCellPresenter = StatusCellPresenter()
+    var statusCellPresenter: FeedCellPresenter = FeedCellPresenter()
     
 //    should have a init with status object
     

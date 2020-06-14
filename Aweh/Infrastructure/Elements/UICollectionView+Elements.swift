@@ -17,8 +17,16 @@ extension UICollectionView {
         dequeueReusableCell(withReuseIdentifier: String(describing: `class`), for: indexPath) as! T
     }
     
-//    var selectedCell: GroceryListItemCell {
-//        let indexPath = self.indexPathsForSelectedItems!.first!
-//        return self.cellForItem(at: indexPath) as! GroceryListItemCell
-//    }
+    func register<T: UICollectionViewCell>(_ fromNib: T.Type) {
+        register(UINib(nibName: T.reuseIdentifier,bundle: Bundle.main),
+                 forCellWithReuseIdentifier: T.reuseIdentifier)
+    }
 }
+
+extension UICollectionViewCell {
+    static var reuseIdentifier: String {
+        return String(describing: self)
+    }
+}
+
+

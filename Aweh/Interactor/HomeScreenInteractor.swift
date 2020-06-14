@@ -9,7 +9,7 @@
 import Foundation
 
 protocol StatusUseCase {
-    
+    // show to loading thing on the iphone if possible
 }
 
 protocol StoriesUseCase {

@@ -8,11 +8,16 @@
 
 import Foundation
 
-class StatusCellPresenter {
-    func configure(with cell: StatusCollectionViewCell, forDisplaying model: StatusViewModel) {
+class FeedCellPresenter {
+    func configure(with cell: FeedCollectionViewCell, forDisplaying model: StatusViewModel) {
         cell.userName.text = model.userName // change this to attributed string
         cell.statusText.attributedText = model.status
         cell.distanceAndTime.text = model.distanceFromYou + "KM ・ \(model.timeSincePosted)" // change this to attributed string
-        cell.statusImage.image = model.statusImage
+        
+        if model.statusImage == nil {
+            cell.statusImage.isHidden = true
+        } else {
+            cell.statusImage.image = model.statusImage
+        }
     }
 }
