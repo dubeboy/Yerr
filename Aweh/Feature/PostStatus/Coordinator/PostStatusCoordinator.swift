@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PostStatusCoordinator: AnyObject {
+protocol PostStatusCoordinator: Coordinator {
     func startPostStatusViewController()
 }
 

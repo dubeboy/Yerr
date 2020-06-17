@@ -9,17 +9,15 @@
 import Foundation
 import Photos
 
-protocol PhotosGalleryCoordinator: AnyObject {
+protocol PhotosGalleryCoordinator: Coordinator {
     func startPhotosGalleryViewController(completion: @escaping (([String: PHAsset]) -> Void))
 }
 
 extension MainCoordinator: PhotosGalleryCoordinator {
-    func startPhotosGalleryViewController(completion: @escaping (([String: PHAsset]) -> Void)) { // call back here to pass the data back !!!
+    func startPhotosGalleryViewController(completion: @escaping (([String: PHAsset]) -> Void)) {
         let viewController = PhotosCollectionViewController.instantiate()
-//        viewController.modalPresentationStyle = .fullScreen
         viewController.coordinator = self
         viewController.completion = completion
-//        navigationController.present(viewController, animated: true, completion: nil)
         navigationController.pushViewController(viewController, animated: true)
     }
     

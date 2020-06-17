@@ -7,12 +7,11 @@
 //
 
 import UIKit
-
+// you can use somthig like apply here
 // contraints --> 7
 // leading adges -| view or |-
-
 infix operator -->
-//infix operator <--
+//infix operator <-- --<= -->=
 
 func -->(lhs: UIView, rhs: UIView) {
     lhs.translatesAutoresizingMaskIntoConstraints = false

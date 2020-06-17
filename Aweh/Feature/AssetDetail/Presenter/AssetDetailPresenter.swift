@@ -2,7 +2,7 @@
 //  AssetDetailPresenter.swift
 //  Aweh
 //
-//  Created by Divine.Dube on 2020/06/13.
+//  Created by Divine.Dube on 2020/06/14.
 //  Copyright © 2020 com.github.aweh. All rights reserved.
 //
 
@@ -25,3 +25,4 @@ class AssetDetailPresenterImplementation: AssetDetailPresenter  {
         
     }
 }
+

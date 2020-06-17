@@ -27,3 +27,14 @@ extension UIViewController: Storyborded {
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
+
+extension UIViewController {
+    // TODO: - should be bale to show image animation
+    func presentToast(message: String) {
+        
+    }
+    
+    func presentAlert(message: String, cancel: () -> Void, ok: () -> Void) {
+        
+    }
+}

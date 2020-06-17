@@ -16,7 +16,7 @@ protocol Coordinator: AnyObject {
     func start()
     func pop()
 }
-
+// can also have amian coordinator class
 // make this an abstract class
 class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
     

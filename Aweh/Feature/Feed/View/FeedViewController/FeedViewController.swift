@@ -21,6 +21,13 @@ class FeedViewController: UIViewController {
             postButton.layer.cornerRadius = postButton.frame.height / 2
             postButton.clipsToBounds = true
             postButton.backgroundColor = .systemRed
+            
+            // use this to add a shadow !!!
+//            postButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+//            postButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+//            postButton.layer.shadowOpacity = 1.0
+//            postButton.layer.shadowRadius = 0.0
+//            postButton.layer.masksToBounds = false
         }
     }
     
