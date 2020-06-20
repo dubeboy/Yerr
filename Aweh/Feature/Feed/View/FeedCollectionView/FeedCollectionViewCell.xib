@@ -36,7 +36,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="2" translatesAutoresizingMaskIntoConstraints="NO" id="c9u-ox-vGH">
-                        <rect key="frame" x="0.0" y="84.5" width="381" height="151.5"/>
+                        <rect key="frame" x="88" y="84.5" width="277" height="143.5"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posted 1 minute ago" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VAD-g5-i5i">
                         <rect key="frame" x="88" y="41" width="277" height="20.5"/>
@@ -47,18 +47,18 @@
             </view>
             <constraints>
                 <constraint firstItem="Sg7-ug-hBC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Flw-he-su4" secondAttribute="trailing" constant="8" id="95X-2A-0vR"/>
-                <constraint firstItem="c9u-ox-vGH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="HUp-Cd-WIW"/>
-                <constraint firstAttribute="bottom" secondItem="c9u-ox-vGH" secondAttribute="bottom" id="Hy1-gO-vtK"/>
+                <constraint firstAttribute="bottom" secondItem="c9u-ox-vGH" secondAttribute="bottom" constant="8" id="Hy1-gO-vtK"/>
                 <constraint firstAttribute="trailing" secondItem="Sg7-ug-hBC" secondAttribute="trailing" constant="16" id="ILD-aJ-5wB"/>
                 <constraint firstAttribute="trailing" secondItem="VAD-g5-i5i" secondAttribute="trailing" constant="16" id="Rf0-SX-yCJ"/>
                 <constraint firstItem="Flw-he-su4" firstAttribute="leading" secondItem="buT-Bd-nJ7" secondAttribute="trailing" constant="12" id="dqI-of-kO8"/>
+                <constraint firstItem="c9u-ox-vGH" firstAttribute="width" secondItem="VAD-g5-i5i" secondAttribute="width" id="h2j-3z-I9v"/>
                 <constraint firstItem="buT-Bd-nJ7" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="16" id="hgw-fO-WcK"/>
                 <constraint firstItem="c9u-ox-vGH" firstAttribute="top" secondItem="VAD-g5-i5i" secondAttribute="bottom" constant="23" id="mLK-Rk-hsu"/>
                 <constraint firstItem="Flw-he-su4" firstAttribute="top" secondItem="buT-Bd-nJ7" secondAttribute="top" id="odO-en-uQd"/>
                 <constraint firstItem="VAD-g5-i5i" firstAttribute="leading" secondItem="buT-Bd-nJ7" secondAttribute="trailing" constant="12" id="qyY-hk-KKH"/>
                 <constraint firstItem="buT-Bd-nJ7" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="ui2-fN-7Ch"/>
                 <constraint firstItem="VAD-g5-i5i" firstAttribute="top" secondItem="Flw-he-su4" secondAttribute="bottom" constant="4" id="xK6-La-dZg"/>
-                <constraint firstAttribute="trailing" secondItem="c9u-ox-vGH" secondAttribute="trailing" id="zOh-Oh-cxu"/>
+                <constraint firstAttribute="trailing" secondItem="c9u-ox-vGH" secondAttribute="trailing" constant="16" id="zOh-Oh-cxu"/>
                 <constraint firstItem="Sg7-ug-hBC" firstAttribute="centerY" secondItem="Flw-he-su4" secondAttribute="centerY" id="zog-uO-PQc"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>

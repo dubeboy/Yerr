@@ -59,7 +59,7 @@ class PostStatusViewController: UIViewController {
         
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(keyboardWillApear),
+            selector: #selector(keyboardWillAppear),
             name: UIResponder.keyboardWillShowNotification,
             object: nil
         )
@@ -75,7 +75,7 @@ class PostStatusViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    @objc func keyboardWillApear(notification: NSNotification) {
+    @objc func keyboardWillAppear(notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey]
             as? NSValue else { return }

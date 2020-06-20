@@ -1,5 +1,5 @@
 //
-//  HomeScreenPresenter.swift
+//  FeedPresenterImplemantation.swift
 //  Aweh
 //
 //  Created by Divine.Dube on 2020/06/03.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-protocol StatusPresenter {
+protocol FeedPresenter {
     var statusCount: Int { get }
     
     func getStatuses(status: @escaping (_ status: [StatusViewModel]) -> Void)
     func getStatus(at index: IndexPath) -> StatusViewModel
     
-    var statusCellPresenter: FeedCellPresenter { get }
+    var feedCellPresenter: FeedCellPresenter { get }
     
     func index(for item: StatusViewModel) -> Int
 
@@ -24,15 +24,15 @@ protocol StoriesPresenter {
     
 }
 
-class HomeScreenPresenter {
+class FeedPresenterImplemantation {
     
-    var statusCellPresenter: FeedCellPresenter = FeedCellPresenter()
+    var feedCellPresenter: FeedCellPresenter = FeedCellPresenter()
     
 //    should have a init with status object
     
 }
 
-extension HomeScreenPresenter: StatusPresenter {
+extension FeedPresenterImplemantation: FeedPresenter {
     func index(for item: StatusViewModel) -> Int {
         Self.mockStatus().firstIndex {
             item == $0
@@ -48,7 +48,7 @@ extension HomeScreenPresenter: StatusPresenter {
     }
     
     func getStatuses(status: @escaping (_ status: [StatusViewModel]) -> Void) {
-        status(HomeScreenPresenter.mockStatus())
+        status(FeedPresenterImplemantation.mockStatus())
     }
     
     static func status() -> [Status] {
@@ -87,6 +87,6 @@ extension HomeScreenPresenter: StatusPresenter {
     }
     
     static func mockStatus() -> [StatusViewModel] {
-        HomeScreenPresenter.status().map(StatusViewModel.transform(from:))
+        FeedPresenterImplemantation.status().map(StatusViewModel.transform(from:))
     }
 }

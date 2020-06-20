@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct FeedViewModel: Equatable {
+struct StatusViewModel: Equatable {
     let status: NSAttributedString
     let userName: String
     let statusImage: UIImage? // todo: should be an array!
@@ -17,11 +17,11 @@ struct FeedViewModel: Equatable {
     let distanceFromYou: String
 }
 
-extension FeedViewModel {
+extension StatusViewModel {
     static func transform(from status: Status) -> Self {
         
-        FeedViewModel(
-            status: NSAttributedString(string: status.status),
+        StatusViewModel(
+            status: NSAttributedString(string: status.status), // no need for it attr string 
             userName: status.userName,
             statusImage: status.statusImageLink == nil ? nil : UIImage(named: status.statusImageLink!),
             userImage: UIImage(named: status.userImageLink!)!,

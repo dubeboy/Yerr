@@ -11,21 +11,42 @@ import UIKit
 
 extension UICollectionView {
     // could also add some registration that uses properwrappers
-
-    
     func deque<T: UICollectionViewCell>(_ `class`: T.Type, at indexPath: IndexPath) -> T {
-        dequeueReusableCell(withReuseIdentifier: String(describing: `class`), for: indexPath) as! T
+        dequeueReusableCell(withReuseIdentifier: T.reuseIdentifier, for: indexPath) as! T
+    }
+    
+    func dequeHeader<T: UICollectionViewCell>(_ `class`: T.Type, at indexPath: IndexPath) -> T {
+        dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: T.reuseIdentifier, for: indexPath) as! T
     }
     
     func register<T: UICollectionViewCell>(_ fromNib: T.Type) {
-        register(UINib(nibName: T.reuseIdentifier,bundle: Bundle.main),
-                 forCellWithReuseIdentifier: T.reuseIdentifier)
+        register(
+            UINib(nibName: T.reuseIdentifier, bundle: Bundle.main),
+            forCellWithReuseIdentifier: T.reuseIdentifier
+        )
     }
+    
+    func registerHeader<T: UICollectionViewCell>(_ fromNib: T.Type) {
+        register(
+            UINib(nibName: T.reuseIdentifier, bundle: Bundle.main),
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: T.reuseIdentifier
+        )
+    }
+    
+    
 }
 
 extension UICollectionViewCell {
     static var reuseIdentifier: String {
         return String(describing: self)
+    }
+}
+
+extension UICollectionViewCell {
+    func configureContentView() {
+        contentView.backgroundColor = .systemBackground
+        contentView.clipsToBounds = true
     }
 }
 
