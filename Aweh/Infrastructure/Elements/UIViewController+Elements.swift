@@ -31,10 +31,17 @@ extension UIViewController: Storyborded {
 extension UIViewController {
     // TODO: - should be bale to show image animation
     func presentToast(message: String) {
-        
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        present(alert, animated: true, completion: nil)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+            alert.dismiss(animated: true, completion: nil)
+        })
     }
     
     func presentAlert(message: String, cancel: () -> Void, ok: () -> Void) {
         
     }
 }
+
+
+
