@@ -23,6 +23,11 @@ class InterestsViewController: UICollectionViewController {
         }
     }
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     private func configureCollectionViewCell() {
         let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
         flowLayout.minimumInteritemSpacing = 8

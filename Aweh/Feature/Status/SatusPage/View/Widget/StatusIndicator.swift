@@ -9,21 +9,56 @@
 import Foundation
 import UIKit
 
-class StatusIndicator: UIProgressView {
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setup()
+class StatusIndicator: UIView {
+    
+    let stackView = UIStackView()
+    
+    init(itemCount: Int) {
+        super.init(frame: .zero)
+        setupStackView()
+        initialiseProgressView(itemCount: itemCount)
     }
     
-    private func setup() {
-        progress = 0.0
-//        self.transform.scaledBy(x: 1, y: 4)
-        layer.cornerRadius = 10
-        clipsToBounds = true
-        layer.sublayers![1].cornerRadius = 10
-        subviews[1].clipsToBounds = true
-        
-//        progressTintColor =
-//        trackTintColor =
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupStackView() {
+        addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fillEqually
+        stackView.spacing = 2
+        stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 8).isActive = true
+        stackView.topAnchor --> topAnchor
+        stackView.bottomAnchor --> bottomAnchor
+    }
+    
+    private func createProgressView() -> UIProgressView {
+        let progressView = UIProgressView(progressViewStyle: .bar)
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.progress = 0.5
+        let transform = CGAffineTransform(scaleX: 1.0, y: 2.0);
+        progressView.transform = transform;
+        progressView.layer.cornerRadius = 2
+        progressView.clipsToBounds = true
+        progressView.layer.sublayers![1].cornerRadius = 2
+        progressView.subviews[1].clipsToBounds = true
+        let trackColor: UIColor = .systemBackground
+        trackColor.withAlphaComponent(0.5)
+        progressView.trackTintColor = trackColor
+        let fillColor: UIColor = .systemBackground
+        fillColor.withAlphaComponent(0.8)
+        progressView.progressTintColor = fillColor
+        return progressView
+    }
+    
+    private func initialiseProgressView(itemCount: Int) {
+        for _ in 0..<itemCount {
+            let progressView = createProgressView()
+            stackView.addArrangedSubview(progressView)
+        }
     }
 }
