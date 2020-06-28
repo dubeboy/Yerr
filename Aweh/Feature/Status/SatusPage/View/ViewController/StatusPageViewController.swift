@@ -10,8 +10,8 @@ import UIKit
 
 class StatusPageViewController: UIPageViewController {
     
-    weak var coordinator: StatusCoordinator?
-    var presenter: StatusPresenter!
+    weak var coordinator: SingleStatusCoordinator?
+    var presenter: StatusPagePresenter!
     
     let statusIndicatorView = UIView()
 
@@ -23,7 +23,6 @@ class StatusPageViewController: UIPageViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("ViewWill Apear")
 //        navigationController?.setNavigationBarHidden(T##hidden: Bool##Bool, animated: T##Bool)
         navigationController?.hidesBarsOnTap = true // TODO: - removec
         let bar = navigationController!.navigationBar
@@ -32,6 +31,9 @@ class StatusPageViewController: UIPageViewController {
 //        bar.alpha =
         setupStatusIndicatorView(bar: bar)
         setupStatusView(with: 1)
+        
+        dataSource = self
+        delegate = self
     }
     
     
@@ -52,8 +54,25 @@ class StatusPageViewController: UIPageViewController {
         statusView --> statusIndicatorView  // TODO: something is wrong
     }
     
-    private func createPageViewControllers() -> [SingleStatusViewController] {
-        let viewControllers = presenter.
+    private func createPageViewControllers(page: Int) {
+        presenter.getUserStatus(
+        page: page) { [weak self] userViewModel in
+            guard
+                let self = self,
+                let coordinator = self.coordinator
+            else { return }
+            let singleStatusViewControllers = userViewModel.statuses.map(
+                coordinator
+                .createSingleStatusViewController(_:)
+            )
+            self.presenter.appendViewControllers(singleStatusViewControllers)
+            self.setViewControllers(
+                [singleStatusViewControllers[0]],
+                direction: .forward,
+                animated: true,
+                completion: nil
+            )
+        }
     }
 
     override var prefersStatusBarHidden: Bool {
@@ -67,4 +86,24 @@ class StatusPageViewController: UIPageViewController {
         navigationController?.hidesBarsOnTap = false
         navigationController?.navigationBar.isTranslucent = false
     }
+}
+
+extension StatusPageViewController: UIPageViewControllerDataSource {
+    func pageViewController(
+        _ pageViewController: UIPageViewController,
+        viewControllerBefore viewController: UIViewController
+    ) -> UIViewController? {
+        return nil
+    }
+    
+    func pageViewController(
+        _ pageViewController: UIPageViewController,
+        viewControllerAfter viewController: UIViewController
+    ) -> UIViewController? {
+        return nil
+    }
+}
+
+extension StatusPageViewController: UIPageViewControllerDelegate {
+    
 }

@@ -9,20 +9,14 @@
 import Foundation
 
 protocol SingleStatusPresenter  {
-    func getStatusesFor(
-        interest viewModel: InterestViewModel,
-        completion: @escaping ([SingleStatusViewModel]) -> Void
-    )
+   
 }
 
 class SingleStatusPresenterImplementation: SingleStatusPresenter {
-    let viewModel: SingleStatusViewModel
+    let viewModel: StatusViewModel
     
-    init(viewModel: SingleStatusViewModel) {
+    init(viewModel: StatusViewModel) {
         self.viewModel = viewModel
     }
-    
-    func getStatusesFor(interest viewModel: InterestViewModel, completion: @escaping ([SingleStatusViewModel]) -> Void) {
-        
-    }
+
 }

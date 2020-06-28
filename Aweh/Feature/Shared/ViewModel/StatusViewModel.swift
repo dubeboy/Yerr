@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct StatusViewModel: Equatable {
+struct StatusViewModel: Equatable, Hashable {
     let status: NSAttributedString
     let userName: String
     let statusImage: UIImage? // todo: should be an array!

@@ -16,7 +16,7 @@ extension StatusCoordinator: StatusPageCoordinator {
     func startStatusPageViewController(viewModel: InterestViewModel) {
         let viewController = StatusPageViewController.instantiate()
         viewController.coordinator = self
-        viewController.presenter = StatusPresenterImplemantation(with: viewModel)
+        viewController.presenter = StatusPagePresenterImplemantation(with: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
 }

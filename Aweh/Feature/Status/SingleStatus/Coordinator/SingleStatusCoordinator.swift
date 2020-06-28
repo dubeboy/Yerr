@@ -8,12 +8,12 @@
 
 import Foundation
 
-protocol SingleStatusCoordinator {
-    func createSingleStatusViewController(viewModel: SingleStatusViewModel) -> SingleStatusViewController
+protocol SingleStatusCoordinator: AnyObject {
+    func createSingleStatusViewController(_ viewModel: StatusViewModel) -> SingleStatusViewController
 }
 
 extension StatusCoordinator: SingleStatusCoordinator {
-    func createSingleStatusViewController(viewModel: SingleStatusViewModel) -> SingleStatusViewController {
+    func createSingleStatusViewController(_ viewModel: StatusViewModel) -> SingleStatusViewController {
         let viewController = SingleStatusViewController.instantiate()
         viewController.coordinator = self
         viewController.presenter = SingleStatusPresenterImplementation(viewModel: viewModel)

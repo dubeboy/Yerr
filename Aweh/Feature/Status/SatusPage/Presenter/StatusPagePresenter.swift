@@ -8,23 +8,44 @@
 
 import Foundation
 
-protocol StatusPresenter {
+protocol StatusPagePresenter {
     var title: String { get }
-    func getStatusesFor(
-        interest viewModel: InterestViewModel,
-        completion: @escaping ([StatusViewModel]) -> Void
+   
+    func getUserStatus(
+        page: Int,
+        completion: @escaping (UserViewModel) -> Void
     )
+    
+    func getFirstPageCount() -> Int
+    
+    func appendViewControllers(_ singlePageViewControllers: [SingleStatusViewController]) // TODO: Not correct
+    
 }
 
-class StatusPresenterImplemantation: StatusPresenter {
+class StatusPagePresenterImplemantation: StatusPagePresenter {
     var title: String { viewModel.interestName }
     let viewModel: InterestViewModel
+    
+    var currentPages: [SingleStatusViewController] = []
     
     init(with viewModel: InterestViewModel) {
         self.viewModel = viewModel
     }
     
-    func getStatusesFor(interest viewModel: InterestViewModel, completion: @escaping ([StatusViewModel]) -> Void) {
-        
+    func getUserStatus(
+        page: Int,
+        completion: @escaping (UserViewModel) -> Void
+    ) {
+        // TODO: - here we should perform a request here based on interest ID
+        let userViewModel = viewModel.users[page]
+        completion(userViewModel)
+    }
+    
+    func getFirstPageCount() -> Int {
+        return viewModel.users.count
+    }
+    
+    func appendViewControllers(_ singlePageViewControllers: [SingleStatusViewController]) {
+        currentPages = singlePageViewControllers
     }
 }
