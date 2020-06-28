@@ -1,5 +1,5 @@
 //
-//  SingleStatusViewModel.swift
+//  UserViewModel.swift
 //  Aweh
 //
 //  Created by Divine.Dube on 2020/06/28.
@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
-struct SingleStatusViewModel {
-    var user: UserViewModel
+struct UserViewModel {
+    let userImage: UIImage
+    let userName: String
+    let statuses: [StatusViewModel]
 }

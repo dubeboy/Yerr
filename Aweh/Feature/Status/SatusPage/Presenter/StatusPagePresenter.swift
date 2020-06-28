@@ -10,6 +10,10 @@ import Foundation
 
 protocol StatusPresenter {
     var title: String { get }
+    func getStatusesFor(
+        interest viewModel: InterestViewModel,
+        completion: @escaping ([StatusViewModel]) -> Void
+    )
 }
 
 class StatusPresenterImplemantation: StatusPresenter {
@@ -18,5 +22,9 @@ class StatusPresenterImplemantation: StatusPresenter {
     
     init(with viewModel: InterestViewModel) {
         self.viewModel = viewModel
+    }
+    
+    func getStatusesFor(interest viewModel: InterestViewModel, completion: @escaping ([StatusViewModel]) -> Void) {
+        
     }
 }

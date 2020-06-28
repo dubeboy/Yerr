@@ -27,6 +27,7 @@
 		71585EED24A2988E00092D6E /* SingleStatusCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585EEC24A2988E00092D6E /* SingleStatusCoordinator.swift */; };
 		715A0DF824A87AD800030458 /* SingleStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A0DF724A87AD800030458 /* SingleStatusViewModel.swift */; };
 		715A0DFA24A8870600030458 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A0DF924A8870600030458 /* User.swift */; };
+		715A0DFC24A88F6900030458 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A0DFB24A88F6900030458 /* UserViewModel.swift */; };
 		7162C60B24884BAB002D8ED4 /* FeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7162C60A24884BAB002D8ED4 /* FeedPresenter.swift */; };
 		7162C60D24884BBB002D8ED4 /* StatusViewModelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7162C60C24884BBB002D8ED4 /* StatusViewModelViewModel.swift */; };
 		7162C61024886320002D8ED4 /* HomeScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7162C60F24886320002D8ED4 /* HomeScreenInteractor.swift */; };
@@ -108,6 +109,7 @@
 		71585EEC24A2988E00092D6E /* SingleStatusCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleStatusCoordinator.swift; sourceTree = "<group>"; };
 		715A0DF724A87AD800030458 /* SingleStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleStatusViewModel.swift; sourceTree = "<group>"; };
 		715A0DF924A8870600030458 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		715A0DFB24A88F6900030458 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		7162C60A24884BAB002D8ED4 /* FeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
 		7162C60C24884BBB002D8ED4 /* StatusViewModelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewModelViewModel.swift; sourceTree = "<group>"; };
 		7162C60F24886320002D8ED4 /* HomeScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenInteractor.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 			children = (
 				7116C11724A2B03000749620 /* SingleStatusPresenter.swift */,
 				715A0DF724A87AD800030458 /* SingleStatusViewModel.swift */,
+				715A0DFB24A88F6900030458 /* UserViewModel.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -995,6 +998,7 @@
 				71ECFDF82487066B00943917 /* FeedCollectionViewFlowLayout.swift in Sources */,
 				71585EED24A2988E00092D6E /* SingleStatusCoordinator.swift in Sources */,
 				713549B3248BE8F10009EE6A /* FeedCellPresenter.swift in Sources */,
+				715A0DFC24A88F6900030458 /* UserViewModel.swift in Sources */,
 				7157C22524886EB300F0A7F0 /* AwehService.swift in Sources */,
 				7198AC8324918C1A002029CF /* PhotosCollectionViewModel.swift in Sources */,
 				718BE80D2486BA8000CA328B /* SceneDelegate.swift in Sources */,

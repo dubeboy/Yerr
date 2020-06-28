@@ -11,5 +11,7 @@ import Foundation
 // cechkout https://app.diagrams.net/#G1Qn3e4lTmcUSobOzvbhVmYUY-Cs4TWtZq
 
 struct User {
-    var statuses: [Status]
+    let name: String
+    let profilePictureUrl: String
+    var statuses: [Status] = []
 }
