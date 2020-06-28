@@ -14,6 +14,7 @@ struct InterestViewModel {
     let interestName: String
     let hasNewStatus: Bool
     var interestImage: UIImage? = nil
+    var statuses: [SingleStatusViewModel] = []
 }
 
 extension InterestViewModel {

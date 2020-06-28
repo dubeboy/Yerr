@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7116C10E24A2AD3100749620 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116C10D24A2AD3100749620 /* StatusViewController.swift */; };
-		7116C11024A2AD4200749620 /* StatusViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7116C10F24A2AD4200749620 /* StatusViewController.storyboard */; };
-		7116C11824A2B03000749620 /* StatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116C11724A2B03000749620 /* StatusPresenter.swift */; };
+		7116C10E24A2AD3100749620 /* SingleStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116C10D24A2AD3100749620 /* SingleStatusViewController.swift */; };
+		7116C11024A2AD4200749620 /* SingleStatusViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7116C10F24A2AD4200749620 /* SingleStatusViewController.storyboard */; };
+		7116C11824A2B03000749620 /* SingleStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116C11724A2B03000749620 /* SingleStatusPresenter.swift */; };
 		7116C11C24A2B13400749620 /* StatusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116C11B24A2B13400749620 /* StatusIndicator.swift */; };
 		711EADE8249DDCAD00D33072 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711EADE7249DDCAD00D33072 /* Comment.swift */; };
 		711EADEA249DDE8600D33072 /* Date+Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711EADE9249DDE8600D33072 /* Date+Element.swift */; };
@@ -24,7 +24,9 @@
 		71585EE424A2934300092D6E /* StatusPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585EE324A2934300092D6E /* StatusPageViewModel.swift */; };
 		71585EE624A2936600092D6E /* StatusPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585EE524A2936600092D6E /* StatusPageViewController.swift */; };
 		71585EEB24A2973A00092D6E /* StatusPageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71585EEA24A2973A00092D6E /* StatusPageViewController.storyboard */; };
-		71585EED24A2988E00092D6E /* StatusCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585EEC24A2988E00092D6E /* StatusCoordinator.swift */; };
+		71585EED24A2988E00092D6E /* SingleStatusCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585EEC24A2988E00092D6E /* SingleStatusCoordinator.swift */; };
+		715A0DF824A87AD800030458 /* SingleStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A0DF724A87AD800030458 /* SingleStatusViewModel.swift */; };
+		715A0DFA24A8870600030458 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A0DF924A8870600030458 /* User.swift */; };
 		7162C60B24884BAB002D8ED4 /* FeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7162C60A24884BAB002D8ED4 /* FeedPresenter.swift */; };
 		7162C60D24884BBB002D8ED4 /* StatusViewModelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7162C60C24884BBB002D8ED4 /* StatusViewModelViewModel.swift */; };
 		7162C61024886320002D8ED4 /* HomeScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7162C60F24886320002D8ED4 /* HomeScreenInteractor.swift */; };
@@ -86,9 +88,9 @@
 
 /* Begin PBXFileReference section */
 		265F7EC230D448B878C43061 /* Pods-Aweh.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.debug.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.debug.xcconfig"; sourceTree = "<group>"; };
-		7116C10D24A2AD3100749620 /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
-		7116C10F24A2AD4200749620 /* StatusViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StatusViewController.storyboard; sourceTree = "<group>"; };
-		7116C11724A2B03000749620 /* StatusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPresenter.swift; sourceTree = "<group>"; };
+		7116C10D24A2AD3100749620 /* SingleStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleStatusViewController.swift; sourceTree = "<group>"; };
+		7116C10F24A2AD4200749620 /* SingleStatusViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SingleStatusViewController.storyboard; sourceTree = "<group>"; };
+		7116C11724A2B03000749620 /* SingleStatusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleStatusPresenter.swift; sourceTree = "<group>"; };
 		7116C11B24A2B13400749620 /* StatusIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusIndicator.swift; sourceTree = "<group>"; };
 		711EADE7249DDCAD00D33072 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		711EADE9249DDE8600D33072 /* Date+Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Element.swift"; sourceTree = "<group>"; };
@@ -103,7 +105,9 @@
 		71585EE324A2934300092D6E /* StatusPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPageViewModel.swift; sourceTree = "<group>"; };
 		71585EE524A2936600092D6E /* StatusPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPageViewController.swift; sourceTree = "<group>"; };
 		71585EEA24A2973A00092D6E /* StatusPageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StatusPageViewController.storyboard; sourceTree = "<group>"; };
-		71585EEC24A2988E00092D6E /* StatusCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCoordinator.swift; sourceTree = "<group>"; };
+		71585EEC24A2988E00092D6E /* SingleStatusCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleStatusCoordinator.swift; sourceTree = "<group>"; };
+		715A0DF724A87AD800030458 /* SingleStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleStatusViewModel.swift; sourceTree = "<group>"; };
+		715A0DF924A8870600030458 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7162C60A24884BAB002D8ED4 /* FeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
 		7162C60C24884BBB002D8ED4 /* StatusViewModelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewModelViewModel.swift; sourceTree = "<group>"; };
 		7162C60F24886320002D8ED4 /* HomeScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenInteractor.swift; sourceTree = "<group>"; };
@@ -206,14 +210,14 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		7116C11624A2AFDB00749620 /* SIngleStatus */ = {
+		7116C11624A2AFDB00749620 /* SingleStatus */ = {
 			isa = PBXGroup;
 			children = (
+				71585EDE24A292EE00092D6E /* Coordinator */,
 				71585EE024A2930000092D6E /* Presenter */,
 				71585EDF24A292F900092D6E /* View */,
-				71585EDE24A292EE00092D6E /* Coordinator */,
 			);
-			path = SIngleStatus;
+			path = SingleStatus;
 			sourceTree = "<group>";
 		};
 		7116C11924A2B06800749620 /* View */ = {
@@ -310,7 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				716A0C7924A2BDE100F18ED6 /* Interests */,
-				7116C11624A2AFDB00749620 /* SIngleStatus */,
+				7116C11624A2AFDB00749620 /* SingleStatus */,
 				7116C11324A2AF3F00749620 /* SatusPage */,
 			);
 			path = Status;
@@ -326,7 +330,7 @@
 		71585EDE24A292EE00092D6E /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
-				71585EEC24A2988E00092D6E /* StatusCoordinator.swift */,
+				71585EEC24A2988E00092D6E /* SingleStatusCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -342,7 +346,8 @@
 		71585EE024A2930000092D6E /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				7116C11724A2B03000749620 /* StatusPresenter.swift */,
+				7116C11724A2B03000749620 /* SingleStatusPresenter.swift */,
+				715A0DF724A87AD800030458 /* SingleStatusViewModel.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -350,8 +355,8 @@
 		71585EE924A293ED00092D6E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				7116C10D24A2AD3100749620 /* StatusViewController.swift */,
-				7116C10F24A2AD4200749620 /* StatusViewController.storyboard */,
+				7116C10D24A2AD3100749620 /* SingleStatusViewController.swift */,
+				7116C10F24A2AD4200749620 /* SingleStatusViewController.storyboard */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -379,6 +384,7 @@
 				7162C6122488637F002D8ED4 /* Status.swift */,
 				711EADE7249DDCAD00D33072 /* Comment.swift */,
 				716A0C8E24A2DC9700F18ED6 /* Interest.swift */,
+				715A0DF924A8870600030458 /* User.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -887,7 +893,7 @@
 				7198AC77249186BE002029CF /* PhotosCollectionViewCell.xib in Resources */,
 				718BE8172486BA8200CA328B /* LaunchScreen.storyboard in Resources */,
 				718BE8142486BA8200CA328B /* Assets.xcassets in Resources */,
-				7116C11024A2AD4200749620 /* StatusViewController.storyboard in Resources */,
+				7116C11024A2AD4200749620 /* SingleStatusViewController.storyboard in Resources */,
 				7172D615248F1E420083B7F6 /* PostStatusViewController.storyboard in Resources */,
 				7198AC73249184B4002029CF /* PhotosCollectionViewController.storyboard in Resources */,
 				71F46CEB24994CA3002B8EFC /* AssetDetailViewController.storyboard in Resources */,
@@ -941,7 +947,7 @@
 				71585EE224A2932800092D6E /* StatusPagePresenter.swift in Sources */,
 				716A0C7F24A2BE3200F18ED6 /* IntrestsPresenter.swift in Sources */,
 				7172D617248F2D700083B7F6 /* UIView+Elements.swift in Sources */,
-				7116C10E24A2AD3100749620 /* StatusViewController.swift in Sources */,
+				7116C10E24A2AD3100749620 /* SingleStatusViewController.swift in Sources */,
 				71CCF0DA249C23B30054C210 /* CommentCollectionViewCell.swift in Sources */,
 				7162C61024886320002D8ED4 /* HomeScreenInteractor.swift in Sources */,
 				71CCF0D5249AB2B30054C210 /* FeedDetailCollectionViewCell.swift in Sources */,
@@ -950,7 +956,7 @@
 				7170E9FE2495EB7D00B1D15F /* AssetDetailCoordinator.swift in Sources */,
 				7162C60B24884BAB002D8ED4 /* FeedPresenter.swift in Sources */,
 				7162C60D24884BBB002D8ED4 /* StatusViewModelViewModel.swift in Sources */,
-				7116C11824A2B03000749620 /* StatusPresenter.swift in Sources */,
+				7116C11824A2B03000749620 /* SingleStatusPresenter.swift in Sources */,
 				7157C2342488766F00F0A7F0 /* NSLayoutConstraints+Elements.swift in Sources */,
 				7170EA042495EBF800B1D15F /* AssetDetailPresenter.swift in Sources */,
 				7170EA002495EB9C00B1D15F /* AssetDetailViewController.swift in Sources */,
@@ -979,13 +985,15 @@
 				71F46CEE24995610002B8EFC /* LivePhotoView.swift in Sources */,
 				71A77FD1249C345E00F8D442 /* FeedDetailViewModel.swift in Sources */,
 				71A77FD5249C378100F8D442 /* FeedDetailCellPresenter.swift in Sources */,
+				715A0DFA24A8870600030458 /* User.swift in Sources */,
 				716A0C8924A2D66700F18ED6 /* InterestsCollectionViewCell.swift in Sources */,
+				715A0DF824A87AD800030458 /* SingleStatusViewModel.swift in Sources */,
 				716A0C9624A2E9C800F18ED6 /* StatusPageCoordinator.swift in Sources */,
 				7157C2322488761900F0A7F0 /* SimpleDependencyInjector.swift in Sources */,
 				716A0C8F24A2DC9700F18ED6 /* Interest.swift in Sources */,
 				7172D613248F0CC90083B7F6 /* PostStatusCoordinator.swift in Sources */,
 				71ECFDF82487066B00943917 /* FeedCollectionViewFlowLayout.swift in Sources */,
-				71585EED24A2988E00092D6E /* StatusCoordinator.swift in Sources */,
+				71585EED24A2988E00092D6E /* SingleStatusCoordinator.swift in Sources */,
 				713549B3248BE8F10009EE6A /* FeedCellPresenter.swift in Sources */,
 				7157C22524886EB300F0A7F0 /* AwehService.swift in Sources */,
 				7198AC8324918C1A002029CF /* PhotosCollectionViewModel.swift in Sources */,

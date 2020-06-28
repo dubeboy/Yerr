@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-class StatusIndicator: UIView {
-    
+class StatusIndicator: UIView { // TODO: shits should not be a UIView
+    //    https://useyourloaf.com/blog/adding-padding-to-a-stack-view/
     let stackView = UIStackView()
     
     init(itemCount: Int) {
@@ -52,6 +52,8 @@ class StatusIndicator: UIView {
         let fillColor: UIColor = .systemBackground
         fillColor.withAlphaComponent(0.8)
         progressView.progressTintColor = fillColor
+        
+        // Maybe I should set the size of the item here
         return progressView
     }
     

@@ -19,7 +19,6 @@ class StatusPageViewController: UIPageViewController {
         super.viewDidLoad()
         title = presenter.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: nil)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,6 +50,10 @@ class StatusPageViewController: UIPageViewController {
         statusIndicatorView.addSubview(statusView)
         statusView.translatesAutoresizingMaskIntoConstraints = false
         statusView --> statusIndicatorView  // TODO: something is wrong
+    }
+    
+    private func createPageViewControllers() -> [SingleStatusViewController] {
+//        for
     }
 
     override var prefersStatusBarHidden: Bool {
