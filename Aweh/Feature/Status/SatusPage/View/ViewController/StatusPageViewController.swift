@@ -65,7 +65,7 @@ class StatusPageViewController: UIPageViewController {
                 coordinator
                 .createSingleStatusViewController(_:)
             )
-            self.presenter.appendViewControllers(singleStatusViewControllers)
+            self.presenter.setSingleStatusViewControllers(singleStatusViewControllers)
             self.setViewControllers(
                 [singleStatusViewControllers[0]],
                 direction: .forward,
@@ -93,14 +93,31 @@ extension StatusPageViewController: UIPageViewControllerDataSource {
         _ pageViewController: UIPageViewController,
         viewControllerBefore viewController: UIViewController
     ) -> UIViewController? {
-        return nil
+        guard let viewControllerIndex = presenter.indexOf(
+            viewController: viewController as! SingleStatusViewController
+        ) else { return nil }
+        
+        let previousIndex = viewControllerIndex - 1
+        guard previousIndex >= 0 else { return nil }
+        
+        return presenter.viewController(at: previousIndex)
     }
     
     func pageViewController(
         _ pageViewController: UIPageViewController,
         viewControllerAfter viewController: UIViewController
     ) -> UIViewController? {
-        return nil
+        guard let viewControllerIndex = presenter.indexOf(
+            viewController: viewController as! SingleStatusViewController
+        ) else { return nil }
+        
+        let nextIndex = viewControllerIndex + 1
+        let currentPagesCount = presenter.currentPagesCount()
+        
+        guard currentPagesCount != nextIndex else { return nil }
+        guard currentPagesCount > nextIndex else { return nil }
+        
+        return presenter.viewController(at: nextIndex)
     }
 }
 
