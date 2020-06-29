@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Comment = require("./Comment");
 const Media = require("./Media");
+const Interest = require("./Interest");
 
 const PostSchema = mongoose.Schema({
     body: {
@@ -12,6 +13,7 @@ const PostSchema = mongoose.Schema({
         type: String,
         require: true,
     },
+    interest: Interest.schema,
     authorProfilePicUUID: String,
     media: Media.schema,
     comments: [Comment.schema],

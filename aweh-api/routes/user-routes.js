@@ -74,7 +74,7 @@ router.post("/login", userController.login);
  *
  * @route POST /users
  * @group user - User information
- * @param {User.model} User - User to create
+ * @param {User} User - User to create
  * @returns {object} 200 - Success code
  * @returns {Error} default - Unable to create user
  */

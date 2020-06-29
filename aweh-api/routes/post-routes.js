@@ -5,7 +5,7 @@
 const express = require("express");
 const router = express.Router();
 const postController = require("../controllers/posts.controller");
-
+const Interest = require("../models/Interest");
 /**
  * @typedef Vote
  * @property {string} voterID - UserId of the person that voted
@@ -18,7 +18,7 @@ const Vote = require("../models/Vote");
  * @property {string} body.required - comment content
  * @property {string} authorName.required - username of person posting comment
  * @property {string} authorProfilePicUUID
- * @property {Date} timestamp - times and date of comment
+ * @property {date} timestamp - times and date of comment
  * @property {Array.<Vote>} votes - array of votes from users
  * @property {boolean} isFlagged - True or false value stating if comment is flagged or reported
  * @property {boolean} isDeleted - True or false value stating whether a user deleted the comment
@@ -37,9 +37,10 @@ const Media = require("../models/Media");
 /**
  * @typedef Post
  * @property {string} body.required - post content
- * @property {Date} timestamp - times and date of post
+ * @property {date} timestamp - times and date of post
  * @property {string} authorName - username of user that's posting
  * @property {string} authorProfilePicUUID - unique identifier of thr user's profile picture
+ * @property {Interest.model} interest - interest the post relates to
  * @property {Media.model} Media - attached media file
  * @property {Array.<Comment>} Comments - Collection of comments on the post
  * @property {boolean} isEmergency - True or false value of whether the post is an emergency or not
@@ -62,12 +63,11 @@ const Post = require("../models/Post");
 router.post("/", postController.create);
 
 /**
- * Function for retrieving a specific post.
+ * Function for retrieving a all posts.
  *
  * @route GET /posts
  * @group posts - Post management
  * @operationId getAllPosts
- * @param {string} postId - ID to retrieve the post with
  * @returns {object} 200 - Success
  * @returns {Array.<Post>} PostList - Array of posts
  * @returns {Error}  default
