@@ -1,25 +1,53 @@
 /**
- * Routes for post related queries
+ * Routes for post related functions
  */
 //Dependency imports
 const express = require("express");
+const router = express.Router();
 const postController = require("../controllers/posts.controller");
+
+/**
+ * @typedef Vote
+ * @property {string} voterID - UserId of the person that voted
+ * @property {boolean} isUpVote - True or false value dictating whether the vote was positive or not
+ */
+const Vote = require("../models/Vote");
+
+/**
+ * @typedef Comment
+ * @property {string} body.required - comment content
+ * @property {string} authorName.required - username of person posting comment
+ * @property {string} authorProfilePicUUID
+ * @property {Date} timestamp - times and date of comment
+ * @property {Array.<Vote>} votes - array of votes from users
+ * @property {boolean} isFlagged - True or false value stating if comment is flagged or reported
+ * @property {boolean} isDeleted - True or false value stating whether a user deleted the comment
+ * @property {boolean} isEdited  - True or false value stating whether the comment has been updated since being posted
+ */
+const Comment = require("../models/Comment");
+
+/**
+ * @typedef Media
+ * @property {string} uuid.required - unique identifier of the
+ * @property {string} type.required - type of file (jpg, mp4)
+ * @property {string} metadata - data related to the file
+ */
+const Media = require("../models/Media");
 
 /**
  * @typedef Post
  * @property {string} body.required - post content
  * @property {Date} timestamp - times and date of post
+ * @property {string} authorName - username of user that's posting
+ * @property {string} authorProfilePicUUID - unique identifier of thr user's profile picture
+ * @property {Media.model} Media - attached media file
+ * @property {Array.<Comment>} Comments - Collection of comments on the post
+ * @property {boolean} isEmergency - True or false value of whether the post is an emergency or not
+ * @property {boolean} isFlagged - True or false value to track whether post is reported/flagged
+ * @property {boolean} isDeleted - True or false value to stating whether user has deleted their post
+ * @property {number} timeLimit - Number dictating how many hours on main page user's post get to stay
  */
 const Post = require("../models/Post");
-
-/**
- * @typedef Comment
- * @property {string} body.required - comment content
- * @property {Date} timestamp - times and date of comment
- */
-const Comment = require("../models/Comment");
-
-const router = express.Router();
 
 /**
  * Function for creating a new post.

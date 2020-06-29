@@ -1,16 +1,19 @@
 const mongoose = require("mongoose");
+const Vote = require("./Vote");
 
-//Schema
 const CommentSchema = mongoose.Schema({
-    body: String,
-    timestamp: Date,
-    upVote: Number,
-    downVote: Number,
-    isFlagged: Boolean,
-    author: {
-        username: String,
-        profilePicUUID: String,
+    body: {
+        type: String,
+        require: true,
     },
+    authorName: {
+        type: String,
+        require: true,
+    },
+    authorProfilePicUUID: String,
+    timestamp: Date,
+    votes: [Vote.schema],
+    isFlagged: Boolean,
     isDeleted: Boolean,
     isEdited: Boolean,
 });

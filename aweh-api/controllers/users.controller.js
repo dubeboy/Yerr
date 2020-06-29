@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken");
+const db = require("../config/db");
 const User = require("../models/User");
 //const passport = require("passport");
 
@@ -136,11 +138,6 @@ exports.login = (req, res) => {
                 res.json({
                     success: true,
                     token: "JWT " + token,
-                    user: {
-                        id: user._id,
-                        name: user.username,
-                        email: user.email,
-                    },
                 });
             } else {
                 return res.json({

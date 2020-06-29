@@ -64,10 +64,12 @@ app.use(passport.session());
 require("./config/passport")(passport);
 
 //Routes
-app.use("/api/users", users);
+app.use("/api", users);
 app.use("/api/posts", posts);
 app.get("/", (req, res) => {
-    res.send("Sorry. Nothing here.");
+    res.send(
+        "Hello... /n/n Welcome to the Aweh API. /n/n Please navigate to /api-docs for documentation"
+    );
 });
 
 //Start Application Server

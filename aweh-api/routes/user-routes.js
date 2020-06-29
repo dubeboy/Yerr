@@ -1,60 +1,119 @@
 /**
  * Routes for user related pages:
  * - Login
- * - Profile
+ * - User account management
+ * - Profile management
  */
-//Dependency imports
 const express = require("express");
-const jwt = require("jsonwebtoken");
-const db = require("../config/db");
 const userController = require("../controllers/users.controller");
-const User = require("../models/User");
+const profileController = require("../controllers/profile.controller");
+const router = express.Router();
+
+/**
+ * @typedef Level
+ * @property {string} name.required - Level Name
+ * @property {string} description.required - Level Description
+ */
+const Level = require("../models/Level");
+
+/**
+ * @typedef Interest
+ * @property {string} title.required - Title of interest (example: Food, Sports, Cars)
+ * @property {string} description.required - Description of interest
+ */
+const Interest = require("../models/Interest");
+
+/**
+ * @typedef Address
+ * @property {string} street - Street name and building number
+ * @property {string} city - City/Town
+ * @property {string} state - State or province depending on country
+ * @property {string} postCode - Postal code
+ * @property {string} country - Country of address
+ */
+const Address = require("../models/Address");
 
 /**
  * @typedef Profile
- * @property {string} profilePicUUID.required - Profile picture ID
- * @property {integer} rating -( Profile rating Only for businesses/professionals)
+ * @property {string} profilePicUUID - Profile picture ID
+ * @property {number} totalPoints.required - Total profile points used to determine level
+ * @property {Level.model} Level - Profile ranking based on the points gained from using the app
+ * @property {Array.<Interest>} Interests - Array of interests the user is subscribed to
+ * @property {integer} rating -(Profile rating Only for businesses/professionals)
  */
 const Profile = require("../models/Profile");
 
-const router = express.Router();
+/**
+ * @typedef User
+ * @property {string} username.required - Unique user identifier
+ * @property {string} password.required - Password (8-16 characters)
+ * @property {string} website - Website URL
+ * @property {string} phoneNumber - Cell phone or contact number
+ * @property {Address.model} Address - Required for business verification
+ * @property {Profile.model} Profile - User profile with more details about account
+ * @property {boolean} isBusiness.required - True or false value stating whether account is for business
+ */
+const User = require("../models/User");
 
-//UserLogin
+/**
+ * Function for login.
+ * Authenticates user based on provided username and password.
+ *
+ * @route POST /users
+ * @group user - User information
+ * @param {string} username - Unique identifier of user
+ * @param {string} password - Unique password to authenticate the user
+ * @returns {object} 200 - Success code
+ * @returns {string} AccessToken - Token to be used in the request header for managing account
+ * @returns {Error} default - Unable to create user
+ */
 router.post("/login", userController.login);
 
-//CreateUser
-router.post("/", userController.create);
+/**
+ * Function for creating a new user.
+ *
+ * @route POST /users
+ * @group user - User information
+ * @param {User.model} User - User to create
+ * @returns {object} 200 - Success code
+ * @returns {Error} default - Unable to create user
+ */
+router.post("/users", userController.create);
 
-//Get All Users
-router.get("/", userController.readAll);
+/**
+ * Function for retrieving all users.
+ *
+ * @route GET /users
+ * @group user - User information
+ * @returns {object} 200 - Success code
+ * @returns {Array.<User>} Users - Array of users
+ * @returns {Error} default - No user found with provided ID
+ */
+router.get("/users", userController.readAll);
 
-//GetUser
-router.get("/user/:userId", userController.readOne);
+/**
+ * Function for retrieving specific user.
+ * Accepts a userId as a parameter and returns a single user.
+ *
+ * @route GET /users/user/{userId}
+ * @group user - User information
+ * @param {string} userId - userId to retrieve the user with
+ * @returns {object} 200 - Success code
+ * @returns {User.model} User - User that has the provided user ID
+ * @returns {Error} default - No user found with provided ID
+ */
+router.get("/users/user/:userId", userController.readOne);
 
 /**
  * Function for retrieving profile information.
  *
- * @route GET /user/profile/{userId}
+ * @route GET /users/user/profile/{userId}
  * @group user - User information
  * @param {string} userId - user ID to retrieve the profile with
- * @returns {object} 200 - Success
+ * @returns {object} 200 - Success code
  * @returns {Profile.model} Profile - Profile of user
  * @returns {Error}  default - No profile found
  */
-router.get("/user/profile/:userId", (req, res, next, id) => {
-    User.findOne({ _id: id }, (err, user) => {
-        if (err) {
-            throw err;
-        } else if (!user) {
-            return res.json({
-                success: false,
-                msg: "No profile found for username:" + name,
-            });
-        }
-
-        res.json({ profile: user.profile });
-        next();
-    });
-});
+router.get("/users/user/profile/:userId", profileController.readOne);
 
 module.exports = router;

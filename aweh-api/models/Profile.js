@@ -1,21 +1,13 @@
 const Message = require("./Message");
 const mongoose = require("mongoose");
+const Level = require("./Level");
+const Interest = require("./Interest");
 
 const ProfileSchema = mongoose.Schema({
     profilePicUUID: String,
-    reputation: {
-        totalPoints: Number,
-        level: {
-            name: String,
-            description: String,
-        },
-    },
-    interests: [
-        {
-            title: String,
-            description: String,
-        },
-    ],
+    totalPoints: Number,
+    level: Level.schema,
+    interests: [Interest.schema],
     rating: Number,
 });
 

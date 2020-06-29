@@ -5,8 +5,8 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const Profile = require("./Profile");
+const Address = require("./Address");
 
-//Schema
 const UserSchema = mongoose.Schema({
     username: {
         type: String,
@@ -18,13 +18,7 @@ const UserSchema = mongoose.Schema({
     },
     website: String,
     phoneNumber: String,
-    address: {
-        street: String,
-        city: String,
-        state: String,
-        postCode: String,
-        country: String,
-    },
+    address: Address.schema,
     profile: Profile.schema,
     isBusiness: Boolean,
 });
