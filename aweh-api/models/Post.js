@@ -1,22 +1,25 @@
 const mongoose = require("mongoose");
+const Comment = require("./Comment");
+const Media = require("./Media");
+const Interest = require("./Interest");
 
-//Schema
 const PostSchema = mongoose.Schema({
-    body: String,
-    timestamp: Date,
-    author: {
-        username: String,
-        profilePicUUID: String,
-    },
-    media: {
-        uuid: String,
+    body: {
         type: String,
-        metaData: String,
+        require: true,
     },
-    comments: [],
+    timestamp: Date,
+    authorName: {
+        type: String,
+        require: true,
+    },
+    interest: Interest.schema,
+    authorProfilePicUUID: String,
+    media: Media.schema,
+    comments: [Comment.schema],
     isEmergency: Boolean,
     isFlagged: Boolean,
-    isHidden: Boolean,
+    isDeleted: Boolean,
     timeLimit: Number,
 });
 
