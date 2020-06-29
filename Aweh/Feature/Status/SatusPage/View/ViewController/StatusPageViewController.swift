@@ -19,6 +19,8 @@ class StatusPageViewController: UIPageViewController {
         super.viewDidLoad()
         title = presenter.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: nil)
+        
+        createPageViewControllers(page: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,11 +38,11 @@ class StatusPageViewController: UIPageViewController {
         delegate = self
     }
     
-    
     private func setupStatusIndicatorView(bar: UINavigationBar) {
         bar.addSubview(statusIndicatorView)
+        statusIndicatorView.backgroundColor = .brown
         statusIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        statusIndicatorView.bottomAnchor.constraint(equalTo: bar.topAnchor, constant: 8).isActive = true
+        statusIndicatorView.bottomAnchor.constraint(equalTo: bar.topAnchor, constant: 0).isActive = true
         statusIndicatorView.leadingAnchor --> bar.leadingAnchor
         statusIndicatorView.trailingAnchor --> bar.trailingAnchor
         statusIndicatorView.widthAnchor --> bar.widthAnchor
@@ -79,7 +81,6 @@ class StatusPageViewController: UIPageViewController {
         return true
     }
 
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         statusIndicatorView.removeFromSuperview()

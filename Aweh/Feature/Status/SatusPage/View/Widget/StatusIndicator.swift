@@ -30,8 +30,8 @@ class StatusIndicator: UIView { // TODO: shits should not be a UIView
         stackView.alignment = .center
         stackView.distribution = .fillEqually
         stackView.spacing = 2
-        stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 8).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true // TODO: - fix at some point in the future
         stackView.topAnchor --> topAnchor
         stackView.bottomAnchor --> bottomAnchor
     }
@@ -49,7 +49,7 @@ class StatusIndicator: UIView { // TODO: shits should not be a UIView
         let trackColor: UIColor = .systemBackground
         trackColor.withAlphaComponent(0.5)
         progressView.trackTintColor = trackColor
-        let fillColor: UIColor = .systemBackground
+        let fillColor: UIColor = .black
         fillColor.withAlphaComponent(0.8)
         progressView.progressTintColor = fillColor
         

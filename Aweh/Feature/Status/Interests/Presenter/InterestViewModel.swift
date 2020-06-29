@@ -13,12 +13,17 @@ import UIKit
 struct InterestViewModel {
     let interestName: String
     let hasNewStatus: Bool
-    var interestImage: UIImage? = nil
-    var users: [UserViewModel] = []
+    private(set) var interestImage: UIImage? = nil
+    let users: [UserViewModel]
 }
 
 extension InterestViewModel {
     static func transform(from interest: Interest) -> InterestViewModel {
-        return InterestViewModel(interestName: interest.interestName, hasNewStatus: interest.hasNewStatus, interestImage: UIImage(named: interest.interestImageLink))
+        return InterestViewModel(
+            interestName: interest.interestName,
+            hasNewStatus: interest.hasNewStatus,
+            interestImage: UIImage(named: interest.interestImageLink),
+            users: interest.users.map(UserViewModel.transform(user:))
+        )
     }
 }

@@ -10,7 +10,13 @@ import Foundation
 import UIKit
 
 struct UserViewModel: Hashable {
-    let userImage: UIImage
+    let userImage: UIImage?
     let userName: String
     let statuses: [StatusViewModel]
+}
+
+extension UserViewModel {
+    static func transform(user: User) -> UserViewModel {
+        UserViewModel(userImage: UIImage(named: user.profilePictureUrl), userName: user.name, statuses: user.statuses.map(StatusViewModel.transform(from:)))
+    }
 }
