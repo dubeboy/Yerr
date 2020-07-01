@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0EBF8BA9F4CC0701B3038642 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC9189450DA44193028C9404 /* Localizable.strings */; };
+		5DF83BD5B5EA8261ECF1CF38 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA5487558A5C7D94A3E5D7FE /* InfoPlist.strings */; };
 		7116C10E24A2AD3100749620 /* SingleStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116C10D24A2AD3100749620 /* SingleStatusViewController.swift */; };
 		7116C11024A2AD4200749620 /* SingleStatusViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7116C10F24A2AD4200749620 /* SingleStatusViewController.storyboard */; };
 		7116C11824A2B03000749620 /* SingleStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116C11724A2B03000749620 /* SingleStatusPresenter.swift */; };
@@ -23,7 +25,6 @@
 		71585EE224A2932800092D6E /* StatusPagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585EE124A2932800092D6E /* StatusPagePresenter.swift */; };
 		71585EE424A2934300092D6E /* StatusPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585EE324A2934300092D6E /* StatusPageViewModel.swift */; };
 		71585EE624A2936600092D6E /* StatusPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585EE524A2936600092D6E /* StatusPageViewController.swift */; };
-		71585EEB24A2973A00092D6E /* StatusPageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71585EEA24A2973A00092D6E /* StatusPageViewController.storyboard */; };
 		71585EED24A2988E00092D6E /* SingleStatusCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585EEC24A2988E00092D6E /* SingleStatusCoordinator.swift */; };
 		715A0DFA24A8870600030458 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A0DF924A8870600030458 /* User.swift */; };
 		715A0DFC24A88F6900030458 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A0DFB24A88F6900030458 /* UserViewModel.swift */; };
@@ -88,6 +89,7 @@
 
 /* Begin PBXFileReference section */
 		265F7EC230D448B878C43061 /* Pods-Aweh.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.debug.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.debug.xcconfig"; sourceTree = "<group>"; };
+		6CABDDE37419B79E3395D4FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7116C10D24A2AD3100749620 /* SingleStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleStatusViewController.swift; sourceTree = "<group>"; };
 		7116C10F24A2AD4200749620 /* SingleStatusViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SingleStatusViewController.storyboard; sourceTree = "<group>"; };
 		7116C11724A2B03000749620 /* SingleStatusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleStatusPresenter.swift; sourceTree = "<group>"; };
@@ -104,7 +106,6 @@
 		71585EE124A2932800092D6E /* StatusPagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPagePresenter.swift; sourceTree = "<group>"; };
 		71585EE324A2934300092D6E /* StatusPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPageViewModel.swift; sourceTree = "<group>"; };
 		71585EE524A2936600092D6E /* StatusPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPageViewController.swift; sourceTree = "<group>"; };
-		71585EEA24A2973A00092D6E /* StatusPageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StatusPageViewController.storyboard; sourceTree = "<group>"; };
 		71585EEC24A2988E00092D6E /* SingleStatusCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleStatusCoordinator.swift; sourceTree = "<group>"; };
 		715A0DF924A8870600030458 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		715A0DFB24A88F6900030458 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
@@ -168,6 +169,7 @@
 		71F46CED24995610002B8EFC /* LivePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePhotoView.swift; sourceTree = "<group>"; };
 		B607C0A1A87FE1D0A8B4E53C /* Pods-Aweh.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.release.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.release.xcconfig"; sourceTree = "<group>"; };
 		CBB762DF26E2E46FFACEB991 /* Pods_Aweh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aweh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9168E3BC48D20E0D22255BF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B8F80DB3B31AF14CD17A0F1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EC9189450DA44193028C9404 /* Localizable.strings */,
+				CA5487558A5C7D94A3E5D7FE /* InfoPlist.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		7116C11324A2AF3F00749620 /* SatusPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,7 +207,6 @@
 			isa = PBXGroup;
 			children = (
 				71585EE524A2936600092D6E /* StatusPageViewController.swift */,
-				71585EEA24A2973A00092D6E /* StatusPageViewController.storyboard */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -584,6 +594,7 @@
 				718BE8132486BA8200CA328B /* Assets.xcassets */,
 				718BE8152486BA8200CA328B /* LaunchScreen.storyboard */,
 				718BE8182486BA8200CA328B /* Info.plist */,
+				5B8F80DB3B31AF14CD17A0F1 /* Resources */,
 			);
 			path = Aweh;
 			sourceTree = "<group>";
@@ -898,7 +909,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				71CCF0D6249AB2B30054C210 /* FeedDetailCollectionViewCell.xib in Resources */,
-				71585EEB24A2973A00092D6E /* StatusPageViewController.storyboard in Resources */,
 				7198AC77249186BE002029CF /* PhotosCollectionViewCell.xib in Resources */,
 				718BE8172486BA8200CA328B /* LaunchScreen.storyboard in Resources */,
 				718BE8142486BA8200CA328B /* Assets.xcassets in Resources */,
@@ -912,6 +922,8 @@
 				718BE8122486BA8000CA328B /* FeedViewController.storyboard in Resources */,
 				71CCF0D0249AB1E00054C210 /* FeedDetailViewController.storyboard in Resources */,
 				716A0C8A24A2D66700F18ED6 /* InterestsCollectionViewCell.xib in Resources */,
+				0EBF8BA9F4CC0701B3038642 /* Localizable.strings in Resources */,
+				5DF83BD5B5EA8261ECF1CF38 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1028,6 +1040,22 @@
 				718BE8162486BA8200CA328B /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		CA5487558A5C7D94A3E5D7FE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D9168E3BC48D20E0D22255BF /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		EC9189450DA44193028C9404 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6CABDDE37419B79E3395D4FE /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

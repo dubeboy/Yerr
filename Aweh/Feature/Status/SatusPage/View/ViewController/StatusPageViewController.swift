@@ -13,14 +13,17 @@ class StatusPageViewController: UIPageViewController {
     weak var coordinator: SingleStatusCoordinator?
     var presenter: StatusPagePresenter!
     
-    let statusIndicatorView = UIView()
-
+    private var pendingIndex: Int?
+    var currentIndex: Int?
+    
+    private var statusView: StatusIndicator!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = presenter.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: nil)
         
-        createPageViewControllers(page: 0)
+        createPageViewControllers(page: presenter.currentPagesCount())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,31 +32,23 @@ class StatusPageViewController: UIPageViewController {
         navigationController?.hidesBarsOnTap = true // TODO: - removec
         let bar = navigationController!.navigationBar
         bar.isTranslucent = true
+        bar.alpha = 0.5 // TODO: - not right
         
-//        bar.alpha =
-        setupStatusIndicatorView(bar: bar)
-        setupStatusView(with: 1)
+        setupStatusIndicatorView(bar: bar, itemCount: presenter.currentPagesCount())
         
         dataSource = self
         delegate = self
     }
     
-    private func setupStatusIndicatorView(bar: UINavigationBar) {
-        bar.addSubview(statusIndicatorView)
-        statusIndicatorView.backgroundColor = .brown
-        statusIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        statusIndicatorView.bottomAnchor.constraint(equalTo: bar.topAnchor, constant: 0).isActive = true
-        statusIndicatorView.leadingAnchor --> bar.leadingAnchor
-        statusIndicatorView.trailingAnchor --> bar.trailingAnchor
-        statusIndicatorView.widthAnchor --> bar.widthAnchor
-        statusIndicatorView.heightAnchor --> 16
-    }
-    
-    private func setupStatusView(with itemCount: Int) {
-        let statusView = StatusIndicator(itemCount: itemCount)
-        statusIndicatorView.addSubview(statusView)
+    private func setupStatusIndicatorView(bar: UINavigationBar, itemCount: Int) {
+        statusView = StatusIndicator(itemCount: itemCount, delegate: self)
+        bar.addSubview(statusView)
         statusView.translatesAutoresizingMaskIntoConstraints = false
-        statusView --> statusIndicatorView  // TODO: something is wrong
+        statusView.bottomAnchor.constraint(equalTo: bar.topAnchor, constant: 0).isActive = true
+        statusView.leadingAnchor --> bar.leadingAnchor
+        statusView.trailingAnchor --> bar.trailingAnchor
+        statusView.widthAnchor --> bar.widthAnchor
+        statusView.heightAnchor --> 16
     }
     
     private func createPageViewControllers(page: Int) {
@@ -67,7 +62,7 @@ class StatusPageViewController: UIPageViewController {
                 coordinator
                 .createSingleStatusViewController(_:)
             )
-            self.presenter.setSingleStatusViewControllers(singleStatusViewControllers)
+            self.presenter.setViewControllers(singleStatusViewControllers)
             self.setViewControllers(
                 [singleStatusViewControllers[0]],
                 direction: .forward,
@@ -83,11 +78,15 @@ class StatusPageViewController: UIPageViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        statusIndicatorView.removeFromSuperview()
+        statusView.removeFromSuperview()
         navigationController?.hidesBarsOnTap = false
         navigationController?.navigationBar.isTranslucent = false
     }
+    
+    
 }
+
+// MARK: DataSource
 
 extension StatusPageViewController: UIPageViewControllerDataSource {
     func pageViewController(
@@ -96,11 +95,11 @@ extension StatusPageViewController: UIPageViewControllerDataSource {
     ) -> UIViewController? {
         guard let viewControllerIndex = presenter.indexOf(
             viewController: viewController as! SingleStatusViewController
-        ) else { return nil }
-        
-        let previousIndex = viewControllerIndex - 1
-        guard previousIndex >= 0 else { return nil }
-        
+        ), viewControllerIndex != 0
+        else {
+            return nil
+        }
+        let previousIndex = abs((viewControllerIndex - 1) % presenter.currentPagesCount())
         return presenter.viewController(at: previousIndex)
     }
     
@@ -110,18 +109,43 @@ extension StatusPageViewController: UIPageViewControllerDataSource {
     ) -> UIViewController? {
         guard let viewControllerIndex = presenter.indexOf(
             viewController: viewController as! SingleStatusViewController
-        ) else { return nil }
-        
-        let nextIndex = viewControllerIndex + 1
-        let currentPagesCount = presenter.currentPagesCount()
-        
-        guard currentPagesCount != nextIndex else { return nil }
-        guard currentPagesCount > nextIndex else { return nil }
-        
+            ), viewControllerIndex != presenter.currentPagesCount() - 1
+        else {
+            return nil
+        }
+        let nextIndex = abs((viewControllerIndex + 1)  % presenter.currentPagesCount())
         return presenter.viewController(at: nextIndex)
     }
 }
 
+// MARK: Delegate
+
 extension StatusPageViewController: UIPageViewControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            didFinishAnimating finished: Bool,
+                            previousViewControllers: [UIViewController],
+                            transitionCompleted completed: Bool) {
+        if completed {
+            currentIndex = pendingIndex
+            if let index = currentIndex {
+                print("\(index)")
+                statusView.setCurrentStatusAt(statusIndex: index)
+            }
+        }
+        
+    }
     
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        pendingIndex = presenter.indexOf(viewController: pendingViewControllers.first as! SingleStatusViewController)
+    }
+}
+
+extension StatusPageViewController: StatusTimoutDelegate {
+    func timeout() {
+        if let currentIndex = currentIndex {
+            guard let viewController = presenter.viewController(at: currentIndex + 1) else { return }
+            statusView.setCurrentStatusAt(statusIndex: currentIndex + 1)
+            setViewControllers([viewController], direction: .forward, animated: true, completion: nil)
+        }
+    }
 }

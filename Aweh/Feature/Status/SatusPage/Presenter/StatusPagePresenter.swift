@@ -11,13 +11,11 @@ import Foundation
 protocol StatusPagePresenter {
     var title: String { get }
    
-    func getUserStatus( page: Int, completion: @escaping (UserViewModel) -> Void)
+    func getUserStatus(page: Int, completion: @escaping (UserViewModel) -> Void)
     func getFirstPageCount() -> Int
-    func setSingleStatusViewControllers(
-        _ singlePageViewControllers: [SingleStatusViewController]
-    ) // TODO: Not correct
+    func setViewControllers(_ singlePageViewControllers: [SingleStatusViewController]) // TODO: - Not correct
     func indexOf(viewController: SingleStatusViewController) -> Int?
-    func viewController(at index: Int) -> SingleStatusViewController
+    func viewController(at index: Int) -> SingleStatusViewController?
     func currentPagesCount() -> Int
 }
 
@@ -44,7 +42,7 @@ class StatusPagePresenterImplemantation: StatusPagePresenter {
         return viewModel.users.count
     }
     
-    func setSingleStatusViewControllers(_ singlePageViewControllers: [SingleStatusViewController]) {
+    func setViewControllers(_ singlePageViewControllers: [SingleStatusViewController]) {
         currentPages = singlePageViewControllers
     }
     
@@ -52,12 +50,17 @@ class StatusPagePresenterImplemantation: StatusPagePresenter {
         currentPages.firstIndex(of: viewController)
     }
     
-    func viewController(at index: Int) -> SingleStatusViewController {
-        currentPages[index]
+    func viewController(at index: Int) -> SingleStatusViewController? {
+        if index < currentPages.count {
+             return currentPages[index]
+        }
+        return nil 
     }
     
     func currentPagesCount() -> Int {
         currentPages.count
     }
+    
+    
     
 }
