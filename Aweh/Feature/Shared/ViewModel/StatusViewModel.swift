@@ -9,6 +9,7 @@
 import UIKit
 
 struct StatusViewModel: Equatable, Hashable {
+    // TODO: some sort  of id here to help me get the status withis id from server
     let status: NSAttributedString
     let userName: String
     let statusImage: UIImage? // todo: should be an array!

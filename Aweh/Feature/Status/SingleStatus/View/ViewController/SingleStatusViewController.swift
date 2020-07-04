@@ -10,8 +10,14 @@ import UIKit
 
 class SingleStatusViewController: UIViewController {
     
+    @IBOutlet weak var statusImage: UIImageView! {
+        didSet {
+            statusImage.contentMode = .scaleAspectFit
+        }
+    }
+    
     @IBOutlet weak var commentBoxConstraint: NSLayoutConstraint!
-    @IBOutlet weak var commentLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var commentDividerLine: UIView!
     
@@ -20,6 +26,11 @@ class SingleStatusViewController: UIViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.getStatus { [weak self] viewModel in
+            guard let self = self else { return }
+            self.statusLabel.text = viewModel.status.string
+            self.statusImage.image = viewModel.statusImage
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

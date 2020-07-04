@@ -57,10 +57,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDW-Un-RVP">
-                                <rect key="frame" x="16" y="773.5" width="382" height="2"/>
+                                <rect key="frame" x="16" y="774.5" width="382" height="1"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="8L4-XI-i4d"/>
+                                    <constraint firstAttribute="height" constant="1" id="8L4-XI-i4d"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uZc-Jr-aii">
@@ -70,7 +70,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KHf-3N-1yO">
-                                <rect key="frame" x="173.5" y="735.5" width="67" height="30"/>
+                                <rect key="frame" x="173.5" y="736.5" width="67" height="30"/>
                                 <state key="normal" title="Comment"/>
                                 <connections>
                                     <action selector="commentButton:" destination="DIv-o3-b9q" eventType="touchUpInside" id="D4S-Gh-9nY"/>
@@ -100,8 +100,9 @@
                     <connections>
                         <outlet property="commentBoxConstraint" destination="DAc-jy-dJC" id="vm8-yp-780"/>
                         <outlet property="commentDividerLine" destination="uDW-Un-RVP" id="ZWE-t3-lRQ"/>
-                        <outlet property="commentLabel" destination="uZc-Jr-aii" id="gJ9-WU-HN7"/>
                         <outlet property="commentTextField" destination="HDD-4B-atc" id="4J3-XJ-Qo7"/>
+                        <outlet property="statusImage" destination="9eM-FF-5om" id="a0e-qx-1ja"/>
+                        <outlet property="statusLabel" destination="uZc-Jr-aii" id="gJ9-WU-HN7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iho-Qy-s85" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

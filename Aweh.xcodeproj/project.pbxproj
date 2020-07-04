@@ -62,6 +62,8 @@
 		718BE8172486BA8200CA328B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 718BE8152486BA8200CA328B /* LaunchScreen.storyboard */; };
 		7196DD1024B083A600384B84 /* Notification+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DD0F24B083A600384B84 /* Notification+Elements.swift */; };
 		7196DD1224B0878100384B84 /* Common+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DD1124B0878100384B84 /* Common+Elements.swift */; };
+		7196DD1424B0B6D700384B84 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DD1324B0B6D700384B84 /* ProfileViewController.swift */; };
+		7196DD1624B0B6EC00384B84 /* ProfileViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7196DD1524B0B6EC00384B84 /* ProfileViewController.storyboard */; };
 		7198AC73249184B4002029CF /* PhotosCollectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7198AC72249184B4002029CF /* PhotosCollectionViewController.storyboard */; };
 		7198AC76249186BE002029CF /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7198AC74249186BE002029CF /* PhotosCollectionViewCell.swift */; };
 		7198AC77249186BE002029CF /* PhotosCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7198AC75249186BE002029CF /* PhotosCollectionViewCell.xib */; };
@@ -148,6 +150,8 @@
 		718BE8182486BA8200CA328B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7196DD0F24B083A600384B84 /* Notification+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Elements.swift"; sourceTree = "<group>"; };
 		7196DD1124B0878100384B84 /* Common+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Common+Elements.swift"; sourceTree = "<group>"; };
+		7196DD1324B0B6D700384B84 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		7196DD1524B0B6EC00384B84 /* ProfileViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileViewController.storyboard; sourceTree = "<group>"; };
 		7198AC72249184B4002029CF /* PhotosCollectionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PhotosCollectionViewController.storyboard; sourceTree = "<group>"; };
 		7198AC74249186BE002029CF /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		7198AC75249186BE002029CF /* PhotosCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotosCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -337,6 +341,9 @@
 		71585EDD24A292CC00092D6E /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				7196DD1724B0DF4500384B84 /* Coordinator */,
+				7196DD1324B0B6D700384B84 /* ProfileViewController.swift */,
+				7196DD1524B0B6EC00384B84 /* ProfileViewController.storyboard */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -628,6 +635,13 @@
 			path = Elements;
 			sourceTree = "<group>";
 		};
+		7196DD1724B0DF4500384B84 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		7198AC6C249183DA002029CF /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -915,6 +929,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71CCF0D6249AB2B30054C210 /* FeedDetailCollectionViewCell.xib in Resources */,
+				7196DD1624B0B6EC00384B84 /* ProfileViewController.storyboard in Resources */,
 				7198AC77249186BE002029CF /* PhotosCollectionViewCell.xib in Resources */,
 				718BE8172486BA8200CA328B /* LaunchScreen.storyboard in Resources */,
 				718BE8142486BA8200CA328B /* Assets.xcassets in Resources */,
@@ -971,6 +986,7 @@
 				718BE80F2486BA8000CA328B /* FeedViewController.swift in Sources */,
 				716DA6BB248C581F001B74E2 /* Theme+Elements.swift in Sources */,
 				716A0C8D24A2DA4800F18ED6 /* InterestViewModel.swift in Sources */,
+				7196DD1424B0B6D700384B84 /* ProfileViewController.swift in Sources */,
 				71585EE224A2932800092D6E /* StatusPagePresenter.swift in Sources */,
 				716A0C7F24A2BE3200F18ED6 /* IntrestsPresenter.swift in Sources */,
 				7172D617248F2D700083B7F6 /* UIView+Elements.swift in Sources */,

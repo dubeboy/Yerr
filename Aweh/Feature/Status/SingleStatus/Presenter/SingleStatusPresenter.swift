@@ -9,7 +9,7 @@
 import Foundation
 
 protocol SingleStatusPresenter  {
-   
+    func getStatus(completion: @escaping (StatusViewModel) -> Void)
 }
 
 class SingleStatusPresenterImplementation: SingleStatusPresenter {
@@ -18,5 +18,8 @@ class SingleStatusPresenterImplementation: SingleStatusPresenter {
     init(viewModel: StatusViewModel) {
         self.viewModel = viewModel
     }
-
+    
+    func getStatus(completion: @escaping (StatusViewModel) -> Void) {
+        completion(self.viewModel)
+    }
 }

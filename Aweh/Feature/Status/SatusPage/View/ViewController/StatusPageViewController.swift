@@ -29,7 +29,7 @@ class StatusPageViewController: UIPageViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        navigationController?.setNavigationBarHidden(T##hidden: Bool##Bool, animated: T##Bool) // this is the way forward
-        navigationController?.hidesBarsOnTap = true // TODO: - removec
+        navigationController?.hidesBarsOnTap = false // TODO: - removec
         let bar = navigationController!.navigationBar
         bar.isTranslucent = true
         bar.alpha = 0.5 // TODO: - not right
