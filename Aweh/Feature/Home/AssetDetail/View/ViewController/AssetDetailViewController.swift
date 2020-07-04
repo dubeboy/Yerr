@@ -1,7 +1,7 @@
 import UIKit
 import Photos
 import PhotosUI
-
+// TODO: Refactor this
 class AssetDetailViewController: UIViewController {
     
     var asset: PHAsset!

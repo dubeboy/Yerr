@@ -12,4 +12,5 @@ struct Interest {
     let interestName: String
     let hasNewStatus: Bool
     let interestImageLink: String
+    private(set) var users: [User] = []
 }

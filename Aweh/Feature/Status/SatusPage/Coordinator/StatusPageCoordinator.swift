@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol StatusPageCoordinator: AnyObject {
     func startStatusPageViewController(viewModel: InterestViewModel)
@@ -14,9 +15,13 @@ protocol StatusPageCoordinator: AnyObject {
 
 extension StatusCoordinator: StatusPageCoordinator {
     func startStatusPageViewController(viewModel: InterestViewModel) {
-        let viewController = StatusPageViewController.instantiate()
+        let viewController = StatusPageViewController(
+            transitionStyle: .scroll,
+            navigationOrientation: .horizontal,
+            options: nil
+        )
         viewController.coordinator = self
-        viewController.presenter = StatusPresenterImplemantation(with: viewModel)
+        viewController.presenter = StatusPagePresenterImplemantation(with: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
 }
