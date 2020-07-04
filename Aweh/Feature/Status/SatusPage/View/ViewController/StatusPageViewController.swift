@@ -28,7 +28,7 @@ class StatusPageViewController: UIPageViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        navigationController?.setNavigationBarHidden(T##hidden: Bool##Bool, animated: T##Bool)
+//        navigationController?.setNavigationBarHidden(T##hidden: Bool##Bool, animated: T##Bool) // this is the way forward
         navigationController?.hidesBarsOnTap = true // TODO: - removec
         let bar = navigationController!.navigationBar
         bar.isTranslucent = true
@@ -82,8 +82,6 @@ class StatusPageViewController: UIPageViewController {
         navigationController?.hidesBarsOnTap = false
         navigationController?.navigationBar.isTranslucent = false
     }
-    
-    
 }
 
 // MARK: DataSource
@@ -107,15 +105,19 @@ extension StatusPageViewController: UIPageViewControllerDataSource {
         _ pageViewController: UIPageViewController,
         viewControllerAfter viewController: UIViewController
     ) -> UIViewController? {
-        guard let viewControllerIndex = presenter.indexOf(
-            viewController: viewController as! SingleStatusViewController
-            ), viewControllerIndex != presenter.currentPagesCount() - 1
+        guard
+            let viewControllerIndex = presenter.indexOf(
+                viewController: viewController as! SingleStatusViewController
+            ),
+            viewControllerIndex != presenter.currentPagesCount() - 1
         else {
             return nil
         }
         let nextIndex = abs((viewControllerIndex + 1)  % presenter.currentPagesCount())
         return presenter.viewController(at: nextIndex)
     }
+    
+    
 }
 
 // MARK: Delegate

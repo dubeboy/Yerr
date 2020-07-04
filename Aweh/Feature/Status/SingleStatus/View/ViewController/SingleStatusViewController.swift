@@ -10,10 +10,48 @@ import UIKit
 
 class SingleStatusViewController: UIViewController {
     
+    @IBOutlet weak var commentBoxConstraint: NSLayoutConstraint!
+    @IBOutlet weak var commentLabel: UILabel!
+    @IBOutlet weak var commentTextField: UITextField!
+    @IBOutlet weak var commentDividerLine: UIView!
+    
     var presenter: SingleStatusPresenter!
     var coordinator: Coordinator!
-
+   
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        view.endEditing(true)
+        listenToEvent(
+            name: .keyboardWillChangeFrame,
+            selector: #selector(keyboardWillShow(notification:))
+        )
+        commentBoxConstraint.constant = 0
+    }
+    
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        view.endEditing(true)
+        removeSelfFromNotificationObserver()
+        commentBoxConstraint.constant = 0
+    }
+    
+    @IBAction func sendButton(_ sender: Any) {
+    }
+    
+    @IBAction func mediaButtom(_ sender: Any) {
+        
+    }
+    @IBAction func commentButton(_ sender: Any) {
+        
+        
+    }
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        guard let frame = keyboardFrame(from: notification) else { return }
+        commentBoxConstraint.constant = frame.size.height
     }
 }

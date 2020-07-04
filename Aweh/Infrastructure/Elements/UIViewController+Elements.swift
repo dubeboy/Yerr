@@ -43,5 +43,23 @@ extension UIViewController {
     }
 }
 
+extension UIViewController {
+    func listenToEvent(
+        name: NSNotification.Name,
+        selector: Selector
+    ) {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: selector,
+            name: name,
+            object: nil
+        )
+    }
+    
+    func removeSelfFromNotificationObserver() {
+        NotificationCenter.default.removeObserver(self)
+    }
+}
+
 
 
