@@ -95,9 +95,10 @@ class StatusCoordinator: MainCoordinator {
 class ProfileCoordinator: MainCoordinator {
     override func start() -> Self {
         navigationController.delegate = self
-        let mainViewController = FeedViewController.instantiate()
+        let mainViewController = ProfileViewController.instantiate()
         
         navigationController.tabBarItem = UITabBarItem(title: "Profile", image: nil, selectedImage: nil)
+        mainViewController.title = "Profile"
         navigationController.pushViewController(mainViewController, animated: true)
         return self
     }

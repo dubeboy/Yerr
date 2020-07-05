@@ -17,5 +17,6 @@ struct Const {
         static let m16: CGFloat = 16
         static let m8: CGFloat = 8
         static let radius: CGFloat = 10
+        static let borderWidth: CGFloat = 2
     }
 }
