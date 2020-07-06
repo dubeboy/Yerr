@@ -8,6 +8,7 @@
 
 import Foundation
 
+// TODO: - use the user model
 struct Status {
     let status: String
     let userName: String

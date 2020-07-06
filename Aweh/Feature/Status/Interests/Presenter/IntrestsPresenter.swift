@@ -51,7 +51,12 @@ extension IntrestsPresenterImplemantation {
     
     static func dummy() -> [Interest] {
         [
-            Interest(interestName: "General", hasNewStatus: true, interestImageLink: "1"),
+            Interest(interestName: "General",
+                     hasNewStatus: true,
+                     interestImageLink: "1",
+                     users: [User(name: "John", profilePictureUrl: "2", statuses: FeedPresenterImplemantation.status()),
+                             User(name: "Rahim Stelling", profilePictureUrl: "1", statuses: FeedPresenterImplemantation.status())
+            ]),
             Interest(interestName: "Food", hasNewStatus: true, interestImageLink: "1"),
             Interest(interestName: "Morning Jog", hasNewStatus: false, interestImageLink: "2"),
             Interest(interestName: "Sale", hasNewStatus: true, interestImageLink: "1"),

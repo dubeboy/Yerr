@@ -1,5 +1,5 @@
 //
-//  StatusesViewModel.swift
+//  StatusViewModel.swift
 //  Aweh
 //
 //  Created by Divine.Dube on 2020/06/23.
@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+//struct StatusPageViewModel {
+//    var statuses: [SingleStatusViewModel]
+//}

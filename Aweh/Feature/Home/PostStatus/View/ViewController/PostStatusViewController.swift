@@ -61,11 +61,9 @@ class PostStatusViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillAppear),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil
+        listenToEvent(
+            name: .keyboardWillShow,
+            selector: #selector(keyboardWillAppear(notification:))
         )
     }
     
@@ -76,16 +74,12 @@ class PostStatusViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
+        removeSelfFromNotificationObserver()
     }
     
     @objc func keyboardWillAppear(notification: NSNotification) {
-        guard let userInfo = notification.userInfo else { return }
-        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey]
-            as? NSValue else { return }
-        let keyboardFrame = keyboardSize.cgRectValue
-        
-        statusTextBottomConstraint.constant = keyboardFrame.size.height + 8
+        guard let frame = keyboardFrame(from: notification) else { return }
+        statusTextBottomConstraint.constant = frame.size.height + 8
     }
     
     

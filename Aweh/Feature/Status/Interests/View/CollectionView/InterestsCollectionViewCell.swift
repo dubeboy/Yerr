@@ -19,7 +19,10 @@ class InterestsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIView! {
         didSet {
-            addBlurEffects(for: imageView)
+            let visualEffectView = addBlurVisualEffect(for: imageView)
+            visualEffectView.layer.cornerRadius = 10
+            visualEffectView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+//            visualEffectView.alpha = 0.7
         }
     }
     
@@ -45,15 +48,13 @@ class InterestsCollectionViewCell: UICollectionViewCell {
         contentView.layer.borderWidth = 0
     }
     
-    func addBlurEffects(for view: UIView) {
+    func addBlurVisualEffect(for view: UIView) -> UIVisualEffectView {
         let blurEffect = UIBlurEffect(style: .systemThinMaterialLight)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
         blurEffectView.clipsToBounds = true
-//        blurEffectView.alpha = 0.7
-        blurEffectView.layer.cornerRadius = 10
-        blurEffectView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         view.insertSubview(blurEffectView, at: 0)
         blurEffectView --> view
+        return blurEffectView
     }
 }

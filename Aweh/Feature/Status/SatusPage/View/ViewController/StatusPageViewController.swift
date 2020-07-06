@@ -10,30 +10,144 @@ import UIKit
 
 class StatusPageViewController: UIPageViewController {
     
-    weak var coordinator: StatusCoordinator?
-    var presenter: StatusPresenter!
+    weak var coordinator: SingleStatusCoordinator?
+    var presenter: StatusPagePresenter!
     
-    let statusIndicatorView = UIView()
-
+    private var pendingIndex: Int?
+    var currentIndex: Int?
+    
+    private var statusView: StatusIndicator!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = presenter.title
-        statusIndicatorView.backgroundColor = .blue
-        let bar = navigationController!.navigationBar
-        bar.addSubview(statusIndicatorView)
-        statusIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        statusIndicatorView.bottomAnchor.constraint(equalTo: bar.topAnchor).isActive = true
-        statusIndicatorView.leadingAnchor.constraint(equalTo: bar.leadingAnchor).isActive = true
-        statusIndicatorView.widthAnchor.constraint(equalTo: bar.widthAnchor).isActive = true
-        statusIndicatorView.bottomAnchor.constraint(equalTo: bar.topAnchor).isActive = true
-        statusIndicatorView.heightAnchor
-            .constraint(equalToConstant: 16)
-            .isActive = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: nil)
         
+        createPageViewControllers(page: presenter.currentPagesCount())
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        navigationController?.setNavigationBarHidden(T##hidden: Bool##Bool, animated: T##Bool) // this is the way forward
+        navigationController?.hidesBarsOnTap = false // TODO: - removec
+        let bar = navigationController!.navigationBar
+        bar.isTranslucent = true
+        bar.alpha = 0.5 // TODO: - not right
+        
+        setupStatusIndicatorView(bar: bar, itemCount: presenter.currentPagesCount())
+        
+        dataSource = self
+        delegate = self
+    }
+    
+    private func setupStatusIndicatorView(bar: UINavigationBar, itemCount: Int) {
+        statusView = StatusIndicator(itemCount: itemCount, delegate: self)
+        bar.addSubview(statusView)
+        statusView.translatesAutoresizingMaskIntoConstraints = false
+        statusView.bottomAnchor.constraint(equalTo: bar.topAnchor, constant: 0).isActive = true
+        statusView.leadingAnchor --> bar.leadingAnchor
+        statusView.trailingAnchor --> bar.trailingAnchor
+        statusView.widthAnchor --> bar.widthAnchor
+        statusView.heightAnchor --> 16
+    }
+    
+    private func createPageViewControllers(page: Int) {
+        presenter.getUserStatus(
+        page: page) { [weak self] userViewModel in
+            guard
+                let self = self,
+                let coordinator = self.coordinator
+            else { return }
+            let singleStatusViewControllers = userViewModel.statuses.map(
+                coordinator
+                .createSingleStatusViewController(_:)
+            )
+            self.presenter.setViewControllers(singleStatusViewControllers)
+            self.setViewControllers(
+                [singleStatusViewControllers[0]],
+                direction: .forward,
+                animated: true,
+                completion: nil
+            )
+        }
+    }
+
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        statusIndicatorView.removeFromSuperview()
+        statusView.removeFromSuperview()
+        navigationController?.hidesBarsOnTap = false
+        navigationController?.navigationBar.isTranslucent = false
+    }
+}
+
+// MARK: DataSource
+
+extension StatusPageViewController: UIPageViewControllerDataSource {
+    func pageViewController(
+        _ pageViewController: UIPageViewController,
+        viewControllerBefore viewController: UIViewController
+    ) -> UIViewController? {
+        guard let viewControllerIndex = presenter.indexOf(
+            viewController: viewController as! SingleStatusViewController
+        ), viewControllerIndex != 0
+        else {
+            return nil
+        }
+        let previousIndex = abs((viewControllerIndex - 1) % presenter.currentPagesCount())
+        return presenter.viewController(at: previousIndex)
+    }
+    
+    func pageViewController(
+        _ pageViewController: UIPageViewController,
+        viewControllerAfter viewController: UIViewController
+    ) -> UIViewController? {
+        guard
+            let viewControllerIndex = presenter.indexOf(
+                viewController: viewController as! SingleStatusViewController
+            ),
+            viewControllerIndex != presenter.currentPagesCount() - 1
+        else {
+            return nil
+        }
+        let nextIndex = abs((viewControllerIndex + 1)  % presenter.currentPagesCount())
+        return presenter.viewController(at: nextIndex)
+    }
+    
+    
+}
+
+// MARK: Delegate
+
+extension StatusPageViewController: UIPageViewControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            didFinishAnimating finished: Bool,
+                            previousViewControllers: [UIViewController],
+                            transitionCompleted completed: Bool) {
+        if completed {
+            currentIndex = pendingIndex
+            if let index = currentIndex {
+                print("\(index)")
+                statusView.setCurrentStatusAt(statusIndex: index)
+            }
+        }
+        
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        pendingIndex = presenter.indexOf(viewController: pendingViewControllers.first as! SingleStatusViewController)
+    }
+}
+
+extension StatusPageViewController: StatusTimoutDelegate {
+    func timeout() {
+        if let currentIndex = currentIndex {
+            guard let viewController = presenter.viewController(at: currentIndex + 1) else { return }
+            statusView.setCurrentStatusAt(statusIndex: currentIndex + 1)
+            setViewControllers([viewController], direction: .forward, animated: true, completion: nil)
+        }
     }
 }
