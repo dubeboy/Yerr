@@ -9,9 +9,12 @@
 import Foundation
 import UIKit
 
+// MARK: Keyboard
 func keyboardFrame(from notification: NSNotification) -> CGRect? {
     guard let userInfo = notification.userInfo else { return nil }
     guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey]
         as? NSValue else { return nil }
     return keyboardSize.cgRectValue
 }
+
+

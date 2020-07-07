@@ -9,10 +9,22 @@
 import UIKit
 
 class PickInterestCollectionViewCell: UICollectionViewCell {
-
+    @IBOutlet weak var addToInterest: UIButton!
+    @IBOutlet weak var interestName: UILabel!
+    
+    var action: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        roundCorner()
     }
-
+    
+    func roundCorner() {
+        contentView.clipsToBounds = true
+        contentView.layer.cornerRadius = Const.view.radius
+        contentView.backgroundColor = .systemBackground
+    }
+    @IBAction func didTapInterest(_ sender: Any) {
+        action?()
+    }
 }

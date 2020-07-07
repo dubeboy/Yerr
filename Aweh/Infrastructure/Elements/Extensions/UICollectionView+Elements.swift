@@ -37,6 +37,7 @@ extension UICollectionView {
     
 }
 
+// TODO: this should be in the NSObject class
 extension UICollectionViewCell {
     static var reuseIdentifier: String {
         return String(describing: self)

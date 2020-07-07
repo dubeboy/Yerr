@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-// TODO: singularize
 struct InterestViewModel {
     let interestName: String
     let hasNewStatus: Bool

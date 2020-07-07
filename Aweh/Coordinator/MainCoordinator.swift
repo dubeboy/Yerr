@@ -96,7 +96,7 @@ class ProfileCoordinator: MainCoordinator {
     override func start() -> Self {
         navigationController.delegate = self
         let mainViewController = ProfileViewController.instantiate()
-        
+        mainViewController.coordinator = self
         navigationController.tabBarItem = UITabBarItem(title: "Profile", image: nil, selectedImage: nil)
         mainViewController.title = "Profile"
         navigationController.pushViewController(mainViewController, animated: true)

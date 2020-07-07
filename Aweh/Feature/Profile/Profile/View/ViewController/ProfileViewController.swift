@@ -14,11 +14,10 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var userProfileImage: UIImageView!
     
     var presenter: ProfilePresenter = ProfilePresenterImplementation()
-    var coordinator: ProfileCoordinator!
+    var coordinator: PickInterestCoordinator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        stylePointsView()
         makeProfileImageRound()
         presenter.profileImage  { [weak self] image in
             self?.userProfileImage.image = image
@@ -26,15 +25,11 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func interestsButton(_ sender: Any) {
+        coordinator.startPickInterestViewController(viewModel: presenter.viewModel)
         
     }
+    
     private func makeProfileImageRound() {
         userProfileImage.makeImageRound()
-    }
-    
-    private func stylePointsView() {
-        pointsView.layer.cornerRadius = pointsView.bounds.size.height / 2
-        pointsView.layer.borderColor = UIColor.red.cgColor
-        pointsView.layer.borderWidth = Const.view.borderWidth
     }
 }

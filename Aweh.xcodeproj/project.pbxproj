@@ -9,10 +9,16 @@
 /* Begin PBXBuildFile section */
 		0EBF8BA9F4CC0701B3038642 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC9189450DA44193028C9404 /* Localizable.strings */; };
 		5DF83BD5B5EA8261ECF1CF38 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA5487558A5C7D94A3E5D7FE /* InfoPlist.strings */; };
+		71138AA224B4F4B400AC7D1C /* GaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71138AA124B4F4B400AC7D1C /* GaugeView.swift */; };
+		71138AA424B4F64600AC7D1C /* NSObject+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71138AA324B4F64600AC7D1C /* NSObject+Elements.swift */; };
+		71138AA624B4F9C700AC7D1C /* GaugeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71138AA524B4F9C700AC7D1C /* GaugeView.xib */; };
+		71138AA824B4FA4600AC7D1C /* BorderLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71138AA724B4FA4600AC7D1C /* BorderLayer.swift */; };
+		71138AAB24B519AC00AC7D1C /* LateInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71138AAA24B519AC00AC7D1C /* LateInit.swift */; };
 		7116C10E24A2AD3100749620 /* SingleStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116C10D24A2AD3100749620 /* SingleStatusViewController.swift */; };
 		7116C11024A2AD4200749620 /* SingleStatusViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7116C10F24A2AD4200749620 /* SingleStatusViewController.storyboard */; };
 		7116C11824A2B03000749620 /* SingleStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116C11724A2B03000749620 /* SingleStatusPresenter.swift */; };
 		7116C11C24A2B13400749620 /* StatusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116C11B24A2B13400749620 /* StatusIndicator.swift */; };
+		7119E3A024B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7119E39F24B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard */; };
 		711EADE8249DDCAD00D33072 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711EADE7249DDCAD00D33072 /* Comment.swift */; };
 		711EADEA249DDE8600D33072 /* Date+Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711EADE9249DDE8600D33072 /* Date+Element.swift */; };
 		713549B1248BE45A0009EE6A /* UICollectionView+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */; };
@@ -23,7 +29,6 @@
 		7157C2322488761900F0A7F0 /* SimpleDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7157C2312488761900F0A7F0 /* SimpleDependencyInjector.swift */; };
 		7157C2342488766F00F0A7F0 /* NSLayoutConstraints+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7157C2332488766F00F0A7F0 /* NSLayoutConstraints+Elements.swift */; };
 		71585EE224A2932800092D6E /* StatusPagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585EE124A2932800092D6E /* StatusPagePresenter.swift */; };
-		71585EE424A2934300092D6E /* StatusPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585EE324A2934300092D6E /* StatusPageViewModel.swift */; };
 		71585EE624A2936600092D6E /* StatusPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585EE524A2936600092D6E /* StatusPageViewController.swift */; };
 		71585EED24A2988E00092D6E /* SingleStatusCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585EEC24A2988E00092D6E /* SingleStatusCoordinator.swift */; };
 		715A0DFA24A8870600030458 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A0DF924A8870600030458 /* User.swift */; };
@@ -79,6 +84,8 @@
 		71C46DA024B26B0800A9DB14 /* PickInterestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C46D9E24B26B0800A9DB14 /* PickInterestCollectionViewCell.swift */; };
 		71C46DA124B26B0800A9DB14 /* PickInterestCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71C46D9F24B26B0800A9DB14 /* PickInterestCollectionViewCell.xib */; };
 		71C46DA324B26B2600A9DB14 /* PickInterestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C46DA224B26B2600A9DB14 /* PickInterestPresenter.swift */; };
+		71C46DA624B26CC300A9DB14 /* PickInterestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C46DA524B26CC300A9DB14 /* PickInterestCoordinator.swift */; };
+		71C46DA824B2705F00A9DB14 /* PickInterestCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C46DA724B2705F00A9DB14 /* PickInterestCellPresenter.swift */; };
 		71CCF0CB249AB1450054C210 /* FeedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCF0C9249AB1450054C210 /* FeedDetailViewController.swift */; };
 		71CCF0CE249AB1590054C210 /* FeedDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCF0CD249AB1590054C210 /* FeedDetailPresenter.swift */; };
 		71CCF0D0249AB1E00054C210 /* FeedDetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71CCF0CF249AB1E00054C210 /* FeedDetailViewController.storyboard */; };
@@ -99,10 +106,16 @@
 /* Begin PBXFileReference section */
 		265F7EC230D448B878C43061 /* Pods-Aweh.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.debug.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.debug.xcconfig"; sourceTree = "<group>"; };
 		6CABDDE37419B79E3395D4FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		71138AA124B4F4B400AC7D1C /* GaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeView.swift; sourceTree = "<group>"; };
+		71138AA324B4F64600AC7D1C /* NSObject+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Elements.swift"; sourceTree = "<group>"; };
+		71138AA524B4F9C700AC7D1C /* GaugeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GaugeView.xib; sourceTree = "<group>"; };
+		71138AA724B4FA4600AC7D1C /* BorderLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderLayer.swift; sourceTree = "<group>"; };
+		71138AAA24B519AC00AC7D1C /* LateInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LateInit.swift; sourceTree = "<group>"; };
 		7116C10D24A2AD3100749620 /* SingleStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleStatusViewController.swift; sourceTree = "<group>"; };
 		7116C10F24A2AD4200749620 /* SingleStatusViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SingleStatusViewController.storyboard; sourceTree = "<group>"; };
 		7116C11724A2B03000749620 /* SingleStatusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleStatusPresenter.swift; sourceTree = "<group>"; };
 		7116C11B24A2B13400749620 /* StatusIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusIndicator.swift; sourceTree = "<group>"; };
+		7119E39F24B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickInterestCollectionViewController.storyboard; sourceTree = "<group>"; };
 		711EADE7249DDCAD00D33072 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		711EADE9249DDE8600D33072 /* Date+Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Element.swift"; sourceTree = "<group>"; };
 		713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Elements.swift"; sourceTree = "<group>"; };
@@ -113,7 +126,6 @@
 		7157C2312488761900F0A7F0 /* SimpleDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleDependencyInjector.swift; sourceTree = "<group>"; };
 		7157C2332488766F00F0A7F0 /* NSLayoutConstraints+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraints+Elements.swift"; sourceTree = "<group>"; };
 		71585EE124A2932800092D6E /* StatusPagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPagePresenter.swift; sourceTree = "<group>"; };
-		71585EE324A2934300092D6E /* StatusPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPageViewModel.swift; sourceTree = "<group>"; };
 		71585EE524A2936600092D6E /* StatusPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPageViewController.swift; sourceTree = "<group>"; };
 		71585EEC24A2988E00092D6E /* SingleStatusCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleStatusCoordinator.swift; sourceTree = "<group>"; };
 		715A0DF924A8870600030458 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -172,6 +184,8 @@
 		71C46D9E24B26B0800A9DB14 /* PickInterestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickInterestCollectionViewCell.swift; sourceTree = "<group>"; };
 		71C46D9F24B26B0800A9DB14 /* PickInterestCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickInterestCollectionViewCell.xib; sourceTree = "<group>"; };
 		71C46DA224B26B2600A9DB14 /* PickInterestPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickInterestPresenter.swift; sourceTree = "<group>"; };
+		71C46DA524B26CC300A9DB14 /* PickInterestCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickInterestCoordinator.swift; sourceTree = "<group>"; };
+		71C46DA724B2705F00A9DB14 /* PickInterestCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickInterestCellPresenter.swift; sourceTree = "<group>"; };
 		71CCF0C9249AB1450054C210 /* FeedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewController.swift; sourceTree = "<group>"; };
 		71CCF0CD249AB1590054C210 /* FeedDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailPresenter.swift; sourceTree = "<group>"; };
 		71CCF0CF249AB1E00054C210 /* FeedDetailViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedDetailViewController.storyboard; sourceTree = "<group>"; };
@@ -211,6 +225,41 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		71138AA024B4F3B400AC7D1C /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				71138AA124B4F4B400AC7D1C /* GaugeView.swift */,
+				71138AA524B4F9C700AC7D1C /* GaugeView.xib */,
+				71138AA724B4FA4600AC7D1C /* BorderLayer.swift */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
+		71138AA924B5198C00AC7D1C /* PropertyWrappers */ = {
+			isa = PBXGroup;
+			children = (
+				71138AAA24B519AC00AC7D1C /* LateInit.swift */,
+			);
+			path = PropertyWrappers;
+			sourceTree = "<group>";
+		};
+		71138AAC24B51A9F00AC7D1C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7157C2332488766F00F0A7F0 /* NSLayoutConstraints+Elements.swift */,
+				713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */,
+				716DA6BA248C581F001B74E2 /* Theme+Elements.swift */,
+				716DA6CA248EE4D2001B74E2 /* UIViewController+Elements.swift */,
+				7172D616248F2D700083B7F6 /* UIView+Elements.swift */,
+				711EADE9249DDE8600D33072 /* Date+Element.swift */,
+				716A0C9124A2E01A00F18ED6 /* UICollectionFlowLayout+Elements.swift */,
+				7196DD0F24B083A600384B84 /* Notification+Elements.swift */,
+				7196DD1124B0878100384B84 /* Common+Elements.swift */,
+				71138AA324B4F64600AC7D1C /* NSObject+Elements.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		7116C11324A2AF3F00749620 /* SatusPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,7 +282,6 @@
 			isa = PBXGroup;
 			children = (
 				71585EE124A2932800092D6E /* StatusPagePresenter.swift */,
-				71585EE324A2934300092D6E /* StatusPageViewModel.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -438,7 +486,6 @@
 			isa = PBXGroup;
 			children = (
 				716A0C7E24A2BE3200F18ED6 /* IntrestsPresenter.swift */,
-				716A0C8C24A2DA4800F18ED6 /* InterestViewModel.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -631,15 +678,8 @@
 		718BE81F2486BCE500CA328B /* Elements */ = {
 			isa = PBXGroup;
 			children = (
-				7157C2332488766F00F0A7F0 /* NSLayoutConstraints+Elements.swift */,
-				713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */,
-				716DA6BA248C581F001B74E2 /* Theme+Elements.swift */,
-				716DA6CA248EE4D2001B74E2 /* UIViewController+Elements.swift */,
-				7172D616248F2D700083B7F6 /* UIView+Elements.swift */,
-				711EADE9249DDE8600D33072 /* Date+Element.swift */,
-				716A0C9124A2E01A00F18ED6 /* UICollectionFlowLayout+Elements.swift */,
-				7196DD0F24B083A600384B84 /* Notification+Elements.swift */,
-				7196DD1124B0878100384B84 /* Common+Elements.swift */,
+				71138AAC24B51A9F00AC7D1C /* Extensions */,
+				71138AA924B5198C00AC7D1C /* PropertyWrappers */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -654,6 +694,7 @@
 		719824D524B0F3EF004EB567 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				71138AA024B4F3B400AC7D1C /* Widget */,
 				71C46D9124B103AF00A9DB14 /* CollectionView */,
 				719824D624B0F412004EB567 /* ViewController */,
 			);
@@ -758,6 +799,7 @@
 		71C46D9324B269BB00A9DB14 /* PickInterests */ = {
 			isa = PBXGroup;
 			children = (
+				71C46DA424B26CA100A9DB14 /* Coordinator */,
 				71C46D9824B26A6C00A9DB14 /* Presenter */,
 				71C46D9424B269EB00A9DB14 /* View */,
 			);
@@ -777,6 +819,7 @@
 			isa = PBXGroup;
 			children = (
 				71C46D9624B26A3A00A9DB14 /* PickInterestCollectionViewController.swift */,
+				7119E39F24B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -794,8 +837,17 @@
 			children = (
 				71C46D9E24B26B0800A9DB14 /* PickInterestCollectionViewCell.swift */,
 				71C46D9F24B26B0800A9DB14 /* PickInterestCollectionViewCell.xib */,
+				71C46DA724B2705F00A9DB14 /* PickInterestCellPresenter.swift */,
 			);
 			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		71C46DA424B26CA100A9DB14 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				71C46DA524B26CC300A9DB14 /* PickInterestCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		71C78E5424886A0000E29082 /* View */ = {
@@ -886,6 +938,7 @@
 		71E3C56C24A8A96F00ABC5B6 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				716A0C8C24A2DA4800F18ED6 /* InterestViewModel.swift */,
 				7162C60C24884BBB002D8ED4 /* StatusViewModel.swift */,
 				715A0DFB24A88F6900030458 /* UserViewModel.swift */,
 			);
@@ -992,7 +1045,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = com.github.aweh;
 				TargetAttributes = {
 					718BE8062486BA8000CA328B = {
@@ -1029,6 +1082,8 @@
 				71C46DA124B26B0800A9DB14 /* PickInterestCollectionViewCell.xib in Resources */,
 				718BE8172486BA8200CA328B /* LaunchScreen.storyboard in Resources */,
 				718BE8142486BA8200CA328B /* Assets.xcassets in Resources */,
+				71138AA624B4F9C700AC7D1C /* GaugeView.xib in Resources */,
+				7119E3A024B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard in Resources */,
 				7116C11024A2AD4200749620 /* SingleStatusViewController.storyboard in Resources */,
 				7172D615248F1E420083B7F6 /* PostStatusViewController.storyboard in Resources */,
 				7198AC73249184B4002029CF /* PhotosCollectionViewController.storyboard in Resources */,
@@ -1080,6 +1135,7 @@
 				71585EE624A2936600092D6E /* StatusPageViewController.swift in Sources */,
 				7157C21D24886DB400F0A7F0 /* HomeScreenRepository.swift in Sources */,
 				718BE80F2486BA8000CA328B /* FeedViewController.swift in Sources */,
+				71C46DA624B26CC300A9DB14 /* PickInterestCoordinator.swift in Sources */,
 				716DA6BB248C581F001B74E2 /* Theme+Elements.swift in Sources */,
 				716A0C8D24A2DA4800F18ED6 /* InterestViewModel.swift in Sources */,
 				7196DD1424B0B6D700384B84 /* ProfileViewController.swift in Sources */,
@@ -1095,6 +1151,7 @@
 				7170E9FE2495EB7D00B1D15F /* AssetDetailCoordinator.swift in Sources */,
 				7162C60B24884BAB002D8ED4 /* FeedPresenter.swift in Sources */,
 				7162C60D24884BBB002D8ED4 /* StatusViewModel.swift in Sources */,
+				71138AA224B4F4B400AC7D1C /* GaugeView.swift in Sources */,
 				7116C11824A2B03000749620 /* SingleStatusPresenter.swift in Sources */,
 				7157C2342488766F00F0A7F0 /* NSLayoutConstraints+Elements.swift in Sources */,
 				7170EA042495EBF800B1D15F /* AssetDetailPresenter.swift in Sources */,
@@ -1113,12 +1170,12 @@
 				71D6BAE12495737100F4B5D8 /* AssetsHorizontalListView.swift in Sources */,
 				71CCF0CB249AB1450054C210 /* FeedDetailViewController.swift in Sources */,
 				716DA6C2248D7E55001B74E2 /* PostStatusViewController.swift in Sources */,
-				71585EE424A2934300092D6E /* StatusPageViewModel.swift in Sources */,
 				716A0C9424A2E54200F18ED6 /* InterestsCellPresenter.swift in Sources */,
 				719824D924B0F450004EB567 /* ProfilePresenter.swift in Sources */,
 				71C46DA024B26B0800A9DB14 /* PickInterestCollectionViewCell.swift in Sources */,
 				718BE80B2486BA8000CA328B /* AppDelegate.swift in Sources */,
 				7157C22024886E2100F0A7F0 /* BaseRepository.swift in Sources */,
+				71C46DA824B2705F00A9DB14 /* PickInterestCellPresenter.swift in Sources */,
 				716A0C9224A2E01A00F18ED6 /* UICollectionFlowLayout+Elements.swift in Sources */,
 				71CCF0CE249AB1590054C210 /* FeedDetailPresenter.swift in Sources */,
 				71C46D9724B26A3A00A9DB14 /* PickInterestCollectionViewController.swift in Sources */,
@@ -1129,9 +1186,12 @@
 				71A77FD1249C345E00F8D442 /* FeedDetailViewModel.swift in Sources */,
 				71A77FD5249C378100F8D442 /* FeedDetailCellPresenter.swift in Sources */,
 				715A0DFA24A8870600030458 /* User.swift in Sources */,
+				71138AA824B4FA4600AC7D1C /* BorderLayer.swift in Sources */,
+				71138AAB24B519AC00AC7D1C /* LateInit.swift in Sources */,
 				716A0C8924A2D66700F18ED6 /* InterestsCollectionViewCell.swift in Sources */,
 				716A0C9624A2E9C800F18ED6 /* StatusPageCoordinator.swift in Sources */,
 				7157C2322488761900F0A7F0 /* SimpleDependencyInjector.swift in Sources */,
+				71138AA424B4F64600AC7D1C /* NSObject+Elements.swift in Sources */,
 				716A0C8F24A2DC9700F18ED6 /* Interest.swift in Sources */,
 				7172D613248F0CC90083B7F6 /* PostStatusCoordinator.swift in Sources */,
 				71ECFDF82487066B00943917 /* FeedCollectionViewFlowLayout.swift in Sources */,
@@ -1211,6 +1271,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1271,6 +1332,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

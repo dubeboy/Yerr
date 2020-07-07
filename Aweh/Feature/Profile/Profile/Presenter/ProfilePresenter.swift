@@ -13,6 +13,8 @@ protocol ProfilePresenter {
     func profileImage(completion: @escaping (UIImage) -> Void)
     
     func statuses(completion: @escaping ([StatusViewModel]) -> Void)
+    
+    var viewModel: UserViewModel { get }
 }
 
 class ProfilePresenterImplementation: ProfilePresenter {
