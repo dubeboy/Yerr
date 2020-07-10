@@ -12,6 +12,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var stausesCollectionView: UICollectionView!
     @IBOutlet weak var pointsView: GaugeView!
     
+    @IBOutlet weak var containerStackView: UIStackView!
     var presenter: ProfilePresenter = ProfilePresenterImplementation()
     var coordinator: PickInterestCoordinator!
     
@@ -24,11 +25,19 @@ class ProfileViewController: UIViewController {
         
         guard let points = presenter.points else { return }
         pointsView.set(values: points)
+        stylePointDescriptionView()
     }
     
     @IBAction func interestsButton(_ sender: Any) {
         coordinator.startPickInterestViewController(
             viewModel: presenter.viewModel
         )
+    }
+    
+    private func stylePointDescriptionView() {
+        containerStackView.arrangedSubviews.forEach { view in
+            view.layer.cornerRadius = Const.view.radius
+            view.backgroundColor = UIColor.systemGray6.withAlphaComponent(0.5)
+        }
     }
 }

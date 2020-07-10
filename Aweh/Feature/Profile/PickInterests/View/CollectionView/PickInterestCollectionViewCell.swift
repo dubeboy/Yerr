@@ -13,6 +13,7 @@ class PickInterestCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var interestName: UILabel!
     
     var action: (() -> Void)?
+    @IBOutlet weak var containerView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,9 +21,9 @@ class PickInterestCollectionViewCell: UICollectionViewCell {
     }
     
     func roundCorner() {
-        contentView.clipsToBounds = true
-        contentView.layer.cornerRadius = Const.view.radius
-        contentView.backgroundColor = .systemBackground
+        containerView.clipsToBounds = true
+        containerView.layer.cornerRadius = Const.view.radius
+        containerView.backgroundColor = .systemGray5
     }
     @IBAction func didTapInterest(_ sender: Any) {
         action?()

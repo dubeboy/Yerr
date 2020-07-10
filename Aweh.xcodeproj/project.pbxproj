@@ -701,7 +701,6 @@
 			isa = PBXGroup;
 			children = (
 				71138AA024B4F3B400AC7D1C /* Widget */,
-				71C46D9124B103AF00A9DB14 /* CollectionView */,
 				719824D624B0F412004EB567 /* ViewController */,
 			);
 			path = View;
@@ -791,13 +790,6 @@
 				71BBCA7224B8C5DC00044629 /* GuageViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		71C46D9124B103AF00A9DB14 /* CollectionView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CollectionView;
 			sourceTree = "<group>";
 		};
 		71C46D9224B269AE00A9DB14 /* Profile */ = {
