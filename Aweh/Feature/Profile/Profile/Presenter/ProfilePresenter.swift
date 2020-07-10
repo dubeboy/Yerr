@@ -50,9 +50,8 @@ class ProfilePresenterImplementation: ProfilePresenter {
             name: "John",
             profilePictureUrl: "2",
             statuses: FeedPresenterImplemantation.status(),
-            point: Point(type: .gold, scores: [10, 20, 30])
+            point: Point(type: .gold, scores: [10, 20, 78])
         )
-         
-            
+    
     }
 }

@@ -16,8 +16,8 @@ class GaugeView: UIView {
         
     @IBOutlet weak var userImage: UIImageView!
     
-    static let startAngle = -(1/2) * CGFloat.pi
-    static let endAngle = (7/2) * CGFloat.pi
+    static let startAngle =  -CGFloat.pi / 2
+    static let endAngle = 2 * CGFloat.pi
     
     init(values: GuageViewViewModel) {
         super.init(frame: .zero)
@@ -53,6 +53,7 @@ class GaugeView: UIView {
             darkBorderLayer.lineColor = getColorWith(at: index)
             darkBorderLayer.startAngle = Self.startAngle
             darkBorderLayer.endAngle = Self.radianForValue(CGFloat(value))
+            
             
             layer.addSublayer(track)
             layer.addSublayer(darkBorderLayer)
@@ -111,6 +112,15 @@ class GaugeView: UIView {
             realValue = 100
         }
         return realValue
+    }
+    
+    private func basicAnimation(radian toValue: CGFloat, to layer: BorderLayer ) {
+        let basicAnimation = CABasicAnimation(keyPath: "endAngle")
+        basicAnimation.toValue = toValue
+        basicAnimation.duration = 2
+        basicAnimation.fillMode = .forwards
+        basicAnimation.isRemovedOnCompletion = false
+        layer.add(basicAnimation, forKey: "myBasicAnimation")
     }
     
 }

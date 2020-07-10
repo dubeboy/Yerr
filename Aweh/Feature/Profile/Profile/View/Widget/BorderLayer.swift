@@ -28,7 +28,7 @@ class BorderLayer: CALayer {
             endAngle: endAngle,
             clockwise: false
         )
-        // add curve!
+        ctx.setLineCap(.round)
         ctx.drawPath(using: .stroke)
     }
     
