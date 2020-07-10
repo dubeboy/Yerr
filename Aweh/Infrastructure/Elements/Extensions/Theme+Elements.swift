@@ -14,6 +14,7 @@ import CoreGraphics
 // MARK: - App Constants
 struct Const {
     struct view {
+        static let m24: CGFloat = 24
         static let m16: CGFloat = 16
         static let m8: CGFloat = 8
         static let radius: CGFloat = 10

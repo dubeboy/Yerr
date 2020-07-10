@@ -13,10 +13,16 @@ struct UserViewModel: Hashable {
     let userImage: UIImage?
     let userName: String
     let statuses: [StatusViewModel]
+    let point: GuageViewViewModel?
 }
 
 extension UserViewModel {
     static func transform(user: User) -> UserViewModel {
-        UserViewModel(userImage: UIImage(named: user.profilePictureUrl), userName: user.name, statuses: user.statuses.map(StatusViewModel.transform(from:)))
+        UserViewModel(
+            userImage: UIImage(named: user.profilePictureUrl),
+            userName: user.name,
+            statuses: user.statuses.map(StatusViewModel.transform(from:)),
+            point: .transform(point: user.point)
+        )
     }
 }

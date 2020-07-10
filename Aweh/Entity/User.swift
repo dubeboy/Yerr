@@ -14,4 +14,5 @@ struct User {
     let name: String
     let profilePictureUrl: String
     var statuses: [Status] = []
+    var point: Point? 
 }

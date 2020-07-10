@@ -11,26 +11,24 @@ import UIKit
 
 class BorderLayer: CALayer {
     
-    static let startAngle = 3 / 2 * CGFloat.pi
-    static let endAngle = 7 / 2 * CGFloat.pi
-    
     var lineColor: CGColor = UIColor.yellow.cgColor
-    var lineWidth: CGFloat = 2.0
+    var lineWidth: CGFloat = 10.0
     var startAngle: CGFloat = 0.0
     dynamic var endAngle: CGFloat = 0.0
     
     override func draw(in ctx: CGContext) {
-        let center = CGPoint(x: bounds.width / 2 , y: bounds.height / 2)
+        let center = CGPoint(x: bounds.width/2 , y: bounds.height/2)
         ctx.beginPath()
         ctx.setStrokeColor(lineColor)
         ctx.setLineWidth(lineWidth)
         ctx.addArc(
             center: center,
-            radius: bounds.height / 2 - lineWidth,
+            radius: (bounds.height/2) - lineWidth,
             startAngle: startAngle,
             endAngle: endAngle,
             clockwise: false
         )
+        // add curve!
         ctx.drawPath(using: .stroke)
     }
     
@@ -39,21 +37,6 @@ class BorderLayer: CALayer {
             return true
         }
         return super.needsDisplay(forKey: key)
-    }
-    
-    static func radianForValue(_ value: CGFloat) -> CGFloat {
-        let realValue = Self.sanitizeValue(value: value)
-        return (realValue * 4/2 * CGFloat.pi / 100) + Self.startAngle
-    }
-    
-    static func sanitizeValue(value: CGFloat) -> CGFloat {
-        var realValue = value
-        if value < 0 {
-            realValue = 0
-        } else if value > 100 {
-            realValue = 100
-        }
-        return realValue
     }
     
     

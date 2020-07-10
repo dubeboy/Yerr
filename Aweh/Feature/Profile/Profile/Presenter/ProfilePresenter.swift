@@ -15,11 +15,19 @@ protocol ProfilePresenter {
     func statuses(completion: @escaping ([StatusViewModel]) -> Void)
     
     var viewModel: UserViewModel { get }
+    var points: GuageViewViewModel? { get }
 }
 
 class ProfilePresenterImplementation: ProfilePresenter {
+    
     let viewModel: UserViewModel
 
+    var points: GuageViewViewModel? {
+        guard let guageViewModel = viewModel.point else {
+            return nil
+        }
+        return guageViewModel
+    }
     init() {
         self.viewModel = Self.mockUserViewModel()
     }
@@ -38,7 +46,12 @@ class ProfilePresenterImplementation: ProfilePresenter {
     }
     
     static func mockData() -> User {
-            User(name: "John", profilePictureUrl: "2", statuses: FeedPresenterImplemantation.status())
+        User(
+            name: "John",
+            profilePictureUrl: "2",
+            statuses: FeedPresenterImplemantation.status(),
+            point: Point(type: .gold, scores: [10, 20, 30])
+        )
          
             
     }
