@@ -798,8 +798,8 @@
 		71C46D9224B269AE00A9DB14 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				719824D724B0F42F004EB567 /* Presenter */,
 				7196DD1724B0DF4500384B84 /* Coordinator */,
+				719824D724B0F42F004EB567 /* Presenter */,
 				719824D524B0F3EF004EB567 /* View */,
 			);
 			path = Profile;

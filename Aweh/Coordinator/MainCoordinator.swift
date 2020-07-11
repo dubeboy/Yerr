@@ -76,7 +76,7 @@ class HomeCoordinator: MainCoordinator {
         navigationController.delegate = self
         let mainViewController = FeedViewController.instantiate()
         mainViewController.coordinator = self
-        navigationController.tabBarItem = UITabBarItem(title: "Feed", image: nil, selectedImage: nil)
+        mainViewController.title = "Feed"
         navigationController.pushViewController(mainViewController, animated: true)
         return self
     }
@@ -85,11 +85,25 @@ class HomeCoordinator: MainCoordinator {
 class StatusCoordinator: MainCoordinator {
     override func start() -> Self {
         navigationController.delegate = self
-        let mainViewController = InterestsViewController.instantiate()
-        mainViewController.coordinator = self
-        navigationController.tabBarItem = UITabBarItem(title: "Status", image: nil, selectedImage: nil)
+        let mainViewController = createInterestViewController()
         navigationController.pushViewController(mainViewController, animated: true)
         return self
+    }
+    
+    func startInterestViewController(with presenter: InterestsPresenter) {
+        let mainViewController = createInterestViewController(presenter: presenter)
+        navigationController.pushViewController(mainViewController, animated: true)
+    }
+    
+    private func createInterestViewController(
+        presenter: InterestsPresenter = InterestsPresenterImplemantation()
+    ) -> InterestsViewController {
+        navigationController.delegate = self
+        let mainViewController = InterestsViewController.instantiate()
+        mainViewController.coordinator = self
+        mainViewController.presenter = presenter
+        mainViewController.title = "Status"
+        return mainViewController
     }
 }
 
@@ -98,7 +112,6 @@ class ProfileCoordinator: MainCoordinator {
         navigationController.delegate = self
         let mainViewController = ProfileViewController.instantiate()
         mainViewController.coordinator = self
-        navigationController.tabBarItem = UITabBarItem(title: "Profile", image: nil, selectedImage: nil)
         mainViewController.title = "Profile"
         navigationController.pushViewController(mainViewController, animated: true)
         return self

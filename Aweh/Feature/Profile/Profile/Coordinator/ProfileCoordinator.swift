@@ -9,12 +9,15 @@
 import Foundation
 
 protocol MainProfileCoordinator {
-    func startStatusViewController()
+    func startStatusViewController(userViewModel: UserViewModel)
 }
 
 extension ProfileCoordinator: MainProfileCoordinator {
-    func startStatusViewController() {
-        let statusCoordinator = StatusCoordinator(navigationController: self.navigationController)
-        _ = statusCoordinator.start()
+    func startStatusViewController(userViewModel: UserViewModel) {
+        let statusCoordinator = StatusCoordinator(navigationController: navigationController)
+        let interestPresenter = InterestsPresenterImplemantation(
+            user: userViewModel
+        )
+        statusCoordinator.startInterestViewController(with: interestPresenter)
     }
 }

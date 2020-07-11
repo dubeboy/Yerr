@@ -29,7 +29,9 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func interestsButton(_ sender: Any) {
-        coordinator.startStatusViewController()
+        coordinator.startStatusViewController(
+            userViewModel: presenter.viewModel
+        )
     }
     
     private func stylePointDescriptionView() {

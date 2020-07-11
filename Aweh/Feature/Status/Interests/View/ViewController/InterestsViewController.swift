@@ -11,12 +11,11 @@ import UIKit
 class InterestsViewController: UICollectionViewController {
     
     var numberOfCollumns: CGFloat = 2
-    var presenter: IntrestsPresenter = IntrestsPresenterImplemantation()
-    weak var coordinator: StatusPageCoordinator!
+    var presenter: InterestsPresenter!
+    weak var coordinator: StatusPageCoordinator! // TODO: Ref is lost when manually instatoated
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Status" // TODO: - move to coordinator
         configureCollectionViewCell()
         presenter.fetchInterests { [weak self] in
             self?.collectionView.reloadData()
@@ -52,13 +51,8 @@ class InterestsViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter.didSelect(at: indexPath) { [weak self] item in
+            // boolean that say if I shoud navigate of select
             self?.coordinator.startStatusPageViewController(viewModel: item)
         }
     }
 }
-
-//extension InterestsViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//          CGSize(width: 50, height: 50)
-//    }
-//}

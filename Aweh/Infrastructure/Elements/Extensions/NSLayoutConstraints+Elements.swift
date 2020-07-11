@@ -58,7 +58,7 @@ func -->(lhs: NSLayoutDimension, rhs: NSLayoutDimension) {
 }
 
 func +(lhs: NSLayoutConstraint, rhs: CGFloat) {
-    lhs.constant += rhs
+    lhs.constant = rhs
 }
 
 // Use currying to make this better

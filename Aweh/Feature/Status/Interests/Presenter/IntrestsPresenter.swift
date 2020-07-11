@@ -8,17 +8,23 @@
 
 import Foundation
 
-protocol IntrestsPresenter {
+protocol InterestsPresenter {
     var numberOfItems: Int { get }
     func fetchInterests(completion: @escaping () -> Void)
     func configure(cell: InterestsCollectionViewCell, at indexPath: IndexPath)
     func didSelect(at item: IndexPath, completion: (InterestViewModel) -> Void)
 }
 
-class IntrestsPresenterImplemantation: IntrestsPresenter {
+class InterestsPresenterImplemantation: InterestsPresenter {
     
+    // inject user defaults here
     private var viewModel: [InterestViewModel]?
     private let interestCellPresenter = InterestsCellPresenter()
+    private let user: UserViewModel?
+    
+    init(user: UserViewModel? = nil) {
+        self.user = user
+    }
     
     var numberOfItems: Int {
         viewModel?.count ?? 0
@@ -44,7 +50,7 @@ class IntrestsPresenterImplemantation: IntrestsPresenter {
     }
 }
 
-extension IntrestsPresenterImplemantation {
+extension InterestsPresenterImplemantation {
     static func stub() -> [InterestViewModel] {
         dummy().map(InterestViewModel.transform(from:))
     }
