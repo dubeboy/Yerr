@@ -36,7 +36,7 @@ class ProfileViewController: UIViewController {
     
     private func stylePointDescriptionView() {
         containerStackView.arrangedSubviews.forEach { view in
-            view.layer.cornerRadius = Const.view.radius
+            view.layer.cornerRadius = Const.View.radius
             view.backgroundColor = UIColor.systemGray6.withAlphaComponent(0.5)
         }
     }

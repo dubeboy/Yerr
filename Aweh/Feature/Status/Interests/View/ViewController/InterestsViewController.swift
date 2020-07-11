@@ -17,6 +17,7 @@ class InterestsViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionViewCell()
+        collectionView.allowsMultipleSelection = presenter.isMultiSelectEnabled
         presenter.fetchInterests { [weak self] in
             self?.collectionView.reloadData()
         }
@@ -50,9 +51,14 @@ class InterestsViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presenter.didSelect(at: indexPath) { [weak self] item in
+        presenter.didSelect(at: indexPath) { [weak self] selectAction in
             // boolean that say if I shoud navigate of select
-            self?.coordinator.startStatusPageViewController(viewModel: item)
+            switch selectAction {
+                case .multiSelect:
+                    return
+                case .select(let interestViewModel):
+                    self?.coordinator.startStatusPageViewController(viewModel: interestViewModel)
+            }
         }
     }
 }

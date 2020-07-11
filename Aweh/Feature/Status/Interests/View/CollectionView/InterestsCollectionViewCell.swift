@@ -9,6 +9,17 @@
 import UIKit
 
 class InterestsCollectionViewCell: UICollectionViewCell {
+    
+    @IBOutlet weak var imageBottomContraint: NSLayoutConstraint!
+    @IBOutlet weak var imageLeadingContraint: NSLayoutConstraint!
+    @IBOutlet weak var imageTopContraint: NSLayoutConstraint!
+    @IBOutlet weak var imageTrailingContraint: NSLayoutConstraint!
+    @IBOutlet weak var imageCheck: UIImageView! {
+        didSet {
+            imageCheck.tintColor = .systemBlue
+        }
+    }
+
     @IBOutlet weak var interestImage: UIImageView! {
         didSet {
             interestImage.clipsToBounds = true
@@ -17,12 +28,40 @@ class InterestsCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    
+    override var isSelected: Bool {
+        didSet {
+            changeViewAppearence(on: isSelected)
+        }
+    }
+    
+    private func changeViewAppearence(on isSelected: Bool) {
+        if isSelected {
+            UIView.animate(withDuration: 0.5) { [self] in
+                imageCheck.image = Const.Assets.Interests.iconCheckmark
+                modify(constaint: Const.View.m16)
+            }
+        } else {
+            UIView.animate(withDuration: 0.5) { [self] in
+                imageCheck.image = nil
+                modify(constaint: Const.View.m8)
+            }
+        }
+    }
+    
+    private func modify(constaint constant: CGFloat) {
+        imageTopContraint.constant = constant
+        imageBottomContraint.constant = constant
+        imageTrailingContraint.constant = constant
+        imageLeadingContraint.constant = constant
+    }
+    
     @IBOutlet weak var imageView: UIView! {
         didSet {
             let visualEffectView = addBlurVisualEffect(for: imageView)
             visualEffectView.layer.cornerRadius = 10
             visualEffectView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-//            visualEffectView.alpha = 0.7
+            visualEffectView.alpha = 0.7
         }
     }
     

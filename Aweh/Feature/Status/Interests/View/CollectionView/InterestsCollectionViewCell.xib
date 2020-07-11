@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17132" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -37,20 +38,34 @@
                             <constraint firstAttribute="bottom" secondItem="MoU-up-pFe" secondAttribute="bottom" constant="8" id="wgf-8p-cVP"/>
                         </constraints>
                     </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yPx-1v-93x">
+                        <rect key="frame" x="279" y="0.0" width="32" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="hb1-j5-iUZ"/>
+                            <constraint firstAttribute="width" constant="32" id="mCp-2Z-YaN"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="yPx-1v-93x" secondAttribute="trailing" id="9vr-mb-xC7"/>
                 <constraint firstAttribute="trailing" secondItem="X5Q-X2-h1a" secondAttribute="trailing" constant="8" id="MiF-sD-dfe"/>
                 <constraint firstItem="hhP-te-NU2" firstAttribute="leading" secondItem="X5Q-X2-h1a" secondAttribute="leading" id="XQd-iX-aCd"/>
                 <constraint firstItem="hhP-te-NU2" firstAttribute="trailing" secondItem="X5Q-X2-h1a" secondAttribute="trailing" id="bPd-ZM-5iF"/>
                 <constraint firstItem="X5Q-X2-h1a" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="dD4-5E-Om2"/>
                 <constraint firstAttribute="bottom" secondItem="X5Q-X2-h1a" secondAttribute="bottom" constant="8" id="dYf-Wz-EYV"/>
+                <constraint firstItem="yPx-1v-93x" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="jlT-zU-Gvn"/>
                 <constraint firstItem="hhP-te-NU2" firstAttribute="bottom" secondItem="X5Q-X2-h1a" secondAttribute="bottom" id="qMX-jT-OeP"/>
                 <constraint firstItem="X5Q-X2-h1a" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="rR8-3h-a7O"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="311" height="357"/>
             <connections>
+                <outlet property="imageBottomContraint" destination="dYf-Wz-EYV" id="fug-a4-0Rk"/>
+                <outlet property="imageCheck" destination="yPx-1v-93x" id="PMn-5X-nAE"/>
+                <outlet property="imageLeadingContraint" destination="dD4-5E-Om2" id="SaG-kl-DWK"/>
+                <outlet property="imageTopContraint" destination="rR8-3h-a7O" id="dr7-je-hDK"/>
+                <outlet property="imageTrailingContraint" destination="MiF-sD-dfe" id="tIi-j2-2dA"/>
                 <outlet property="imageView" destination="hhP-te-NU2" id="Lsy-XO-aul"/>
                 <outlet property="interestImage" destination="X5Q-X2-h1a" id="3ox-mM-422"/>
                 <outlet property="interestLabel" destination="MoU-up-pFe" id="L0y-PF-IXz"/>

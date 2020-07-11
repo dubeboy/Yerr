@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct InterestViewModel {
+struct InterestViewModel: Hashable {
     let interestName: String
     let hasNewStatus: Bool
     private(set) var interestImage: UIImage? = nil

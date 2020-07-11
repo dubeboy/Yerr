@@ -6,18 +6,33 @@
 //  Copyright © 2020 com.github.aweh. All rights reserved.
 //
 
-import Foundation
-import CoreGraphics
+import UIKit
 
 // color + sizes + fonts etc all in here
 
 // MARK: - App Constants
+
+//extension CGFloat {
+//    static let const = Const()
+//}
 struct Const {
-    struct view {
+    // MARK: View Constants
+    struct View {
         static let m24: CGFloat = 24
         static let m16: CGFloat = 16
         static let m8: CGFloat = 8
         static let radius: CGFloat = 10
         static let borderWidth: CGFloat = 2
     }
+    
+    // MARK: App assets
+    struct Assets {
+        struct Interests {
+            static let iconCheckmark: UIImage? = UIImage(systemName: "checkmark.circle")
+        }
+        
+        
+    }
+    
+    // MARK: Colors
 }

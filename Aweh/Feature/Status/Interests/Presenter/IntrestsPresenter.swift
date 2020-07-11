@@ -10,17 +10,27 @@ import Foundation
 
 protocol InterestsPresenter {
     var numberOfItems: Int { get }
+    var isMultiSelectEnabled: Bool { get }
     func fetchInterests(completion: @escaping () -> Void)
     func configure(cell: InterestsCollectionViewCell, at indexPath: IndexPath)
-    func didSelect(at item: IndexPath, completion: (InterestViewModel) -> Void)
+    func didSelect(at item: IndexPath, completion: (SelectAction) -> Void)
+}
+
+enum SelectAction {
+    case multiSelect(selected: Bool)
+    case select(InterestViewModel)
 }
 
 class InterestsPresenterImplemantation: InterestsPresenter {
-    
     // inject user defaults here
     private var viewModel: [InterestViewModel]?
     private let interestCellPresenter = InterestsCellPresenter()
     private let user: UserViewModel?
+    private var selectedInterests: Set<InterestViewModel> = Set()
+    
+    var isMultiSelectEnabled: Bool {
+        user != nil
+    }
     
     init(user: UserViewModel? = nil) {
         self.user = user
@@ -34,9 +44,19 @@ class InterestsPresenterImplemantation: InterestsPresenter {
         
     }
     
-    func didSelect(at item: IndexPath, completion: (InterestViewModel) -> Void) {
+    func didSelect(at item: IndexPath, completion: (SelectAction) -> Void) {
         guard let viewModel = viewModel else { return }
-        completion(viewModel[item.item])
+        switch isMultiSelectEnabled {
+            case true:
+                let interestItem = viewModel[item.item]
+                let inserted = selectedInterests.insert(interestItem).inserted
+                if !inserted { //
+                    selectedInterests.remove(interestItem)
+                }
+                completion(.multiSelect(selected: inserted))
+            default:
+                completion(.select(viewModel[item.item]))
+        }
     }
     
     func configure(cell: InterestsCollectionViewCell, at indexPath: IndexPath) {

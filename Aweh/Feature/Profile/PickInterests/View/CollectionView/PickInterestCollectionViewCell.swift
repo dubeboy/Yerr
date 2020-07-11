@@ -22,7 +22,7 @@ class PickInterestCollectionViewCell: UICollectionViewCell {
     
     func roundCorner() {
         containerView.clipsToBounds = true
-        containerView.layer.cornerRadius = Const.view.radius
+        containerView.layer.cornerRadius = Const.View.radius
         containerView.backgroundColor = .systemGray5
     }
     @IBAction func didTapInterest(_ sender: Any) {
