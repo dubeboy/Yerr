@@ -117,20 +117,17 @@
                                 <rect key="frame" x="0.0" y="287" width="375" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Recent Posts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0N-kg-cG7">
-                                        <rect key="frame" x="16" y="9.9999999999999982" width="275" height="20.333333333333329"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="16" y="9.9999999999999982" width="282" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LSR-YD-xi5">
-                                        <rect key="frame" x="299" y="5" width="60" height="30"/>
-                                        <state key="normal" title="Interests"/>
-                                        <connections>
-                                            <action selector="interestsButton:" destination="xTe-yE-D2t" eventType="touchUpInside" id="qMo-Zx-4DE"/>
-                                        </connections>
+                                        <rect key="frame" x="306" y="5" width="53" height="30"/>
+                                        <state key="normal" title="View all"/>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="LSR-YD-xi5" secondAttribute="trailing" constant="16" id="11x-5y-l4q"/>
                                     <constraint firstAttribute="height" constant="40" id="CXJ-Xz-cNM"/>
@@ -169,21 +166,19 @@
                     </view>
                     <connections>
                         <outlet property="containerStackView" destination="Ana-qI-nyx" id="Mjf-gw-dXs"/>
+                        <outlet property="halfSectionView" destination="hqL-qY-z9m" id="eXB-sO-bZ4"/>
                         <outlet property="pointsView" destination="UWh-5e-ctp" id="woa-F6-KKK"/>
                         <outlet property="stausesCollectionView" destination="ej0-C4-xon" id="acM-yI-6hi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O9c-Zo-hEm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="44" y="48.768472906403943"/>
+            <point key="canvasLocation" x="-257" y="-5"/>
         </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

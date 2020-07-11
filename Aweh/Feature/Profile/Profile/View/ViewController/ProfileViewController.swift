@@ -9,6 +9,7 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+    @IBOutlet weak var halfSectionView: UIView!
     @IBOutlet weak var stausesCollectionView: UICollectionView!
     @IBOutlet weak var pointsView: GaugeView!
     
@@ -26,9 +27,27 @@ class ProfileViewController: UIViewController {
         guard let points = presenter.points else { return }
         pointsView.set(values: points)
         stylePointDescriptionView()
+        navigationController?.view.backgroundColor = .red
+        navigationItem.rightBarButtonItems = [
+            .init(
+                title: "Interests",
+                style: .plain,
+                target: self,
+                action: #selector(interestsButton)
+            ),
+            .init(title: "Settings",
+                  style: .plain,
+                  target: self,
+                  action: #selector(settings)
+            )
+        ]
     }
     
-    @IBAction func interestsButton(_ sender: Any) {
+    @objc func settings(_ sender: Any) {
+        
+    }
+    
+    @objc func interestsButton(_ sender: Any) {
         coordinator.startStatusViewController(
             userViewModel: presenter.viewModel
         )

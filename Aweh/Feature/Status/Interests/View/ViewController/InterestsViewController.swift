@@ -52,10 +52,10 @@ class InterestsViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter.didSelect(at: indexPath) { [weak self] selectAction in
-            // boolean that say if I shoud navigate of select
+            let selectedCell = collectionView.cellForItem(at: indexPath)
             switch selectAction {
-                case .multiSelect:
-                    return
+                case .multiSelect(let isSelected):
+                    selectedCell?.isSelected = isSelected
                 case .select(let interestViewModel):
                     self?.coordinator.startStatusPageViewController(viewModel: interestViewModel)
             }
