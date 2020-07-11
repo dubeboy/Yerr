@@ -24,10 +24,11 @@ open class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegat
   
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
-    let tabBarController: UITabBarController
-    
-    init(_ tabBarController: UITabBarController) {
-        navigationController = UINavigationController()
+    var tabBarController: UITabBarController? // TODO:  Not sure if I need to pass this one
+    // maybe be able to pass in a corrdinator
+    init(_ tabBarController: UITabBarController? = nil,
+         navigationController: UINavigationController = UINavigationController()) {
+        self.navigationController = navigationController
         self.tabBarController = tabBarController
     }
     

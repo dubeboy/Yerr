@@ -80,6 +80,7 @@
 		71A77FD1249C345E00F8D442 /* FeedDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A77FD0249C345E00F8D442 /* FeedDetailViewModel.swift */; };
 		71A77FD3249C373D00F8D442 /* CommentCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A77FD2249C373D00F8D442 /* CommentCellPresenter.swift */; };
 		71A77FD5249C378100F8D442 /* FeedDetailCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A77FD4249C378100F8D442 /* FeedDetailCellPresenter.swift */; };
+		71A8325124B91CEB009F2D5C /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A8325024B91CEB009F2D5C /* ProfileCoordinator.swift */; };
 		71BBCA7324B8C5DC00044629 /* GuageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BBCA7224B8C5DC00044629 /* GuageViewModel.swift */; };
 		71BBCA7524B8EAAA00044629 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BBCA7424B8EAAA00044629 /* Point.swift */; };
 		71C46D9724B26A3A00A9DB14 /* PickInterestCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C46D9624B26A3A00A9DB14 /* PickInterestCollectionViewController.swift */; };
@@ -182,6 +183,7 @@
 		71A77FD0249C345E00F8D442 /* FeedDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewModel.swift; sourceTree = "<group>"; };
 		71A77FD2249C373D00F8D442 /* CommentCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellPresenter.swift; sourceTree = "<group>"; };
 		71A77FD4249C378100F8D442 /* FeedDetailCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailCellPresenter.swift; sourceTree = "<group>"; };
+		71A8325024B91CEB009F2D5C /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		71BBCA7224B8C5DC00044629 /* GuageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuageViewModel.swift; sourceTree = "<group>"; };
 		71BBCA7424B8EAAA00044629 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		71C46D9624B26A3A00A9DB14 /* PickInterestCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickInterestCollectionViewController.swift; sourceTree = "<group>"; };
@@ -693,6 +695,7 @@
 		7196DD1724B0DF4500384B84 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				71A8325024B91CEB009F2D5C /* ProfileCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -1185,6 +1188,7 @@
 				71C46DA824B2705F00A9DB14 /* PickInterestCellPresenter.swift in Sources */,
 				716A0C9224A2E01A00F18ED6 /* UICollectionFlowLayout+Elements.swift in Sources */,
 				71CCF0CE249AB1590054C210 /* FeedDetailPresenter.swift in Sources */,
+				71A8325124B91CEB009F2D5C /* ProfileCoordinator.swift in Sources */,
 				71C46D9724B26A3A00A9DB14 /* PickInterestCollectionViewController.swift in Sources */,
 				7162C6132488637F002D8ED4 /* Status.swift in Sources */,
 				71EECE8F249324A900902181 /* PhotosGalleryCoordinator.swift in Sources */,

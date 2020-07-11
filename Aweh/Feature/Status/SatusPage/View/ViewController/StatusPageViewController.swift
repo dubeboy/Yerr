@@ -45,9 +45,10 @@ class StatusPageViewController: UIPageViewController {
         bar.addSubview(statusView)
         statusView.translatesAutoresizingMaskIntoConstraints = false
         statusView.bottomAnchor.constraint(equalTo: bar.topAnchor, constant: 0).isActive = true
-        statusView.leadingAnchor --> bar.leadingAnchor
-        statusView.trailingAnchor --> bar.trailingAnchor
-        statusView.widthAnchor --> bar.widthAnchor
+        statusView.leadingAnchor --> bar.leadingAnchor + 8
+        statusView.trailingAnchor --> bar.trailingAnchor + -8
+        statusView.centerYAnchor --> bar.centerYAnchor
+        statusView.centerXAnchor --> bar.centerXAnchor
         statusView.heightAnchor --> 16
     }
     

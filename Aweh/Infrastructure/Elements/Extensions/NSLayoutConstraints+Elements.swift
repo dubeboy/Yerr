@@ -10,7 +10,13 @@ import UIKit
 // you can use somthig like apply here
 // contraints --> 7
 // leading adges -| view or |-
-infix operator -->
+precedencegroup NSLayoutPrecedence {
+    higherThan: AdditionPrecedence
+    associativity: left
+}
+
+infix operator -->: NSLayoutPrecedence
+infix operator +: AdditionPrecedence
 //infix operator +
 //infix operator <-- --<= -->=
 
@@ -18,6 +24,8 @@ infix operator -->
 //bar --> statusIndicatorView { statusView, bar in
 //
 //}
+
+
 
 func -->(lhs: UIView, rhs: UIView) {
     lhs.translatesAutoresizingMaskIntoConstraints = false
@@ -27,20 +35,30 @@ func -->(lhs: UIView, rhs: UIView) {
     lhs.bottomAnchor --> rhs.bottomAnchor
 }
 
-func -->(lhs: NSLayoutXAxisAnchor, rhs: NSLayoutXAxisAnchor) {
-    lhs.constraint(equalTo: rhs).isActive = true
+@discardableResult
+func -->(lhs: NSLayoutXAxisAnchor, rhs: NSLayoutXAxisAnchor) -> NSLayoutConstraint {
+    let contraint = lhs.constraint(equalTo: rhs)
+    contraint.isActive = true
+    return contraint
 }
 
-func -->(lhs: NSLayoutYAxisAnchor, rhs: NSLayoutYAxisAnchor) {
-    lhs.constraint(equalTo: rhs).isActive = true
+@discardableResult
+func -->(lhs: NSLayoutYAxisAnchor, rhs: NSLayoutYAxisAnchor) -> NSLayoutConstraint {
+    let contraint = lhs.constraint(equalTo: rhs)
+    contraint.isActive = true
+    return contraint
 }
 
 func -->(lhs: NSLayoutDimension, rhs: CGFloat) {
     lhs.constraint(equalToConstant: rhs).isActive = true
 }
 
-func -->(lhs: NSLayoutDimension, rhs: NSLayoutDimension)  {
+func -->(lhs: NSLayoutDimension, rhs: NSLayoutDimension) {
     lhs.constraint(equalTo: rhs).isActive = true
+}
+
+func +(lhs: NSLayoutConstraint, rhs: CGFloat) {
+    lhs.constant += rhs
 }
 
 // Use currying to make this better

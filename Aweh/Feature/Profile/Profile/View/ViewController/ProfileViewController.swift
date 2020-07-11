@@ -14,7 +14,7 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var containerStackView: UIStackView!
     var presenter: ProfilePresenter = ProfilePresenterImplementation()
-    var coordinator: PickInterestCoordinator!
+    var coordinator: MainProfileCoordinator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +29,7 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func interestsButton(_ sender: Any) {
-        coordinator.startPickInterestViewController(
-            viewModel: presenter.viewModel
-        )
+        coordinator.startStatusViewController()
     }
     
     private func stylePointDescriptionView() {

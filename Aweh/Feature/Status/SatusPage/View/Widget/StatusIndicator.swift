@@ -17,9 +17,8 @@ protocol StatusTimoutDelegate: AnyObject {
 
 // status lasts 30 secs video
 // images 5 secs
-class StatusIndicator: UIView { // TODO: shits should not be a UIView
+class StatusIndicator: UIStackView { // TODO: shits should not be a UIView
     //    https://useyourloaf.com/blog/adding-padding-to-a-stack-view/
-    let stackView = UIStackView()
     weak var delegate: StatusTimoutDelegate?
     private var runCount: Float = 0.0
     private var timer: Timer?
@@ -38,16 +37,11 @@ class StatusIndicator: UIView { // TODO: shits should not be a UIView
     }
     
     private func setupStackView() {
-        addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.distribution = .fillEqually
-        stackView.spacing = 4
-        stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true // TODO: - fix at some point in the future
-        stackView.topAnchor --> topAnchor
-        stackView.bottomAnchor --> bottomAnchor
+        translatesAutoresizingMaskIntoConstraints = false
+        axis = .horizontal
+        alignment = .center
+        distribution = .fillEqually
+        spacing = 4
     }
     
     private func createProgressView() -> UIProgressView {
@@ -72,7 +66,7 @@ class StatusIndicator: UIView { // TODO: shits should not be a UIView
     private func initialiseProgressView(itemCount: Int) {
         for _ in 0..<itemCount {
             let progressView = createProgressView()
-            stackView.addArrangedSubview(progressView)
+            addArrangedSubview(progressView)
         }
     }
     
@@ -93,7 +87,7 @@ class StatusIndicator: UIView { // TODO: shits should not be a UIView
         }
         runCount += 9
         let progress: Float = runCount / maxTime
-        let progressView = stackView.arrangedSubviews[statusIndicatorIndex] as? UIProgressView
+        let progressView = arrangedSubviews[statusIndicatorIndex] as? UIProgressView
         progressView!.setProgress(progress, animated: true) //NB: Force unwrap
         print("\(runCount)")
         print("run percent: \(progress)")
