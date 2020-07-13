@@ -24,7 +24,7 @@
 		713549B1248BE45A0009EE6A /* UICollectionView+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */; };
 		713549B3248BE8F10009EE6A /* FeedCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713549B2248BE8F10009EE6A /* FeedCellPresenter.swift */; };
 		713D265224BA090400E2CFC5 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713D265124BA090400E2CFC5 /* Logger.swift */; };
-		7155E30624BCDFA7006EBED8 /* MainStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7155E30524BCDFA7006EBED8 /* MainStatus.swift */; };
+		7155E30624BCDFA7006EBED8 /* MainStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7155E30524BCDFA7006EBED8 /* MainStatusViewController.swift */; };
 		7155E30924BCE080006EBED8 /* MainStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7155E30824BCE080006EBED8 /* MainStatusPresenter.swift */; };
 		7155E30B24BCE126006EBED8 /* MainStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7155E30A24BCE126006EBED8 /* MainStatusViewModel.swift */; };
 		7155E30E24BCE485006EBED8 /* BasePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7155E30D24BCE485006EBED8 /* BasePageViewController.swift */; };
@@ -130,7 +130,7 @@
 		713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Elements.swift"; sourceTree = "<group>"; };
 		713549B2248BE8F10009EE6A /* FeedCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCellPresenter.swift; sourceTree = "<group>"; };
 		713D265124BA090400E2CFC5 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		7155E30524BCDFA7006EBED8 /* MainStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStatus.swift; sourceTree = "<group>"; };
+		7155E30524BCDFA7006EBED8 /* MainStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStatusViewController.swift; sourceTree = "<group>"; };
 		7155E30824BCE080006EBED8 /* MainStatusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStatusPresenter.swift; sourceTree = "<group>"; };
 		7155E30A24BCE126006EBED8 /* MainStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStatusViewModel.swift; sourceTree = "<group>"; };
 		7155E30D24BCE485006EBED8 /* BasePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePageViewController.swift; sourceTree = "<group>"; };
@@ -360,7 +360,7 @@
 		7155E30324BCDF85006EBED8 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				7155E30524BCDFA7006EBED8 /* MainStatus.swift */,
+				7155E30524BCDFA7006EBED8 /* MainStatusViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1287,7 +1287,7 @@
 				716A0C8924A2D66700F18ED6 /* InterestsCollectionViewCell.swift in Sources */,
 				716A0C9624A2E9C800F18ED6 /* StatusPageCoordinator.swift in Sources */,
 				7157C2322488761900F0A7F0 /* SimpleDependencyInjector.swift in Sources */,
-				7155E30624BCDFA7006EBED8 /* MainStatus.swift in Sources */,
+				7155E30624BCDFA7006EBED8 /* MainStatusViewController.swift in Sources */,
 				71138AA424B4F64600AC7D1C /* NSObject+Elements.swift in Sources */,
 				716A0C8F24A2DC9700F18ED6 /* Interest.swift in Sources */,
 				7172D613248F0CC90083B7F6 /* PostStatusCoordinator.swift in Sources */,

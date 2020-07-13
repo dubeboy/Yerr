@@ -8,7 +8,12 @@
 
 import UIKit
 
-class MainStatusViewController: UIPageViewController {
+// this could easily be be a page viewcontroller!
+class MainStatusViewController: UIViewController {
+    
+    var presenter: MainStatusPresenter!
+    var coordinator: StatusCoordinator!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.titleView = createUISegmentView()
@@ -24,7 +29,22 @@ class MainStatusViewController: UIPageViewController {
         return segmentedControl
     }
     
-    @objc private func valueChanged(sender: UISegmentedControl) {
+    @objc private func valueChanged(_ sender: UISegmentedControl) {
+        let selectedIndex = sender.selectedSegmentIndex
+        let viewControllers = presenter.viewControllersPresenters()
         
+        switch viewControllers {
+            case .status(let status):
+                if presenter.isViewInMemory(at: selectedIndex) != true {
+                    let viewController = coordinator.createSingleStatusViewController(status)
+                    
+                    add(viewController)
+                    presenter.setIsInMemory(at: selectedIndex)
+                    
+                }
+            case .replies(_):
+                break
+                
+        }
     }
 }
