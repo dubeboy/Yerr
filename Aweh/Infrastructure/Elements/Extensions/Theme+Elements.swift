@@ -36,4 +36,8 @@ struct Const {
     }
     
     // MARK: Colors
+    
+    struct Color {
+        static let lightGray = UIColor.systemGray6
+    }
 }

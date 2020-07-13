@@ -35,12 +35,15 @@ class ProfileViewController: UIViewController {
                 target: self,
                 action: #selector(interestsButton)
             ),
-            .init(title: "Settings",
-                  style: .plain,
-                  target: self,
-                  action: #selector(settings)
-            )
+//            .init(title: "Settings",
+//                  style: .plain,
+//                  target: self,
+//                  action: #selector(settings)
+//            )
         ]
+        
+        halfSectionView.addDividerLine(to: [.top, .bottom])
+        
     }
     
     @objc func settings(_ sender: Any) {

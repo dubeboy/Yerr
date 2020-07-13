@@ -138,7 +138,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ej0-C4-xon">
-                                <rect key="frame" x="0.0" y="326" width="375" height="452"/>
+                                <rect key="frame" x="0.0" y="328" width="375" height="450"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wEF-XD-dFH">
                                     <size key="itemSize" width="128" height="128"/>
@@ -154,7 +154,7 @@
                         <constraints>
                             <constraint firstItem="ej0-C4-xon" firstAttribute="trailing" secondItem="KUB-ne-VYk" secondAttribute="trailing" id="3bw-6k-tPu"/>
                             <constraint firstItem="hqL-qY-z9m" firstAttribute="top" secondItem="0Hx-L8-wzE" secondAttribute="bottom" constant="-0.5" id="I5v-EX-kdS"/>
-                            <constraint firstItem="ej0-C4-xon" firstAttribute="top" secondItem="hqL-qY-z9m" secondAttribute="bottom" constant="-1" id="K7b-QU-st7"/>
+                            <constraint firstItem="ej0-C4-xon" firstAttribute="top" secondItem="hqL-qY-z9m" secondAttribute="bottom" constant="1" id="K7b-QU-st7"/>
                             <constraint firstItem="hqL-qY-z9m" firstAttribute="trailing" secondItem="KUB-ne-VYk" secondAttribute="trailing" id="Zwi-VS-OIP"/>
                             <constraint firstItem="ej0-C4-xon" firstAttribute="leading" secondItem="KUB-ne-VYk" secondAttribute="leading" id="aHf-EQ-yp3"/>
                             <constraint firstItem="0Hx-L8-wzE" firstAttribute="top" secondItem="KUB-ne-VYk" secondAttribute="top" id="cMl-Cq-8Gz"/>

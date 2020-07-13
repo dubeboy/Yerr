@@ -24,6 +24,11 @@
 		713549B1248BE45A0009EE6A /* UICollectionView+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */; };
 		713549B3248BE8F10009EE6A /* FeedCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713549B2248BE8F10009EE6A /* FeedCellPresenter.swift */; };
 		713D265224BA090400E2CFC5 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713D265124BA090400E2CFC5 /* Logger.swift */; };
+		7155E30624BCDFA7006EBED8 /* MainStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7155E30524BCDFA7006EBED8 /* MainStatus.swift */; };
+		7155E30924BCE080006EBED8 /* MainStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7155E30824BCE080006EBED8 /* MainStatusPresenter.swift */; };
+		7155E30B24BCE126006EBED8 /* MainStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7155E30A24BCE126006EBED8 /* MainStatusViewModel.swift */; };
+		7155E30E24BCE485006EBED8 /* BasePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7155E30D24BCE485006EBED8 /* BasePageViewController.swift */; };
+		7155E31324BCE726006EBED8 /* BasePagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7155E31224BCE726006EBED8 /* BasePagePresenter.swift */; };
 		7157C21D24886DB400F0A7F0 /* HomeScreenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7157C21C24886DB400F0A7F0 /* HomeScreenRepository.swift */; };
 		7157C22024886E2100F0A7F0 /* BaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7157C21F24886E2100F0A7F0 /* BaseRepository.swift */; };
 		7157C22524886EB300F0A7F0 /* AwehService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7157C22424886EB300F0A7F0 /* AwehService.swift */; };
@@ -125,6 +130,11 @@
 		713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Elements.swift"; sourceTree = "<group>"; };
 		713549B2248BE8F10009EE6A /* FeedCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCellPresenter.swift; sourceTree = "<group>"; };
 		713D265124BA090400E2CFC5 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		7155E30524BCDFA7006EBED8 /* MainStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStatus.swift; sourceTree = "<group>"; };
+		7155E30824BCE080006EBED8 /* MainStatusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStatusPresenter.swift; sourceTree = "<group>"; };
+		7155E30A24BCE126006EBED8 /* MainStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStatusViewModel.swift; sourceTree = "<group>"; };
+		7155E30D24BCE485006EBED8 /* BasePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePageViewController.swift; sourceTree = "<group>"; };
+		7155E31224BCE726006EBED8 /* BasePagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePagePresenter.swift; sourceTree = "<group>"; };
 		7157C21C24886DB400F0A7F0 /* HomeScreenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenRepository.swift; sourceTree = "<group>"; };
 		7157C21F24886E2100F0A7F0 /* BaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRepository.swift; sourceTree = "<group>"; };
 		7157C22424886EB300F0A7F0 /* AwehService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwehService.swift; sourceTree = "<group>"; };
@@ -330,6 +340,65 @@
 			path = Logger;
 			sourceTree = "<group>";
 		};
+		7155E30124BCDF73006EBED8 /* MainStatus */ = {
+			isa = PBXGroup;
+			children = (
+				7155E30724BCE061006EBED8 /* Presenter */,
+				7155E30224BCDF7F006EBED8 /* View */,
+			);
+			path = MainStatus;
+			sourceTree = "<group>";
+		};
+		7155E30224BCDF7F006EBED8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7155E30324BCDF85006EBED8 /* ViewController */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7155E30324BCDF85006EBED8 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7155E30524BCDFA7006EBED8 /* MainStatus.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		7155E30724BCE061006EBED8 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				7155E30824BCE080006EBED8 /* MainStatusPresenter.swift */,
+				7155E30A24BCE126006EBED8 /* MainStatusViewModel.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		7155E30C24BCE464006EBED8 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7155E30D24BCE485006EBED8 /* BasePageViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		7155E30F24BCE6D8006EBED8 /* UIPageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7155E31124BCE700006EBED8 /* Presenter */,
+				7155E30C24BCE464006EBED8 /* ViewController */,
+			);
+			path = UIPageViewController;
+			sourceTree = "<group>";
+		};
+		7155E31124BCE700006EBED8 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				7155E31224BCE726006EBED8 /* BasePagePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		7157C21E24886E0700F0A7F0 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,6 +475,7 @@
 		71585EDC24A292BD00092D6E /* Status */ = {
 			isa = PBXGroup;
 			children = (
+				7155E30124BCDF73006EBED8 /* MainStatus */,
 				716A0C7924A2BDE100F18ED6 /* Interests */,
 				7116C11624A2AFDB00749620 /* SingleStatus */,
 				7116C11324A2AF3F00749620 /* SatusPage */,
@@ -590,6 +660,7 @@
 		716DA6C5248D7E91001B74E2 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				7155E30F24BCE6D8006EBED8 /* UIPageViewController */,
 				71E3C56C24A8A96F00ABC5B6 /* ViewModel */,
 				7167C5C124959A7B00B49096 /* Toast */,
 			);
@@ -1153,6 +1224,7 @@
 			files = (
 				711EADE8249DDCAD00D33072 /* Comment.swift in Sources */,
 				71585EE624A2936600092D6E /* StatusPageViewController.swift in Sources */,
+				7155E31324BCE726006EBED8 /* BasePagePresenter.swift in Sources */,
 				7157C21D24886DB400F0A7F0 /* HomeScreenRepository.swift in Sources */,
 				718BE80F2486BA8000CA328B /* FeedViewController.swift in Sources */,
 				71C46DA624B26CC300A9DB14 /* PickInterestCoordinator.swift in Sources */,
@@ -1166,6 +1238,7 @@
 				71CCF0DA249C23B30054C210 /* CommentCollectionViewCell.swift in Sources */,
 				7162C61024886320002D8ED4 /* HomeScreenInteractor.swift in Sources */,
 				71CCF0D5249AB2B30054C210 /* FeedDetailCollectionViewCell.swift in Sources */,
+				7155E30924BCE080006EBED8 /* MainStatusPresenter.swift in Sources */,
 				7198AC76249186BE002029CF /* PhotosCollectionViewCell.swift in Sources */,
 				716DA6CE248EE57D001B74E2 /* MainCoordinator.swift in Sources */,
 				7170E9FE2495EB7D00B1D15F /* AssetDetailCoordinator.swift in Sources */,
@@ -1185,6 +1258,7 @@
 				71A77FD3249C373D00F8D442 /* CommentCellPresenter.swift in Sources */,
 				71A77FCF249C33F800F8D442 /* FeedDetailCoordinator.swift in Sources */,
 				71C46DA324B26B2600A9DB14 /* PickInterestPresenter.swift in Sources */,
+				7155E30E24BCE485006EBED8 /* BasePageViewController.swift in Sources */,
 				7116C11C24A2B13400749620 /* StatusIndicator.swift in Sources */,
 				7198AC8124918BBD002029CF /* PhotosCollectionViewController.swift in Sources */,
 				71D6BAE12495737100F4B5D8 /* AssetsHorizontalListView.swift in Sources */,
@@ -1213,6 +1287,7 @@
 				716A0C8924A2D66700F18ED6 /* InterestsCollectionViewCell.swift in Sources */,
 				716A0C9624A2E9C800F18ED6 /* StatusPageCoordinator.swift in Sources */,
 				7157C2322488761900F0A7F0 /* SimpleDependencyInjector.swift in Sources */,
+				7155E30624BCDFA7006EBED8 /* MainStatus.swift in Sources */,
 				71138AA424B4F64600AC7D1C /* NSObject+Elements.swift in Sources */,
 				716A0C8F24A2DC9700F18ED6 /* Interest.swift in Sources */,
 				7172D613248F0CC90083B7F6 /* PostStatusCoordinator.swift in Sources */,
@@ -1222,6 +1297,7 @@
 				7196DD1024B083A600384B84 /* Notification+Elements.swift in Sources */,
 				713549B3248BE8F10009EE6A /* FeedCellPresenter.swift in Sources */,
 				715A0DFC24A88F6900030458 /* UserViewModel.swift in Sources */,
+				7155E30B24BCE126006EBED8 /* MainStatusViewModel.swift in Sources */,
 				7157C22524886EB300F0A7F0 /* AwehService.swift in Sources */,
 				7198AC8324918C1A002029CF /* PhotosCollectionViewModel.swift in Sources */,
 				71BBCA7524B8EAAA00044629 /* Point.swift in Sources */,

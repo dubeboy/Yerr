@@ -131,7 +131,6 @@ extension StatusPageViewController: UIPageViewControllerDelegate {
         if completed {
             currentIndex = pendingIndex
             if let index = currentIndex {
-                print("\(index)")
                 statusView.setCurrentStatusAt(statusIndex: index)
             }
         }
