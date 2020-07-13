@@ -11,8 +11,8 @@ import UIKit
 // this could easily be be a page viewcontroller!
 class MainStatusViewController: UIViewController {
     
-    var presenter: MainStatusPresenter!
-    var coordinator: StatusCoordinator!
+    var presenter: MainStatusPresenter = MainStatusPresenterImplementation()
+    var coordinator: InterestCoordinator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,20 +31,22 @@ class MainStatusViewController: UIViewController {
     
     @objc private func valueChanged(_ sender: UISegmentedControl) {
         let selectedIndex = sender.selectedSegmentIndex
-        let viewControllers = presenter.viewControllersPresenters()
+        let viewControllers = presenter.viewControllersPresenters(at: selectedIndex)
         
         switch viewControllers {
-            case .status(let status):
-                if presenter.isViewInMemory(at: selectedIndex) != true {
-                    let viewController = coordinator.createSingleStatusViewController(status)
-                    
-                    add(viewController)
-                    presenter.setIsInMemory(at: selectedIndex)
-                    
-                }
+            case .interests(_):
+                let viewController = coordinator.createInterestViewController(
+                    presenter: InterestsPresenterImplemantation()
+                )
+                viewController.remove()
+                add(viewController)
+                presenter.setIsInMemory(at: selectedIndex)
             case .replies(_):
-                break
-                
+                let viewController = UIViewController()
+                viewController.view.backgroundColor = UIColor.red
+                viewController.remove()
+                add(viewController)
+                presenter.setIsInMemory(at: selectedIndex)
         }
     }
 }

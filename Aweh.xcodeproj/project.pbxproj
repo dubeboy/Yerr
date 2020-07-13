@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0EBF8BA9F4CC0701B3038642 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC9189450DA44193028C9404 /* Localizable.strings */; };
 		5DF83BD5B5EA8261ECF1CF38 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA5487558A5C7D94A3E5D7FE /* InfoPlist.strings */; };
+		710578B824BD039B0056DBA8 /* InterestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710578B724BD039B0056DBA8 /* InterestCoordinator.swift */; };
 		71138AA224B4F4B400AC7D1C /* GaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71138AA124B4F4B400AC7D1C /* GaugeView.swift */; };
 		71138AA424B4F64600AC7D1C /* NSObject+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71138AA324B4F64600AC7D1C /* NSObject+Elements.swift */; };
 		71138AA624B4F9C700AC7D1C /* GaugeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71138AA524B4F9C700AC7D1C /* GaugeView.xib */; };
@@ -115,6 +116,7 @@
 /* Begin PBXFileReference section */
 		265F7EC230D448B878C43061 /* Pods-Aweh.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.debug.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.debug.xcconfig"; sourceTree = "<group>"; };
 		6CABDDE37419B79E3395D4FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		710578B724BD039B0056DBA8 /* InterestCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestCoordinator.swift; sourceTree = "<group>"; };
 		71138AA124B4F4B400AC7D1C /* GaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeView.swift; sourceTree = "<group>"; };
 		71138AA324B4F64600AC7D1C /* NSObject+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Elements.swift"; sourceTree = "<group>"; };
 		71138AA524B4F9C700AC7D1C /* GaugeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GaugeView.xib; sourceTree = "<group>"; };
@@ -241,6 +243,14 @@
 				CA5487558A5C7D94A3E5D7FE /* InfoPlist.strings */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		710578B624BD03810056DBA8 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				710578B724BD039B0056DBA8 /* InterestCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		71138AA024B4F3B400AC7D1C /* Widget */ = {
@@ -564,6 +574,7 @@
 		716A0C7924A2BDE100F18ED6 /* Interests */ = {
 			isa = PBXGroup;
 			children = (
+				710578B624BD03810056DBA8 /* Coordinator */,
 				716A0C7B24A2BE0600F18ED6 /* View */,
 				716A0C7A24A2BDFD00F18ED6 /* Presenter */,
 			);
@@ -1299,6 +1310,7 @@
 				715A0DFC24A88F6900030458 /* UserViewModel.swift in Sources */,
 				7155E30B24BCE126006EBED8 /* MainStatusViewModel.swift in Sources */,
 				7157C22524886EB300F0A7F0 /* AwehService.swift in Sources */,
+				710578B824BD039B0056DBA8 /* InterestCoordinator.swift in Sources */,
 				7198AC8324918C1A002029CF /* PhotosCollectionViewModel.swift in Sources */,
 				71BBCA7524B8EAAA00044629 /* Point.swift in Sources */,
 				718BE80D2486BA8000CA328B /* SceneDelegate.swift in Sources */,

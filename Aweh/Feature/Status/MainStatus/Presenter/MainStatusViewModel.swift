@@ -10,12 +10,12 @@ import Foundation
 
 struct RepliesViewModel {}
 
-enum MainStatusViewModel {
-    case status(StatusViewModel)
+enum MainStatusViewModelSelection {
+    case interests(InterestViewModel)
     case replies(RepliesViewModel)
 }
 
-//struct MainStatusViewModel {
-//    let status: StatusViewModel
-//    let replies: RepliesViewModel
-//}
+struct MainStatusViewModel {
+    let interests: InterestViewModel
+    let replies: RepliesViewModel
+}

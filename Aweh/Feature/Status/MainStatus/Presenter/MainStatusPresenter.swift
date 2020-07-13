@@ -9,7 +9,7 @@
 import Foundation
 
 protocol MainStatusPresenter {
-    func viewControllersPresenters() -> MainStatusViewModel
+    func viewControllersPresenters(at index: Int) -> MainStatusViewModelSelection
     func setIsInMemory(at index: Int)
     func isViewInMemory(at index: Int) -> Bool?
 }
@@ -19,12 +19,18 @@ class MainStatusPresenterImplementation: MainStatusPresenter {
     
     var viewsInMemory = [Int: Bool]()
     
-    init(_ viewModel: MainStatusViewModel) {
+    init(_ viewModel: MainStatusViewModel = MainStatusPresenterImplementation.mockData()) {
         self.viewModel = viewModel
     }
     
-    func viewControllersPresenters() -> MainStatusViewModel {
-        viewModel
+    func viewControllersPresenters(at index: Int) -> MainStatusViewModelSelection {
+        if index == 0 {
+            return .interests(viewModel.interests)
+        } else if index == 1 {
+            return .replies(viewModel.replies)
+        } else {
+            preconditionFailure("There should only be two indices")
+        }
     }
     
     func setIsInMemory(at index: Int){
@@ -33,5 +39,11 @@ class MainStatusPresenterImplementation: MainStatusPresenter {
     
     func isViewInMemory(at index: Int) -> Bool? {
         viewsInMemory[index]
+    }
+    
+    private static func mockData() -> MainStatusViewModel {
+        let mockInterest = InterestsPresenterImplemantation.stub()[0]
+        let replies = RepliesViewModel()
+        return MainStatusViewModel(interests: mockInterest, replies: replies)
     }
 }
