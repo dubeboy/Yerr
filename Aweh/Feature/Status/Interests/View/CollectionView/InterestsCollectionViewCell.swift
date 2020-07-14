@@ -61,7 +61,7 @@ class InterestsCollectionViewCell: UICollectionViewCell {
             let visualEffectView = addBlurVisualEffect(for: imageView)
             visualEffectView.layer.cornerRadius = 10
             visualEffectView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-            visualEffectView.alpha = 0.7
+            visualEffectView.alpha = 0.7 // TODO: wrong
         }
     }
     
