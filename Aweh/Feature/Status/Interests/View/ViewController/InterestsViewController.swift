@@ -12,8 +12,8 @@ class InterestsViewController: UICollectionViewController {
     
     var numberOfCollumns: CGFloat = 2
     var presenter: InterestsPresenter!
-    weak var coordinator: StatusPageCoordinator! // TODO: Ref is lost when manually instatoated
-
+    weak var coordinator: StatusPageCoordinator! // TODO: Ref is lost when manually instatiated
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionViewCell()
@@ -26,6 +26,11 @@ class InterestsViewController: UICollectionViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        let bar = navigationController?.navigationBar
+//        bar.
+//        bar?.setNeedsLayout()
+//        bar?.layoutIfNeeded()
+//        bar?.setNeedsDisplay()
     }
     
     private func configureCollectionViewCell() {

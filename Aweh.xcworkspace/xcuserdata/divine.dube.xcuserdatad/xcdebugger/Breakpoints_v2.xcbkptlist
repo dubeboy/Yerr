@@ -52,7 +52,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "3A8CF0FA-1B7A-4BEA-9417-6694C920AAD3"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Aweh/Infrastructure/Elements/Extensions/UIView+Elements.swift"
@@ -93,6 +93,22 @@
             startingLineNumber = "48"
             endingLineNumber = "48"
             landmarkName = "viewDidDisappear(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A68749B7-25E0-48F2-A3DE-8265A2BED36F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Aweh/Feature/Profile/Profile/View/ViewController/ProfileViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "configureCollectionView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

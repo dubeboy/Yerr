@@ -10,17 +10,19 @@ import Foundation
 import UIKit
 
 protocol ProfilePresenter {
-    func profileImage(completion: @escaping (UIImage) -> Void)
-    
-    func statuses(completion: @escaping ([StatusViewModel]) -> Void)
-    
     var viewModel: UserViewModel { get }
     var points: GuageViewViewModel? { get }
+    var cellPresenter: CompactFeedPresenter { get }
+    var numberOfStatuses: Int { get }
+    
+    func profileImage(completion: @escaping (UIImage) -> Void)
+    func statuses(at index: IndexPath, completion: @escaping (StatusViewModel) -> Void)
 }
 
 class ProfilePresenterImplementation: ProfilePresenter {
-    
+   
     let viewModel: UserViewModel
+    let cellPresenter: CompactFeedPresenter
 
     var points: GuageViewViewModel? {
         guard let guageViewModel = viewModel.point else {
@@ -30,6 +32,7 @@ class ProfilePresenterImplementation: ProfilePresenter {
     }
     init() {
         self.viewModel = Self.mockUserViewModel()
+        self.cellPresenter = CompactFeedPresenter()
     }
     
     func profileImage(completion: @escaping (UIImage) -> Void) {
@@ -37,8 +40,12 @@ class ProfilePresenterImplementation: ProfilePresenter {
         completion(userImage)
     }
     
-    func statuses(completion: @escaping ([StatusViewModel]) -> Void) {
-        completion(viewModel.statuses)
+    func statuses(at index: IndexPath, completion: @escaping (StatusViewModel) -> Void) {
+        completion(viewModel.statuses[index.item])
+    }
+    
+    var numberOfStatuses: Int {
+        viewModel.statuses.count
     }
     
     static func mockUserViewModel() -> UserViewModel {

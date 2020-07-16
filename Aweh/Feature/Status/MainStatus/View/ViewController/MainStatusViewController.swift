@@ -13,10 +13,12 @@ class MainStatusViewController: UIViewController {
     
     var presenter: MainStatusPresenter = MainStatusPresenterImplementation()
     var coordinator: InterestCoordinator!
+    var feedCoordinator: FeedCoordinator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.titleView = createUISegmentView()
+        selectViewController(at: 0)
     }
     
     private func createUISegmentView() -> UISegmentedControl {
@@ -26,12 +28,17 @@ class MainStatusViewController: UIViewController {
             action: #selector(valueChanged),
             for: .valueChanged
         )
+        segmentedControl.selectedSegmentIndex = 0
         return segmentedControl
     }
     
     @objc private func valueChanged(_ sender: UISegmentedControl) {
         let selectedIndex = sender.selectedSegmentIndex
-        let viewControllers = presenter.viewControllersPresenters(at: selectedIndex)
+        selectViewController(at: selectedIndex)
+    }
+    
+    private func selectViewController(at Index: Int) {
+        let viewControllers = presenter.viewControllersPresenters(at: Index)
         
         switch viewControllers {
             case .interests(_):
@@ -40,13 +47,10 @@ class MainStatusViewController: UIViewController {
                 )
                 viewController.remove()
                 add(viewController)
-                presenter.setIsInMemory(at: selectedIndex)
             case .replies(_):
-                let viewController = UIViewController()
-                viewController.view.backgroundColor = UIColor.red
+                let viewController = feedCoordinator.createFeedViewController()
                 viewController.remove()
                 add(viewController)
-                presenter.setIsInMemory(at: selectedIndex)
         }
     }
 }

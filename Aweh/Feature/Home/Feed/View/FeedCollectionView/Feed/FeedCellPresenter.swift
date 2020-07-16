@@ -20,8 +20,8 @@ class FeedCellPresenter {
             cell.statusImage.image = model.statusImage
         }
         
-        cell.setNeedsLayout()
-        cell.layoutIfNeeded()
+//        cell.setNeedsLayout()
+//        cell.layoutIfNeeded()
     }
     
     func didSelectItem(viewModel: StatusViewModel) {

@@ -13,6 +13,7 @@ protocol MainProfileCoordinator {
 }
 
 extension ProfileCoordinator: MainProfileCoordinator {
+    
     func startStatusViewController(userViewModel: UserViewModel) {
         let statusCoordinator = StatusCoordinator(navigationController: navigationController)
         let interestPresenter = InterestsPresenterImplemantation(

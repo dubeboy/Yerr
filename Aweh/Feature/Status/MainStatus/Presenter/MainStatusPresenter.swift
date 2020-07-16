@@ -10,8 +10,6 @@ import Foundation
 
 protocol MainStatusPresenter {
     func viewControllersPresenters(at index: Int) -> MainStatusViewModelSelection
-    func setIsInMemory(at index: Int)
-    func isViewInMemory(at index: Int) -> Bool?
 }
 
 class MainStatusPresenterImplementation: MainStatusPresenter {
@@ -31,14 +29,6 @@ class MainStatusPresenterImplementation: MainStatusPresenter {
         } else {
             preconditionFailure("There should only be two indices")
         }
-    }
-    
-    func setIsInMemory(at index: Int){
-        viewsInMemory[index] = true
-    }
-    
-    func isViewInMemory(at index: Int) -> Bool? {
-        viewsInMemory[index]
     }
     
     private static func mockData() -> MainStatusViewModel {
