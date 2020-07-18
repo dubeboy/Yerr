@@ -8,14 +8,14 @@
 
 import Foundation
 
-// TODO: - use the user model
-struct Status {
-    let status: String
-    let userName: String
-    let statusImageLink: String?
-    let userImageLink: String?
-    let timeSincePosted: Date
-    let distanceFromYou: Double
-}
+//// TODO: - use the user model
+//struct Status {
+//    let status: String
+//    let userName: String
+//    let statusImageLink: String?
+//    let userImageLink: String?
+//    let timeSincePosted: Date
+//    let distanceFromYou: Double
+//}
 
 

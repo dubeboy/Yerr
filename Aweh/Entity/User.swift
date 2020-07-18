@@ -10,9 +10,9 @@ import Foundation
 
 // cechkout https://app.diagrams.net/#G1Qn3e4lTmcUSobOzvbhVmYUY-Cs4TWtZq
 
-struct User {
-    let name: String
-    let profilePictureUrl: String
-    var statuses: [Status] = []
-    var point: Point? 
-}
+//struct User {
+//    let name: String
+//    let profilePictureUrl: String
+//    var statuses: [Status] = []
+//    var point: Point? 
+//}

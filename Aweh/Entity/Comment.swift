@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct Comment {
-    let name: String
-    let timestamp: Date
-    let comment: String
-    let userImageURL: String
-}
+//struct Comment {
+//    let name: String
+//    let timestamp: Date
+//    let comment: String
+//    let userImageURL: String
+//}

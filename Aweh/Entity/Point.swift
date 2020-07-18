@@ -8,11 +8,11 @@
 
 import Foundation
 
-enum Type: String {
-    case bronze, gold // TODO: tests types, will change to align with api
-}
-
-struct Point {
-    let type: Type
-    let scores: [Int]
-}
+//enum Type: String {
+//    case bronze, gold // TODO: tests types, will change to align with api
+//}
+//
+//struct Point {
+//    let type: Type
+//    let scores: [Int]
+//}
