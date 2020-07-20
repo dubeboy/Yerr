@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+//https://iosexample.com/swift-arc-triple-progress-bar/
 @IBDesignable
 class GaugeView: UIView {
     var view: UIView!

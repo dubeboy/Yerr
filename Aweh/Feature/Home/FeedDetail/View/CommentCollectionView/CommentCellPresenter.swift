@@ -12,7 +12,7 @@ class CommentCellPresenter {
     func configure(with cell: CommentCollectionViewCell, forDisplaying viewModel: DetailCommentViewModel) {
         cell.userName.text = viewModel.userName
         cell.commentText.text = viewModel.comment
-        cell.userProfileImage.image = viewModel.userImage
+        cell.userProfileImage.downloadImage(fromUrl: viewModel.userImage)
         cell.timestamp.text = viewModel.timestamp
     }
 }

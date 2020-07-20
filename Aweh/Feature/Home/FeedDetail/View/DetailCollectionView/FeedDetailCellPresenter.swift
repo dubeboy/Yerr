@@ -15,7 +15,7 @@ class FeedDetailCellPresenter {
         cell.mediaCollectionView.isHidden = true
         cell.mediaCollectionView.backgroundColor = .systemBlue
         cell.userNameLabel.text = status.userName
-        cell.userImage.image = status.userImage
-        cell.statusText.text = status.status.string
+        cell.userImage.downloadImage(fromUrl: status.userImage)
+        cell.statusText.text = status.status
     }
 }

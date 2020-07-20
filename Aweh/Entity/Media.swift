@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Media: Codable {
+public struct Media: Hashable, Codable {
 
     /** unique identifier of the */
     public var uuid: String

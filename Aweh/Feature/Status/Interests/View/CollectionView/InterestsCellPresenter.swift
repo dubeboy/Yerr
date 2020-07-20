@@ -10,7 +10,7 @@ import Foundation
 
 class InterestsCellPresenter {
     func configure(_ cell: InterestsCollectionViewCell, with viewModel: InterestViewModel) {
-        cell.interestImage.image = viewModel.interestImage
+        cell.interestImage.downloadImage(fromUrl: viewModel.interestImage)
         cell.interestLabel.text = viewModel.interestName
         
         if viewModel.hasNewStatus {

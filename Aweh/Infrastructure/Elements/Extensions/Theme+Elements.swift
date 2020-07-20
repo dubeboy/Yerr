@@ -32,7 +32,9 @@ struct Const {
             static let iconCheckmark: UIImage? = UIImage(systemName: "checkmark.circle")
         }
         
-        
+        struct Defaults {
+            static let defaultImageName = UIImage(named: "1")
+        }
     }
     
     // MARK: Colors

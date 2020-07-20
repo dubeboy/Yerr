@@ -19,8 +19,8 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.profileImage { [weak self] image in
-            self?.pointsView.userImage.image = image
+        presenter.profileImage { [weak self] imageURL in
+            self?.pointsView.userImage.downloadImage(fromUrl: imageURL)
             self?.pointsView.userImage.makeImageRound()
         }
         

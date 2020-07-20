@@ -11,13 +11,15 @@ import Foundation
 class FeedCellPresenter {
     func configure(with cell: FeedCollectionViewCell, forDisplaying model: StatusViewModel) {
         cell.userName.text = model.userName // change this to attributed string
-        cell.statusText.attributedText = model.status
+        cell.statusText.text = model.status
         cell.distanceAndTime.text = model.distanceFromYou + "KM・\(model.timeSincePosted)" // change this to attributed string
         
-        if model.statusImage == nil {
+        if model.media?.uuid == nil {
             cell.statusImage.isHidden = true
         } else {
-            cell.statusImage.image = model.statusImage
+            cell
+                .statusImage
+                .downloadImage(fromUrl: model.media?.uuid)
         }
         
 //        cell.setNeedsLayout()

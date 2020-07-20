@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 struct UserViewModel: Hashable {
-    let userImage: UIImage?
+    let userImage: String?
     let userName: String
     let statuses: [StatusViewModel]
     let point: GuageViewViewModel?
@@ -19,10 +19,10 @@ struct UserViewModel: Hashable {
 extension UserViewModel {
     static func transform(user: User) -> UserViewModel {
         UserViewModel(
-            userImage: UIImage(named: user.profilePictureUrl),
-            userName: user.name,
-            statuses: user.statuses.map(StatusViewModel.transform(from:)),
-            point: .transform(point: user.point)
+            userImage: user.profile?.profilePicUUID,
+            userName: user.username,
+            statuses: [],
+            point: nil 
         )
     }
 }

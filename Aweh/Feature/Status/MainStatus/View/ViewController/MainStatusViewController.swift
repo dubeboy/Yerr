@@ -11,7 +11,7 @@ import UIKit
 // this could easily be be a page viewcontroller!
 class MainStatusViewController: UIViewController {
     
-    var presenter: MainStatusPresenter = MainStatusPresenterImplementation()
+    var presenter: MainStatusPresenter!
     var coordinator: InterestCoordinator!
     var feedCoordinator: FeedCoordinator!
     

@@ -16,9 +16,10 @@ extension ProfileCoordinator: PickInterestCoordinator {
     func startPickInterestViewController(viewModel: UserViewModel) {
         let viewController = PickInterestCollectionViewController.instantiate()
         viewController.coordinator = self
-        let pickInterestPresenter =
-            PickInterestPresenterImplementation(viewModel: InterestsPresenterImplemantation.stub())
-        viewController.presenter = pickInterestPresenter
+        // TODO: asign this
+//        let pickInterestPresenter =
+//            PickInterestPresenterImplementation
+//        viewController.presenter = pickInterestPresenter
         navigationController.pushViewController(viewController, animated: true)
     }
 }

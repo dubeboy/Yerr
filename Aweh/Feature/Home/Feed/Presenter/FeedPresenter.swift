@@ -34,59 +34,18 @@ class FeedPresenterImplemantation {
 
 extension FeedPresenterImplemantation: FeedPresenter {
     func index(for item: StatusViewModel) -> Int {
-        Self.mockStatus().firstIndex {
-            item == $0
-       } ?? 0
+        fatalError("should be called later")
     }
     
     func getStatus(at index: IndexPath) -> StatusViewModel {
-        Self.mockStatus()[index.item]
+        fatalError("should be called later")
     }
     
     var statusCount: Int {
-        Self.mockStatus().count
+        fatalError("should be called later")
     }
     
     func getStatuses(status: @escaping (_ status: [StatusViewModel]) -> Void) {
-        status(FeedPresenterImplemantation.mockStatus())
-    }
-    
-    static func status() -> [Status] {
-        return [
-            Status(status: "Some status this is a long status messageg that will span more rhtsdsdsdhshd df",
-                   userName: "Divine",
-                   statusImageLink: "1",
-                   userImageLink: "2",
-                   timeSincePosted: Date(),
-                   distanceFromYou: 30),
-            Status(status: "Some status ",
-                   userName: "Divine",
-                   statusImageLink: "1",
-                   userImageLink: "3",
-                   timeSincePosted: Date(),
-                   distanceFromYou: 30),
-            Status(status: "Some status",
-                   userName: "Divine",
-                   statusImageLink: "1",
-                   userImageLink: "2",
-                   timeSincePosted: Date(),
-                   distanceFromYou: 30),
-            Status(status: "Some status",
-                   userName: "Divine",
-                   statusImageLink: "2",
-                   userImageLink: "3",
-                   timeSincePosted: Date(),
-                   distanceFromYou: 30),
-            Status(status: "Some status",
-                   userName: "Divine",
-                   statusImageLink: "1",
-                   userImageLink: "2",
-                   timeSincePosted: Date(),
-                   distanceFromYou: 30),
-        ]
-    }
-    
-    static func mockStatus() -> [StatusViewModel] {
-        FeedPresenterImplemantation.status().map(StatusViewModel.transform(from:))
+//        status()
     }
 }

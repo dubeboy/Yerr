@@ -12,20 +12,11 @@ public struct Profile: Codable {
     /** Profile picture ID */
     public var profilePicUUID: String?
     /** Total profile points used to determine level */
-    public var totalPoints: BigDecimal
+    public var totalPoints: Double
     public var level: Level?
     public var interests: [Interest]?
     /** -(Profile rating Only for businesses/professionals) */
     public var rating: Int?
-
-    public init(profilePicUUID: String?, totalPoints: BigDecimal, level: Level?, interests: [Interest]?, rating: Int?) {
-        self.profilePicUUID = profilePicUUID
-        self.totalPoints = totalPoints
-        self.level = level
-        self.interests = interests
-        self.rating = rating
-    }
-
 
 }
 

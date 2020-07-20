@@ -10,36 +10,26 @@ import UIKit
 
 struct StatusViewModel: Equatable, Hashable {
     // TODO: some sort  of id here to help me get the status withis id from server
-    let status: NSAttributedString
+    let status: String
     let userName: String
-    let statusImage: UIImage? // todo: should be an array!
-    let userImage: UIImage
+    let media: Media? // todo: should be an array!
+    let userImage: String?
     let timeSincePosted: String
-    let distanceFromYou: String
+    let distanceFromYou: String // TODO empty for now
 }
 
 extension StatusViewModel {
-    static func transform(from status: Status) -> Self {
+    static func transform(from post: Post) -> Self {
         
         StatusViewModel(
-            status: NSAttributedString(string: status.status), // no need for it attr string 
-            userName: status.userName,
-            statusImage: status.statusImageLink == nil ? nil : UIImage(named: status.statusImageLink!),
-            userImage: UIImage(named: status.userImageLink!)!,
-            timeSincePosted: prettifyDate(date: status.timeSincePosted),
-            distanceFromYou: String(status.distanceFromYou)
+            status: post.body, // no need for it attr string
+            userName: post.authorName,
+            media: post.media,
+            userImage: post.authorProfilePicUUID,
+            timeSincePosted: Date.fromString(string: post.timestamp).relativeDate(),
+            distanceFromYou: ""
         )
     }
     
-    static func prettifyDate(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .none
-        formatter.dateStyle = .short
-        formatter.doesRelativeDateFormatting = true
-        
-        let locale = Locale.current
-        formatter.locale = locale
-        
-        return formatter.string(from: date)
-    }
+    
 }

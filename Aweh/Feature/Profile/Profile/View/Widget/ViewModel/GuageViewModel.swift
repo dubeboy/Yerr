@@ -16,8 +16,9 @@ struct GuageViewViewModel: Hashable {
 }
 
 extension GuageViewViewModel {
-    static func transform(point: Point?) -> GuageViewViewModel? {
-        guard let point = point else { return nil }
-        return GuageViewViewModel(values: point.scores)
+    static func transform(point: Profile) -> GuageViewViewModel? {
+//        guard let point = point else { return nil }
+//        return GuageViewViewModel(values: point.scores)
+        return nil
     }
 }
