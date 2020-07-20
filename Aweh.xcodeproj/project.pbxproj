@@ -30,7 +30,7 @@
 		7155E30B24BCE126006EBED8 /* MainStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7155E30A24BCE126006EBED8 /* MainStatusViewModel.swift */; };
 		7155E30E24BCE485006EBED8 /* BasePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7155E30D24BCE485006EBED8 /* BasePageViewController.swift */; };
 		7155E31324BCE726006EBED8 /* BasePagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7155E31224BCE726006EBED8 /* BasePagePresenter.swift */; };
-		7157C21D24886DB400F0A7F0 /* HomeScreenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7157C21C24886DB400F0A7F0 /* HomeScreenRepository.swift */; };
+		7157C21D24886DB400F0A7F0 /* FeedRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7157C21C24886DB400F0A7F0 /* FeedRepository.swift */; };
 		7157C22024886E2100F0A7F0 /* BaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7157C21F24886E2100F0A7F0 /* BaseRepository.swift */; };
 		7157C22524886EB300F0A7F0 /* AwehService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7157C22424886EB300F0A7F0 /* AwehService.swift */; };
 		7157C2322488761900F0A7F0 /* SimpleDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7157C2312488761900F0A7F0 /* SimpleDependencyInjector.swift */; };
@@ -41,7 +41,7 @@
 		715A0DFC24A88F6900030458 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A0DFB24A88F6900030458 /* UserViewModel.swift */; };
 		7162C60B24884BAB002D8ED4 /* FeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7162C60A24884BAB002D8ED4 /* FeedPresenter.swift */; };
 		7162C60D24884BBB002D8ED4 /* StatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7162C60C24884BBB002D8ED4 /* StatusViewModel.swift */; };
-		7162C61024886320002D8ED4 /* HomeScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7162C60F24886320002D8ED4 /* HomeScreenInteractor.swift */; };
+		7162C61024886320002D8ED4 /* FeedInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7162C60F24886320002D8ED4 /* FeedInteractor.swift */; };
 		7167C5C324959A9200B49096 /* ToastAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7167C5C224959A9200B49096 /* ToastAlert.swift */; };
 		7169A9D924C2580E005B05BE /* Interest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169A9D024C2580D005B05BE /* Interest.swift */; };
 		7169A9DA24C2580E005B05BE /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169A9D124C2580D005B05BE /* Media.swift */; };
@@ -120,11 +120,11 @@
 		71EECE8F249324A900902181 /* PhotosGalleryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EECE8E249324A900902181 /* PhotosGalleryCoordinator.swift */; };
 		71F46CEB24994CA3002B8EFC /* AssetDetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7170EA012495EBBD00B1D15F /* AssetDetailViewController.storyboard */; };
 		71F46CEE24995610002B8EFC /* LivePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F46CED24995610002B8EFC /* LivePhotoView.swift */; };
-		FF3A507039947AD2A1A2C68A /* Pods_Aweh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB762DF26E2E46FFACEB991 /* Pods_Aweh.framework */; };
+		CA1872A92BCDA22AD14F0E4F /* Pods_Aweh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1D3C935954DEE8CCB341F75 /* Pods_Aweh.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		265F7EC230D448B878C43061 /* Pods-Aweh.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.debug.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.debug.xcconfig"; sourceTree = "<group>"; };
+		04EF57C966FF289E9F3A5828 /* Pods-Aweh.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.release.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.release.xcconfig"; sourceTree = "<group>"; };
 		6CABDDE37419B79E3395D4FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		710578B724BD039B0056DBA8 /* InterestCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestCoordinator.swift; sourceTree = "<group>"; };
 		71138AA124B4F4B400AC7D1C /* GaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeView.swift; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 		7155E30A24BCE126006EBED8 /* MainStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStatusViewModel.swift; sourceTree = "<group>"; };
 		7155E30D24BCE485006EBED8 /* BasePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePageViewController.swift; sourceTree = "<group>"; };
 		7155E31224BCE726006EBED8 /* BasePagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePagePresenter.swift; sourceTree = "<group>"; };
-		7157C21C24886DB400F0A7F0 /* HomeScreenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenRepository.swift; sourceTree = "<group>"; };
+		7157C21C24886DB400F0A7F0 /* FeedRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRepository.swift; sourceTree = "<group>"; };
 		7157C21F24886E2100F0A7F0 /* BaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRepository.swift; sourceTree = "<group>"; };
 		7157C22424886EB300F0A7F0 /* AwehService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwehService.swift; sourceTree = "<group>"; };
 		7157C2312488761900F0A7F0 /* SimpleDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleDependencyInjector.swift; sourceTree = "<group>"; };
@@ -158,7 +158,7 @@
 		715A0DFB24A88F6900030458 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		7162C60A24884BAB002D8ED4 /* FeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
 		7162C60C24884BBB002D8ED4 /* StatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewModel.swift; sourceTree = "<group>"; };
-		7162C60F24886320002D8ED4 /* HomeScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenInteractor.swift; sourceTree = "<group>"; };
+		7162C60F24886320002D8ED4 /* FeedInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedInteractor.swift; sourceTree = "<group>"; };
 		7167C5C224959A9200B49096 /* ToastAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastAlert.swift; sourceTree = "<group>"; };
 		7169A9D024C2580D005B05BE /* Interest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interest.swift; sourceTree = "<group>"; };
 		7169A9D124C2580D005B05BE /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
@@ -239,9 +239,9 @@
 		71ECFDFA2487187000943917 /* FeedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedCollectionViewCell.xib; sourceTree = "<group>"; };
 		71EECE8E249324A900902181 /* PhotosGalleryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosGalleryCoordinator.swift; sourceTree = "<group>"; };
 		71F46CED24995610002B8EFC /* LivePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePhotoView.swift; sourceTree = "<group>"; };
-		B607C0A1A87FE1D0A8B4E53C /* Pods-Aweh.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.release.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.release.xcconfig"; sourceTree = "<group>"; };
-		CBB762DF26E2E46FFACEB991 /* Pods_Aweh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aweh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1D3C935954DEE8CCB341F75 /* Pods_Aweh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aweh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9168E3BC48D20E0D22255BF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F07E647C345BF200C8E4AE3C /* Pods-Aweh.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.debug.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,7 +249,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF3A507039947AD2A1A2C68A /* Pods_Aweh.framework in Frameworks */,
+				CA1872A92BCDA22AD14F0E4F /* Pods_Aweh.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +263,14 @@
 				CA5487558A5C7D94A3E5D7FE /* InfoPlist.strings */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		66BD81E114A7E4A9D3CF5F12 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B1D3C935954DEE8CCB341F75 /* Pods_Aweh.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		710578B624BD03810056DBA8 /* Coordinator */ = {
@@ -661,7 +669,7 @@
 		716DA6BC248D7D76001B74E2 /* HomeScreen */ = {
 			isa = PBXGroup;
 			children = (
-				7162C60F24886320002D8ED4 /* HomeScreenInteractor.swift */,
+				7162C60F24886320002D8ED4 /* FeedInteractor.swift */,
 			);
 			path = HomeScreen;
 			sourceTree = "<group>";
@@ -669,7 +677,7 @@
 		716DA6BD248D7DBE001B74E2 /* HomeScreen */ = {
 			isa = PBXGroup;
 			children = (
-				7157C21C24886DB400F0A7F0 /* HomeScreenRepository.swift */,
+				7157C21C24886DB400F0A7F0 /* FeedRepository.swift */,
 			);
 			path = HomeScreen;
 			sourceTree = "<group>";
@@ -767,7 +775,7 @@
 				718BE8092486BA8000CA328B /* Aweh */,
 				718BE8082486BA8000CA328B /* Products */,
 				8EBD9E0B790EE9692A460572 /* Pods */,
-				E059DE5EBEECDCA4DB9AFA6B /* Frameworks */,
+				66BD81E114A7E4A9D3CF5F12 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -783,10 +791,10 @@
 			isa = PBXGroup;
 			children = (
 				7157C22F248875EF00F0A7F0 /* Infrastructure */,
-				7162C60E24886307002D8ED4 /* Interactor */,
 				716DA6CC248EE55F001B74E2 /* Coordinator */,
 				7157C22E24886FAE00F0A7F0 /* Feature */,
 				7157C22124886E8B00F0A7F0 /* Data */,
+				7162C60E24886307002D8ED4 /* Interactor */,
 				7157C21E24886E0700F0A7F0 /* Repository */,
 				7162C61124886369002D8ED4 /* Entity */,
 				718BE80A2486BA8000CA328B /* AppDelegate.swift */,
@@ -1174,18 +1182,10 @@
 		8EBD9E0B790EE9692A460572 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				265F7EC230D448B878C43061 /* Pods-Aweh.debug.xcconfig */,
-				B607C0A1A87FE1D0A8B4E53C /* Pods-Aweh.release.xcconfig */,
+				F07E647C345BF200C8E4AE3C /* Pods-Aweh.debug.xcconfig */,
+				04EF57C966FF289E9F3A5828 /* Pods-Aweh.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		E059DE5EBEECDCA4DB9AFA6B /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CBB762DF26E2E46FFACEB991 /* Pods_Aweh.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1195,10 +1195,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 718BE81B2486BA8200CA328B /* Build configuration list for PBXNativeTarget "Aweh" */;
 			buildPhases = (
-				6255A4B8E85EB5CA79E07E14 /* [CP] Check Pods Manifest.lock */,
+				2FB395313F011DDAF314E540 /* [CP] Check Pods Manifest.lock */,
 				718BE8032486BA8000CA328B /* Sources */,
 				718BE8042486BA8000CA328B /* Frameworks */,
 				718BE8052486BA8000CA328B /* Resources */,
+				1ADC5EB1399EEF0D09D19A72 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1275,7 +1276,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6255A4B8E85EB5CA79E07E14 /* [CP] Check Pods Manifest.lock */ = {
+		1ADC5EB1399EEF0D09D19A72 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Aweh/Pods-Aweh-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Aweh/Pods-Aweh-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Aweh/Pods-Aweh-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2FB395313F011DDAF314E540 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1306,7 +1324,7 @@
 			files = (
 				71585EE624A2936600092D6E /* StatusPageViewController.swift in Sources */,
 				7155E31324BCE726006EBED8 /* BasePagePresenter.swift in Sources */,
-				7157C21D24886DB400F0A7F0 /* HomeScreenRepository.swift in Sources */,
+				7157C21D24886DB400F0A7F0 /* FeedRepository.swift in Sources */,
 				718BE80F2486BA8000CA328B /* FeedViewController.swift in Sources */,
 				7169A9E324C3AB86005B05BE /* Point.swift in Sources */,
 				71C46DA624B26CC300A9DB14 /* PickInterestCoordinator.swift in Sources */,
@@ -1320,7 +1338,7 @@
 				7169A9DD24C2580E005B05BE /* User.swift in Sources */,
 				7116C10E24A2AD3100749620 /* SingleStatusViewController.swift in Sources */,
 				71CCF0DA249C23B30054C210 /* CommentCollectionViewCell.swift in Sources */,
-				7162C61024886320002D8ED4 /* HomeScreenInteractor.swift in Sources */,
+				7162C61024886320002D8ED4 /* FeedInteractor.swift in Sources */,
 				71CCF0D5249AB2B30054C210 /* FeedDetailCollectionViewCell.swift in Sources */,
 				7155E30924BCE080006EBED8 /* MainStatusPresenter.swift in Sources */,
 				7198AC76249186BE002029CF /* PhotosCollectionViewCell.swift in Sources */,
@@ -1555,7 +1573,7 @@
 		};
 		718BE81C2486BA8200CA328B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 265F7EC230D448B878C43061 /* Pods-Aweh.debug.xcconfig */;
+			baseConfigurationReference = F07E647C345BF200C8E4AE3C /* Pods-Aweh.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1574,7 +1592,7 @@
 		};
 		718BE81D2486BA8200CA328B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B607C0A1A87FE1D0A8B4E53C /* Pods-Aweh.release.xcconfig */;
+			baseConfigurationReference = 04EF57C966FF289E9F3A5828 /* Pods-Aweh.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

@@ -11,7 +11,7 @@ import Foundation
 protocol FeedPresenter {
     var statusCount: Int { get }
     
-    func getStatuses(status: @escaping (_ status: [StatusViewModel]) -> Void)
+    func getStatuses(completion: @escaping (Int?, String?) -> Void)
     func getStatus(at index: IndexPath) -> StatusViewModel
     
     var feedCellPresenter: FeedCellPresenter { get }
@@ -20,32 +20,36 @@ protocol FeedPresenter {
 
 }
 
-protocol StoriesPresenter {
+class FeedPresenterImplemantation: FeedPresenter {
     
-}
-
-class FeedPresenterImplemantation {
+    let feedCellPresenter: FeedCellPresenter = FeedCellPresenter()
+    let feedIntercator: FeedInteractor = FeedInteractor()
     
-    var feedCellPresenter: FeedCellPresenter = FeedCellPresenter()
+    var viewModel: [StatusViewModel] = []
     
-//    should have a init with status object
-    
-}
-
-extension FeedPresenterImplemantation: FeedPresenter {
     func index(for item: StatusViewModel) -> Int {
-        fatalError("should be called later")
+        viewModel.firstIndex {
+            item == $0
+        } ?? 0
     }
     
     func getStatus(at index: IndexPath) -> StatusViewModel {
-        fatalError("should be called later")
+        viewModel[index.item]
     }
     
     var statusCount: Int {
-        fatalError("should be called later")
+        viewModel.count
     }
     
-    func getStatuses(status: @escaping (_ status: [StatusViewModel]) -> Void) {
-//        status()
+    func getStatuses(completion: @escaping (Int?, String?) -> Void) {
+        feedIntercator.getPosts { [self] result in
+            switch result {
+                case .success(let posts):
+                    viewModel = posts.map(StatusViewModel.transform(from:))
+                    completion(viewModel.count, nil)
+                case .failure(let error):
+                    completion(nil, error.localizedDescription)
+            }
+        }
     }
 }

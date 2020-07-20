@@ -7,23 +7,28 @@
 //
 
 import Foundation
+import Merchant
 
 // this will this be a merchant service
-struct AwehService {
+struct AwehService: Service {
+        
+    let baseURL: String = "http://192.168.88.251/api-docs"
     
+    @GET("/posts")
+    var getPosts: [Post]
+    
+    @POST("/posts", body: Post.self)
+    var postPost: Post
 }
 
-// MARK: AwehService + PostStatus
-extension AwehService {
+class AwehServiceInstance {
     
+    @Autowired
+    static var service: AwehService
+    
+    let instance: AwehServiceInstance = AwehServiceInstance()
+    
+    private init() {}
 }
 
-// MARK: AwehService + Status
-extension AwehService {
-    
-}
 
-// MARK: AwehService + Stories
-extension AwehService {
-    
-}

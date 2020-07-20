@@ -1,3 +1,25 @@
-PODFILE CHECKSUM: 24ad857fdc30c14645f90f4da21edcec933e51a2
+PODS:
+  - Alamofire (5.2.2)
+  - Merchant (0.1.2):
+    - Merchant/Core (= 0.1.2)
+  - Merchant/Core (0.1.2):
+    - Alamofire (~> 5.0)
+
+DEPENDENCIES:
+  - Merchant (from `~/Developer/iOS/Merchant`)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+
+EXTERNAL SOURCES:
+  Merchant:
+    :path: "~/Developer/iOS/Merchant"
+
+SPEC CHECKSUMS:
+  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
+  Merchant: 673a1630ff662e8dc42b72d06b45a9b11620b43f
+
+PODFILE CHECKSUM: 472d5a4dacb9dfc7cd38a699a4962728e0f7c89d
 
 COCOAPODS: 1.9.1
