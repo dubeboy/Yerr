@@ -74,6 +74,8 @@
 		7172D613248F0CC90083B7F6 /* PostStatusCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7172D612248F0CC90083B7F6 /* PostStatusCoordinator.swift */; };
 		7172D615248F1E420083B7F6 /* PostStatusViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7172D614248F1E420083B7F6 /* PostStatusViewController.storyboard */; };
 		7172D617248F2D700083B7F6 /* UIView+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7172D616248F2D700083B7F6 /* UIView+Elements.swift */; };
+		71777B6A24C662470075F4F7 /* String+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71777B6924C662470075F4F7 /* String+Elements.swift */; };
+		71777B6D24C664D10075F4F7 /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71777B6C24C664D10075F4F7 /* AppStrings.swift */; };
 		718BE80B2486BA8000CA328B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718BE80A2486BA8000CA328B /* AppDelegate.swift */; };
 		718BE80D2486BA8000CA328B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718BE80C2486BA8000CA328B /* SceneDelegate.swift */; };
 		718BE80F2486BA8000CA328B /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718BE80E2486BA8000CA328B /* FeedViewController.swift */; };
@@ -192,6 +194,8 @@
 		7172D612248F0CC90083B7F6 /* PostStatusCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStatusCoordinator.swift; sourceTree = "<group>"; };
 		7172D614248F1E420083B7F6 /* PostStatusViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PostStatusViewController.storyboard; sourceTree = "<group>"; };
 		7172D616248F2D700083B7F6 /* UIView+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Elements.swift"; sourceTree = "<group>"; };
+		71777B6924C662470075F4F7 /* String+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Elements.swift"; sourceTree = "<group>"; };
+		71777B6C24C664D10075F4F7 /* AppStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
 		718BE8072486BA8000CA328B /* Aweh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aweh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		718BE80A2486BA8000CA328B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		718BE80C2486BA8000CA328B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -314,6 +318,7 @@
 				7196DD1124B0878100384B84 /* Common+Elements.swift */,
 				71138AA324B4F64600AC7D1C /* NSObject+Elements.swift */,
 				7169A9E424C3B228005B05BE /* UIImageView+Elements.swift */,
+				71777B6924C662470075F4F7 /* String+Elements.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -492,6 +497,7 @@
 		7157C22F248875EF00F0A7F0 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				71777B6B24C664B80075F4F7 /* Localization */,
 				7157C230248875FF00F0A7F0 /* DI */,
 				718BE81F2486BCE500CA328B /* Elements */,
 			);
@@ -767,6 +773,14 @@
 				7172D612248F0CC90083B7F6 /* PostStatusCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		71777B6B24C664B80075F4F7 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				71777B6C24C664D10075F4F7 /* AppStrings.swift */,
+			);
+			path = Localization;
 			sourceTree = "<group>";
 		};
 		718BE7FE2486BA8000CA328B = {
@@ -1394,9 +1408,11 @@
 				71A77FD5249C378100F8D442 /* FeedDetailCellPresenter.swift in Sources */,
 				71138AA824B4FA4600AC7D1C /* BorderLayer.swift in Sources */,
 				71138AAB24B519AC00AC7D1C /* LateInit.swift in Sources */,
+				71777B6D24C664D10075F4F7 /* AppStrings.swift in Sources */,
 				716A0C8924A2D66700F18ED6 /* InterestsCollectionViewCell.swift in Sources */,
 				716A0C9624A2E9C800F18ED6 /* StatusPageCoordinator.swift in Sources */,
 				7157C2322488761900F0A7F0 /* SimpleDependencyInjector.swift in Sources */,
+				71777B6A24C662470075F4F7 /* String+Elements.swift in Sources */,
 				7155E30624BCDFA7006EBED8 /* MainStatusViewController.swift in Sources */,
 				71138AA424B4F64600AC7D1C /* NSObject+Elements.swift in Sources */,
 				7172D613248F0CC90083B7F6 /* PostStatusCoordinator.swift in Sources */,

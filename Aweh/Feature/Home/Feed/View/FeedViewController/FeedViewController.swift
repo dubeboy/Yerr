@@ -22,17 +22,28 @@ class FeedViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var collectionView: UICollectionView! {
-        didSet {
-           configureCollectionView()
-        }
-    }
+    @IBOutlet weak var collectionView: UICollectionView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Feed"
-        collectionView.reloadData() // initiate the load data
+        // TODO: add Shimer view
+        presenter.getStatuses { [weak self] count, error in
+            guard let self = self else { return }
+            
+            guard let count = count else {
+                self.presentToast(message: .error(error))
+                return
+            }
+            
+            self.collectionView.reloadData()
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        configureCollectionView()
     }
     
     private func configureCollectionView() {
