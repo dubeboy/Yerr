@@ -5,6 +5,8 @@
 
 import Foundation
 
-struct DefaultEmptyArray<T: Codable>: DefaultCodableStrategy {
+struct DefaultEmptyArrayStrategy<T: Codable>: DefaultCodableStrategy {
     static var defaultValue: [T] { [] }
 }
+
+typealias DefaultEmptyArray<T> = DefaultCodable<DefaultEmptyArrayStrategy<T>> where T: Codable

@@ -1,18 +1,20 @@
 //
-//  User.swift
-//  Aweh
-//
-//  Created by Divine.Dube on 2020/06/28.
-//  Copyright © 2020 com.github.aweh. All rights reserved.
+// Created by Divine.Dube on 2020/08/26.
+// Copyright (c) 2020 com.github.aweh. All rights reserved.
 //
 
 import Foundation
 
-// cechkout https://app.diagrams.net/#G1Qn3e4lTmcUSobOzvbhVmYUY-Cs4TWtZq
-
-struct User {
+struct User: Codable {
+    var id: String?
     let name: String
-    let profilePictureUrl: String
-    var statuses: [Status] = []
-    var point: Point? 
+    let handle: String
+    let phoneNumber: String
+    let profilePicture: Media
+    let point: Point
+}
+
+struct Point: Codable {
+    let score: Int
+    let badge: String
 }

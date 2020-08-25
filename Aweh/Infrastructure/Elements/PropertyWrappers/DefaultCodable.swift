@@ -12,14 +12,14 @@ protocol DefaultCodableStrategy {
 }
 
 @propertyWrapper
-class DefaultCodable<Default: DefaultCodableStrategy>: Codable {
+struct DefaultCodable<Default: DefaultCodableStrategy>: Codable {
     var wrappedValue: Default.RawValue
 
     init(wrappedValue: Default.RawValue) {
         self.wrappedValue = wrappedValue
     }
 
-    init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         self.wrappedValue = (try? container.decode(Default.RawValue.self)) ?? Default.defaultValue
     }
