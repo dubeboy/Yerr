@@ -58,5 +58,10 @@
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>The app needs to access to your media so that you can select photos and video you would to share.</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 </dict>
 </plist>

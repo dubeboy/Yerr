@@ -34,7 +34,7 @@ open class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegat
     
     /// Default Implementation does nothing
     func start() -> Self {
-        return self
+        self
     }
     
     func childDidFinish(child: Coordinator?) {

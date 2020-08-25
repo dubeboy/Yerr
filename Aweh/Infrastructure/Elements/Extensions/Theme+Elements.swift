@@ -15,9 +15,9 @@ import UIKit
 //extension CGFloat {
 //    static let const = Const()
 //}
-struct Const {
+enum Const {
     // MARK: View Constants
-    struct View {
+    enum View {
         static let m24: CGFloat = 24
         static let m16: CGFloat = 16
         static let m8: CGFloat = 8
@@ -27,19 +27,19 @@ struct Const {
     }
     
     // MARK: App assets
-    struct Assets {
-        struct Interests {
+    enum Assets {
+        enum Interests {
             static let iconCheckmark: UIImage? = UIImage(systemName: "checkmark.circle")
         }
         
-        struct Defaults {
+        enum Defaults {
             static let defaultImageName = UIImage(named: "1")
         }
     }
     
     // MARK: Colors
     
-    struct Color {
+    enum Color {
         static let lightGray = UIColor.systemGray6
     }
 }

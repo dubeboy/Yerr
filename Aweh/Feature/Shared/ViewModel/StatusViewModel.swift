@@ -26,7 +26,7 @@ extension StatusViewModel {
             userName: post.authorName,
             media: post.media,
             userImage: post.authorProfilePicUUID,
-            timeSincePosted: Date.fromString(string: post.timestamp).relativeDate(),
+            timeSincePosted: "",
             distanceFromYou: ""
         )
     }

@@ -13,7 +13,7 @@ extension UICollectionView {
     func calculateItemSize(numberOfColumns: CGFloat) -> CGSize {
         let size = bounds.size
         let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
-        let leftRightInset = flowLayout.sectionInset.right + flowLayout.sectionInset.right
+        let leftRightInset = flowLayout.sectionInset.right + flowLayout.sectionInset.left
         let interItemSpacing = flowLayout.minimumInteritemSpacing
         let cellSize = (size.width - leftRightInset - (interItemSpacing * 2)) / numberOfColumns
         return CGSize(width: cellSize, height: cellSize)

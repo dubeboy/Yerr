@@ -12,7 +12,7 @@ import Merchant
 // this will this be a merchant service
 struct AwehService: Service {
         
-    let baseURL: String = "http://192.168.88.251/api-docs"
+    let baseURL: String = "http://localhost:8080/api/v1"
     
     @GET("/posts")
     var getPosts: [Post]
@@ -21,13 +21,11 @@ struct AwehService: Service {
     var postPost: Post
 }
 
-class AwehServiceInstance {
+struct AwehServiceInstance {
     
     @Autowired
     static var service: AwehService
-    
-    let instance: AwehServiceInstance = AwehServiceInstance()
-    
+
     private init() {}
 }
 

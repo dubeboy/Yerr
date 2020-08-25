@@ -8,14 +8,35 @@
 
 import Foundation
 
-// TODO: to be implemented
 @propertyWrapper
 struct LateInit<T> {
-    var wrappedValue: T?
-    
-    init(value: T? = nil) {
-        self.wrappedValue = value
+
+    var storage: T?
+    var wrappedValue: T {
+        get {
+           guard let storage = storage else {
+               preconditionFailure("Trying to access LateInit value before setting it.")
+           }
+            return storage
+        }
+        set {
+            storage = newValue
+        }
     }
     
-    var isInitialized: Bool {  wrappedValue != nil }
+    init() {
+        storage = nil
+    }
+
+    var isInitialized: Bool {  storage != nil }
+}
+
+class J {
+
+    @LateInit
+    var s: Int
+
+    func sss() {
+        print(s)
+    }
 }

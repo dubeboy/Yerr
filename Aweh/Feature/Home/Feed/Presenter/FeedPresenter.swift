@@ -48,6 +48,7 @@ class FeedPresenterImplemantation: FeedPresenter {
                     viewModel = posts.map(StatusViewModel.transform(from:))
                     completion(viewModel.count, nil)
                 case .failure(let error):
+                    print(error)
                     completion(nil, error.localizedDescription)
             }
         }
