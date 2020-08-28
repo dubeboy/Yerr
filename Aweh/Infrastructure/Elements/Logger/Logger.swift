@@ -9,5 +9,5 @@
 import Foundation
 
 func log(message: String) {
-   
+   // TODO: send message to our logging system probably firebase
 }

@@ -9,24 +9,27 @@
 import Foundation
 import Merchant
 
-// this will this be a merchant service
 struct AwehService: Service {
         
-    let baseURL: String = "http://localhost:8080/api/v1"
-    
-    @GET("/posts")
-    var getPosts: [Post]
-    
-    @POST("/posts", body: Post.self)
-    var postPost: Post
+    let baseURL: String = "http://localhost:8080/"
+
+    @GET("statuses")
+    var getStatuses: StatusResponseEntity<[Status]>
+
+    @POST("/statuses", body: Status.self)
+    var postPost: StatusResponseEntity<Status>
 }
 
-struct AwehServiceInstance {
+/// We maintain a static reference to our service
+@propertyWrapper
+struct SingletonServiceInstance {
     
     @Autowired
-    static var service: AwehService
+    private static var service: AwehService // TODO: Static vars are lazy???
 
-    private init() {}
+    var wrappedValue: AwehService {
+        Self.service
+    }
 }
 
 

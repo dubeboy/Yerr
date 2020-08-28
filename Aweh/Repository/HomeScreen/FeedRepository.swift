@@ -10,25 +10,19 @@ import Foundation
 
 // We do data here we inject the Remote
 // We also inject the local data
-class FeedRepository {
-    let service = AwehServiceInstance.service
+struct StatusRepository: RepositoryInjectable {
+
+    @SingletonServiceInstance
+    var service: AwehService
     
-    func getPosts(result: @escaping (Result<[Post], Error>) -> Void) {
-        service.$getPosts { response in
+    func getStatuses(result: @escaping (Result<StatusResponseEntity<[Status]>, Error>) -> Void) {
+        service.$getStatuses { response in
             switch response {
-            case .success(let postsResponse):
-                result(.success(postsResponse.body))
+            case .success(let statusReponse):
+                result(.success(statusReponse.body))
             case .failure(let error):
                 result(.failure(error))
             }
         }
     }
-}
-
-class StatusRepository {
-    
-}
-
-class StoryRepository {
-    
 }

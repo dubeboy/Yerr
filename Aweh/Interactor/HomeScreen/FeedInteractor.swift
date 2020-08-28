@@ -9,7 +9,7 @@
 import Foundation
 
 protocol PostUseCase {
-    func getPosts(result: @escaping (Result<[Post], Error>) -> Void)
+    func getPosts(result: @escaping (Result<[Status], Error>) -> Void)
 }
 
 protocol StoriesUseCase {
@@ -21,11 +21,12 @@ protocol PostStatusUseCase {
 }
 
 class FeedInteractor: PostUseCase {
+
+    @InjectRepository
+    var statusRepository: StatusRepository
     
-    let repository = FeedRepository()
-    
-    func getPosts(result: @escaping (Result<[Post], Error>) -> Void) {
-        repository.getPosts(result: result)
+    func getPosts(result: @escaping (Result<[Status], Error>) -> Void) {
+//        statusRepository.getPosts(result: result)
     }
 }
 

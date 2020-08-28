@@ -10,12 +10,12 @@ import Foundation
 
 class FeedDetailCellPresenter {
     func configure(with cell: FeedDetailCollectionViewCell, forDisplaying model: FeedDetailViewModel){
-        let status = model.feed
-        cell.userHandleLabel.isHidden = true
-        cell.mediaCollectionView.isHidden = true
-        cell.mediaCollectionView.backgroundColor = .systemBlue
-        cell.userNameLabel.text = status.userName
-        cell.userImage.downloadImage(fromUrl: status.userImage)
-        cell.statusText.text = status.status
+//        let status = model.feed
+//        cell.userHandleLabel.isHidden = true
+//        cell.mediaCollectionView.isHidden = true
+//        cell.mediaCollectionView.backgroundColor = .systemBlue
+//        cell.userNameLabel.text = status.userName
+//        cell.userImage.downloadImage(fromUrl: status.userImage)
+//        cell.statusText.text = status.status
     }
 }

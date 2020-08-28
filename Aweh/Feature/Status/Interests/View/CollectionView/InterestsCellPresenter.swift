@@ -10,13 +10,13 @@ import Foundation
 
 class InterestsCellPresenter {
     func configure(_ cell: InterestsCollectionViewCell, with viewModel: InterestViewModel) {
-        cell.interestImage.downloadImage(fromUrl: viewModel.interestImage)
-        cell.interestLabel.text = viewModel.interestName
+//        cell.interestImage.downloadImage(fromUrl: viewModel.interestImage)
+        cell.interestLabel.text = viewModel.interestName // TDOD: change to name
         
-        if viewModel.hasNewStatus {
-            cell.addBorder()
-        } else {
-            cell.removeBorder()
-        }
+//        if viewModel.hasNewStatus {
+//            cell.addBorder()
+//        } else {
+//            cell.removeBorder()
+//        }
     }
 }

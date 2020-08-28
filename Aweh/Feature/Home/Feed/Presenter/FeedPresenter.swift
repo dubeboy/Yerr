@@ -42,15 +42,15 @@ class FeedPresenterImplemantation: FeedPresenter {
     }
     
     func getStatuses(completion: @escaping (Int?, String?) -> Void) {
-        feedIntercator.getPosts { [self] result in
-            switch result {
-                case .success(let posts):
-                    viewModel = posts.map(StatusViewModel.transform(from:))
-                    completion(viewModel.count, nil)
-                case .failure(let error):
-                    print(error)
-                    completion(nil, error.localizedDescription)
-            }
-        }
+//        feedIntercator.getPosts { [self] result in
+//            switch result {
+//                case .success(let posts):
+//                    viewModel = posts.map(StatusViewModel.transform(from:))
+//                    completion(viewModel.count, nil)
+//                case .failure(let error):
+//                    print(error)
+//                    completion(nil, error.localizedDescription)
+//            }
+//        }
     }
 }

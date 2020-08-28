@@ -5,11 +5,11 @@
 
 import Foundation
 
-struct Media: Codable {
+enum MediaType: Int, Codable, Hashable, Equatable {
+    case video, picture, none = -1
+}
 
-    enum MediaType: Int, Codable {
-        case video, picture, none = -1
-    }
+struct Media: Codable, Hashable, Equatable {
 
     let name: String
     @DefaultMinusOneIntEnum

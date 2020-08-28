@@ -8,24 +8,23 @@
 
 import UIKit
 
-struct StatusViewModel: Equatable, Hashable {
-    // TODO: some sort  of id here to help me get the status withis id from server
+struct StatusViewModel: Equatable, Hashable, Identifiable {
+    let id: String
     let status: String
-    let userName: String
-    let media: Media? // todo: should be an array!
-    let userImage: String?
+    let user: UserViewModel
+    let media: [Media]
     let timeSincePosted: String
     let distanceFromYou: String // TODO empty for now
 }
 
 extension StatusViewModel {
-    static func transform(from post: Post) -> Self {
+    static func transform(from status: Status) -> Self {
         
         StatusViewModel(
-            status: post.body, // no need for it attr string
-            userName: post.authorName,
-            media: post.media,
-            userImage: post.authorProfilePicUUID,
+                id: status.id ?? "",
+            status: status.body,
+                user: .transform(user: status.user), // TODO: should map to a Media viewModel
+                media: status.media,
             timeSincePosted: "",
             distanceFromYou: ""
         )

@@ -9,3 +9,14 @@
 import Foundation
 
 // there should be registar
+
+protocol RepositoryInjectable {
+    init()
+}
+
+@propertyWrapper
+struct InjectRepository<T> where T: RepositoryInjectable {
+    var wrappedValue: T {
+        T()
+    }
+}

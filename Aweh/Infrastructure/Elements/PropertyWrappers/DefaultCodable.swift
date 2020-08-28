@@ -19,7 +19,7 @@ struct DefaultCodable<Default: DefaultCodableStrategy>: Codable {
         self.wrappedValue = wrappedValue
     }
 
-    required init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         self.wrappedValue = (try? container.decode(Default.RawValue.self)) ?? Default.defaultValue
     }

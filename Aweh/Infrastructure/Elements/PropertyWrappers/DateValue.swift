@@ -6,15 +6,15 @@
 import Foundation
 
 protocol DateValueCodingStrategy {
-    associatedtype RawValue: Codable
+    associatedtype RawValue: Codable, Hashable
 
     static func decode(_ value: RawValue) throws -> Date
     static func encode(_ date: Date) -> RawValue
 }
 
 @propertyWrapper
-struct DateValue<Formatter: DateValueCodingStrategy>: Codable {
-
+struct DateValue<Formatter: DateValueCodingStrategy>: Codable, Hashable {
+    
     private let value: Formatter.RawValue
     var wrappedValue: Date
 

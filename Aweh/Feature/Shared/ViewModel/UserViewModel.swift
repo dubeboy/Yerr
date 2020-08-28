@@ -10,19 +10,19 @@ import Foundation
 import UIKit
 
 struct UserViewModel: Hashable {
-    let userImage: String?
-    let userName: String
-    let statuses: [StatusViewModel]
+    let userImage: String // TODO change this to imageLink
+    let userName: String // TODO: change to name
+    let statuses: [StatusViewModel] // TODO: remove these
     let point: GuageViewViewModel?
 }
 
 extension UserViewModel {
     static func transform(user: User) -> UserViewModel {
         UserViewModel(
-            userImage: user.profile?.profilePicUUID,
-            userName: user.username,
+            userImage: user.id ?? "",
+            userName: user.name,
             statuses: [],
-            point: nil 
+            point: nil  // TODO: look into this please
         )
     }
 }

@@ -15,19 +15,15 @@ struct FeedDetailViewModel {
 }
 
 struct DetailCommentViewModel {
-    let userName: String
-    let timestamp: String
+    let user: UserViewModel
     let comment: String
-    let userImage: String?
 }
 
 extension DetailCommentViewModel {
     static func tranform(comment: Comment) -> DetailCommentViewModel {
         DetailCommentViewModel(
-            userName: comment.authorName,
-            timestamp: Date.fromString(string: comment.timestamp).relativeDate(),
-            comment: comment.body,
-            userImage: comment.authorProfilePicUUID
+            user: .transform(user: comment.user),
+                comment: comment.body
         )
     }
 }

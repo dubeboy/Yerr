@@ -35,8 +35,8 @@ class ProfilePresenterImplementation: ProfilePresenter {
     }
     
     func profileImage(completion: @escaping (String) -> Void) {
-        guard let userImage = viewModel.userImage else { return }
-        completion(userImage)
+//        guard let userImage = viewModel.userImage else { return }
+//        completion(userImage)
     }
     
     func statuses(at index: IndexPath, completion: @escaping (StatusViewModel) -> Void) {
