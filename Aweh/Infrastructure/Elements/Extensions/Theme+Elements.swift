@@ -21,9 +21,10 @@ enum Const {
         static let m24: CGFloat = 24
         static let m16: CGFloat = 16
         static let m8: CGFloat = 8
+        static let m1: CGFloat = 1
+        static let m2: CGFloat = 2
         static let radius: CGFloat = 10
-        static let borderWidth: CGFloat = 2
-        static let thinBorderWidth: CGFloat = 1
+        static let borderWidth: CGFloat = m2
     }
     
     // MARK: App assets
@@ -41,5 +42,6 @@ enum Const {
     
     enum Color {
         static let lightGray = UIColor.systemGray6
+        static let backgroundColor = UIColor.systemGray5
     }
 }

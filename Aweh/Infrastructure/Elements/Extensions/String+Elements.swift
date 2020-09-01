@@ -13,6 +13,6 @@ extension String {
         if let message = message {
             return message
         }
-        return AppStrings.Common.genericError
+        return AppStrings.Error.genericError
     }
 }

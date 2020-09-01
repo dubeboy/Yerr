@@ -10,7 +10,7 @@ struct User: Codable {
     let name: String
     let handle: String
     let phoneNumber: String
-    let profilePicture: Media
+    let profilePicture: Media?
     let point: Point
 }
 

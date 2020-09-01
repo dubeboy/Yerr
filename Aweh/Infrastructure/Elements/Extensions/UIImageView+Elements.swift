@@ -11,8 +11,6 @@ import UIKit
 
 extension UIImageView {
     func downloadImage(fromUrl: String?) {
-        // Set the activity or progress indicator
-        // set image remove progress loader
-        // if there is nothi
+//        let service = 
     }
 }

@@ -8,6 +8,14 @@
 
 import Foundation
 
-func log(message: String) {
-   // TODO: send message to our logging system probably firebase
+// TODO: look into OSLogger
+// TODO: Log these errors to our analytics engine
+enum Logger {
+    static func log(_ error: Error) {
+        #if DEBUG
+            print(error)
+        #endif
+    }
 }
+
+

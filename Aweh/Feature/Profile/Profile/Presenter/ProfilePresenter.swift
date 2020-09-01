@@ -40,11 +40,12 @@ class ProfilePresenterImplementation: ProfilePresenter {
     }
     
     func statuses(at index: IndexPath, completion: @escaping (StatusViewModel) -> Void) {
-        completion(viewModel.statuses[index.item])
+//        completion(viewModel.statuses[index.item])
     }
     
     var numberOfStatuses: Int {
-        viewModel.statuses.count
+//        viewModel.statuses.count
+        0
     }
 //
 //    static func mockUserViewModel() -> UserViewModel {

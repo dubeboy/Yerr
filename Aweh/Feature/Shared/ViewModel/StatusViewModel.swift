@@ -12,21 +12,26 @@ struct StatusViewModel: Equatable, Hashable, Identifiable {
     let id: String
     let status: String
     let user: UserViewModel
-    let media: [Media]
+    let media: [MediaViewModel]
     let timeSincePosted: String
-    let distanceFromYou: String // TODO empty for now
+    var distanceFromYou: String = ""
+//    var comments: Commen
 }
 
 extension StatusViewModel {
+
+    private static func calculateDistanceFromMe(from location: Location) -> String {
+        "--"
+    }
+
     static func transform(from status: Status) -> Self {
-        
+
         StatusViewModel(
                 id: status.id ?? "",
-            status: status.body,
+                status: status.body,
                 user: .transform(user: status.user), // TODO: should map to a Media viewModel
                 media: status.media,
-            timeSincePosted: "",
-            distanceFromYou: ""
+                timeSincePosted: status.createdAt.relativeDate()
         )
     }
     

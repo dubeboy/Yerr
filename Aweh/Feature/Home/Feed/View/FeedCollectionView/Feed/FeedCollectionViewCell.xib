@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17132" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -32,7 +34,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 KM Away ・1h" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sg7-ug-hBC">
                         <rect key="frame" x="242" y="16" width="123" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="textColor" systemColor="systemGrayColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="2" translatesAutoresizingMaskIntoConstraints="NO" id="c9u-ox-vGH">
@@ -45,6 +47,7 @@
                     </label>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstItem="Sg7-ug-hBC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Flw-he-su4" secondAttribute="trailing" constant="8" id="95X-2A-0vR"/>
                 <constraint firstAttribute="bottom" secondItem="c9u-ox-vGH" secondAttribute="bottom" constant="8" id="Hy1-gO-vtK"/>
@@ -61,19 +64,21 @@
                 <constraint firstAttribute="trailing" secondItem="c9u-ox-vGH" secondAttribute="trailing" constant="16" id="zOh-Oh-cxu"/>
                 <constraint firstItem="Sg7-ug-hBC" firstAttribute="centerY" secondItem="Flw-he-su4" secondAttribute="centerY" id="zog-uO-PQc"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="381" height="236"/>
             <connections>
                 <outlet property="distanceAndTime" destination="Sg7-ug-hBC" id="kxd-Ww-cJP"/>
                 <outlet property="profileImage" destination="buT-Bd-nJ7" id="ivb-Ps-CQZ"/>
                 <outlet property="statusImage" destination="c9u-ox-vGH" id="Oj3-Hj-GPN"/>
                 <outlet property="statusText" destination="VAD-g5-i5i" id="p56-Kr-X6b"/>
-                <outlet property="userName" destination="Flw-he-su4" id="WE5-QZ-PDp"/>
+                <outlet property="userName" destination="Flw-he-su4" id="bQ3-zM-Ahu"/>
             </connections>
             <point key="canvasLocation" x="313.768115942029" y="213.61607142857142"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="2" width="960" height="720"/>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

@@ -60,7 +60,7 @@
             <connections>
                 <outlet property="commentText" destination="KEy-ky-Z4h" id="6Nk-mQ-gNF"/>
                 <outlet property="timestamp" destination="6JZ-qS-e9H" id="r7u-JA-weR"/>
-                <outlet property="userName" destination="QOF-am-gk2" id="bYK-rv-dl7"/>
+                <outlet property="name" destination="QOF-am-gk2" id="bYK-rv-dl7"/>
                 <outlet property="userProfileImage" destination="oiK-Bl-uPl" id="oXd-3i-dd7"/>
             </connections>
             <point key="canvasLocation" x="321.73913043478262" y="154.6875"/>

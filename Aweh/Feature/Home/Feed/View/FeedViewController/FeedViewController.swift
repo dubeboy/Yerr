@@ -14,7 +14,6 @@ class FeedViewController: UIViewController {
     var layout: UICollectionViewFlowLayout!
     weak var coordinator: (PostStatusCoordinator & FeedDetailCoordinator)!
     
-    let reuseIdentifier = FeedCollectionViewCell.reuseIdentifier
 
     @IBOutlet weak var postButton: UIButton! {
         didSet {
@@ -24,7 +23,6 @@ class FeedViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Feed"
@@ -32,7 +30,7 @@ class FeedViewController: UIViewController {
         presenter.getStatuses { [weak self] count, error in
             guard let self = self else { return }
             
-            guard let count = count else {
+            guard let _ = count else {
                 self.presentToast(message: .error(error))
                 return
             }
@@ -47,15 +45,9 @@ class FeedViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        collectionView.backgroundColor = .systemGray5
+        collectionView.backgroundColor = Const.Color.backgroundColor
         collectionView.collectionViewLayout = FeedCollectionViewFlowLayout()
-        
-        collectionView.register(
-            UINib(nibName: reuseIdentifier, bundle: nil),
-            forCellWithReuseIdentifier: reuseIdentifier
-        )
-        let layout = collectionView.collectionViewLayout as! FeedCollectionViewFlowLayout
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        collectionView.register(FeedCollectionViewCell.self)
         collectionView.dataSource = self
         collectionView.delegate = self
     }

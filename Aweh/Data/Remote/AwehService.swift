@@ -9,9 +9,11 @@
 import Foundation
 import Merchant
 
+// TODO: use extensions ti break these up group them with their repos
 struct AwehService: Service {
         
     let baseURL: String = "http://localhost:8080/"
+    // TODO: pass back an instace here?
 
     @GET("statuses")
     var getStatuses: StatusResponseEntity<[Status]>
@@ -25,7 +27,7 @@ struct AwehService: Service {
 struct SingletonServiceInstance {
     
     @Autowired
-    private static var service: AwehService // TODO: Static vars are lazy???
+    static var service: AwehService
 
     var wrappedValue: AwehService {
         Self.service
