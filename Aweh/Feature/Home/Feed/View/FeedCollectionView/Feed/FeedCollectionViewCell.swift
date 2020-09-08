@@ -10,6 +10,7 @@ import UIKit
 
 class FeedCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var itemWidth: NSLayoutConstraint!
     @IBOutlet weak var main: UIView!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var userName: UILabel!

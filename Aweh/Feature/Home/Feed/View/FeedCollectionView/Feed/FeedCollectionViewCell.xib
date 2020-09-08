@@ -35,10 +35,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Yug-n0-971">
-                                <rect key="frame" x="64" y="38.5" width="275" height="20.5"/>
+                                <rect key="frame" x="56" y="38.5" width="283" height="20.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Posted 1 minute ago" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VAD-g5-i5i">
-                                        <rect key="frame" x="0.0" y="0.0" width="275" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="283" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -61,9 +61,10 @@
                             <constraint firstItem="Yug-n0-971" firstAttribute="top" secondItem="Flw-he-su4" secondAttribute="bottom" constant="8.5" id="VrS-vp-rwN"/>
                             <constraint firstAttribute="bottom" secondItem="Yug-n0-971" secondAttribute="bottom" constant="16" id="cti-2x-o1U"/>
                             <constraint firstAttribute="trailing" secondItem="Sg7-ug-hBC" secondAttribute="trailing" constant="16" id="eYs-Ig-Jvr"/>
-                            <constraint firstItem="Yug-n0-971" firstAttribute="leading" secondItem="buT-Bd-nJ7" secondAttribute="trailing" constant="16" id="hPj-Wd-wEG"/>
+                            <constraint firstItem="Yug-n0-971" firstAttribute="leading" secondItem="buT-Bd-nJ7" secondAttribute="trailing" constant="8" id="hPj-Wd-wEG"/>
                             <constraint firstItem="Flw-he-su4" firstAttribute="leading" secondItem="buT-Bd-nJ7" secondAttribute="trailing" constant="8" id="vZL-cO-daB"/>
                             <constraint firstItem="buT-Bd-nJ7" firstAttribute="leading" secondItem="N7g-sF-ebT" secondAttribute="leading" constant="8" id="wTZ-qr-amA"/>
+                            <constraint firstAttribute="width" constant="354" id="ybT-g8-04I"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -78,6 +79,7 @@
             <size key="customSize" width="354" height="75"/>
             <connections>
                 <outlet property="distanceAndTime" destination="Sg7-ug-hBC" id="kxd-Ww-cJP"/>
+                <outlet property="itemWidth" destination="ybT-g8-04I" id="9KX-BS-W12"/>
                 <outlet property="main" destination="N7g-sF-ebT" id="71o-Jh-6Dn"/>
                 <outlet property="profileImage" destination="buT-Bd-nJ7" id="ivb-Ps-CQZ"/>
                 <outlet property="statusText" destination="VAD-g5-i5i" id="p56-Kr-X6b"/>
