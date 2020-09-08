@@ -26,7 +26,7 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Feed"
-        // TODO: add Shimer view
+        configureCollectionView()
         presenter.getStatuses { [weak self] count, error in
             guard let self = self else { return }
             
@@ -39,14 +39,12 @@ class FeedViewController: UIViewController {
         }
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        configureCollectionView()
-    }
-    
     private func configureCollectionView() {
         collectionView.backgroundColor = Const.Color.backgroundColor
-        collectionView.collectionViewLayout = FeedCollectionViewFlowLayout()
+       
+        collectionView.collectionViewLayout = UICollectionViewFlowLayout()
+        let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        flowLayout?.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         collectionView.register(FeedCollectionViewCell.self)
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -61,28 +59,6 @@ class FeedViewController: UIViewController {
     @IBAction func postButtonAction(_ sender: Any) {
         coordinator.startPostStatusViewController()
     }
-    
-//    func createToolbarItems() -> [UIBarButtonItem] {
-//        return [
-//            UIBarButtonItem(title: "Feed", style: .plain, target: self, action: #selector(goToFeed)),
-//            UIBarButtonItem(title: "Notifications", style: .plain, target: self, action: #selector(goNotifications)),
-//            UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(goProfile))
-//        ]
-//    }
-//
- 
-//
-//    @objc func goToFeed() {
-//
-//    }
-//
-//    @objc func goProfile() {
-//
-//    }
-//
-//    @objc func goNotifications() {
-//
-//    }
 }
 
 extension FeedViewController: UICollectionViewDataSource {
@@ -93,7 +69,6 @@ extension FeedViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let status = presenter.getStatus(at: indexPath)
         let cell = collectionView.deque(FeedCollectionViewCell.self, at: indexPath)
-        // TODO: - move to the presenter
         presenter.feedCellPresenter.configure(with: cell, forDisplaying: status)
         return cell
     }

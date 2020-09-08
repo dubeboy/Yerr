@@ -10,18 +10,26 @@ import UIKit
 
 class FeedCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var main: UIView!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var distanceAndTime: UILabel!
     @IBOutlet weak var statusText: UILabel!
-    @IBOutlet weak var statusImage: UIImageView!
+//    @IBOutlet weak var statusImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+//        contentView --> self
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView --> self
-        statusImage.contentMode = .scaleAspectFill
-        configureCell()
+        main.widthAnchor --> contentView.widthAnchor
+        NSLayoutConstraint.activate([
+            contentView.leftAnchor.constraint(equalTo: leftAnchor),
+            contentView.rightAnchor.constraint(equalTo: rightAnchor),
+            contentView.topAnchor.constraint(equalTo: topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+//        statusImage.contentMode = .scaleAspectFill
+//        configureCell()
     }
     
 //    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
@@ -55,15 +63,15 @@ class FeedCollectionViewCell: UICollectionViewCell {
         profileImage.makeImageRound()
     }
     
-    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        setNeedsLayout()
-        layoutIfNeeded()
-        let size = contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-        let attr = super.preferredLayoutAttributesFitting(layoutAttributes)
-
-        var newFrame = attr.frame
-
-        newFrame.size = size
-        return attr
-    }
+//    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+//        setNeedsLayout()
+//        layoutIfNeeded()
+//        let size = contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+//        let attr = super.preferredLayoutAttributesFitting(layoutAttributes)
+//
+//        var newFrame = attr.frame
+//
+//        newFrame.size = size
+//        return attr
+//    }
 }

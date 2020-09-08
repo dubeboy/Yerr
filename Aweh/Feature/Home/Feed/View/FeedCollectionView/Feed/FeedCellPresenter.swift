@@ -14,13 +14,13 @@ class FeedCellPresenter {
         cell.statusText.text = model.status
         cell.distanceAndTime.text = model.distanceFromYou + "KM・\(model.timeSincePosted)" // change this to attributed string
         
-        if model.media.isEmpty {
-            cell.statusImage.isHidden = true
-        } else {
-            model.media.forEach { media in
-                cell.statusImage.downloadImage(fromUrl: media.location)
-            }
-        }
+//        if model.media.isEmpty {
+//            cell.statusImage.isHidden = true
+//        } else {
+//            model.media.forEach { media in
+//                cell.statusImage.downloadImage(fromUrl: media.location)
+//            }
+//        }
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
     }
