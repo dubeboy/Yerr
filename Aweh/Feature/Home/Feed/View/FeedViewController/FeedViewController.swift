@@ -43,7 +43,7 @@ class FeedViewController: UIViewController {
         collectionView.backgroundColor = Const.Color.backgroundColor
        
         let flowLayout =  UICollectionViewFlowLayout()
-        flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        flowLayout.estimatedItemSize = CGSize(width: 300, height: 0)
         flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         flowLayout.minimumLineSpacing = 8
         flowLayout.minimumInteritemSpacing = 0

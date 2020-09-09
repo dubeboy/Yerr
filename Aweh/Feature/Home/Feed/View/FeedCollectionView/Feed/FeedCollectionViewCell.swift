@@ -20,7 +20,9 @@ class FeedCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-//        contentView --> self
+        self.clipsToBounds = true
+        translatesAutoresizingMaskIntoConstraints = false
+        configureContentView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         main.widthAnchor --> contentView.widthAnchor
         NSLayoutConstraint.activate([
@@ -29,31 +31,22 @@ class FeedCollectionViewCell: UICollectionViewCell {
             contentView.topAnchor.constraint(equalTo: topAnchor),
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-//        statusImage.contentMode = .scaleAspectFill
-//        configureCell()
+        configureCell()
     }
     
-//    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-//        setNeedsLayout()
-//        layoutIfNeeded()
-////
-////         let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
-//
-//        let attributes = super.preferredLayoutAttributesFitting(layoutAttributes)
-//        var frame = attributes.frame
-//        frame.size.height = ceil(10)
-//        layoutAttributes.frame = frame
-//        return layoutAttributes
-//    }
-
-//    private func calculateFrame() -> CGSize {
-//        
-//        let imageHeight: CGFloat = statusImage.image == nil ? 0 : 150 // todo add these to global file
-//        let cellHeight = contentView.bounds.height + imageHeight + statusText.bounds.height + statusImage.bounds.height
-//        let size = CGSize(width: bounds.width, height: cellHeight)
-//    
-//       return size
-//    }
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        setNeedsLayout()
+        layoutIfNeeded()
+        let contentViewSize = contentView.bounds
+        let size = contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        let attr = super.preferredLayoutAttributesFitting(layoutAttributes)
+        let newSize = CGSize(width: contentViewSize.width, height: size.height)
+        var newFrame = attr.frame
+        
+        newFrame.size = newSize
+        attr.frame = newFrame
+        return attr
+    }
     
     private func configureCell() {
         configureContentView()
@@ -63,16 +56,4 @@ class FeedCollectionViewCell: UICollectionViewCell {
     private func configureProfileImage() {
         profileImage.makeImageRound()
     }
-    
-//    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-//        setNeedsLayout()
-//        layoutIfNeeded()
-//        let size = contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-//        let attr = super.preferredLayoutAttributesFitting(layoutAttributes)
-//
-//        var newFrame = attr.frame
-//
-//        newFrame.size = size
-//        return attr
-//    }
 }

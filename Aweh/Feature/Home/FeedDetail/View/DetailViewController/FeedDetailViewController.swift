@@ -20,6 +20,7 @@ class FeedDetailViewController: UICollectionViewController {
         presenter.fetchComments(page: 0) { [weak self] commentsCount in
             // TODO: - show the number of comments on the top view
             // reload item 1 to n
+            // if comments count == 0 then show error
             self?.collectionView.reloadData()
         }
     }
@@ -31,13 +32,13 @@ class FeedDetailViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.item {
             case 0:
-            let cell = collectionView.deque(FeedDetailCollectionViewCell.self, at: indexPath)
-            presenter.configure(cell)
-            return cell
+                let cell = collectionView.deque(FeedDetailCollectionViewCell.self, at: indexPath)
+                presenter.configure(cell)
+                return cell
             default:
-            let cell = collectionView.deque(CommentCollectionViewCell.self, at: indexPath)
-            presenter.configure(cell, for: indexPath)
-            return cell
+                let cell = collectionView.deque(CommentCollectionViewCell.self, at: indexPath)
+                presenter.configure(cell, for: indexPath)
+                return cell
         }
     }
     
