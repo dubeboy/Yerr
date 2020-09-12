@@ -16,15 +16,25 @@ class FeedDetailViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        title = presenter.title
+        setUpCommentBox()
+        navigationItem.title = presenter.title
         presenter.fetchComments(page: 0) { [weak self] commentsCount in
-            // TODO: - show the number of comments on the top view
-            // reload item 1 to n
-            // if comments count == 0 then show error
+            guard commentsCount > 0 else {
+                // Display the no comments banner
+                return
+            }
+            // Do batch updates
             self?.collectionView.reloadData()
+        } failuire: { errorMessage in
+            self.presentToast(message: errorMessage)
         }
     }
-        
+    
+    
+    
+}
+
+extension FeedDetailViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         presenter.commentsCount + 1
     }
@@ -42,6 +52,12 @@ class FeedDetailViewController: UICollectionViewController {
         }
     }
     
+   
+}
+
+
+// MARK: private methods
+private extension FeedDetailViewController {
     private func configureCollectionView() {
         collectionView.register(FeedDetailCollectionViewCell.self)
         collectionView.register(CommentCollectionViewCell.self)
@@ -53,5 +69,14 @@ class FeedDetailViewController: UICollectionViewController {
         collectionView.backgroundColor = .systemGray5
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
+    }
+    
+    private func setUpCommentBox() {
+        let commentBox = CommentBoxView(frame: .zero)
+        view.addSubview(commentBox)
+        commentBox.translatesAutoresizingMaskIntoConstraints = false
+        commentBox.bottomAnchor --> view.safeAreaLayoutGuide.bottomAnchor
+        commentBox.leadingAnchor --> view.safeAreaLayoutGuide.leadingAnchor + Const.View.m16
+        commentBox.trailingAnchor --> view.safeAreaLayoutGuide.trailingAnchor + -Const.View.m16
     }
 }

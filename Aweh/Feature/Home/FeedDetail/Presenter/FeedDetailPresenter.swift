@@ -13,7 +13,10 @@ protocol FeedDetailPresenter {
     var title: String { get }
     func configure(_ cell: FeedDetailCollectionViewCell)
     func configure(_ cell: CommentCollectionViewCell, for indexPath: IndexPath)
-    func fetchComments(page: Int, completion: @escaping (_ count: Int) -> Void)
+    func fetchComments(page: Int,
+                       completion: @escaping (Int) -> Void,
+                       failuire: @escaping (String) -> Void
+    )
 }
 
 class FeedDetailPresenterImplemantation: FeedDetailPresenter {
@@ -21,9 +24,10 @@ class FeedDetailPresenterImplemantation: FeedDetailPresenter {
     let feedDetailCellPresenter: FeedDetailCellPresenter = FeedDetailCellPresenter()
     let commentsPresenter: CommentCellPresenter = CommentCellPresenter()
     var viewModel: FeedDetailViewModel
+    var feedDetailInteratctor = FeedDetailInteractor()
     
     var commentsCount: Int {
-        viewModel.comments?.count ?? 0
+        viewModel.comments.count
     }
     
     init(statusViewModel: FeedDetailViewModel) {
@@ -35,12 +39,24 @@ class FeedDetailPresenterImplemantation: FeedDetailPresenter {
     }
     
     func configure(_ cell: CommentCollectionViewCell, for indexPath: IndexPath) {
-        let commentViewModel = viewModel.comments?[indexPath.item - 1]
-        guard let viewModel = commentViewModel else { return }
-        commentsPresenter.configure(with: cell, forDisplaying: viewModel)
+        let commentViewModel = viewModel.comments[indexPath.item - 1]
+        commentsPresenter.configure(with: cell, forDisplaying: commentViewModel)
     }
     
-    func fetchComments(page: Int, completion: @escaping (_ count: Int) -> Void) {
-        
+    func fetchComments(page: Int,
+                       completion: @escaping (Int) -> Void,
+                       failuire: @escaping (String) -> Void
+    )  {
+        feedDetailInteratctor.getComments(statusId: viewModel.feed.id) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+                case .success(let result):
+                    self.viewModel.comments.append(contentsOf: result.map(DetailCommentViewModel.tranform(comment:))
+                    ) 
+                    completion(self.viewModel.comments.count)
+                case .failure(let error):
+                    failuire(error.localizedDescription)
+            }
+        }
     }
 }

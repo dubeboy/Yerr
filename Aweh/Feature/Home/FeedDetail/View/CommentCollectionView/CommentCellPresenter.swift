@@ -10,9 +10,9 @@ import Foundation
 
 class CommentCellPresenter {
     func configure(with cell: CommentCollectionViewCell, forDisplaying viewModel: DetailCommentViewModel) {
-//        cell.userName.text = viewModel.userName
-//        cell.commentText.text = viewModel.comment
-//        cell.userProfileImage.downloadImage(fromUrl: viewModel.userImage)
-//        cell.timestamp.text = viewModel.timestamp
+        cell.userName.text = viewModel.user.name
+        cell.comment.text = viewModel.comment
+        cell.userProfileImage.downloadImage(fromUrl: viewModel.user.profilePicture)
+        cell.timestamp.text = viewModel.timestamp
     }
 }

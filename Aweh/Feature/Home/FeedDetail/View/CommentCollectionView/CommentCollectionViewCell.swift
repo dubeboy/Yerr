@@ -15,10 +15,10 @@ class CommentCollectionViewCell: UICollectionViewCell {
             userProfileImage.makeImageRound()
         }
     }
-    @IBOutlet weak var commentText: UILabel! {
+    @IBOutlet weak var comment: UILabel! {
         didSet {
-            commentText.numberOfLines = 0
-            commentText.lineBreakMode = .byWordWrapping
+            comment.numberOfLines = 0
+            comment.lineBreakMode = .byWordWrapping
         }
     }
     @IBOutlet weak var userName: UILabel!

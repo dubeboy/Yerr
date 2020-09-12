@@ -13,14 +13,22 @@ import Merchant
 struct AwehService: Service {
         
     let baseURL: String = "http://localhost:8080/"
-    // TODO: pass back an instace here?
+    // TODO: pass back an static instace here? [Merchant]
 
+    /// --------------------
+    // MARK: Statuses
+    /// --------------------
+    
     @GET("statuses")
     var getStatuses: StatusResponseEntity<[Status]>
 
-    @POST("/statuses", body: Status.self)
-    var postPost: StatusResponseEntity<Status>
+    @POST("statuses", body: Status.self)
+    var postStatus: StatusResponseEntity<Status>
+    
+    @GET("statuses/{status_id}/comments")
+    var getComments: StatusResponseEntity<[Comment]>
 }
+
 
 /// We maintain a static reference to our service
 @propertyWrapper

@@ -31,4 +31,5 @@ struct FeedInteractor: StatusesUseCase {
             }
         }
     }
+    
 }

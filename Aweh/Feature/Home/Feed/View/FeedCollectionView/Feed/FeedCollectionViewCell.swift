@@ -10,13 +10,11 @@ import UIKit
 
 class FeedCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var itemWidth: NSLayoutConstraint!
     @IBOutlet weak var main: UIView!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var distanceAndTime: UILabel!
     @IBOutlet weak var statusText: UILabel!
-//    @IBOutlet weak var statusImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,12 +23,6 @@ class FeedCollectionViewCell: UICollectionViewCell {
         configureContentView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         main.widthAnchor --> contentView.widthAnchor
-        NSLayoutConstraint.activate([
-            contentView.leftAnchor.constraint(equalTo: leftAnchor),
-            contentView.rightAnchor.constraint(equalTo: rightAnchor),
-            contentView.topAnchor.constraint(equalTo: topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
         configureCell()
     }
     

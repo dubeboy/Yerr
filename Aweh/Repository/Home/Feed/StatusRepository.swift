@@ -26,3 +26,4 @@ struct StatusRepository: RepositoryInjectable {
         }
     }
 }
+

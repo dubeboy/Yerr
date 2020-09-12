@@ -23,6 +23,7 @@ enum Const {
         static let m8: CGFloat = 8
         static let m1: CGFloat = 1
         static let m2: CGFloat = 2
+        static let m4: CGFloat = 2
         static let radius: CGFloat = 10
         static let borderWidth: CGFloat = m2
     }
@@ -34,7 +35,7 @@ enum Const {
         }
         
         enum Defaults {
-            static let defaultImageName = UIImage(named: "1")
+            static let defaultImageName = UIImage(named: "1") // this is the image that shows up while fetching from internet
         }
     }
     
