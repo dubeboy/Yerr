@@ -37,7 +37,7 @@ enum Const {
             static let defaultImageName = UIImage(named: "1")
         }
         
-        enum Common {
+        enum FeedDetail {
             static let iconImage: UIImage? = getSystemResource(systemName: "photo")
         }
         

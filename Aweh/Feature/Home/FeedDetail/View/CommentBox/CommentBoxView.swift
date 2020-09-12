@@ -10,6 +10,8 @@ import UIKit
 
 class CommentBoxView: UIView {
     
+    private static let buttonEdgeInset = UIEdgeInsets(top: Const.View.m8, left: Const.View.m8, bottom: Const.View.m8, right: Const.View.m8)
+    
     private var containerStackView: UIStackView!
     private var commentTextView: UITextView!
     private var iconsStackView: UIStackView!
@@ -81,31 +83,35 @@ private extension CommentBoxView {
     private func configureIconsStackView() {
         iconsStackView.axis = .horizontal
         iconsStackView.spacing = Const.View.m4
-        iconsStackView.alignment = .fill
+        iconsStackView.alignment = .center
         iconsStackView.distribution = .equalSpacing
         containerStackView.addArrangedSubview(iconsStackView)
     }
     
     private func addIconsToIconsStackView() {
-        selectePhotosButton.setTitle("Photo", for: .normal)
-        selectePhotosButton.backgroundColor = .cyan
+        configurePhotosButton(button: selectePhotosButton)
         iconsStackView.addArrangedSubview(selectePhotosButton)
         configureReplyButton(button: replyButton)
         iconsStackView.addArrangedSubview(replyButton)
     }
     
     private func configureReplyButton(button: UIButton) {
-        button.setTitle("Reply", for: .normal)
+        button.setTitle(AppStrings.FeedDetail.replyButton, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = Const.Color.actionButtonColor
         button.setTitleColor(Const.Color.lightGray, for: .highlighted)
         button.setTitleColor(Const.Color.lightGray, for: .selected)
-        button.layer.cornerRadius = 1.5 * Const.View.radius
+        button.layer.cornerRadius = Const.View.radius
         button.layer.masksToBounds = true
-        button.contentEdgeInsets = UIEdgeInsets(top: Const.View.m4, left: Const.View.m8, bottom: Const.View.m4, right: Const.View.m8)
+        button.contentEdgeInsets = Self.buttonEdgeInset
     }
     
     private func configurePhotosButton(button: UIButton) {
-        
+        selectePhotosButton.setImage(Const.Assets.FeedDetail.iconImage, for: .normal)
+        button.contentEdgeInsets = UIEdgeInsets(top: Const.View.m8, left: Const.View.m8, bottom: Const.View.m8, right: Const.View.m8)
+        button.layer.borderWidth = Const.View.borderWidth
+        button.layer.masksToBounds = true
+        button.layer.borderColor = Const.Color.lightGray.cgColor
+        button.layer.cornerRadius = Const.View.radius
     }
 }
