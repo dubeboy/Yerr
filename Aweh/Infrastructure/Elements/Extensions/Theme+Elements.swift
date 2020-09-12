@@ -29,20 +29,37 @@ enum Const {
     }
     
     // MARK: App assets
+    /// gets SFSymbols if iOS 13+ else gets local resource
     enum Assets {
         enum Interests {
-            static let iconCheckmark: UIImage? = UIImage(systemName: "checkmark.circle")
+            static let iconCheckmark: UIImage? = getSystemResource(systemName: "checkmark.circle")
         }
         
         enum Defaults {
-            static let defaultImageName = UIImage(named: "1") // this is the image that shows up while fetching from internet
+            // this is the image that shows up while fetching from internet
+            static let defaultImageName = UIImage(named: "1")
         }
+        
+        enum Common {
+            static let iconImage: UIImage? = getSystemResource(systemName: "photo")
+        }
+        
     }
     
     // MARK: Colors
-    
+    /// Note: these color must support dark mode
+    /// default naming: light mode
     enum Color {
         static let lightGray = UIColor.systemGray6
         static let backgroundColor = UIColor.systemGray5
+        static let systemWhite = UIColor.systemBackground
+    }
+    
+    private static func getSystemResource(systemName: String) -> UIImage? {
+        if #available(iOS 13, *) {
+            return UIImage(systemName: systemName)
+        } else {
+            return UIImage(named: systemName)
+        }
     }
 }

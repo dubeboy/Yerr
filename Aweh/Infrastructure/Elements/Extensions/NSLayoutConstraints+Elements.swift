@@ -27,7 +27,7 @@ infix operator +: AdditionPrecedence
 
 
 
-func -->(lhs: UIView, rhs: UIView) {
+func -->(lhs: UIView, rhs: UIView) { // wanna also be able to do somthing like v -> v2 + 16
     lhs.translatesAutoresizingMaskIntoConstraints = false
     lhs.leadingAnchor --> rhs.leadingAnchor
     lhs.trailingAnchor --> rhs.trailingAnchor

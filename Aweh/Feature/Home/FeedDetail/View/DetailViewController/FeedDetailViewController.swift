@@ -74,9 +74,8 @@ private extension FeedDetailViewController {
     private func setUpCommentBox() {
         let commentBox = CommentBoxView(frame: .zero)
         view.addSubview(commentBox)
-        commentBox.translatesAutoresizingMaskIntoConstraints = false
         commentBox.bottomAnchor --> view.safeAreaLayoutGuide.bottomAnchor
-        commentBox.leadingAnchor --> view.safeAreaLayoutGuide.leadingAnchor + Const.View.m16
-        commentBox.trailingAnchor --> view.safeAreaLayoutGuide.trailingAnchor + -Const.View.m16
+        commentBox.leadingAnchor --> view.safeAreaLayoutGuide.leadingAnchor
+        commentBox.trailingAnchor --> view.safeAreaLayoutGuide.trailingAnchor
     }
 }
