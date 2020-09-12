@@ -55,7 +55,7 @@
 		716A0C9224A2E01A00F18ED6 /* UICollectionFlowLayout+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716A0C9124A2E01A00F18ED6 /* UICollectionFlowLayout+Elements.swift */; };
 		716A0C9424A2E54200F18ED6 /* InterestsCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716A0C9324A2E54200F18ED6 /* InterestsCellPresenter.swift */; };
 		716A0C9624A2E9C800F18ED6 /* StatusPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716A0C9524A2E9C800F18ED6 /* StatusPageCoordinator.swift */; };
-		716DA6BB248C581F001B74E2 /* Theme+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA6BA248C581F001B74E2 /* Theme+Elements.swift */; };
+		716DA6BB248C581F001B74E2 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA6BA248C581F001B74E2 /* Theme.swift */; };
 		716DA6C2248D7E55001B74E2 /* PostStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA6C1248D7E55001B74E2 /* PostStatusViewController.swift */; };
 		716DA6C4248D7E69001B74E2 /* PostStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA6C3248D7E69001B74E2 /* PostStatusPresenter.swift */; };
 		716DA6CB248EE4D2001B74E2 /* UIViewController+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA6CA248EE4D2001B74E2 /* UIViewController+Elements.swift */; };
@@ -183,7 +183,7 @@
 		716A0C9124A2E01A00F18ED6 /* UICollectionFlowLayout+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionFlowLayout+Elements.swift"; sourceTree = "<group>"; };
 		716A0C9324A2E54200F18ED6 /* InterestsCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestsCellPresenter.swift; sourceTree = "<group>"; };
 		716A0C9524A2E9C800F18ED6 /* StatusPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPageCoordinator.swift; sourceTree = "<group>"; };
-		716DA6BA248C581F001B74E2 /* Theme+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Theme+Elements.swift"; sourceTree = "<group>"; };
+		716DA6BA248C581F001B74E2 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		716DA6C1248D7E55001B74E2 /* PostStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStatusViewController.swift; sourceTree = "<group>"; };
 		716DA6C3248D7E69001B74E2 /* PostStatusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStatusPresenter.swift; sourceTree = "<group>"; };
 		716DA6CA248EE4D2001B74E2 /* UIViewController+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Elements.swift"; sourceTree = "<group>"; };
@@ -334,7 +334,6 @@
 			children = (
 				7157C2332488766F00F0A7F0 /* NSLayoutConstraints+Elements.swift */,
 				713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */,
-				716DA6BA248C581F001B74E2 /* Theme+Elements.swift */,
 				716DA6CA248EE4D2001B74E2 /* UIViewController+Elements.swift */,
 				7172D616248F2D700083B7F6 /* UIView+Elements.swift */,
 				711EADE9249DDE8600D33072 /* Date+Element.swift */,
@@ -407,6 +406,14 @@
 				7121DA8C250972BF00EE21D5 /* CommentBoxView.swift */,
 			);
 			path = CommentBox;
+			sourceTree = "<group>";
+		};
+		7135D15A250D7030007CEF87 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				716DA6BA248C581F001B74E2 /* Theme.swift */,
+			);
+			path = Theme;
 			sourceTree = "<group>";
 		};
 		7137311A24BF9084001CE972 /* Footer */ = {
@@ -530,6 +537,7 @@
 		7157C22F248875EF00F0A7F0 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				7135D15A250D7030007CEF87 /* Theme */,
 				71777B6B24C664B80075F4F7 /* Localization */,
 				7157C230248875FF00F0A7F0 /* DI */,
 				718BE81F2486BCE500CA328B /* Elements */,
@@ -1408,7 +1416,7 @@
 				7157C21D24886DB400F0A7F0 /* StatusRepository.swift in Sources */,
 				718BE80F2486BA8000CA328B /* FeedViewController.swift in Sources */,
 				71C46DA624B26CC300A9DB14 /* PickInterestCoordinator.swift in Sources */,
-				716DA6BB248C581F001B74E2 /* Theme+Elements.swift in Sources */,
+				716DA6BB248C581F001B74E2 /* Theme.swift in Sources */,
 				716A0C8D24A2DA4800F18ED6 /* InterestViewModel.swift in Sources */,
 				7196DD1424B0B6D700384B84 /* ProfileViewController.swift in Sources */,
 				71585EE224A2932800092D6E /* StatusPagePresenter.swift in Sources */,

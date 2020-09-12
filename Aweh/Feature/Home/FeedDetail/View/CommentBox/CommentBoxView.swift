@@ -43,7 +43,7 @@ class CommentBoxView: UIView {
     }
     
     private func setupConstraintsForIcons() {
-        iconsStackView.heightAnchor --> 30
+//        iconsStackView.heightAnchor --> 30
     }
     
     private func setupConstraintsForCommentsBox() {
@@ -56,7 +56,7 @@ private extension CommentBoxView {
         self.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.axis = .vertical
-        containerStackView.spacing = Const.View.m4
+        containerStackView.spacing = Const.View.m8
         containerStackView.alignment = .fill
         containerStackView.distribution = .fillProportionally
         addSubview(containerStackView)
@@ -74,7 +74,7 @@ private extension CommentBoxView {
         containerStackView.addArrangedSubview(commentTextView)
         commentTextView.isScrollEnabled = false // Allows automatic height adjustment
         commentTextView.backgroundColor = Const.Color.lightGray
-        commentTextView.layer.cornerRadius = Const.View.radius
+        commentTextView.layer.cornerRadius = 1.5 * Const.View.radius
         
     }
     
@@ -90,8 +90,22 @@ private extension CommentBoxView {
         selectePhotosButton.setTitle("Photo", for: .normal)
         selectePhotosButton.backgroundColor = .cyan
         iconsStackView.addArrangedSubview(selectePhotosButton)
-        replyButton.backgroundColor = .blue
-        replyButton.setTitle("Reply", for: .normal)
+        configureReplyButton(button: replyButton)
         iconsStackView.addArrangedSubview(replyButton)
+    }
+    
+    private func configureReplyButton(button: UIButton) {
+        button.setTitle("Reply", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = Const.Color.actionButtonColor
+        button.setTitleColor(Const.Color.lightGray, for: .highlighted)
+        button.setTitleColor(Const.Color.lightGray, for: .selected)
+        button.layer.cornerRadius = 1.5 * Const.View.radius
+        button.layer.masksToBounds = true
+        button.contentEdgeInsets = UIEdgeInsets(top: Const.View.m4, left: Const.View.m8, bottom: Const.View.m4, right: Const.View.m8)
+    }
+    
+    private func configurePhotosButton(button: UIButton) {
+        
     }
 }

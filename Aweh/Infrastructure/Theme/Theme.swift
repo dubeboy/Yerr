@@ -12,9 +12,6 @@ import UIKit
 
 // MARK: - App Constants
 
-//extension CGFloat {
-//    static let const = Const()
-//}
 enum Const {
     // MARK: View Constants
     enum View {
@@ -45,7 +42,8 @@ enum Const {
         }
         
     }
-    
+//    https://colorhunt.co/palette/201882 dark theme baby
+//    https://colorhunt.co/palette/196113
     // MARK: Colors
     /// Note: these color must support dark mode
     /// default naming: light mode
@@ -53,6 +51,7 @@ enum Const {
         static let lightGray = UIColor.systemGray6
         static let backgroundColor = UIColor.systemGray5
         static let systemWhite = UIColor.systemBackground
+        static let actionButtonColor = UIColor(named: "blueActionButton")
     }
     
     private static func getSystemResource(systemName: String) -> UIImage? {

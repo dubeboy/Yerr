@@ -14,4 +14,9 @@ enum AppStrings {
         static let genericError = "Sorry something unexpected happened. Please try again."
         static let noInternetConnection = "Sorry something unexpected happened. Please make sure you are connected to the internet."
     }
+    
+    enum FeedDetail {
+        static let replyButton = "Reply"
+        static let replyPlaceholderText = "Reply to this status"
+    }
 }
