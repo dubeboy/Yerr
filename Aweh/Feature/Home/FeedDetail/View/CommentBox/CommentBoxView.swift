@@ -9,15 +9,15 @@
 import UIKit
 
 class CommentBoxView: UIStackView {
-    var commentTextView: UITextField!
-    var iconsView: UIStackView!
+    var commentTextView: UITextView!
+    var iconsStackView: UIStackView!
     var selectePhotosButton: UIButton!
     var replyButton: UIButton!
     override init(frame: CGRect) {
         super.init(frame: frame)
-        commentTextView = UITextField(frame: .zero)
+        commentTextView = UITextView(frame: .zero)
         commentTextView.backgroundColor = .darkGray
-        iconsView = UIStackView(frame: .zero)
+        iconsStackView = UIStackView(frame: .zero)
         selectePhotosButton = UIButton(frame: .zero)
         replyButton = UIButton(frame: .zero)
         
@@ -30,25 +30,27 @@ class CommentBoxView: UIStackView {
         axis = .vertical
         spacing = Const.View.m2
         alignment = .fill
-        distribution = .fillEqually
+        distribution = .fillProportionally
         addArrangedSubview(commentTextView)
+        
+        commentTextView.isScrollEnabled = false // Allows automatic height adjust menty
     }
     
     private func configureIconsStackView() {
-        iconsView.axis = .horizontal
-        iconsView.spacing = Const.View.m4
-        iconsView.alignment = .fill
-        iconsView.distribution = .equalSpacing
-        addArrangedSubview(iconsView)
+        iconsStackView.axis = .horizontal
+        iconsStackView.spacing = Const.View.m4
+        iconsStackView.alignment = .fill
+        iconsStackView.distribution = .equalSpacing
+        addArrangedSubview(iconsStackView)
     }
     
     private func addIconsToIconsStackView() {
         selectePhotosButton.setTitle("Photo", for: .normal)
         selectePhotosButton.backgroundColor = .cyan
-        iconsView.addArrangedSubview(selectePhotosButton)
+        iconsStackView.addArrangedSubview(selectePhotosButton)
         replyButton.backgroundColor = .blue
         replyButton.setTitle("Reply", for: .normal)
-        iconsView.addArrangedSubview(replyButton)
+        iconsStackView.addArrangedSubview(replyButton)
     }
     
     required init(coder: NSCoder) {
@@ -63,11 +65,9 @@ class CommentBoxView: UIStackView {
     }
     
     private func setupConstraintsForIcons() {
-//        replyButton.widthAnchor --> 30
-//        replyButton.heightAnchor --> 30
+        iconsStackView.heightAnchor --> 30
     }
     
     private func setupConstraintsForCommentsBox() {
-        commentTextView.heightAnchor --> 40
     }
 }
