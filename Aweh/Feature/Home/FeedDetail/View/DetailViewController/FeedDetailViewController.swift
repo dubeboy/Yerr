@@ -8,15 +8,16 @@
 
 import UIKit
 
-class FeedDetailViewController: UICollectionViewController {
+final class FeedDetailViewController: UICollectionViewController {
     
     var presenter: FeedDetailPresenter!
+    var commentBox: CommentBoxView = CommentBoxView()
     weak var coordinator: Coordinator!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        setUpCommentBox()
+        setUpCommentBox(commentBox: commentBox)
         navigationItem.title = presenter.title
         presenter.fetchComments(page: 0) { [weak self] commentsCount in
             guard commentsCount > 0 else {
@@ -30,8 +31,18 @@ class FeedDetailViewController: UICollectionViewController {
         }
     }
     
+    @objc func didTapOnReplyButton(_ sender: UIButton) {
+        
+    }
     
+    @objc func didTapOnSelectedPhotosButton(_ sender: UIButton) {
+        
+    }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        collectionView.contentInset.bottom = commentBox.frame.height
+    }
 }
 
 extension FeedDetailViewController {
@@ -71,11 +82,18 @@ private extension FeedDetailViewController {
         collectionView.showsHorizontalScrollIndicator = false
     }
     
-    private func setUpCommentBox() {
-        let commentBox = CommentBoxView(frame: .zero)
+    private func setUpCommentBox(commentBox: CommentBoxView) {
         view.addSubview(commentBox)
         commentBox.bottomAnchor --> view.safeAreaLayoutGuide.bottomAnchor
         commentBox.leadingAnchor --> view.safeAreaLayoutGuide.leadingAnchor
         commentBox.trailingAnchor --> view.safeAreaLayoutGuide.trailingAnchor
+        
+        commentBox.replyButton.addTarget(self, action: #selector(didTapOnReplyButton(_:)), for: .touchUpInside)
+        commentBox.selectePhotosButton.addTarget(self, action: #selector(didTapOnSelectedPhotosButton(_:)), for: .touchUpInside)
+        
+        // we also need to setup the cllectionView insets!!!
+    
     }
+    
+    
 }

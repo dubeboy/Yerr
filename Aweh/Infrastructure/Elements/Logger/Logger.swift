@@ -9,11 +9,17 @@
 import Foundation
 
 // TODO: look into OSLogger
-// TODO: Log these errors to our analytics engine
+// TODO: Log these errors to our analytics engine our own analytics engine maybe?
 enum Logger {
     static func log(_ error: Error) {
         #if DEBUG
             print(error)
+        #endif
+    }
+    
+    static func log(_ error: String) {
+        #if DEBUG
+        print(error)
         #endif
     }
 }

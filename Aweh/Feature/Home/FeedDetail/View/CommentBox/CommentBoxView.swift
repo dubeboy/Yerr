@@ -15,16 +15,16 @@ class CommentBoxView: UIView {
     private var containerStackView: UIStackView!
     private var commentTextView: UITextView!
     private var iconsStackView: UIStackView!
-    private var selectePhotosButton: UIButton!
-    private var replyButton: UIButton!
+    private(set) var selectePhotosButton: UIButton!
+    private(set) var replyButton: UIButton!
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(frame: .zero)
         containerStackView = UIStackView(frame: .zero)
         
         commentTextView = UITextView(frame: .zero)
         iconsStackView = UIStackView(frame: .zero)
-        selectePhotosButton = UIButton(frame: .zero)
+        selectePhotosButton = UIButton(type: .custom)
         replyButton = UIButton(frame: .zero)
         
         configureSelf()
@@ -42,13 +42,6 @@ class CommentBoxView: UIView {
         
         setupConstraintsForIcons()
         setupConstraintsForCommentsBox()
-    }
-    
-    private func setupConstraintsForIcons() {
-//        iconsStackView.heightAnchor --> 30
-    }
-    
-    private func setupConstraintsForCommentsBox() {
     }
 }
 
@@ -77,6 +70,8 @@ private extension CommentBoxView {
         commentTextView.isScrollEnabled = false // Allows automatic height adjustment
         commentTextView.backgroundColor = Const.Color.lightGray
         commentTextView.layer.cornerRadius = 1.5 * Const.View.radius
+        commentTextView.textContainerInset.left = (1.5 * Const.View.radius) / 2
+        commentTextView.textContainerInset.right = (1.5 * Const.View.radius) / 2
         
     }
     
@@ -108,10 +103,20 @@ private extension CommentBoxView {
     
     private func configurePhotosButton(button: UIButton) {
         selectePhotosButton.setImage(Const.Assets.FeedDetail.iconImage, for: .normal)
-        button.contentEdgeInsets = UIEdgeInsets(top: Const.View.m8, left: Const.View.m8, bottom: Const.View.m8, right: Const.View.m8)
+        selectePhotosButton.tintColor = Const.Color.actionButtonColor
+        // TODO: fix selectde| higlighted states for tinted image
+        button.contentEdgeInsets = Self.buttonEdgeInset
         button.layer.borderWidth = Const.View.borderWidth
         button.layer.masksToBounds = true
         button.layer.borderColor = Const.Color.lightGray.cgColor
         button.layer.cornerRadius = Const.View.radius
+    }
+    
+    // TODO: to be used for do something awesome one day!!!
+    private func setupConstraintsForIcons() {
+        //        iconsStackView.heightAnchor --> 30
+    }
+    
+    private func setupConstraintsForCommentsBox() {
     }
 }
