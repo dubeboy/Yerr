@@ -11,7 +11,8 @@ import UIKit
 final class FeedDetailViewController: UICollectionViewController {
     
     var presenter: FeedDetailPresenter!
-    var commentBox: CommentBoxView = CommentBoxView()
+    let commentBox: CommentBoxView = CommentBoxView()
+    var commentsBoxBottomConstraint: NSLayoutConstraint?
     weak var coordinator: Coordinator!
 
     override func viewDidLoad() {
@@ -32,16 +33,42 @@ final class FeedDetailViewController: UICollectionViewController {
     }
     
     @objc func didTapOnReplyButton(_ sender: UIButton) {
-        
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+        let reply = commentBox.commentText()
+        print(reply)
     }
     
     @objc func didTapOnSelectedPhotosButton(_ sender: UIButton) {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        listenToEvent(
+            name: .keyboardWillShow,
+            selector: #selector(keyboardWillAppear(notification:))
+        )
+        
+        listenToEvent(
+            name: .keyboardWillHide,
+            selector: #selector(keyboardWillHide(notification:))
+        )
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         collectionView.contentInset.bottom = commentBox.frame.height
+
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        // TODOL: add some nice animation curve here
+        commentsBoxBottomConstraint?.constant = 0
+    }
+    
+    @objc func keyboardWillAppear(notification: NSNotification) {
+        guard let frame = keyboardFrame(from: notification) else { return }
+        commentsBoxBottomConstraint?.constant = -(frame.size.height - spookyKeyboardHeightConstant)
     }
 }
 
@@ -62,8 +89,6 @@ extension FeedDetailViewController {
                 return cell
         }
     }
-    
-   
 }
 
 
@@ -84,7 +109,7 @@ private extension FeedDetailViewController {
     
     private func setUpCommentBox(commentBox: CommentBoxView) {
         view.addSubview(commentBox)
-        commentBox.bottomAnchor --> view.safeAreaLayoutGuide.bottomAnchor
+        commentsBoxBottomConstraint = commentBox.bottomAnchor --> view.safeAreaLayoutGuide.bottomAnchor
         commentBox.leadingAnchor --> view.safeAreaLayoutGuide.leadingAnchor
         commentBox.trailingAnchor --> view.safeAreaLayoutGuide.trailingAnchor
         

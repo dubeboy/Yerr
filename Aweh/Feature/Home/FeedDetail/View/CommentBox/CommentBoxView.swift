@@ -13,7 +13,7 @@ class CommentBoxView: UIView {
     private static let buttonEdgeInset = UIEdgeInsets(top: Const.View.m8, left: Const.View.m8, bottom: Const.View.m8, right: Const.View.m8)
     
     private var containerStackView: UIStackView!
-    private var commentTextView: UITextView!
+    private var commentTextView: UITextView! // highlight #helo etc
     private var iconsStackView: UIStackView!
     private(set) var selectePhotosButton: UIButton!
     private(set) var replyButton: UIButton!
@@ -42,6 +42,10 @@ class CommentBoxView: UIView {
         
         setupConstraintsForIcons()
         setupConstraintsForCommentsBox()
+    }
+    
+    func commentText() -> String {
+        commentTextView.text
     }
 }
 

@@ -61,6 +61,22 @@ extension UIViewController {
     func removeSelfFromNotificationObserver() {
         NotificationCenter.default.removeObserver(self)
     }
+    
+    // MARK: Keyboard
+    func keyboardFrame(from notification: NSNotification) -> CGRect? {
+        guard let userInfo = notification.userInfo else { return nil }
+    
+        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey]
+                as? NSValue else { return nil }
+    
+        return keyboardSize.cgRectValue
+    }
+    
+    // This value is import on ipads probaly add a check for ipads
+    var spookyKeyboardHeightConstant: CGFloat {
+        50
+    }
+
 }
 
 // MARK: View Controller addition

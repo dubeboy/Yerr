@@ -79,7 +79,7 @@ class PostStatusViewController: UIViewController {
     
     @objc func keyboardWillAppear(notification: NSNotification) {
         guard let frame = keyboardFrame(from: notification) else { return }
-        statusTextBottomConstraint.constant = frame.size.height + 8
+        statusTextBottomConstraint.constant = frame.size.height + 8 // TODO: NB: look into this please
     }
     
     

@@ -75,7 +75,6 @@
 		718BE8142486BA8200CA328B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 718BE8132486BA8200CA328B /* Assets.xcassets */; };
 		718BE8172486BA8200CA328B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 718BE8152486BA8200CA328B /* LaunchScreen.storyboard */; };
 		7196DD1024B083A600384B84 /* Notification+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DD0F24B083A600384B84 /* Notification+Elements.swift */; };
-		7196DD1224B0878100384B84 /* Common+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DD1124B0878100384B84 /* Common+Elements.swift */; };
 		7196DD1424B0B6D700384B84 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DD1324B0B6D700384B84 /* ProfileViewController.swift */; };
 		7196DD1624B0B6EC00384B84 /* ProfileViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7196DD1524B0B6EC00384B84 /* ProfileViewController.storyboard */; };
 		719824D924B0F450004EB567 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719824D824B0F450004EB567 /* ProfilePresenter.swift */; };
@@ -206,7 +205,6 @@
 		718BE8162486BA8200CA328B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		718BE8182486BA8200CA328B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7196DD0F24B083A600384B84 /* Notification+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Elements.swift"; sourceTree = "<group>"; };
-		7196DD1124B0878100384B84 /* Common+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Common+Elements.swift"; sourceTree = "<group>"; };
 		7196DD1324B0B6D700384B84 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7196DD1524B0B6EC00384B84 /* ProfileViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileViewController.storyboard; sourceTree = "<group>"; };
 		719824D824B0F450004EB567 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
@@ -339,7 +337,6 @@
 				711EADE9249DDE8600D33072 /* Date+Element.swift */,
 				716A0C9124A2E01A00F18ED6 /* UICollectionFlowLayout+Elements.swift */,
 				7196DD0F24B083A600384B84 /* Notification+Elements.swift */,
-				7196DD1124B0878100384B84 /* Common+Elements.swift */,
 				71138AA324B4F64600AC7D1C /* NSObject+Elements.swift */,
 				7169A9E424C3B228005B05BE /* UIImageView+Elements.swift */,
 				71777B6924C662470075F4F7 /* String+Elements.swift */,
@@ -1495,7 +1492,6 @@
 				718BE80D2486BA8000CA328B /* SceneDelegate.swift in Sources */,
 				716DA6CB248EE4D2001B74E2 /* UIViewController+Elements.swift in Sources */,
 				7159B44425094D5E000FA1B1 /* FeedDetailInterator.swift in Sources */,
-				7196DD1224B0878100384B84 /* Common+Elements.swift in Sources */,
 				B85A284F72F811F9B86C14B1 /* DefaultCodable.swift in Sources */,
 				B85A26A5C64FE47673385025 /* LossyArray.swift in Sources */,
 				B85A2BA78118ED22F3A3D94D /* DateValue.swift in Sources */,
