@@ -66,7 +66,7 @@ class FeedDetailPresenterImplemantation: FeedDetailPresenter {
         var commentEntity = Comment(body: comment,
                                     user: .dummyUser,
                                     media: [],
-                                    createdAt: Date(timeIntervalSince1970: 98), // TODO should be nullable
+                                    createdAt: Date(), // TODO should be nullable
                                     location: .dummyLocation,
                                     id: nil)
         feedDetailInteratctor.postComments(statusId: viewModel.feed.id, comment: commentEntity) { result in

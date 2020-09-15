@@ -40,10 +40,11 @@ final class FeedDetailViewController: UICollectionViewController {
                 if self.collectionView.numberOfItems(inSection: 0) == 1 {
                     self.collectionView.reloadData()
                 } else {
+                    // TODO: iOS 13 and above use diffabe datasource
+                    self.collectionView.scrollToItem(at: IndexPath(row: 1, section: 0), at: .top, animated: true)
                     self.collectionView.insertItems(at: [IndexPath(row: 1, section: 0)])
                     self.collectionView.reloadItems(at: [IndexPath(row: 1, section: 0)])
                 }
-               
             } completion: { _ in }
             
             
