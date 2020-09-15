@@ -10,6 +10,7 @@ import Foundation
 
 protocol StatusesUseCase {
     func getStatuses(result: @escaping (Result<[Status], Error>) -> Void)
+    func postStatuses(status: Status, result: @escaping (Result<Status, Error>) -> Void)
 }
 
 struct FeedInteractor: StatusesUseCase {

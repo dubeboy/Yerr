@@ -11,17 +11,20 @@ import Photos
 
 class PostStatusViewController: UIViewController {
     
-    var placeHolderText: String {
-        "ddddd"
-//        presenter.placeHolderText
-    }
-    weak var coordinator: PhotosGalleryCoordinator?
-    var numberOfCharactorsButton: UIBarButtonItem =
-        UIBarButtonItem(title: "240", style: .plain, target: self, action: nil)
-    var postButton =
-        UIBarButtonItem(title: "POST", style: .plain, target: self, action: #selector(post))
-    var assets: [String: PHAsset] = [:]
     var presenter: PostStatusPresenter!
+    weak var coordinator: PhotosGalleryCoordinator?
+    
+    var placeHolderText: String {
+        presenter.placeHolderText
+    }
+   
+    var numberOfCharactorsButton: UIBarButtonItem {
+        UIBarButtonItem(title: presenter.numberOfAllowedChars, style: .plain, target: self, action: nil)
+    }
+        
+    var postButton = UIBarButtonItem(title: "Post", style: .plain, target: self, action: #selector(post))
+    var assets: [String: PHAsset] = [:]
+   
     
     @IBOutlet weak var assetsContainerView: UIView!
     @IBOutlet weak var statusTextBottomConstraint: NSLayoutConstraint!
@@ -45,6 +48,8 @@ class PostStatusViewController: UIViewController {
                 [NSAttributedString.Key.foregroundColor: UIColor.systemBlue],
                 for: .disabled
         )
+        
+       
     }
     
     private func setupStatusTextiew() {
@@ -57,7 +62,13 @@ class PostStatusViewController: UIViewController {
     
     @objc func post() {
         let status = statusTextView.text
-        
+        presenter.postStatus(status: status) { [weak self] status in
+            guard let self = self else { return }
+            
+            
+        } error: { errorMessage in
+            
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
