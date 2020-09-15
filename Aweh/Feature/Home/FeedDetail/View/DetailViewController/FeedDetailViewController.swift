@@ -76,6 +76,11 @@ final class FeedDetailViewController: UICollectionViewController {
 
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeSelfFromNotificationObserver()
+    }
+    
     @objc func keyboardWillHide(notification: NSNotification) {
         // TODO: add some nice animation curve here
         commentsBoxBottomConstraint?.constant = 0

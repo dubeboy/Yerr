@@ -17,7 +17,8 @@ extension HomeCoordinator: PostStatusCoordinator  {
         let viewController = PostStatusViewController.instantiate()
         viewController.coordinator = self
 //        navigationController.present(viewController, animated: true, completion: nil)
-        navigationController.pushViewController(viewController, animated: true)
+        let postStatusNavigationConstroller = UINavigationController(rootViewController: viewController)
+        navigationController.present(postStatusNavigationConstroller, animated: true)
     }
     
 

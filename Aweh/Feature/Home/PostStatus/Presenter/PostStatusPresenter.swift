@@ -10,6 +10,24 @@ import Foundation
 
 protocol PostStatusPresenter {
     var placeHolderText: String { get }
+    
+    func postStatus(status: String,
+                    completion: @escaping Completion<StatusViewModel>,
+                    error: @escaping Completion<String>)
+    
+}
+
+class PostStatusPresenterImplementation: PostStatusPresenter {
+   
+    
+    var placeHolderText: String = "Aweh!!! What's poppin'?"
+    
+    func postStatus(status: String,
+                    completion: @escaping Completion<StatusViewModel>,
+                    error: @escaping Completion<String>) {
+        
+    }
+    
 }
 
 

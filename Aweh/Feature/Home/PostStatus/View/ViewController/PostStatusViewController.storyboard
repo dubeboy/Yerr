@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -27,20 +29,20 @@
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="IAr-MR-OCF">
                                         <rect key="frame" x="0.0" y="0.0" width="344" height="670"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x2R-Oh-eMq">
                                         <rect key="frame" x="0.0" y="678" width="344" height="100"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="Dny-fP-S4Q"/>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="IAr-MR-OCF" secondAttribute="trailing" id="22i-vg-PM2"/>
                                     <constraint firstItem="x2R-Oh-eMq" firstAttribute="top" secondItem="IAr-MR-OCF" secondAttribute="bottom" constant="8" id="5Bq-td-3Ub"/>
@@ -52,7 +54,8 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="4Qt-Vo-Ndz"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="uNJ-yE-JlV" firstAttribute="top" secondItem="4Qt-Vo-Ndz" secondAttribute="top" constant="16" id="3kC-Hf-NBO"/>
                             <constraint firstItem="4Qt-Vo-Ndz" firstAttribute="trailing" secondItem="uNJ-yE-JlV" secondAttribute="trailing" constant="16" id="HH6-OB-iAo"/>
@@ -61,7 +64,6 @@
                             <constraint firstItem="JCA-7C-nZO" firstAttribute="leading" secondItem="4Qt-Vo-Ndz" secondAttribute="leading" constant="16" id="pJ9-do-vZh"/>
                             <constraint firstItem="JCA-7C-nZO" firstAttribute="top" secondItem="4Qt-Vo-Ndz" secondAttribute="top" constant="16" id="seS-5n-sSY"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="4Qt-Vo-Ndz"/>
                     </view>
                     <connections>
                         <outlet property="assetsContainerView" destination="x2R-Oh-eMq" id="5O1-lg-OZ0"/>
@@ -72,10 +74,16 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oER-uc-hcW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="553.62318840579712" y="10.714285714285714"/>
+            <point key="canvasLocation" x="345" y="11"/>
         </scene>
     </scenes>
     <resources>
         <image name="3" width="2448" height="3264"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

@@ -52,6 +52,10 @@ enum Const {
         static let backgroundColor = UIColor.systemGray5
         static let systemWhite = UIColor.systemBackground
         static let actionButtonColor = UIColor(named: "blueActionButton")
+        
+        enum Feed {
+            static let commentBox = Color.lightGray
+        }
     }
     
     private static func getSystemResource(systemName: String) -> UIImage? {

@@ -72,7 +72,7 @@ private extension CommentBoxView {
     private func configureInputBox() {
         containerStackView.addArrangedSubview(commentTextView)
         commentTextView.isScrollEnabled = false // Allows automatic height adjustment
-        commentTextView.backgroundColor = Const.Color.lightGray
+        commentTextView.backgroundColor = Const.Color.Feed.commentBox
         commentTextView.layer.cornerRadius = 1.5 * Const.View.radius
         commentTextView.textContainerInset.left = (1.5 * Const.View.radius) / 2
         commentTextView.textContainerInset.right = (1.5 * Const.View.radius) / 2

@@ -32,4 +32,20 @@ struct FeedInteractor: StatusesUseCase {
         }
     }
     
+    // part of feed because this view will be modally presented
+    func postStatuses(status: Status, result: @escaping (Result<Status, Error>) -> Void) {
+        statusRepository.postStatus(status: status) { response in
+            switch response {
+                case .success(let statusResponse):
+                    guard let entity = statusResponse.entity else {
+                        return result(.failure(FeedError.nilStatusesArray))
+                    }
+                    result(.success(entity))
+                case .failure(let error):
+                    Logger.log(error)
+                    return result(.failure(FeedError.noInternetConnection))
+            }
+        }
+    }
+    
 }

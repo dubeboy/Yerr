@@ -11,13 +11,17 @@ import Photos
 
 class PostStatusViewController: UIViewController {
     
-    var placeHolderText = "Aweh!!! What's poppin'?"
+    var placeHolderText: String {
+        "ddddd"
+//        presenter.placeHolderText
+    }
     weak var coordinator: PhotosGalleryCoordinator?
     var numberOfCharactorsButton: UIBarButtonItem =
         UIBarButtonItem(title: "240", style: .plain, target: self, action: nil)
     var postButton =
         UIBarButtonItem(title: "POST", style: .plain, target: self, action: #selector(post))
     var assets: [String: PHAsset] = [:]
+    var presenter: PostStatusPresenter!
     
     @IBOutlet weak var assetsContainerView: UIView!
     @IBOutlet weak var statusTextBottomConstraint: NSLayoutConstraint!
@@ -33,14 +37,7 @@ class PostStatusViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Post status"
-
-        statusTextView.text = placeHolderText
-        statusTextView.textColor = .systemGray2
-        statusTextView.delegate = self
-        
-        statusTextView.inputAccessoryView = createToolBar()
-        statusTextView.sizeToFit()
-        
+        setupStatusTextiew()
         postButton.isEnabled = false
         navigationItem.rightBarButtonItem = postButton
         numberOfCharactorsButton.isEnabled = false
@@ -50,12 +47,17 @@ class PostStatusViewController: UIViewController {
         )
     }
     
+    private func setupStatusTextiew() {
+        statusTextView.text = placeHolderText
+        statusTextView.textColor = .systemGray2
+        statusTextView.delegate = self
+        statusTextView.inputAccessoryView = createToolBar()
+        
+    }
+    
     @objc func post() {
-        if statusTextView.textColor != UIColor.systemGray2 {
-            print("""
-                posting \(String(describing: statusTextView.text)) number of assets is \(assets.count)
-""")
-        }
+        let status = statusTextView.text
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,7 +81,7 @@ class PostStatusViewController: UIViewController {
     
     @objc func keyboardWillAppear(notification: NSNotification) {
         guard let frame = keyboardFrame(from: notification) else { return }
-        statusTextBottomConstraint.constant = frame.size.height + 8 // TODO: NB: look into this please
+        statusTextBottomConstraint.constant = frame.size.height - spookyKeyboardHeightConstant
     }
     
     
@@ -104,39 +106,6 @@ class PostStatusViewController: UIViewController {
              // you are restricted fo  accessing from images
             noAuthorised()
         }
-    }
-    
-    private func noAuthorised() {
-       // show not authorise toast viewController
-    }
-    
-    private func loadPhotos() {
-        // TODO: - test this out for string reference cycles
-        coordinator?.startPhotosGalleryViewController { [weak self] assets in
-            self?.didGetAssets(assets: assets) // tell presenter here!
-        }
-    }
-    
-    private func createToolBar() -> UIToolbar {
-  
-        let actionsToolBar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
-        actionsToolBar.barStyle = .default
-       
-        actionsToolBar.items = [
-            UIBarButtonItem(title: "Add Images", style: .plain, target: self, action: #selector(requestAuthorisation)),
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            // should be a custom UI progress UI
-            numberOfCharactorsButton]
-        return actionsToolBar
-    }
-    
-    private func didGetAssets(assets: [String: PHAsset]) {
-        self.assets = assets
-       let assetsView = AssetsHorizontalListView(assets: assets)
-       let ass = assetsContainerView.subviews.last
-       ass?.removeFromSuperview() // TODO: - the view should auto update instead of removing from superview
-       assetsContainerView.addSubview(assetsView)
-       assetsView --> assetsContainerView
     }
 }
 
@@ -189,6 +158,7 @@ extension PostStatusViewController: UITextViewDelegate {
     
     private func applyNonPlaceholderStyle(_ textView: UITextView) {
         textView.textColor = UIColor(named: "textViewInputTextColor")
+        textView.isSelectable = true
     }
     
     
@@ -200,5 +170,41 @@ extension PostStatusViewController: UITextViewDelegate {
     private func updateCharactorCount(length: Int) {
         numberOfCharactorsButton.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: length > 200 ? UIColor.systemRed : UIColor.systemBlue], for: .disabled)
         numberOfCharactorsButton.title = "\((240)  - length)"
+    }
+}
+
+// MARK: priate functions
+extension PostStatusViewController {
+    private func noAuthorised() {
+        // show not authorise toast viewController // present actionable toast
+    }
+    
+    private func loadPhotos() {
+        // TODO: - test this out for string reference cycles
+        coordinator?.startPhotosGalleryViewController { [weak self] assets in
+            self?.didGetAssets(assets: assets) // tell presenter here!
+        }
+    }
+    
+    private func createToolBar() -> UIToolbar {
+        
+        let actionsToolBar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        actionsToolBar.barStyle = .default
+        
+        actionsToolBar.items = [
+            UIBarButtonItem(title: "Add Images", style: .plain, target: self, action: #selector(requestAuthorisation)),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            // should be a custom UI progress UI
+            numberOfCharactorsButton]
+        return actionsToolBar
+    }
+    
+    private func didGetAssets(assets: [String: PHAsset]) {
+        self.assets = assets
+        let assetsView = AssetsHorizontalListView(assets: assets)
+        let ass = assetsContainerView.subviews.last
+        ass?.removeFromSuperview() // TODO: - the view should auto update instead of removing from superview
+        assetsContainerView.addSubview(assetsView)
+        assetsView --> assetsContainerView
     }
 }

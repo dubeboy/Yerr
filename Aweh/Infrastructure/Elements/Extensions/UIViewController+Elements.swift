@@ -74,6 +74,7 @@ extension UIViewController {
     
     // This value is import on ipads probaly add a check for ipads
     var spookyKeyboardHeightConstant: CGFloat {
+        // TODO: 20 for iPad and 50 for tablet
         50
     }
 
