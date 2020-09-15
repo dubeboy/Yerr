@@ -16,11 +16,23 @@ struct UserViewModel: Hashable {
 }
 
 extension UserViewModel {
-    static func transform(user: User) -> UserViewModel {
+    static func transform(user: User) -> Self {
         UserViewModel(
             profilePicture: user.profilePicture?.location ?? "",
             name: user.name,
             point: nil
         )
+    }
+}
+
+extension User {
+    static func transform(user: UserViewModel) -> Self {
+        User(id: nil, name: user.name, handle: "", phoneNumber: "", profilePicture:
+                Media(name: "",
+                      type: .picture,
+                      location: "",
+                      createAt: Date(),
+                      size: 0),
+             point: Point(score: 0, badge: ""))
     }
 }

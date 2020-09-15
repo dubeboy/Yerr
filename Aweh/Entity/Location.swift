@@ -13,3 +13,4 @@ struct Location: Codable {
         case long = "y"
     }
 }
+

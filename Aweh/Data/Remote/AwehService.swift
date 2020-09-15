@@ -13,6 +13,7 @@ import Merchant
 struct AwehService: Service {
         
     let baseURL: String = "http://localhost:8080/"
+    var query = ["key" : "hdsdt662266gbeww666", "os": "ios"]
     // TODO: pass back an static instace here? [Merchant]
 
     /// --------------------
@@ -25,8 +26,16 @@ struct AwehService: Service {
     @POST("statuses", body: Status.self)
     var postStatus: StatusResponseEntity<Status>
     
+    /// --------------------
+    // MARK: Status Comments
+    /// --------------------
+    
     @GET("statuses/{status_id}/comments")
     var getComments: StatusResponseEntity<[Comment]>
+    
+    @POST("statuses/{status_id}/comments", body: Comment.self)
+    var postComment: StatusResponseEntity<String>
+    
 }
 
 

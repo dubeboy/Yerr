@@ -103,6 +103,7 @@
 		71CCF0D6249AB2B30054C210 /* FeedDetailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71CCF0D4249AB2B30054C210 /* FeedDetailCollectionViewCell.xib */; };
 		71CCF0DA249C23B30054C210 /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCF0D8249C23B30054C210 /* CommentCollectionViewCell.swift */; };
 		71CCF0DB249C23B30054C210 /* CommentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71CCF0D9249C23B30054C210 /* CommentCollectionViewCell.xib */; };
+		71D5B9C225114A5A0077DB09 /* PresenterCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D5B9C125114A5A0077DB09 /* PresenterCompletion.swift */; };
 		71D6BAE12495737100F4B5D8 /* AssetsHorizontalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D6BAE02495737100F4B5D8 /* AssetsHorizontalListView.swift */; };
 		71D7674D24BF587600D9507E /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7674C24BF587600D9507E /* FeedCoordinator.swift */; };
 		71D7675424BF808300D9507E /* CompactFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7675224BF808300D9507E /* CompactFeedCollectionViewCell.swift */; };
@@ -233,6 +234,7 @@
 		71CCF0D4249AB2B30054C210 /* FeedDetailCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedDetailCollectionViewCell.xib; sourceTree = "<group>"; };
 		71CCF0D8249C23B30054C210 /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
 		71CCF0D9249C23B30054C210 /* CommentCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCollectionViewCell.xib; sourceTree = "<group>"; };
+		71D5B9C125114A5A0077DB09 /* PresenterCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterCompletion.swift; sourceTree = "<group>"; };
 		71D6BAE02495737100F4B5D8 /* AssetsHorizontalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsHorizontalListView.swift; sourceTree = "<group>"; };
 		71D7674C24BF587600D9507E /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
 		71D7675224BF808300D9507E /* CompactFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactFeedCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -781,6 +783,7 @@
 		716DA6C5248D7E91001B74E2 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				71D5B9C025114A3E0077DB09 /* Presenter */,
 				7155E30F24BCE6D8006EBED8 /* UIPageViewController */,
 				71E3C56C24A8A96F00ABC5B6 /* ViewModel */,
 				7167C5C124959A7B00B49096 /* Toast */,
@@ -1140,6 +1143,14 @@
 			path = CommentCollectionView;
 			sourceTree = "<group>";
 		};
+		71D5B9C025114A3E0077DB09 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				71D5B9C125114A5A0077DB09 /* PresenterCompletion.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		71D6BADF249570C200F4B5D8 /* Widget */ = {
 			isa = PBXGroup;
 			children = (
@@ -1437,6 +1448,7 @@
 				716A0C8124A2BE5300F18ED6 /* InterestsViewController.swift in Sources */,
 				713549B1248BE45A0009EE6A /* UICollectionView+Elements.swift in Sources */,
 				716DA6C4248D7E69001B74E2 /* PostStatusPresenter.swift in Sources */,
+				71D5B9C225114A5A0077DB09 /* PresenterCompletion.swift in Sources */,
 				7198AC7F24918B36002029CF /* PhotosCollectionViewPresenter.swift in Sources */,
 				7167C5C324959A9200B49096 /* ToastAlert.swift in Sources */,
 				711EADEA249DDE8600D33072 /* Date+Element.swift in Sources */,

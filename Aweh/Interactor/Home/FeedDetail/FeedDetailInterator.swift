@@ -31,4 +31,19 @@ struct FeedDetailInteractor: CommentsUseCase {
             }
         }
     }
+    
+    func postComments(statusId: String, comment: Comment, result: @escaping (Result<String, Error>) -> Void) {
+        feedDetailRepository.postPostComment(statusId: statusId, comment: comment) { response in
+            switch response {
+                case .success(let statusResponse):
+                    guard let entity = statusResponse.entity else {
+                        return result(.failure(FeedError.nilStatusesArray))
+                    }
+                    result(.success(entity))
+                case .failure(let error):
+                    Logger.log(error)
+                    return result(.failure(FeedError.noInternetConnection))
+            }
+        }
+    }
 }

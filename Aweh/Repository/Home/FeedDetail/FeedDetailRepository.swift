@@ -24,4 +24,15 @@ struct FeedDetailRepository: RepositoryInjectable {
             }
         }
     }
+    
+    func postPostComment(statusId: String, comment: Comment, result: @escaping (Result<StatusResponseEntity<String>, Error>) -> Void) {
+        service.$postComment(["status_id": statusId], body: comment) { response in
+            switch response {
+                case .success(let statusReponse):
+                    result(.success(statusReponse.body))
+                case .failure(let error):
+                    result(.failure(error))
+            }
+        }
+    }
 }

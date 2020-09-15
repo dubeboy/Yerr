@@ -17,6 +17,8 @@ protocol FeedDetailPresenter {
                        completion: @escaping (Int) -> Void,
                        failuire: @escaping (String) -> Void
     )
+    
+    func postComment(comment: DetailCommentViewModel, completion: @escaping (Bool) -> Void, error: @escaping (String) -> Void)
 }
 
 class FeedDetailPresenterImplemantation: FeedDetailPresenter {
@@ -53,6 +55,19 @@ class FeedDetailPresenterImplemantation: FeedDetailPresenter {
                 case .success(let result):
                     self.viewModel.comments.append(contentsOf: result.map(DetailCommentViewModel.tranform(comment:))
                     ) 
+                    completion(self.viewModel.comments.count)
+                case .failure(let error):
+                    failuire(error.localizedDescription)
+            }
+        }
+    }
+    
+    func postComment(comment: DetailCommentViewModel, completion: @escaping (Bool) -> Void, error: @escaping (String) -> Void) {
+        self.viewModel.comments.append()
+        let commentEntity = Comment.transform(comment: comment)
+        feedDetailInteratctor.postComments(statusId: viewModel.feed.id, comment: commentEntity) { result in
+            switch result {
+                case .success(let result):
                     completion(self.viewModel.comments.count)
                 case .failure(let error):
                     failuire(error.localizedDescription)

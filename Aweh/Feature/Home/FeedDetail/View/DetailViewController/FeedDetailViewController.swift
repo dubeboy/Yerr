@@ -35,7 +35,7 @@ final class FeedDetailViewController: UICollectionViewController {
     @objc func didTapOnReplyButton(_ sender: UIButton) {
         collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
         let reply = commentBox.commentText()
-        print(reply)
+//        presenter.
     }
     
     @objc func didTapOnSelectedPhotosButton(_ sender: UIButton) {
@@ -62,7 +62,7 @@ final class FeedDetailViewController: UICollectionViewController {
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        // TODOL: add some nice animation curve here
+        // TODO: add some nice animation curve here
         commentsBoxBottomConstraint?.constant = 0
     }
     

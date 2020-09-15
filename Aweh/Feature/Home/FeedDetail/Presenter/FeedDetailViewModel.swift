@@ -31,6 +31,17 @@ extension DetailCommentViewModel {
     }
 }
 
+extension Comment {
+    static func transform(comment: DetailCommentViewModel) -> Comment {
+        Comment(body: comment.comment,
+                user: User.transform(user: comment.user),
+                media: [],
+                createdAt: Date.init(timeIntervalSince1970: 23),
+                location: Location(lat: 0, long: 0),
+                id: nil)
+    }
+}
+
 extension FeedDetailViewModel {
     static func tranform(feed: StatusViewModel) -> FeedDetailViewModel {
         FeedDetailViewModel(comments: [], feed: feed)
