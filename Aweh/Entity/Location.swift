@@ -14,3 +14,7 @@ struct Location: Codable {
     }
 }
 
+extension Location {
+    static let dummyLocation = Location(lat: 0, long: 0)
+}
+

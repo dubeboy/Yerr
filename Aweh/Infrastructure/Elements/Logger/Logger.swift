@@ -19,9 +19,23 @@ enum Logger {
     
     static func log(_ error: String) {
         #if DEBUG
-        print(error)
+            print(error)
         #endif
     }
+    
+    /**
+        this outputs to the console and it does not report an error
+     */
+    static func i(_ info: String) {
+        #if DEBUG
+            print(info)
+        #endif
+    }
+    
+    static func wtf(_ thisShouldNotHappen: String) {
+        Self.log(thisShouldNotHappen)
+    }
+    
 }
 
 

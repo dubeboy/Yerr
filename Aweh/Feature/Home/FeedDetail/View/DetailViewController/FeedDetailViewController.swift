@@ -33,9 +33,23 @@ final class FeedDetailViewController: UICollectionViewController {
     }
     
     @objc func didTapOnReplyButton(_ sender: UIButton) {
-        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
         let reply = commentBox.commentText()
-//        presenter.
+        presenter.postComment(comment: reply) { [weak self] comment in
+            guard let self = self else { return }
+            self.collectionView.performBatchUpdates {
+                if self.collectionView.numberOfItems(inSection: 0) == 1 {
+                    self.collectionView.reloadData()
+                } else {
+                    self.collectionView.insertItems(at: [IndexPath(row: 1, section: 0)])
+                    self.collectionView.reloadItems(at: [IndexPath(row: 1, section: 0)])
+                }
+               
+            } completion: { _ in }
+            
+            
+        } error: { errorMessage in
+            self.presentToast(message: errorMessage)
+        }
     }
     
     @objc func didTapOnSelectedPhotosButton(_ sender: UIButton) {

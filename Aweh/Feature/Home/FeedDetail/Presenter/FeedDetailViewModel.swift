@@ -19,6 +19,7 @@ struct DetailCommentViewModel {
     let user: UserViewModel
     let comment: String
     let timestamp: String
+    var id: String
 }
 
 extension DetailCommentViewModel {
@@ -26,7 +27,11 @@ extension DetailCommentViewModel {
         DetailCommentViewModel(
             user: .transform(user: comment.user),
             comment: comment.body,
-            timestamp: comment.createdAt.relativeDate()
+            timestamp: comment.createdAt.relativeDate(),
+            id: comment.id ?? {
+               Logger.log("Server ID is null")
+               return ""
+            }()
         )
     }
 }

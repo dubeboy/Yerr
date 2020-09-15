@@ -14,11 +14,11 @@ struct Comment: Codable {
     @DefaultEmptyArray
     var media: [Media]
     @DateValue<ISO8601Strategy>
-    var createdAt: Date
+    var createdAt: Date // TODO; these can be null here but will be filtered out in ViewModel
     var votes: Int = 0
     var likes: Int = 0
     let location: Location
     // TODO: create a nullable passback prop wrap so we can remove the `?`
-    let id: String?
+    var id: String?
 }
 

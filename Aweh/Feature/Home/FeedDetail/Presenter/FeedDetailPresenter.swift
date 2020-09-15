@@ -18,7 +18,7 @@ protocol FeedDetailPresenter {
                        failuire: @escaping (String) -> Void
     )
     
-    func postComment(comment: DetailCommentViewModel, completion: @escaping (Bool) -> Void, error: @escaping (String) -> Void)
+    func postComment(comment: String, completion: @escaping Completion<DetailCommentViewModel>, error: @escaping Completion<String>)
 }
 
 class FeedDetailPresenterImplemantation: FeedDetailPresenter {
@@ -62,15 +62,22 @@ class FeedDetailPresenterImplemantation: FeedDetailPresenter {
         }
     }
     
-    func postComment(comment: DetailCommentViewModel, completion: @escaping (Bool) -> Void, error: @escaping (String) -> Void) {
-        self.viewModel.comments.append()
-        let commentEntity = Comment.transform(comment: comment)
+    func postComment(comment: String, completion: @escaping Completion<DetailCommentViewModel>, error: @escaping Completion<String>) {
+        var commentEntity = Comment(body: comment,
+                                    user: .dummyUser,
+                                    media: [],
+                                    createdAt: Date(timeIntervalSince1970: 98), // TODO should be nullable
+                                    location: .dummyLocation,
+                                    id: nil)
         feedDetailInteratctor.postComments(statusId: viewModel.feed.id, comment: commentEntity) { result in
             switch result {
                 case .success(let result):
-                    completion(self.viewModel.comments.count)
-                case .failure(let error):
-                    failuire(error.localizedDescription)
+                    commentEntity.id = result
+                    let newComment = DetailCommentViewModel.tranform(comment: commentEntity)
+                    self.viewModel.comments.insert(newComment, at: 0)
+                    completion(newComment)
+                case .failure(let e):
+                    error(e.localizedDescription)
             }
         }
     }

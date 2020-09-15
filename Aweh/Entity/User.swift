@@ -14,6 +14,10 @@ struct User: Codable {
     let point: Point
 }
 
+extension User {
+    static let dummyUser = User(id: "60000", name: "User100", handle: "aweee", phoneNumber: "089898888", profilePicture: nil, point: Point(score: 0, badge: ""))
+}
+
 struct Point: Codable {
     let score: Int
     let badge: String
