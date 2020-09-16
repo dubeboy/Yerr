@@ -46,7 +46,7 @@ class AssetsHorizontalListView: UIScrollView {
             stackView.addArrangedSubview(imageView)
             imageView.layer.cornerRadius = 10
             imageView.clipsToBounds = true
-//            imageView.widthAnchor --> 80
+            imageView.widthAnchor --> 80
             imageView.heightAnchor --> 100
             
             imageManager.requestImage(

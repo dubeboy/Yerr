@@ -19,4 +19,10 @@ enum AppStrings {
         static let replyButton = "Reply"
         static let replyPlaceholderText = "Reply to this status"
     }
+    
+    enum Shared {
+        enum GeoLocationServices {
+            static let failedToGetLocation = "Sorry failed to get your current location"
+        }
+    }
 }

@@ -15,6 +15,9 @@ class PostStatusViewController: UIViewController {
     weak var coordinator: PhotosGalleryCoordinator?
     var delegate: Completion<StatusViewModel>!
     
+    @LateInit
+    var location: GeoLocationServices
+    
     var placeHolderText: String {
         presenter.placeHolderText
     }
@@ -49,7 +52,7 @@ class PostStatusViewController: UIViewController {
                 [NSAttributedString.Key.foregroundColor: UIColor.systemBlue],
                 for: .disabled
         )
-        
+        location = GeoLocationServices(delegate: self)
        
     }
     
@@ -224,4 +227,17 @@ extension PostStatusViewController {
         assetsContainerView.addSubview(assetsView)
         assetsView --> assetsContainerView
     }
+}
+
+extension PostStatusViewController: GeoLocationServicesDelegate {
+    
+    func didFetchCurrentLocation(_ location: Location) {
+        presenter.saveCurrentLocation(location: location)
+    }
+    
+    func fetchCurrentLocationFailed(error: Error) {
+        Logger.i(error)
+        presentToast(message: AppStrings.Shared.GeoLocationServices.failedToGetLocation)
+    }
+    
 }

@@ -106,6 +106,7 @@
 		71D5B9C225114A5A0077DB09 /* PresenterCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D5B9C125114A5A0077DB09 /* PresenterCompletion.swift */; };
 		71D5B9C5251193D20077DB09 /* GeoLocationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D5B9C4251193D10077DB09 /* GeoLocationServices.swift */; };
 		71D5B9C7251194650077DB09 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D5B9C6251194650077DB09 /* LocationViewModel.swift */; };
+		71D5B9C92511A77C0077DB09 /* LocationStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D5B9C82511A77C0077DB09 /* LocationStateViewModel.swift */; };
 		71D6BAE12495737100F4B5D8 /* AssetsHorizontalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D6BAE02495737100F4B5D8 /* AssetsHorizontalListView.swift */; };
 		71D7674D24BF587600D9507E /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7674C24BF587600D9507E /* FeedCoordinator.swift */; };
 		71D7675424BF808300D9507E /* CompactFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7675224BF808300D9507E /* CompactFeedCollectionViewCell.swift */; };
@@ -115,6 +116,9 @@
 		71EECE8F249324A900902181 /* PhotosGalleryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EECE8E249324A900902181 /* PhotosGalleryCoordinator.swift */; };
 		71F46CEB24994CA3002B8EFC /* AssetDetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7170EA012495EBBD00B1D15F /* AssetDetailViewController.storyboard */; };
 		71F46CEE24995610002B8EFC /* LivePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F46CED24995610002B8EFC /* LivePhotoView.swift */; };
+		71FBCF2C2512B9A100FC7557 /* CircleProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FBCF2B2512B9A100FC7557 /* CircleProgressIndicator.swift */; };
+		71FBCF2E2512BD3A00FC7557 /* CGFloat+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FBCF2D2512BD3A00FC7557 /* CGFloat+Elements.swift */; };
+		71FBCF312512C06F00FC7557 /* PulseLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FBCF302512C06F00FC7557 /* PulseLayer.swift */; };
 		B85A20466A2089397D8C4CD3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85A20EC711E645832C537F5 /* User.swift */; };
 		B85A21F211E390A4BADD7DBA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85A2E4E191241692CF54133 /* Comment.swift */; };
 		B85A2395BD40056CE7DE394F /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85A25DA50413131BFF709F3 /* Status.swift */; };
@@ -239,6 +243,7 @@
 		71D5B9C125114A5A0077DB09 /* PresenterCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterCompletion.swift; sourceTree = "<group>"; };
 		71D5B9C4251193D10077DB09 /* GeoLocationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoLocationServices.swift; sourceTree = "<group>"; };
 		71D5B9C6251194650077DB09 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
+		71D5B9C82511A77C0077DB09 /* LocationStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStateViewModel.swift; sourceTree = "<group>"; };
 		71D6BAE02495737100F4B5D8 /* AssetsHorizontalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsHorizontalListView.swift; sourceTree = "<group>"; };
 		71D7674C24BF587600D9507E /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
 		71D7675224BF808300D9507E /* CompactFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactFeedCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -247,6 +252,9 @@
 		71ECFDFA2487187000943917 /* FeedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedCollectionViewCell.xib; sourceTree = "<group>"; };
 		71EECE8E249324A900902181 /* PhotosGalleryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosGalleryCoordinator.swift; sourceTree = "<group>"; };
 		71F46CED24995610002B8EFC /* LivePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePhotoView.swift; sourceTree = "<group>"; };
+		71FBCF2B2512B9A100FC7557 /* CircleProgressIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleProgressIndicator.swift; sourceTree = "<group>"; };
+		71FBCF2D2512BD3A00FC7557 /* CGFloat+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Elements.swift"; sourceTree = "<group>"; };
+		71FBCF302512C06F00FC7557 /* PulseLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseLayer.swift; sourceTree = "<group>"; };
 		B1D3C935954DEE8CCB341F75 /* Pods_Aweh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aweh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B85A20EC711E645832C537F5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B85A217653E718A2A0E1B70E /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
@@ -313,7 +321,6 @@
 				71BBCA7124B8C5CD00044629 /* ViewModel */,
 				71138AA124B4F4B400AC7D1C /* GaugeView.swift */,
 				71138AA524B4F9C700AC7D1C /* GaugeView.xib */,
-				71138AA724B4FA4600AC7D1C /* BorderLayer.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -346,6 +353,7 @@
 				71138AA324B4F64600AC7D1C /* NSObject+Elements.swift */,
 				7169A9E424C3B228005B05BE /* UIImageView+Elements.swift */,
 				71777B6924C662470075F4F7 /* String+Elements.swift */,
+				71FBCF2D2512BD3A00FC7557 /* CGFloat+Elements.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -787,6 +795,7 @@
 		716DA6C5248D7E91001B74E2 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				71FBCF2F2512C05600FC7557 /* Layer */,
 				71D5B9C3251193B90077DB09 /* Location */,
 				71D5B9C025114A3E0077DB09 /* Presenter */,
 				7155E30F24BCE6D8006EBED8 /* UIPageViewController */,
@@ -1168,6 +1177,7 @@
 			isa = PBXGroup;
 			children = (
 				71D6BAE02495737100F4B5D8 /* AssetsHorizontalListView.swift */,
+				71FBCF2B2512B9A100FC7557 /* CircleProgressIndicator.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -1227,6 +1237,7 @@
 				715A0DFB24A88F6900030458 /* UserViewModel.swift */,
 				B85A243DEFD320AB9045EE15 /* MediaViewModel.swift */,
 				71D5B9C6251194650077DB09 /* LocationViewModel.swift */,
+				71D5B9C82511A77C0077DB09 /* LocationStateViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1280,6 +1291,15 @@
 				71F46CED24995610002B8EFC /* LivePhotoView.swift */,
 			);
 			path = LivePhotoView;
+			sourceTree = "<group>";
+		};
+		71FBCF2F2512C05600FC7557 /* Layer */ = {
+			isa = PBXGroup;
+			children = (
+				71138AA724B4FA4600AC7D1C /* BorderLayer.swift */,
+				71FBCF302512C06F00FC7557 /* PulseLayer.swift */,
+			);
+			path = Layer;
 			sourceTree = "<group>";
 		};
 		8EBD9E0B790EE9692A460572 /* Pods */ = {
@@ -1470,10 +1490,12 @@
 				71A77FCF249C33F800F8D442 /* FeedDetailCoordinator.swift in Sources */,
 				71C46DA324B26B2600A9DB14 /* PickInterestPresenter.swift in Sources */,
 				71D7675424BF808300D9507E /* CompactFeedCollectionViewCell.swift in Sources */,
+				71FBCF2E2512BD3A00FC7557 /* CGFloat+Elements.swift in Sources */,
 				7155E30E24BCE485006EBED8 /* BasePageViewController.swift in Sources */,
 				7116C11C24A2B13400749620 /* StatusIndicator.swift in Sources */,
 				7198AC8124918BBD002029CF /* PhotosCollectionViewController.swift in Sources */,
 				71D6BAE12495737100F4B5D8 /* AssetsHorizontalListView.swift in Sources */,
+				71FBCF2C2512B9A100FC7557 /* CircleProgressIndicator.swift in Sources */,
 				71CCF0CB249AB1450054C210 /* FeedDetailViewController.swift in Sources */,
 				716DA6C2248D7E55001B74E2 /* PostStatusViewController.swift in Sources */,
 				716A0C9424A2E54200F18ED6 /* InterestsCellPresenter.swift in Sources */,
@@ -1488,9 +1510,11 @@
 				71CCF0CE249AB1590054C210 /* FeedDetailPresenter.swift in Sources */,
 				71A8325124B91CEB009F2D5C /* ProfileCoordinator.swift in Sources */,
 				71D7674D24BF587600D9507E /* FeedCoordinator.swift in Sources */,
+				71D5B9C92511A77C0077DB09 /* LocationStateViewModel.swift in Sources */,
 				71C46D9724B26A3A00A9DB14 /* PickInterestCollectionViewController.swift in Sources */,
 				71EECE8F249324A900902181 /* PhotosGalleryCoordinator.swift in Sources */,
 				71ECFDFB2487187000943917 /* FeedCollectionViewCell.swift in Sources */,
+				71FBCF312512C06F00FC7557 /* PulseLayer.swift in Sources */,
 				71F46CEE24995610002B8EFC /* LivePhotoView.swift in Sources */,
 				71A77FD1249C345E00F8D442 /* FeedDetailViewModel.swift in Sources */,
 				71A77FD5249C378100F8D442 /* FeedDetailCellPresenter.swift in Sources */,

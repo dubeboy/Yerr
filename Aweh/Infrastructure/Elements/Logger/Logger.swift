@@ -28,7 +28,17 @@ enum Logger {
      */
     static func i(_ info: String) {
         #if DEBUG
+            print("🚨 XXX ❌")
             print(info)
+            print("❌ XXX 🚨")
+        #endif
+    }
+    
+    static func i(_ info: Error) {
+        #if DEBUG
+        print("❌ XXX 🚨")
+        print(info)
+        print("❌ XXX 🚨")
         #endif
     }
     
