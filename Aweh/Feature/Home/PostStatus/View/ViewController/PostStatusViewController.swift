@@ -13,6 +13,7 @@ class PostStatusViewController: UIViewController {
     
     var presenter: PostStatusPresenter!
     weak var coordinator: PhotosGalleryCoordinator?
+    var delegate: Completion<StatusViewModel>!
     
     var placeHolderText: String {
         presenter.placeHolderText
@@ -64,10 +65,10 @@ class PostStatusViewController: UIViewController {
         let status = statusTextView.text
         presenter.postStatus(status: status) { [weak self] status in
             guard let self = self else { return }
-            
-            
+            self.dismiss(animated: true, completion: nil)
+            self.delegate(status)
         } error: { errorMessage in
-            
+            self.presentToast(message: errorMessage)
         }
     }
     
@@ -117,6 +118,10 @@ class PostStatusViewController: UIViewController {
              // you are restricted fo  accessing from images
             noAuthorised()
         }
+    }
+    
+    deinit {
+        print("ahhhhhh❌")
     }
 }
 
@@ -187,6 +192,7 @@ extension PostStatusViewController: UITextViewDelegate {
 // MARK: priate functions
 extension PostStatusViewController {
     private func noAuthorised() {
+        // TODO: fix it
         // show not authorise toast viewController // present actionable toast
     }
     

@@ -23,7 +23,7 @@ struct AwehService: Service {
     @GET("statuses")
     var getStatuses: StatusResponseEntity<[Status]>
 
-    @POST("statuses", body: Status.self)
+    @PUT("statuses", body: Status.self)
     var postStatus: StatusResponseEntity<Status>
     
     /// --------------------

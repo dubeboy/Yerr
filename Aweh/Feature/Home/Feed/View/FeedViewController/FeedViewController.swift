@@ -60,7 +60,13 @@ class FeedViewController: UIViewController {
     }
     
     @IBAction func postButtonAction(_ sender: Any) {
-        coordinator.startPostStatusViewController()
+        coordinator.startPostStatusViewController { statusViewModel in
+            self.collectionView.setContentOffset(.zero, animated: false)
+            self.collectionView.performBatchUpdates {
+                self.presenter.addNewStatus(statusViewModel)
+                self.collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
+            } completion: { _ in }
+        }
     }
 }
 

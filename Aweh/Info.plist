@@ -63,5 +63,9 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Needed so that you can share your statuses to people who are nearest to you.</string>
+	<key>Privacy – Location Usage Description</key>
+	<string>Needed so that you can share your statuses to people who are nearest to you two.</string>
 </dict>
 </plist>

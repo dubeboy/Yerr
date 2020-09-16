@@ -9,13 +9,14 @@
 import UIKit
 
 protocol PostStatusCoordinator: Coordinator {
-    func startPostStatusViewController()
+    func startPostStatusViewController(delegate: @escaping Completion<StatusViewModel>)
 }
 
 extension HomeCoordinator: PostStatusCoordinator  {
-    func startPostStatusViewController() {
+    func startPostStatusViewController(delegate: @escaping Completion<StatusViewModel>) {
         let viewController = PostStatusViewController.instantiate()
         viewController.coordinator = self
+        viewController.delegate = delegate
         viewController.presenter = PostStatusPresenterImplementation()
         let postStatusNavigationConstroller = UINavigationController(rootViewController: viewController)
         navigationController.present(postStatusNavigationConstroller, animated: true)

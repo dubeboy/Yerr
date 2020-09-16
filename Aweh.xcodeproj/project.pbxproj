@@ -104,6 +104,8 @@
 		71CCF0DA249C23B30054C210 /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCF0D8249C23B30054C210 /* CommentCollectionViewCell.swift */; };
 		71CCF0DB249C23B30054C210 /* CommentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71CCF0D9249C23B30054C210 /* CommentCollectionViewCell.xib */; };
 		71D5B9C225114A5A0077DB09 /* PresenterCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D5B9C125114A5A0077DB09 /* PresenterCompletion.swift */; };
+		71D5B9C5251193D20077DB09 /* GeoLocationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D5B9C4251193D10077DB09 /* GeoLocationServices.swift */; };
+		71D5B9C7251194650077DB09 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D5B9C6251194650077DB09 /* LocationViewModel.swift */; };
 		71D6BAE12495737100F4B5D8 /* AssetsHorizontalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D6BAE02495737100F4B5D8 /* AssetsHorizontalListView.swift */; };
 		71D7674D24BF587600D9507E /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7674C24BF587600D9507E /* FeedCoordinator.swift */; };
 		71D7675424BF808300D9507E /* CompactFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7675224BF808300D9507E /* CompactFeedCollectionViewCell.swift */; };
@@ -235,6 +237,8 @@
 		71CCF0D8249C23B30054C210 /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
 		71CCF0D9249C23B30054C210 /* CommentCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCollectionViewCell.xib; sourceTree = "<group>"; };
 		71D5B9C125114A5A0077DB09 /* PresenterCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterCompletion.swift; sourceTree = "<group>"; };
+		71D5B9C4251193D10077DB09 /* GeoLocationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoLocationServices.swift; sourceTree = "<group>"; };
+		71D5B9C6251194650077DB09 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		71D6BAE02495737100F4B5D8 /* AssetsHorizontalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsHorizontalListView.swift; sourceTree = "<group>"; };
 		71D7674C24BF587600D9507E /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
 		71D7675224BF808300D9507E /* CompactFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactFeedCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -783,6 +787,7 @@
 		716DA6C5248D7E91001B74E2 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				71D5B9C3251193B90077DB09 /* Location */,
 				71D5B9C025114A3E0077DB09 /* Presenter */,
 				7155E30F24BCE6D8006EBED8 /* UIPageViewController */,
 				71E3C56C24A8A96F00ABC5B6 /* ViewModel */,
@@ -1151,6 +1156,14 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		71D5B9C3251193B90077DB09 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				71D5B9C4251193D10077DB09 /* GeoLocationServices.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
 		71D6BADF249570C200F4B5D8 /* Widget */ = {
 			isa = PBXGroup;
 			children = (
@@ -1213,6 +1226,7 @@
 				7162C60C24884BBB002D8ED4 /* StatusViewModel.swift */,
 				715A0DFB24A88F6900030458 /* UserViewModel.swift */,
 				B85A243DEFD320AB9045EE15 /* MediaViewModel.swift */,
+				71D5B9C6251194650077DB09 /* LocationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1495,6 +1509,7 @@
 				7196DD1024B083A600384B84 /* Notification+Elements.swift in Sources */,
 				713549B3248BE8F10009EE6A /* FeedCellPresenter.swift in Sources */,
 				7121DA8D250972BF00EE21D5 /* CommentBoxView.swift in Sources */,
+				71D5B9C5251193D20077DB09 /* GeoLocationServices.swift in Sources */,
 				715A0DFC24A88F6900030458 /* UserViewModel.swift in Sources */,
 				7155E30B24BCE126006EBED8 /* MainStatusViewModel.swift in Sources */,
 				7159B44825094F5C000FA1B1 /* FeedDetailRepository.swift in Sources */,
@@ -1506,6 +1521,7 @@
 				7159B44425094D5E000FA1B1 /* FeedDetailInterator.swift in Sources */,
 				B85A284F72F811F9B86C14B1 /* DefaultCodable.swift in Sources */,
 				B85A26A5C64FE47673385025 /* LossyArray.swift in Sources */,
+				71D5B9C7251194650077DB09 /* LocationViewModel.swift in Sources */,
 				B85A2BA78118ED22F3A3D94D /* DateValue.swift in Sources */,
 				B85A2D91728D4B52F08C4010 /* DefaultFalse.swift in Sources */,
 				B85A267A8160EDABE988DDAB /* ISO8601Strategy.swift in Sources */,

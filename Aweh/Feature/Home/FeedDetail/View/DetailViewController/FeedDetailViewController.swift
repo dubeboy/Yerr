@@ -36,15 +36,15 @@ final class FeedDetailViewController: UICollectionViewController {
         let reply = commentBox.commentText()
         presenter.postComment(comment: reply) { [weak self] comment in
             guard let self = self else { return }
+            self.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .bottom, animated: false)
+
             self.collectionView.performBatchUpdates {
-                if self.collectionView.numberOfItems(inSection: 0) == 1 {
-                    self.collectionView.reloadData()
-                } else {
-                    // TODO: iOS 13 and above use diffabe datasource
-                    self.collectionView.scrollToItem(at: IndexPath(row: 1, section: 0), at: .top, animated: true)
+//                if self.collectionView.numberOfItems(inSection: 0) == 1 {
+//                    self.collectionView.reloadData()
+//                } else {
+//                    // TODO: iOS 13 and above use diffabe datasource
                     self.collectionView.insertItems(at: [IndexPath(row: 1, section: 0)])
-                    self.collectionView.reloadItems(at: [IndexPath(row: 1, section: 0)])
-                }
+//                }
             } completion: { _ in }
             
             
@@ -88,7 +88,8 @@ final class FeedDetailViewController: UICollectionViewController {
     
     @objc func keyboardWillAppear(notification: NSNotification) {
         guard let frame = keyboardFrame(from: notification) else { return }
-        commentsBoxBottomConstraint?.constant = -(frame.size.height - spookyKeyboardHeightConstant)
+        print(frame)
+        commentsBoxBottomConstraint?.constant = (frame.size.height - spookyKeyboardHeightConstant) * -1
     }
 }
 

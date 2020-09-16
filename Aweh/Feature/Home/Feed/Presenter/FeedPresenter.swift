@@ -15,6 +15,8 @@ protocol FeedPresenter {
     func getStatuses(completion: @escaping (Int?, String?) -> Void)
     func getStatus(at index: IndexPath) -> StatusViewModel
     func index(for item: StatusViewModel) -> Int
+    
+    func addNewStatus(_ statusViewModel: StatusViewModel)
 }
 
 class FeedPresenterImplemantation: FeedPresenter {
@@ -49,5 +51,9 @@ class FeedPresenterImplemantation: FeedPresenter {
                 completion(nil, error.localizedDescription)
             }
         }
+    }
+    
+    func addNewStatus(_ statusViewModel: StatusViewModel) {
+        viewModel.insert(statusViewModel, at: 0)
     }
 }

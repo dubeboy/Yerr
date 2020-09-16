@@ -13,7 +13,7 @@ protocol FeedCoordinator: AnyObject {
     func createFeedViewController() -> FeedViewController
 }
 
-extension HomeCoordinator: FeedCoordinator {
+extension HomeCoordinator: FeedCoordinator {    
     func startFeedViewController() {
         let mainViewController = createFeedViewController()
         navigationController.pushViewController(mainViewController, animated: true)
