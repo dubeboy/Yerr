@@ -20,21 +20,31 @@ class CircleProgressIndicator: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
         animatableBorderLayer = createTrackLayer()
         trackLayer = createBackgroundTrackLayer()
-        centeredLabel = UILabel()
-        centeredLabel.center = self.center
-        centeredLabel.text = "0"
+        configureCenterLabel()
         addSubview(centeredLabel)
         layer.addSublayer(trackLayer)
         layer.addSublayer(animatableBorderLayer)
     }
     
+    private func configureCenterLabel() {
+        centeredLabel = UILabel()
+        centeredLabel.translatesAutoresizingMaskIntoConstraints = false
+        centeredLabel.text = "0"
+        centeredLabel.adjustsFontSizeToFitWidth = true
+        centeredLabel.numberOfLines = 1
+        centeredLabel.minimumScaleFactor = 0.1
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-//        frame.insetBy(
-//            dx: animatableBorderLayer.lineWidth,
-//            dy: animatableBorderLayer.lineWidth
-//        )
-        centeredLabel.center = center
+       
+        centeredLabel.topAnchor --> topAnchor + trackSize * 2
+        centeredLabel.bottomAnchor --> bottomAnchor + -(trackSize * 2.6) // TODO: this is a hack to put the text in the center
+        centeredLabel.leadingAnchor --> leadingAnchor + trackSize * 2
+        centeredLabel.trailingAnchor --> trailingAnchor + -(trackSize * 2)
+        centeredLabel.centerYAnchor --> centerYAnchor
+        centeredLabel.centerXAnchor --> centerXAnchor
+        centeredLabel.textAlignment = .center
         animatableBorderLayer.frame = bounds
         trackLayer.frame = bounds
         animatableBorderLayer.setNeedsDisplay()
@@ -51,7 +61,7 @@ class CircleProgressIndicator: UIView {
     private func createBackgroundTrackLayer() -> BorderLayer {
         let trackBackgroundLayer = BorderLayer()
         trackBackgroundLayer.lineWidth = trackSize
-        trackBackgroundLayer.endRadAngle = .toRad(angle: 360)
+        trackBackgroundLayer.endRadAngle = .toRadNormalized(angle: 360)
         trackBackgroundLayer.lineColor = Const.Color.Feed.trackBackGroundColor.cgColor
         return trackBackgroundLayer
     }
@@ -59,8 +69,8 @@ class CircleProgressIndicator: UIView {
     /// update progress in percentage units
     func updateProgress(percent: CGFloat) {
         let degrees: CGFloat = (percent / 100.0) * 360.0
-        centeredLabel.text = "\(percent)"
-        animatableBorderLayer.endRadAngle = .toRad(angle: degrees)
+        centeredLabel.text = "\(Int(percent))"
+        animatableBorderLayer.endRadAngle = .toRadNormalized(angle: degrees)
         setNeedsLayout()
     }
     

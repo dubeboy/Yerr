@@ -9,8 +9,11 @@
 import CoreGraphics
 
 extension CGFloat {
-    static func toRad(angle degrees: CGFloat) -> CGFloat {
+    private static func toRad(angle degrees: CGFloat) -> CGFloat {
         degrees * (CGFloat.pi / 180)
     }
     
+    static func toRadNormalized(angle degrees: CGFloat) -> CGFloat {
+        (degrees - 90) * (CGFloat.pi / 180)
+    }
 }

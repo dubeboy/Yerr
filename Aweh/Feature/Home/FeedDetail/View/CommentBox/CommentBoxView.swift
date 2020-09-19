@@ -122,7 +122,6 @@ private extension CommentBoxView {
     
     private func configureCircleProgressIndicator() {
         circleProgressIndicator.translatesAutoresizingMaskIntoConstraints = false
-//        circleProgressIndicator.
         circleProgressIndicator.heightAnchor --> 30
         circleProgressIndicator.widthAnchor --> 30
     }

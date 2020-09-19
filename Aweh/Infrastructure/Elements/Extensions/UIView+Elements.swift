@@ -35,8 +35,6 @@ extension UIView {
         }
     }
     
-    
-    
     // TODO: ability to add insets
     // TODO: check with juts adding border layer!!
     private func applyBorder(toSide: UIRectEdge) {

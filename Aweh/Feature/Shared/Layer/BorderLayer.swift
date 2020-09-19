@@ -13,8 +13,8 @@ class BorderLayer: CALayer {
     
     var lineColor: CGColor = UIColor.yellow.cgColor
     var lineWidth: CGFloat = 10.0
-    var startRadAngle: CGFloat = -.toRad(angle: 0)
-    var endRadAngle: CGFloat = 0.0 {
+    var startRadAngle: CGFloat = .toRadNormalized(angle: 0)
+    var endRadAngle: CGFloat = .toRadNormalized(angle: 0) {
         didSet {
             basicAnimation(angle: endRadAngle)
         }

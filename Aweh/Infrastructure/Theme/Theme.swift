@@ -44,6 +44,13 @@ enum Const {
         }
         
     }
+    
+//    enum Font {
+//        enum FeedDetail {
+////            static let circleProgressIndicator = UIFont(
+//        }
+//    }
+//    
 //    https://colorhunt.co/palette/201882 dark theme baby
 //    https://colorhunt.co/palette/196113
     // MARK: Colors
