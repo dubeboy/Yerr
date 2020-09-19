@@ -10,26 +10,42 @@ import UIKit
 
 class CommentBoxView: UIView {
     
+    enum DisplayType {
+        case compact, full
+    }
+    
     private static let buttonEdgeInset = UIEdgeInsets(top: Const.View.m8, left: Const.View.m8, bottom: Const.View.m8, right: Const.View.m8)
+    private static let indicatorWidth: Double = 25
     
-    private var containerStackView: UIStackView!
-    private var commentTextView: UITextView! // highlight #helo etc
-    private var iconsStackView: UIStackView!
-    private(set) var selectePhotosButton: UIButton!
-    private(set) var replyButton: UIButton!
+    @LateInit
+    private var circleProgressIndicator: CircleProgressIndicator
+    @LateInit
+    private var iconsView: UIView
+    @LateInit
+    private var containerStackView: UIStackView
+    @LateInit
+    private var commentTextView: UITextView
+    @LateInit
+    private(set) var selectePhotosButton: UIButton
+    @LateInit
+    private(set) var replyButton: UIButton
     
-    init() {
+    private var displayType: DisplayType
+   
+    init(displayType: DisplayType = .full) {
+        self.displayType = displayType
         super.init(frame: .zero)
-        containerStackView = UIStackView(frame: .zero)
         
+        containerStackView = UIStackView(frame: .zero)
         commentTextView = UITextView(frame: .zero)
-        iconsStackView = UIStackView(frame: .zero)
         selectePhotosButton = UIButton(type: .custom)
         replyButton = UIButton(frame: .zero)
+        iconsView = UIView()
+        circleProgressIndicator = CircleProgressIndicator()
         
         configureSelf()
         configureInputBox()
-        configureIconsStackView()
+        configureIconsView()
         addIconsToIconsStackView()
     }
     
@@ -45,9 +61,17 @@ class CommentBoxView: UIView {
     }
     
     func commentText() -> String {
-        commentTextView.text
+        return commentTextView.text
+    }
+    
+    func changeDisplayType(displayType: DisplayType) {
+        
     }
 }
+
+// --------
+// MARK: Private Functions
+// --------
 
 private extension CommentBoxView {
     
@@ -69,40 +93,86 @@ private extension CommentBoxView {
         self.backgroundColor = Const.Color.systemWhite
     }
     
+    private func configureIconsView() {
+        iconsView.translatesAutoresizingMaskIntoConstraints = false
+        iconsView.heightAnchor --> 40
+        containerStackView.addArrangedSubview(iconsView)
+    }
+    
     private func configureInputBox() {
-        containerStackView.addArrangedSubview(commentTextView)
+        if displayType == .full {
+            containerStackView.addArrangedSubview(commentTextView)
+        }
         commentTextView.isScrollEnabled = false // Allows automatic height adjustment
         commentTextView.backgroundColor = Const.Color.Feed.commentBox
         commentTextView.layer.cornerRadius = 1.5 * Const.View.radius
-        commentTextView.textContainerInset.left = (1.5 * Const.View.radius) / 2
-        commentTextView.textContainerInset.right = (1.5 * Const.View.radius) / 2
+        let textContentInset = (1.5 * Const.View.radius) / 2
+        commentTextView.textContainerInset = UIEdgeInsets(top: Const.View.m12, left: textContentInset, bottom: Const.View.m12, right: textContentInset)
         
     }
     
-    private func configureIconsStackView() {
+    private func createIconsStackView() -> UIStackView {
+        let iconsStackView = UIStackView()
         iconsStackView.axis = .horizontal
-        iconsStackView.spacing = Const.View.m4
-        iconsStackView.alignment = .center
-        iconsStackView.distribution = .equalSpacing
-        containerStackView.addArrangedSubview(iconsStackView)
+        iconsStackView.spacing = Const.View.m8
+        iconsStackView.alignment = .fill
+        iconsStackView.distribution = .fillProportionally
+        return iconsStackView
+    }
+    
+    private func configureCircleProgressIndicator() {
+        circleProgressIndicator.translatesAutoresizingMaskIntoConstraints = false
+//        circleProgressIndicator.
+        circleProgressIndicator.heightAnchor --> 30
+        circleProgressIndicator.widthAnchor --> 30
+    }
+    
+    private func addRightIcons() {
+        configureReplyButton(button: replyButton)
+        configureCircleProgressIndicator()
+        circleProgressIndicator.updateProgress(percent: 45)
+        
+        let rightStackView = createIconsStackView()
+        rightStackView.alignment = .center
+        rightStackView.translatesAutoresizingMaskIntoConstraints = false
+        iconsView.addSubview(rightStackView)
+        rightStackView.topAnchor --> iconsView.topAnchor
+        rightStackView.bottomAnchor --> iconsView.bottomAnchor
+        rightStackView.trailingAnchor --> iconsView.trailingAnchor
+        rightStackView.addArrangedSubview(circleProgressIndicator)
+        rightStackView.addArrangedSubview(replyButton)
+        
+        
+    }
+    
+    private func addLeftIcons() {
+        configurePhotosButton(button: selectePhotosButton)
+        
+        let leftIconsStackView = createIconsStackView()
+        leftIconsStackView.addArrangedSubview(selectePhotosButton)
+        leftIconsStackView.translatesAutoresizingMaskIntoConstraints = false
+        iconsView.addSubview(leftIconsStackView)
+        leftIconsStackView.topAnchor --> iconsView.topAnchor
+        leftIconsStackView.bottomAnchor --> iconsView.bottomAnchor
+        leftIconsStackView.leadingAnchor --> iconsView.leadingAnchor
     }
     
     private func addIconsToIconsStackView() {
-        configurePhotosButton(button: selectePhotosButton)
-        iconsStackView.addArrangedSubview(selectePhotosButton)
-        configureReplyButton(button: replyButton)
-        iconsStackView.addArrangedSubview(replyButton)
+        addLeftIcons()
+        addRightIcons()
     }
     
+    
     private func configureReplyButton(button: UIButton) {
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(AppStrings.FeedDetail.replyButton, for: .normal)
-        button.setTitleColor(.white, for: .normal)
         button.backgroundColor = Const.Color.actionButtonColor
         button.setTitleColor(Const.Color.lightGray, for: .highlighted)
         button.setTitleColor(Const.Color.lightGray, for: .selected)
         button.layer.cornerRadius = Const.View.radius
         button.layer.masksToBounds = true
         button.contentEdgeInsets = Self.buttonEdgeInset
+        
     }
     
     private func configurePhotosButton(button: UIButton) {
@@ -118,9 +188,22 @@ private extension CommentBoxView {
     
     // TODO: to be used for do something awesome one day!!!
     private func setupConstraintsForIcons() {
-        //        iconsStackView.heightAnchor --> 30
+       
+//        iconsStackView.heightAnchor --> 40
+//        circleProgressIndicator.translatesAutoresizingMaskIntoConstraints = false
+//        circleProgressIndicator.widthAnchor --> 40
+//        circleProgressIndicator.heightAnchor --> 40
+//        replyButton.translatesAutoresizingMaskIntoConstraints = false
+//        replyButton.widthAnchor --> 40
+//        replyButton.heightAnchor --> 40
+//        selectePhotosButton.translatesAutoresizingMaskIntoConstraints = false
+//        selectePhotosButton.heightAnchor --> 40
+//        selectePhotosButton.widthAnchor --> 40
     }
     
     private func setupConstraintsForCommentsBox() {
+        
     }
+
 }
+

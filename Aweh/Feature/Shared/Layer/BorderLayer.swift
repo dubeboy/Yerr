@@ -13,13 +13,17 @@ class BorderLayer: CALayer {
     
     var lineColor: CGColor = UIColor.yellow.cgColor
     var lineWidth: CGFloat = 10.0
-    var startAngle: CGFloat = 0.0
-    var endAngle: CGFloat = 0.0 {
+    var startRadAngle: CGFloat = -.toRad(angle: 0)
+    var endRadAngle: CGFloat = 0.0 {
         didSet {
-            basicAnimation(angle: endAngle)
+            basicAnimation(angle: endRadAngle)
         }
     }
     
+//    override init() {
+//        super.init()
+//        basicAnimation(angle: T##CGFloat)
+//    }
     
     override func draw(in ctx: CGContext) {
         let center = CGPoint(x: bounds.width / 2 , y: bounds.height / 2)
@@ -30,8 +34,8 @@ class BorderLayer: CALayer {
         ctx.addArc(
             center: center,
             radius: (bounds.height / 2) - lineWidth,
-            startAngle: startAngle,
-            endAngle: endAngle,
+            startAngle: startRadAngle,
+            endAngle: endRadAngle,
             clockwise: false
         )
         ctx.setFillColor(UIColor.clear.cgColor)
@@ -48,7 +52,7 @@ class BorderLayer: CALayer {
     
     private func basicAnimation(angle toValue: CGFloat) {
         let basicAnimation = CABasicAnimation(keyPath: "endAngle")
-        basicAnimation.toValue = CGFloat.toRad(angle: toValue)
+        basicAnimation.toValue = toValue
         basicAnimation.duration = 2
         basicAnimation.fillMode = .forwards
         basicAnimation.isRemovedOnCompletion = false

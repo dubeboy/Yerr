@@ -17,19 +17,16 @@ class PostStatusViewController: UIViewController {
     
     @LateInit
     var location: GeoLocationServices
+    @LateInit
+    var numberOfCharactorsButton: UIBarButtonItem
     
     var placeHolderText: String {
         presenter.placeHolderText
     }
-   
-    var numberOfCharactorsButton: UIBarButtonItem {
-        UIBarButtonItem(title: presenter.numberOfAllowedChars, style: .plain, target: self, action: nil)
-    }
-        
+    
     var postButton = UIBarButtonItem(title: "Post", style: .plain, target: self, action: #selector(post))
     var assets: [String: PHAsset] = [:]
-   
-    
+
     @IBOutlet weak var assetsContainerView: UIView!
     @IBOutlet weak var statusTextBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var statusTextView: UITextView!
@@ -39,7 +36,6 @@ class PostStatusViewController: UIViewController {
         }
     }
    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,14 +43,10 @@ class PostStatusViewController: UIViewController {
         setupStatusTextiew()
         postButton.isEnabled = false
         navigationItem.rightBarButtonItem = postButton
-        numberOfCharactorsButton.isEnabled = false
-        numberOfCharactorsButton.setTitleTextAttributes(
-                [NSAttributedString.Key.foregroundColor: UIColor.systemBlue],
-                for: .disabled
-        )
         location = GeoLocationServices(delegate: self)
        
     }
+
     
     private func setupStatusTextiew() {
         statusTextView.text = placeHolderText
@@ -211,11 +203,11 @@ extension PostStatusViewController {
         let actionsToolBar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         actionsToolBar.barStyle = .default
         
-        actionsToolBar.items = [
-            UIBarButtonItem(title: "Add Images", style: .plain, target: self, action: #selector(requestAuthorisation)),
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            // should be a custom UI progress UI
-            numberOfCharactorsButton]
+//        actionsToolBar.items = [
+//            UIBarButtonItem(title: "Add Images", style: .plain, target: self, action: #selector(requestAuthorisation)),
+//            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+//            // should be a custom UI progress UI
+//            numberOfCharactorsButton]
         return actionsToolBar
     }
     

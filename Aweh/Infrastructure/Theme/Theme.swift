@@ -18,6 +18,7 @@ enum Const {
         static let m24: CGFloat = 24
         static let m16: CGFloat = 16
         static let m8: CGFloat = 8
+        static let m12: CGFloat = 12
         static let m1: CGFloat = 1
         static let m2: CGFloat = 2
         static let m4: CGFloat = 2
@@ -39,6 +40,7 @@ enum Const {
         
         enum FeedDetail {
             static let iconImage: UIImage? = getSystemResource(systemName: "photo")
+            static let replayImage: UIImage? =  getSystemResource(systemName: "paperplane")
         }
         
     }
@@ -48,13 +50,19 @@ enum Const {
     /// Note: these color must support dark mode
     /// default naming: light mode
     enum Color {
+        
+        // SHould have a private BASE
+        // then put all the System colors in system
+        
         static let lightGray = UIColor.systemGray6
         static let backgroundColor = UIColor.systemGray5
         static let systemWhite = UIColor.systemBackground
-        static let actionButtonColor = UIColor(named: "blueActionButton")
+        static let actionButtonColor = UIColor(named: "blueActionButton")! // TODO: test that these color exist
         
         enum Feed {
             static let commentBox = Color.lightGray
+            static let trackColor = Color.actionButtonColor
+            static let trackBackGroundColor = Color.lightGray
         }
     }
     

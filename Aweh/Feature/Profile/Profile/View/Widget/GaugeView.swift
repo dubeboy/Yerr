@@ -47,12 +47,12 @@ class GaugeView: UIView {
             let darkBorderLayer = BorderLayer()
             let track = BorderLayer()
             track.lineColor = UIColor.systemGray6.cgColor
-            track.startAngle = Self.startAngle
-            track.endAngle = Self.endAngle
+            track.startRadAngle = Self.startAngle
+            track.endRadAngle = Self.endAngle
             
             darkBorderLayer.lineColor = getColorWith(at: index)
-            darkBorderLayer.startAngle = Self.startAngle
-            darkBorderLayer.endAngle = .toRad(angle: 360)
+            darkBorderLayer.startRadAngle = Self.startAngle
+            darkBorderLayer.endRadAngle = .toRad(angle: 360)
             
             
             layer.addSublayer(track)

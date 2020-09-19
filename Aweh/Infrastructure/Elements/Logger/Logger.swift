@@ -42,6 +42,10 @@ enum Logger {
         #endif
     }
     
+    static func i(_ info: Any) {
+        Self.i(String(describing: info))
+    }
+    
     static func wtf(_ thisShouldNotHappen: String) {
         Self.log(thisShouldNotHappen)
     }
