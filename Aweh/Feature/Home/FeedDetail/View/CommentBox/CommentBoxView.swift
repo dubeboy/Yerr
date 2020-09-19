@@ -129,7 +129,6 @@ private extension CommentBoxView {
     private func addRightIcons() {
         configureReplyButton(button: replyButton)
         configureCircleProgressIndicator()
-        circleProgressIndicator.updateProgress(percent: 45)
         
         let rightStackView = createIconsStackView()
         rightStackView.alignment = .center

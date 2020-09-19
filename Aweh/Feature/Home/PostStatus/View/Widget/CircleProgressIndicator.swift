@@ -29,7 +29,7 @@ class CircleProgressIndicator: UIView {
     private func configureCenterLabel() {
         centeredLabel = UILabel()
         centeredLabel.translatesAutoresizingMaskIntoConstraints = false
-        centeredLabel.text = "0"
+        centeredLabel.text = ""
         centeredLabel.adjustsFontSizeToFitWidth = true
         centeredLabel.numberOfLines = 1
         centeredLabel.minimumScaleFactor = 0.1
@@ -39,7 +39,7 @@ class CircleProgressIndicator: UIView {
         super.layoutSubviews()
        
         centeredLabel.topAnchor --> topAnchor + trackSize * 2
-        centeredLabel.bottomAnchor --> bottomAnchor + -(trackSize * 2.6) // TODO: this is a hack to put the text in the center
+        centeredLabel.bottomAnchor --> bottomAnchor + -(trackSize * 2) // TODO: this is a hack to put the text in the center
         centeredLabel.leadingAnchor --> leadingAnchor + trackSize * 2
         centeredLabel.trailingAnchor --> trailingAnchor + -(trackSize * 2)
         centeredLabel.centerYAnchor --> centerYAnchor
