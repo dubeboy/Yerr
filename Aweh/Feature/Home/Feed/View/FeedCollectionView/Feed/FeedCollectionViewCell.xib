@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,13 +29,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Peter Stewart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Flw-he-su4">
-                                <rect key="frame" x="56" y="8" width="143.5" height="27"/>
+                                <rect key="frame" x="56" y="8" width="143.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Yug-n0-971">
-                                <rect key="frame" x="56" y="43.5" width="283" height="20.5"/>
+                                <rect key="frame" x="56" y="37" width="283" height="20.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Posted 1 minute ago" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VAD-g5-i5i">
                                         <rect key="frame" x="0.0" y="0.0" width="283" height="20.5"/>
@@ -59,7 +59,7 @@
                             <constraint firstItem="buT-Bd-nJ7" firstAttribute="top" secondItem="N7g-sF-ebT" secondAttribute="top" constant="8" id="Lwd-z7-KzG"/>
                             <constraint firstItem="Sg7-ug-hBC" firstAttribute="leading" secondItem="Flw-he-su4" secondAttribute="trailing" constant="16" id="VQk-dd-cBy"/>
                             <constraint firstItem="Yug-n0-971" firstAttribute="top" secondItem="Flw-he-su4" secondAttribute="bottom" constant="8.5" id="VrS-vp-rwN"/>
-                            <constraint firstAttribute="bottom" secondItem="Yug-n0-971" secondAttribute="bottom" constant="16" id="cti-2x-o1U"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Yug-n0-971" secondAttribute="bottom" constant="16" id="cti-2x-o1U"/>
                             <constraint firstAttribute="trailing" secondItem="Sg7-ug-hBC" secondAttribute="trailing" constant="16" id="eYs-Ig-Jvr"/>
                             <constraint firstItem="Yug-n0-971" firstAttribute="leading" secondItem="buT-Bd-nJ7" secondAttribute="trailing" constant="8" id="hPj-Wd-wEG"/>
                             <constraint firstItem="Flw-he-su4" firstAttribute="leading" secondItem="buT-Bd-nJ7" secondAttribute="trailing" constant="8" id="vZL-cO-daB"/>

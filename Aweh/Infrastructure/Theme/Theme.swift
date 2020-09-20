@@ -44,6 +44,11 @@ enum Const {
             static let replayImage: UIImage? =  getSystemResource(systemName: "paperplane")
         }
         
+        enum Feed {
+            static let upVoteArrow: UIImage? = getSystemResource(systemName: "arrow.up")
+            static let downVoteArrow: UIImage? = getSystemResource(systemName: "arrow.down")
+        }
+        
     }
     
 //    enum Font {
@@ -80,9 +85,17 @@ enum Const {
     
     private static func getSystemResource(systemName: String) -> UIImage? {
         if #available(iOS 13, *) {
-            return UIImage(systemName: systemName)
+            let image = UIImage(systemName: systemName)
+            if image == nil {
+                Logger.log("\(#function) image is nil")
+            }
+            return image
         } else {
-            return UIImage(named: systemName)
+            let image = UIImage(named: systemName)
+            if image == nil {
+                Logger.log("\(#function): image is nil")
+            }
+            return image
         }
     }
     

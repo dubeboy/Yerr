@@ -46,8 +46,8 @@
             filePath = "Aweh/Feature/Home/FeedDetail/View/CommentBox/CommentBoxView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
+            startingLineNumber = "220"
+            endingLineNumber = "220"
             landmarkName = "numberOfCharectorsDidChange(current:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "Aweh/Feature/Home/FeedDetail/View/CommentBox/CommentBoxView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
             landmarkName = "numberOfCharectorsDidChange(current:)"
             landmarkType = "7">
          </BreakpointContent>

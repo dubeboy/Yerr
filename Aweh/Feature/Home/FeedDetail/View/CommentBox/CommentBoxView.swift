@@ -14,7 +14,6 @@ class CommentBoxView: UIView, UITextViewDelegate {
         case compact, full
     }
     
-    private static let buttonEdgeInset = UIEdgeInsets(top: Const.View.m8, left: Const.View.m8, bottom: Const.View.m8, right: Const.View.m8)
     private static let indicatorWidth: Double = 25
     
     @LateInit
@@ -26,9 +25,9 @@ class CommentBoxView: UIView, UITextViewDelegate {
     @LateInit
     private var commentTextView: UITextView
     @LateInit
-    private(set) var selectePhotosButton: UIButton
+    private(set) var selectePhotosButton: YerrButton
     @LateInit
-    private(set) var replyButton: UIButton
+    private(set) var replyButton: YerrButton
     @LateInit
     private var commentTextViewDelegate: TextViewDelegateImplementation
     
@@ -44,8 +43,8 @@ class CommentBoxView: UIView, UITextViewDelegate {
         containerStackView = UIStackView(frame: .zero)
         commentTextView = UITextView(frame: .zero)
         commentTextViewDelegate = TextViewDelegateImplementation(delegate: self)
-        selectePhotosButton = UIButton(type: .custom)
-        replyButton = UIButton(frame: .zero)
+        selectePhotosButton = YerrButton(type: .custom)
+        replyButton = YerrButton(frame: .zero)
         iconsView = UIView()
         circleProgressIndicator = CircleProgressIndicator()
         
@@ -174,23 +173,16 @@ private extension CommentBoxView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(AppStrings.FeedDetail.replyButton, for: .normal)
         button.backgroundColor = Const.Color.actionButtonColor
-        button.setTitleColor(Const.Color.lightGray, for: .highlighted)
-        button.setTitleColor(Const.Color.lightGray, for: .selected)
-        button.layer.cornerRadius = Const.View.radius
-        button.layer.masksToBounds = true
         button.isEnabled = false
-        button.contentEdgeInsets = Self.buttonEdgeInset
     }
     
     private func configurePhotosButton(button: UIButton) {
         selectePhotosButton.setImage(Const.Assets.FeedDetail.iconImage, for: .normal)
         selectePhotosButton.tintColor = Const.Color.actionButtonColor
         // TODO: fix selectde| higlighted states for tinted image
-        button.contentEdgeInsets = Self.buttonEdgeInset
         button.layer.borderWidth = Const.View.borderWidth
         button.layer.masksToBounds = true
         button.layer.borderColor = Const.Color.lightGray.cgColor
-        button.layer.cornerRadius = Const.View.radius
     }
     
     // TODO: to be used for do something awesome one day!!!
