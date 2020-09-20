@@ -237,9 +237,9 @@ extension CommentBoxView: TextViewTextUpdatedDelegate {
     }
     
     private func updateProgressRingColor(percent: Double) {
-        if percent >= 0.0 && percent < 60.0 {
+        if percent >= 0.0 && percent < 70.0 {
             circleProgressIndicator.resetColors()
-        } else if percent >= 60.0 && percent < 90.0 {
+        } else if percent >= 70.0 && percent < 90.0 {
             circleProgressIndicator.updateProgressRingColor(color: Const.Color.Feed.warningMaximumTextLength)
         } else {
             circleProgressIndicator.updateProgressRingColor(color: Const.Color.Feed.alertMaximumTextLength)

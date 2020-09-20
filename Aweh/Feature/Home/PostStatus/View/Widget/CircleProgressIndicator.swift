@@ -80,7 +80,6 @@ class CircleProgressIndicator: UIView {
     
     func updateProgressRingColor(color: UIColor) {
         animatableBorderLayer.lineColor = color.cgColor
-        centeredLabel.textColor = color
     }
     
     func resetColors() {
