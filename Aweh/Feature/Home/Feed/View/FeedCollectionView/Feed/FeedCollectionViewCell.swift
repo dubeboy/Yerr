@@ -17,8 +17,12 @@ class FeedCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var statusText: UILabel!
     @IBOutlet weak var containerStackView: UIStackView!
     
+    @LateInit
+    var likeAndUpVoteHStack: LikeAndVotesHStask
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        likeAndUpVoteHStack = LikeAndVotesHStask()
         self.clipsToBounds = true
         translatesAutoresizingMaskIntoConstraints = false
         configureContentView()
@@ -53,7 +57,6 @@ class FeedCollectionViewCell: UICollectionViewCell {
     
     private func configureLikeAndUpVoteButtons() {
         let likeAndUpVoteHStack = LikeAndVotesHStask()
-//        likeAndUpVoteHStack.backgroundColor = .blue
         likeAndUpVoteHStack.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(likeAndUpVoteHStack)
     }
