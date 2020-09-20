@@ -13,6 +13,7 @@ import UIKit
 // MARK: - App Constants
 
 enum Const {
+    static let maximumTextLength: Int = 280
     // MARK: View Constants
     enum View {
         static let m24: CGFloat = 24
@@ -24,10 +25,10 @@ enum Const {
         static let m4: CGFloat = 2
         static let radius: CGFloat = 10
         static let borderWidth: CGFloat = m2
+       
     }
     
     // MARK: App assets
-    /// gets SFSymbols if iOS 13+ else gets local resource
     enum Assets {
         enum Interests {
             static let iconCheckmark: UIImage? = getSystemResource(systemName: "checkmark.circle")
@@ -65,11 +66,15 @@ enum Const {
         static let backgroundColor = UIColor.systemGray5
         static let systemWhite = UIColor.systemBackground
         static let actionButtonColor = UIColor(named: "blueActionButton")! // TODO: test that these color exist
+        static let label = UIColor.label
         
         enum Feed {
             static let commentBox = Color.lightGray
             static let trackColor = Color.actionButtonColor
             static let trackBackGroundColor = Color.lightGray
+            static let textColor = Color.label
+            static let warningMaximumTextLength = UIColor.systemYellow
+            static let alertMaximumTextLength = UIColor.systemRed
         }
     }
     
@@ -79,5 +84,9 @@ enum Const {
         } else {
             return UIImage(named: systemName)
         }
+    }
+    
+    private static func getColor(color: Color) -> UIColor {
+        
     }
 }

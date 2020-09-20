@@ -11,13 +11,15 @@ import UIKit
 final class FeedDetailViewController: UICollectionViewController {
     
     var presenter: FeedDetailPresenter!
-    let commentBox: CommentBoxView = CommentBoxView()
+    @LateInit
+    var commentBox: CommentBoxView
     var commentsBoxBottomConstraint: NSLayoutConstraint?
     weak var coordinator: Coordinator!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
+        commentBox = CommentBoxView()
         setUpCommentBox(commentBox: commentBox)
         navigationItem.title = presenter.title
         presenter.fetchComments(page: 0) { [weak self] commentsCount in
@@ -39,12 +41,7 @@ final class FeedDetailViewController: UICollectionViewController {
             self.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .bottom, animated: false)
 
             self.collectionView.performBatchUpdates {
-//                if self.collectionView.numberOfItems(inSection: 0) == 1 {
-//                    self.collectionView.reloadData()
-//                } else {
-//                    // TODO: iOS 13 and above use diffabe datasource
-                    self.collectionView.insertItems(at: [IndexPath(row: 1, section: 0)])
-//                }
+                self.collectionView.insertItems(at: [IndexPath(row: 1, section: 0)])
             } completion: { _ in }
             
             
@@ -136,9 +133,6 @@ private extension FeedDetailViewController {
         
         commentBox.replyButton.addTarget(self, action: #selector(didTapOnReplyButton(_:)), for: .touchUpInside)
         commentBox.selectePhotosButton.addTarget(self, action: #selector(didTapOnSelectedPhotosButton(_:)), for: .touchUpInside)
-        
-        // we also need to setup the cllectionView insets!!!
-    
     }
     
     

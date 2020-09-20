@@ -8,9 +8,9 @@
 
 import UIKit
 
-class CommentBoxView: UIView {
+class CommentBoxView: UIView, UITextViewDelegate {
     
-    enum DisplayType {
+    enum DisplayType: Equatable {
         case compact, full
     }
     
@@ -29,15 +29,21 @@ class CommentBoxView: UIView {
     private(set) var selectePhotosButton: UIButton
     @LateInit
     private(set) var replyButton: UIButton
+    @LateInit
+    private var commentTextViewDelegate: TextViewDelegateImplementation
+    
+    var delegate: ((Int) -> Void)?
+   
+    var placeHolderText: String = "Reply"
     
     private var displayType: DisplayType
    
     init(displayType: DisplayType = .full) {
         self.displayType = displayType
         super.init(frame: .zero)
-        
         containerStackView = UIStackView(frame: .zero)
         commentTextView = UITextView(frame: .zero)
+        commentTextViewDelegate = TextViewDelegateImplementation(delegate: self)
         selectePhotosButton = UIButton(type: .custom)
         replyButton = UIButton(frame: .zero)
         iconsView = UIView()
@@ -67,10 +73,14 @@ class CommentBoxView: UIView {
     func changeDisplayType(displayType: DisplayType) {
         
     }
+    
+    func textViewBecomeFirstResponder() {
+        commentTextView.becomeFirstResponder()
+    }
 }
 
 // --------
-// MARK: Private Functions
+// MARK: Constrants Setup Private Functions
 // --------
 
 private extension CommentBoxView {
@@ -103,6 +113,7 @@ private extension CommentBoxView {
         if displayType == .full {
             containerStackView.addArrangedSubview(commentTextView)
         }
+        commentTextView.delegate = commentTextViewDelegate
         commentTextView.isScrollEnabled = false // Allows automatic height adjustment
         commentTextView.backgroundColor = Const.Color.Feed.commentBox
         commentTextView.layer.cornerRadius = 1.5 * Const.View.radius
@@ -139,8 +150,6 @@ private extension CommentBoxView {
         rightStackView.trailingAnchor --> iconsView.trailingAnchor
         rightStackView.addArrangedSubview(circleProgressIndicator)
         rightStackView.addArrangedSubview(replyButton)
-        
-        
     }
     
     private func addLeftIcons() {
@@ -169,8 +178,8 @@ private extension CommentBoxView {
         button.setTitleColor(Const.Color.lightGray, for: .selected)
         button.layer.cornerRadius = Const.View.radius
         button.layer.masksToBounds = true
+        button.isEnabled = false
         button.contentEdgeInsets = Self.buttonEdgeInset
-        
     }
     
     private func configurePhotosButton(button: UIButton) {
@@ -203,5 +212,38 @@ private extension CommentBoxView {
         
     }
 
+}
+// ------
+// MARK: TextView delegate extension
+// ------
+
+extension CommentBoxView: TextViewTextUpdatedDelegate {
+    var sendButton: UIButton {
+        replyButton
+    }
+    
+    func numberOfCharectorsDidChange(current length: Int) {
+        
+        if length > 0 {
+            let percent: Double = (Double(length) / Double(Const.maximumTextLength)) * 100.0
+            updateProgressRingColor(percent: percent)
+            circleProgressIndicator.updateProgress(percent: CGFloat(percent))
+            circleProgressIndicator.updateProgressLabel(text: "\(length)")
+        } else {
+            updateProgressRingColor(percent: 0.0)
+            circleProgressIndicator.updateProgress(percent: 0.0)
+            circleProgressIndicator.updateProgressLabel(text: "")
+        }
+    }
+    
+    private func updateProgressRingColor(percent: Double) {
+        if percent >= 0.0 && percent < 60.0 {
+            circleProgressIndicator.resetColors()
+        } else if percent >= 60.0 && percent < 90.0 {
+            circleProgressIndicator.updateProgressRingColor(color: Const.Color.Feed.warningMaximumTextLength)
+        } else {
+            circleProgressIndicator.updateProgressRingColor(color: Const.Color.Feed.alertMaximumTextLength)
+        }
+    }
 }
 

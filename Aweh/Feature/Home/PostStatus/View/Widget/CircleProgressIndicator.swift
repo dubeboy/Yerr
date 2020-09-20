@@ -39,7 +39,7 @@ class CircleProgressIndicator: UIView {
         super.layoutSubviews()
        
         centeredLabel.topAnchor --> topAnchor + trackSize * 2
-        centeredLabel.bottomAnchor --> bottomAnchor + -(trackSize * 2) // TODO: this is a hack to put the text in the center
+        centeredLabel.bottomAnchor --> bottomAnchor + -(trackSize * 2.5) // TODO: this is a hack to put the text in the center
         centeredLabel.leadingAnchor --> leadingAnchor + trackSize * 2
         centeredLabel.trailingAnchor --> trailingAnchor + -(trackSize * 2)
         centeredLabel.centerYAnchor --> centerYAnchor
@@ -68,10 +68,24 @@ class CircleProgressIndicator: UIView {
     
     /// update progress in percentage units
     func updateProgress(percent: CGFloat) {
+        
         let degrees: CGFloat = (percent / 100.0) * 360.0
-        centeredLabel.text = "\(Int(percent))"
         animatableBorderLayer.endRadAngle = .toRadNormalized(angle: degrees)
-        setNeedsLayout()
+        
+    }
+    
+    func updateProgressLabel(text: String) {
+        centeredLabel.text = text
+    }
+    
+    func updateProgressRingColor(color: UIColor) {
+        animatableBorderLayer.lineColor = color.cgColor
+        centeredLabel.textColor = color
+    }
+    
+    func resetColors() {
+        animatableBorderLayer.lineColor = Const.Color.Feed.trackColor.cgColor
+        centeredLabel.textColor = Const.Color.Feed.textColor
     }
     
     required init?(coder: NSCoder) {

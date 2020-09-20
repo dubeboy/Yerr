@@ -14,16 +14,22 @@ class BorderLayer: CALayer {
     var lineColor: CGColor = UIColor.yellow.cgColor
     var lineWidth: CGFloat = 10.0
     var startRadAngle: CGFloat = .toRadNormalized(angle: 0)
+    let basicAnimation = CABasicAnimation(keyPath: "endAngle")
     var endRadAngle: CGFloat = .toRadNormalized(angle: 0) {
         didSet {
-            basicAnimation(angle: endRadAngle)
+           updateUpdateValue(angle: endRadAngle)
+           setNeedsDisplay()
         }
     }
     
-//    override init() {
-//        super.init()
-//        basicAnimation(angle: T##CGFloat)
-//    }
+    override init() {
+        super.init()
+        addBasicAnimation()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func draw(in ctx: CGContext) {
         let center = CGPoint(x: bounds.width / 2 , y: bounds.height / 2)
@@ -50,12 +56,15 @@ class BorderLayer: CALayer {
         return super.needsDisplay(forKey: key)
     }
     
-    private func basicAnimation(angle toValue: CGFloat) {
-        let basicAnimation = CABasicAnimation(keyPath: "endAngle")
-        basicAnimation.toValue = toValue
+    private func addBasicAnimation() {
         basicAnimation.duration = 2
         basicAnimation.fillMode = .forwards
         basicAnimation.isRemovedOnCompletion = false
         add(basicAnimation, forKey: "myBasicAnimation")
     }
+    
+    private func updateUpdateValue(angle toValue: CGFloat)  {
+        basicAnimation.toValue = toValue
+    }
+    
 }
