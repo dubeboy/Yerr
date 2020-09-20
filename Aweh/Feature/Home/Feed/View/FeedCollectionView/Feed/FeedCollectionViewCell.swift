@@ -39,7 +39,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
         let attr = super.preferredLayoutAttributesFitting(layoutAttributes)
         let newSize = CGSize(width: contentViewSize.width, height: size.height)
         var newFrame = attr.frame
-        
+
         newFrame.size = newSize
         attr.frame = newFrame
         return attr
@@ -56,7 +56,6 @@ class FeedCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureLikeAndUpVoteButtons() {
-        let likeAndUpVoteHStack = LikeAndVotesHStask()
         likeAndUpVoteHStack.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(likeAndUpVoteHStack)
     }

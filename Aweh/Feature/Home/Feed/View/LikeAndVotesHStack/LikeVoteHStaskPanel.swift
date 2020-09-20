@@ -11,13 +11,17 @@ import UIKit
 class LikeAndVotesHStask: UIView {
     
     @LateInit
-    var constainerStackView: UIStackView
+    private var constainerStackView: UIStackView
     @LateInit
-    var likeButton: YerrButton
+    private var likeButton: YerrButton
     @LateInit
-    var upVoteButton: UIButton
+    private var upVoteButton: YerrButton
     @LateInit
-    var downVoteButton: UIButton
+    private var downVoteButton: YerrButton
+    
+    var didTapLikeAction: (() -> Void)?
+    var didTapUpVoteAction: (() -> Void)?
+    var didTapDownVoteAction: (() -> Void)?
     
     init() {
         super.init(frame: .zero)
@@ -37,7 +41,19 @@ class LikeAndVotesHStask: UIView {
         super.layoutSubviews()
         constainerStackView.translatesAutoresizingMaskIntoConstraints = false
         constainerStackView --> self
-      
+        
+    }
+    
+     @objc private func didTapLikeButtonTarget() {
+        didTapLikeAction?()
+    }
+    
+     @objc private func didTapUpVoteButton() {
+        didTapUpVoteAction?()
+    }
+    
+     @objc private func didTapDownVoteButton() {
+        didTapDownVoteAction?()
     }
 }
 
@@ -54,21 +70,23 @@ extension LikeAndVotesHStask {
     }
     
     private func configureLikeButton() {
-//        likeButton.setTitle(AppStrings.Feed.likeButton, for: .normal)
         likeButton.translatesAutoresizingMaskIntoConstraints = false
         likeButton.setImage(Const.Assets.Feed.like, for: .normal)
+        likeButton.addTarget(self, action: #selector(didTapLikeButtonTarget), for: .touchUpInside)
     }
     
     private func configureUpVoteButton() {
         //        likeButton.setTitle(AppStrings.Feed.likeButton, for: .normal)
-        likeButton.translatesAutoresizingMaskIntoConstraints = false
+        upVoteButton.translatesAutoresizingMaskIntoConstraints = false
         upVoteButton.setImage(Const.Assets.Feed.upVoteArrow, for: .normal)
+        upVoteButton.addTarget(self, action: #selector(didTapUpVoteButton), for: .touchUpInside)
     }
     
     private func configureDownVoteButton() {
         //        likeButton.setTitle(AppStrings.Feed.likeButton, for: .normal)
-        likeButton.translatesAutoresizingMaskIntoConstraints = false
+        downVoteButton.translatesAutoresizingMaskIntoConstraints = false
         downVoteButton.setImage(Const.Assets.Feed.downVoteArrow, for: .normal)
+        downVoteButton.addTarget(self, action: #selector(didTapDownVoteButton), for: .touchUpInside)
     }
     
     private func configureAndAddButtons() {

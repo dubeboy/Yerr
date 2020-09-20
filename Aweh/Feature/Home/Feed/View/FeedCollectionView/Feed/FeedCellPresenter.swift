@@ -13,19 +13,19 @@ class FeedCellPresenter {
         cell.userName.text = model.user.name // change this to attributed string
         cell.statusText.text = model.status
         cell.distanceAndTime.text = model.distanceFromYou + "KM・\(model.timeSincePosted)" // change this to attributed string
-        
-//        if model.media.isEmpty {
-//            cell.statusImage.isHidden = true
-//        } else {
-//            model.media.forEach { media in
-//                cell.statusImage.downloadImage(fromUrl: media.location)
-//            }
-//        }
-        cell.setNeedsLayout()
-        cell.layoutIfNeeded()
     }
     
     func didSelectItem(viewModel: StatusViewModel) {
         // TODO: - some logic when the cell is selected
+    }
+    
+    func setLikeAndVoteButtonsActions(for cell: FeedCollectionViewCell,
+                                      didTapLikeButton: @escaping () -> Void,
+                               didTapDownVoteButton: @escaping () -> Void,
+                               didTapUpVoteButton: @escaping () -> Void) {
+        
+        cell.likeAndUpVoteHStack.didTapUpVoteAction = didTapUpVoteButton
+        cell.likeAndUpVoteHStack.didTapDownVoteAction = didTapDownVoteButton
+        cell.likeAndUpVoteHStack.didTapLikeAction = didTapLikeButton
     }
 }
