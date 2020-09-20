@@ -20,6 +20,13 @@ enum AppStrings {
         static let replyPlaceholderText = "Reply to this status"
     }
     
+    enum Feed {
+        // TODO: use these for the accsiblities
+        static let likeButton = "Like"
+        static let upvoteButton = "Up Vote"
+        static let downVote = "Up Vote"
+    }
+    
     enum Shared {
         enum GeoLocationServices {
             static let failedToGetLocation = "Sorry failed to get your current location"

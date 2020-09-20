@@ -47,6 +47,8 @@ enum Const {
         enum Feed {
             static let upVoteArrow: UIImage? = getSystemResource(systemName: "arrow.up")
             static let downVoteArrow: UIImage? = getSystemResource(systemName: "arrow.down")
+            static let likeFill: UIImage? = getSystemResource(systemName: "heart.fill")
+            static let like: UIImage? = getSystemResource(systemName: "heart")
         }
         
     }

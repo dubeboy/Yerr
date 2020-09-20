@@ -15,6 +15,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var distanceAndTime: UILabel!
     @IBOutlet weak var statusText: UILabel!
+    @IBOutlet weak var containerStackView: UIStackView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,9 +44,17 @@ class FeedCollectionViewCell: UICollectionViewCell {
     private func configureCell() {
         configureContentView()
         configureProfileImage()
+        configureLikeAndUpVoteButtons()
     }
     
     private func configureProfileImage() {
         profileImage.makeImageRound()
+    }
+    
+    private func configureLikeAndUpVoteButtons() {
+        let likeAndUpVoteHStack = LikeAndVotesHStask()
+//        likeAndUpVoteHStack.backgroundColor = .blue
+        likeAndUpVoteHStack.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(likeAndUpVoteHStack)
     }
 }
