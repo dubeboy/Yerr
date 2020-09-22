@@ -49,7 +49,7 @@ struct StatusRepository: RepositoryInjectable {
     }
     
     func postVote(voteEntity: VoteEntity, result: @escaping (Result<StatusResponseEntity<Bool>, Error>) -> Void) {
-        service.$postLike(body: voteEntity) { response in
+        service.$postVote(body: voteEntity) { response in
             switch response {
                 case .success(let statusReponse):
                     result(.success(statusReponse.body))
@@ -60,7 +60,7 @@ struct StatusRepository: RepositoryInjectable {
     }
     
     func postRemoveVote(voteEntity: VoteEntity, result: @escaping (Result<StatusResponseEntity<Bool>, Error>) -> Void) {
-        service.$postLike(body: voteEntity) { response in
+        service.$postRemoveVote(body: voteEntity) { response in
             switch response {
                 case .success(let statusReponse):
                     result(.success(statusReponse.body))

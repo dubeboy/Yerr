@@ -78,12 +78,6 @@ extension FeedViewController: UICollectionViewDataSource {
         presenter.statusCount
     }
     
-    var action: (() -> Void)? {
-        {
-            print("head ach")
-        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let status = presenter.getStatus(at: indexPath)
         let cell = collectionView.deque(FeedCollectionViewCell.self, at: indexPath)

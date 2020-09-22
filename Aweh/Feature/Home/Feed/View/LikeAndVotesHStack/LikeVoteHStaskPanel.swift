@@ -44,16 +44,28 @@ class LikeAndVotesHStask: UIView {
         
     }
     
-     @objc private func didTapLikeButtonTarget() {
+    @objc private func didTapLikeButtonTarget() {
         didTapLikeAction?()
     }
     
-     @objc private func didTapUpVoteButton() {
+    @objc private func didTapUpVoteButton() {
         didTapUpVoteAction?()
     }
     
-     @objc private func didTapDownVoteButton() {
+    @objc private func didTapDownVoteButton() {
         didTapDownVoteAction?()
+    }
+    
+    func setUpVoteText(text: String) {
+        upVoteButton.setTitle(text, for: .normal)
+    }
+    
+    func setDownVoteText(text: String) {
+        downVoteButton.setTitle(text, for: .normal)
+    }
+    
+    func setLikeVoteText(text: String) {
+        likeButton.setTitle(text, for: .normal)
     }
 }
 

@@ -28,7 +28,6 @@ struct StatusViewModel: Equatable, Hashable, Identifiable {
     var voteEntity: ViewModelVoteEntity? = nil
     var likes: Int = 0
     var votes: Int = 0
-//    var comments: Commen
 }
 
 extension StatusViewModel {

@@ -13,6 +13,11 @@ class FeedCellPresenter {
         cell.userName.text = model.user.name // change this to attributed string
         cell.statusText.text = model.status
         cell.distanceAndTime.text = model.distanceFromYou + "KM・\(model.timeSincePosted)" // change this to attributed string
+        
+    }
+    
+    private func getVotesString(votes: Int) -> String {
+        return votes >= 0 ? "" : "\(votes)"
     }
     
     func didSelectItem(viewModel: StatusViewModel) {

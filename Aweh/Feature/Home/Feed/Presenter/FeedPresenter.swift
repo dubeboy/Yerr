@@ -75,7 +75,9 @@ class FeedPresenterImplemantation: FeedPresenter {
    
     func didTapDownVoteButton(at indexPath: IndexPath) {
         let item = viewModel[indexPath.item]
-        feedIntercator.postVote(voteEntity: createPostVoteEntity(item: item)) { result in
+        var postVote = createPostVoteEntity(item: item)
+        postVote.direction = false
+        feedIntercator.postVote(voteEntity: postVote) { result in
             switch result {
                 case .success(let result):
                     Logger.i(result)
@@ -87,7 +89,9 @@ class FeedPresenterImplemantation: FeedPresenter {
     
     func didTapUpVoteButton(at indexPath: IndexPath) {
         let item = viewModel[indexPath.item]
-        feedIntercator.postVote(voteEntity: createPostVoteEntity(item: item)) { result in
+        var postVote = createPostVoteEntity(item: item)
+        postVote.direction = true
+        feedIntercator.postVote(voteEntity: postVote) { result in
             switch result {
                 case .success(let result):
                     Logger.i(result)
@@ -98,8 +102,17 @@ class FeedPresenterImplemantation: FeedPresenter {
         }
     }
     
-    private func removeVote() {
-        
+    private func removeVote(at indexPath: IndexPath) {
+        let item = viewModel[indexPath.item]
+        let postVote = createPostVoteEntity(item: item)
+        feedIntercator.postRemoveVote(voteEntity: postVote) { result in
+            switch result {
+                case .success(let result):
+                    Logger.i(result)
+                case .failure(let error):
+                    Logger.i(error.localizedDescription)
+            }
+        }
     }
     
     private func createPostVoteEntity(item: StatusViewModel) -> VoteEntity {

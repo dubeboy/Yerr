@@ -78,41 +78,9 @@
             filePath = "Aweh/Feature/Home/Feed/View/FeedCollectionView/Feed/FeedCellPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
             landmarkName = "setLikeAndVoteButtonsActions(for:didTapLikeButton:didTapDownVoteButton:didTapUpVoteButton:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8751F2DE-D056-4B23-AD3E-32C892AE1B74"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../Merchant/Sources/Internal/HTTPClient/HTTPClient.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "requestWithBody(url:method:body:headers:formURLEncoded:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8BAD87D0-A621-4D56-9B4C-48B734A04F62"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../Merchant/Sources/Internal/HTTPClient/HTTPClient.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "requestWithBody(url:method:body:headers:formURLEncoded:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

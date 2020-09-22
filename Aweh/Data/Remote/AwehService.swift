@@ -32,7 +32,7 @@ struct AwehService: Service {
     var postVote: StatusResponseEntity<Bool>
     
     @POST("statuses/vote/delete", body: VoteEntity.self)
-    var removeVote: StatusResponseEntity<Bool>
+    var postRemoveVote: StatusResponseEntity<Bool>
 //    ll
     /// --------------------
     // MARK: Status Comments
