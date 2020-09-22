@@ -8,6 +8,15 @@
 
 import UIKit
 
+enum VoteDirectionViewModel {
+    case up, down, none
+}
+
+struct ViewModelVoteEntity: Equatable, Hashable {
+   let direction: VoteDirectionViewModel
+   let hasReachedMaximumLikes: Bool = false
+}
+
 struct StatusViewModel: Equatable, Hashable, Identifiable {
     let id: String
     let status: String
@@ -15,6 +24,10 @@ struct StatusViewModel: Equatable, Hashable, Identifiable {
     let media: [MediaViewModel]
     let timeSincePosted: String
     var distanceFromYou: String = ""
+    
+    var voteEntity: ViewModelVoteEntity? = nil
+    var likes: Int = 0
+    var votes: Int = 0
 //    var comments: Commen
 }
 

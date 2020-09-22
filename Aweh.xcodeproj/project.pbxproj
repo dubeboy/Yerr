@@ -26,6 +26,7 @@
 		713549B3248BE8F10009EE6A /* FeedCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713549B2248BE8F10009EE6A /* FeedCellPresenter.swift */; };
 		7137311924BF8A34001CE972 /* CompactFeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7137311824BF8A34001CE972 /* CompactFeedPresenter.swift */; };
 		713D265224BA090400E2CFC5 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713D265124BA090400E2CFC5 /* Logger.swift */; };
+		7145AADE25197CB600657062 /* UserInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145AADD25197CB600657062 /* UserInteractor.swift */; };
 		7155E30624BCDFA7006EBED8 /* MainStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7155E30524BCDFA7006EBED8 /* MainStatusViewController.swift */; };
 		7155E30924BCE080006EBED8 /* MainStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7155E30824BCE080006EBED8 /* MainStatusPresenter.swift */; };
 		7155E30B24BCE126006EBED8 /* MainStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7155E30A24BCE126006EBED8 /* MainStatusViewModel.swift */; };
@@ -92,6 +93,8 @@
 		71A77FD5249C378100F8D442 /* FeedDetailCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A77FD4249C378100F8D442 /* FeedDetailCellPresenter.swift */; };
 		71A8325124B91CEB009F2D5C /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A8325024B91CEB009F2D5C /* ProfileCoordinator.swift */; };
 		71ADA9782517D4BF005FF2BF /* YerrButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ADA9772517D4BF005FF2BF /* YerrButton.swift */; };
+		71ADA97B25180B92005FF2BF /* VoteEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ADA97A25180B91005FF2BF /* VoteEntity.swift */; };
+		71ADA97F25180CBC005FF2BF /* UserEntityId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ADA97E25180CBC005FF2BF /* UserEntityId.swift */; };
 		71BBCA7324B8C5DC00044629 /* GuageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BBCA7224B8C5DC00044629 /* GuageViewModel.swift */; };
 		71C46D9724B26A3A00A9DB14 /* PickInterestCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C46D9624B26A3A00A9DB14 /* PickInterestCollectionViewController.swift */; };
 		71C46DA024B26B0800A9DB14 /* PickInterestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C46D9E24B26B0800A9DB14 /* PickInterestCollectionViewCell.swift */; };
@@ -163,6 +166,7 @@
 		713549B2248BE8F10009EE6A /* FeedCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCellPresenter.swift; sourceTree = "<group>"; };
 		7137311824BF8A34001CE972 /* CompactFeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactFeedPresenter.swift; sourceTree = "<group>"; };
 		713D265124BA090400E2CFC5 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		7145AADD25197CB600657062 /* UserInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInteractor.swift; sourceTree = "<group>"; };
 		7155E30524BCDFA7006EBED8 /* MainStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStatusViewController.swift; sourceTree = "<group>"; };
 		7155E30824BCE080006EBED8 /* MainStatusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStatusPresenter.swift; sourceTree = "<group>"; };
 		7155E30A24BCE126006EBED8 /* MainStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStatusViewModel.swift; sourceTree = "<group>"; };
@@ -232,6 +236,8 @@
 		71A77FD4249C378100F8D442 /* FeedDetailCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailCellPresenter.swift; sourceTree = "<group>"; };
 		71A8325024B91CEB009F2D5C /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		71ADA9772517D4BF005FF2BF /* YerrButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YerrButton.swift; sourceTree = "<group>"; };
+		71ADA97A25180B91005FF2BF /* VoteEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteEntity.swift; sourceTree = "<group>"; };
+		71ADA97E25180CBC005FF2BF /* UserEntityId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntityId.swift; sourceTree = "<group>"; };
 		71BBCA7224B8C5DC00044629 /* GuageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuageViewModel.swift; sourceTree = "<group>"; };
 		71C46D9624B26A3A00A9DB14 /* PickInterestCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickInterestCollectionViewController.swift; sourceTree = "<group>"; };
 		71C46D9E24B26B0800A9DB14 /* PickInterestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickInterestCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -446,6 +452,14 @@
 				713D265124BA090400E2CFC5 /* Logger.swift */,
 			);
 			path = Logger;
+			sourceTree = "<group>";
+		};
+		7145AADC25197CAA00657062 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				7145AADD25197CB600657062 /* UserInteractor.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		7155E30124BCDF73006EBED8 /* MainStatus */ = {
@@ -670,6 +684,7 @@
 		7162C60E24886307002D8ED4 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
+				7145AADC25197CAA00657062 /* Shared */,
 				B85A2FAEC161C0AA7F9D913A /* FeedError.swift */,
 				716DA6BC248D7D76001B74E2 /* Home */,
 			);
@@ -679,6 +694,7 @@
 		7162C61124886369002D8ED4 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				71ADA97D25180CA1005FF2BF /* RequestObject */,
 				B85A2E4E191241692CF54133 /* Comment.swift */,
 				B85A25DA50413131BFF709F3 /* Status.swift */,
 				B85A296C58297C1865DA996D /* StatusResponseEntity.swift */,
@@ -1039,6 +1055,15 @@
 				71A77FCE249C33F800F8D442 /* FeedDetailCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		71ADA97D25180CA1005FF2BF /* RequestObject */ = {
+			isa = PBXGroup;
+			children = (
+				71ADA97E25180CBC005FF2BF /* UserEntityId.swift */,
+				71ADA97A25180B91005FF2BF /* VoteEntity.swift */,
+			);
+			path = RequestObject;
 			sourceTree = "<group>";
 		};
 		71BBCA7124B8C5CD00044629 /* ViewModel */ = {
@@ -1499,12 +1524,14 @@
 				7162C60B24884BAB002D8ED4 /* FeedPresenter.swift in Sources */,
 				7162C60D24884BBB002D8ED4 /* StatusViewModel.swift in Sources */,
 				7169A9E524C3B228005B05BE /* UIImageView+Elements.swift in Sources */,
+				71ADA97B25180B92005FF2BF /* VoteEntity.swift in Sources */,
 				71138AA224B4F4B400AC7D1C /* GaugeView.swift in Sources */,
 				7116C11824A2B03000749620 /* SingleStatusPresenter.swift in Sources */,
 				7157C2342488766F00F0A7F0 /* NSLayoutConstraints+Elements.swift in Sources */,
 				7170EA042495EBF800B1D15F /* AssetDetailPresenter.swift in Sources */,
 				7170EA002495EB9C00B1D15F /* AssetDetailViewController.swift in Sources */,
 				716A0C8124A2BE5300F18ED6 /* InterestsViewController.swift in Sources */,
+				71ADA97F25180CBC005FF2BF /* UserEntityId.swift in Sources */,
 				713549B1248BE45A0009EE6A /* UICollectionView+Elements.swift in Sources */,
 				716DA6C4248D7E69001B74E2 /* PostStatusPresenter.swift in Sources */,
 				71D5B9C225114A5A0077DB09 /* PresenterCompletion.swift in Sources */,
@@ -1544,6 +1571,7 @@
 				71FBCF312512C06F00FC7557 /* PulseLayer.swift in Sources */,
 				71F46CEE24995610002B8EFC /* LivePhotoView.swift in Sources */,
 				71A77FD1249C345E00F8D442 /* FeedDetailViewModel.swift in Sources */,
+				7145AADE25197CB600657062 /* UserInteractor.swift in Sources */,
 				71A77FD5249C378100F8D442 /* FeedDetailCellPresenter.swift in Sources */,
 				71138AA824B4FA4600AC7D1C /* BorderLayer.swift in Sources */,
 				71138AAB24B519AC00AC7D1C /* LateInit.swift in Sources */,

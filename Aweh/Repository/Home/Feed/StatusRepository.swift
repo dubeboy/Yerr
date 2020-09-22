@@ -36,5 +36,38 @@ struct StatusRepository: RepositoryInjectable {
             }
         }
     }
+    
+    func postLike(voteEntity: VoteEntity, result: @escaping (Result<StatusResponseEntity<Bool>, Error>) -> Void) {
+        service.$postLike(body: voteEntity) { response in
+            switch response {
+                case .success(let statusReponse):
+                    result(.success(statusReponse.body))
+                case .failure(let error):
+                    result(.failure(error))
+            }
+        }
+    }
+    
+    func postVote(voteEntity: VoteEntity, result: @escaping (Result<StatusResponseEntity<Bool>, Error>) -> Void) {
+        service.$postLike(body: voteEntity) { response in
+            switch response {
+                case .success(let statusReponse):
+                    result(.success(statusReponse.body))
+                case .failure(let error):
+                    result(.failure(error))
+            }
+        }
+    }
+    
+    func postRemoveVote(voteEntity: VoteEntity, result: @escaping (Result<StatusResponseEntity<Bool>, Error>) -> Void) {
+        service.$postLike(body: voteEntity) { response in
+            switch response {
+                case .success(let statusReponse):
+                    result(.success(statusReponse.body))
+                case .failure(let error):
+                    result(.failure(error))
+            }
+        }
+    }
 }
 

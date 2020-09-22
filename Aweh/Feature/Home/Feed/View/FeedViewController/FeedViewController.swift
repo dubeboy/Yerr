@@ -88,12 +88,12 @@ extension FeedViewController: UICollectionViewDataSource {
         let status = presenter.getStatus(at: indexPath)
         let cell = collectionView.deque(FeedCollectionViewCell.self, at: indexPath)
         presenter.feedCellPresenter.configure(with: cell, forDisplaying: status)
-        presenter.feedCellPresenter.setLikeAndVoteButtonsActions(for: cell) {
-            print("did click like")
-        } didTapDownVoteButton: {
-            print("did click doiwn")
-        } didTapUpVoteButton: {
-            print("did click up")
+        presenter.feedCellPresenter.setLikeAndVoteButtonsActions(for: cell) { [weak self] in
+            self?.presenter.didTapLikeButton(at: indexPath)
+        } didTapDownVoteButton: { [weak self] in
+            self?.presenter.didTapDownVoteButton(at: indexPath)
+        } didTapUpVoteButton: { [weak self] in
+            self?.presenter.didTapUpVoteButton(at: indexPath)
         }
         
         return cell

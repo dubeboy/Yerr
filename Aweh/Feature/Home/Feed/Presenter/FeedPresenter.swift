@@ -17,10 +17,13 @@ protocol FeedPresenter {
     func index(for item: StatusViewModel) -> Int
     
     func addNewStatus(_ statusViewModel: StatusViewModel)
+    
+    func didTapLikeButton(at indexPath: IndexPath)
+    func didTapDownVoteButton(at indexPath: IndexPath)
+    func didTapUpVoteButton(at indexPath: IndexPath)
 }
 
 class FeedPresenterImplemantation: FeedPresenter {
-    
     let feedCellPresenter: FeedCellPresenter = FeedCellPresenter()
     let feedIntercator: StatusesUseCase = FeedInteractor()
     
@@ -56,4 +59,54 @@ class FeedPresenterImplemantation: FeedPresenter {
     func addNewStatus(_ statusViewModel: StatusViewModel) {
         viewModel.insert(statusViewModel, at: 0)
     }
+    
+    func didTapLikeButton(at indexPath: IndexPath) {
+        let item = viewModel[indexPath.item]
+        feedIntercator.postLike(voteEntity: createPostVoteEntity(item: item)) { result in
+            switch result {
+                case .success(let result):
+                    Logger.i(result)
+                case .failure(let error):
+                    Logger.i(error.localizedDescription)
+            }
+        }
+    }
+    
+   
+    func didTapDownVoteButton(at indexPath: IndexPath) {
+        let item = viewModel[indexPath.item]
+        feedIntercator.postVote(voteEntity: createPostVoteEntity(item: item)) { result in
+            switch result {
+                case .success(let result):
+                    Logger.i(result)
+                case .failure(let error):
+                    Logger.i(error.localizedDescription)
+            }
+        }
+    }
+    
+    func didTapUpVoteButton(at indexPath: IndexPath) {
+        let item = viewModel[indexPath.item]
+        feedIntercator.postVote(voteEntity: createPostVoteEntity(item: item)) { result in
+            switch result {
+                case .success(let result):
+                    Logger.i(result)
+                    
+                case .failure(let error):
+                    Logger.i(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func removeVote() {
+        
+    }
+    
+    private func createPostVoteEntity(item: StatusViewModel) -> VoteEntity {
+        // TODO get this from the user defaults
+        let userEntityID = UserEntityID(userId: "1000", entityId: item.id)
+        return VoteEntity(id: userEntityID)
+    }
+    
+    
 }

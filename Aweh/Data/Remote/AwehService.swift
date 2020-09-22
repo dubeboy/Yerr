@@ -9,7 +9,6 @@
 import Foundation
 import Merchant
 
-// TODO: use extensions ti break these up group them with their repos
 struct AwehService: Service {
         
     let baseURL: String = "http://localhost:8080/"
@@ -26,6 +25,15 @@ struct AwehService: Service {
     @PUT("statuses", body: Status.self)
     var postStatus: StatusResponseEntity<Status>
     
+    @POST("statuses/like", body: VoteEntity.self)
+    var postLike: StatusResponseEntity<Bool>
+    
+    @POST("statuses/vote", body: VoteEntity.self)
+    var postVote: StatusResponseEntity<Bool>
+    
+    @POST("statuses/vote/delete", body: VoteEntity.self)
+    var removeVote: StatusResponseEntity<Bool>
+//    ll
     /// --------------------
     // MARK: Status Comments
     /// --------------------

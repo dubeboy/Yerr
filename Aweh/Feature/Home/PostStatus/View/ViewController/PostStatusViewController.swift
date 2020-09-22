@@ -179,8 +179,8 @@ extension PostStatusViewController: UITextViewDelegate {
     }
     
     private func updateCharactorCount(length: Int) {
-        numberOfCharactorsButton.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: length > 200 ? UIColor.systemRed : UIColor.systemBlue], for: .disabled)
-        numberOfCharactorsButton.title = "\((240)  - length)"
+//        numberOfCharactorsButton.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: length > 200 ? UIColor.systemRed : UIColor.systemBlue], for: .disabled)
+//        numberOfCharactorsButton.title = "\((240)  - length)"
     }
 }
 
