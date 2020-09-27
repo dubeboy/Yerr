@@ -33,7 +33,10 @@ struct AwehService: Service {
     
     @POST("statuses/vote/delete", body: VoteEntity.self)
     var postRemoveVote: StatusResponseEntity<Bool>
-//    ll
+
+    @POST("statuses/{status_id}/files", body: MultiPartFormData.self, formURLEncoded: true)
+    var postStatusMedia: StatusResponseEntity<Status>
+    
     /// --------------------
     // MARK: Status Comments
     /// --------------------

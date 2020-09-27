@@ -43,7 +43,9 @@ extension StatusViewModel {
                 status: status.body,
                 user: .transform(user: status.user), // TODO: should map to a Media viewModel
                 media: status.media,
-                timeSincePosted: status.createdAt.relativeDate()
+                timeSincePosted: status.createdAt.relativeDate(),
+            likes: status.likes,
+            votes: status.votes
         )
     }
     

@@ -98,4 +98,18 @@ struct FeedInteractor: StatusesUseCase {
         }
     }
     
+    func postRemoveVote(media: MultiPartFormData, result: @escaping (Result<Status, Error>) -> Void) {
+        statusRepository.postStatusMedia(media: media) { response in
+            switch response {
+                case .success(let statusResponse):
+                    guard let entity = statusResponse.entity else {
+                        return result(.failure(FeedError.nilStatusesArray))
+                    }
+                    result(.success(entity))
+                case .failure(let error):
+                    Logger.log(error)
+                    return result(.failure(FeedError.noInternetConnection))
+            }
+        }
+    }
 }

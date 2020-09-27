@@ -58,14 +58,18 @@ class LikeAndVotesHStask: UIView {
     
     func setUpVoteText(text: String) {
         upVoteButton.setTitle(text, for: .normal)
+        likeButton.setTitleColor(.label, for: .normal)
     }
     
     func setDownVoteText(text: String) {
         downVoteButton.setTitle(text, for: .normal)
+        likeButton.setTitleColor(.label, for: .normal)
     }
     
     func setLikeVoteText(text: String) {
         likeButton.setTitle(text, for: .normal)
+        likeButton.setTitleColor(.label, for: .normal)
+//        likeButton.imageEdgeInsets.left = -50
     }
 }
 

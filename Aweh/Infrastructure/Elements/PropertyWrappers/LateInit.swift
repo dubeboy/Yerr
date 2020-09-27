@@ -29,8 +29,14 @@ struct LateInit<T> {
     init() {
         storage = nil
     }
+    
+    var projectedValue: Self { self }
 
     var isInitialized: Bool {  storage != nil }
+    
+    mutating func release() {
+        self.storage = nil
+    }
 }
 
 class J {

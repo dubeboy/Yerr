@@ -6,19 +6,24 @@
 //  Copyright © 2020 com.github.aweh. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import Photos
 
 protocol PhotosGalleryCoordinator: Coordinator {
-    func startPhotosGalleryViewController(completion: @escaping (([String: PHAsset]) -> Void))
+    func startPhotosGalleryViewController(navigationController: UINavigationController?,
+                                          completion: @escaping (([String: PHAsset]) -> Void))
 }
 
 extension HomeCoordinator: PhotosGalleryCoordinator {
-    func startPhotosGalleryViewController(completion: @escaping (([String: PHAsset]) -> Void)) {
+    func startPhotosGalleryViewController(navigationController: UINavigationController?,
+                                          completion: @escaping (([String: PHAsset]) -> Void)) {
         let viewController = PhotosCollectionViewController.instantiate()
         viewController.coordinator = self
         viewController.completion = completion
-        navigationController.pushViewController(viewController, animated: true)
+        viewController.presenter = PhotosCollectionViewPresenterImplemantation()
+        // TODO: check if iOS 14 then lauch the phos iOS 14
+        let photosNavigationController = UINavigationController(rootViewController: viewController)
+        navigationController?.present(photosNavigationController, animated: true, completion: nil)
     }
     
     func done() {

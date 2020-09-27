@@ -59,7 +59,7 @@ open class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegat
         
         // means we are poping view Controller
         
-//        childDidFinish(child: fromViewController as! Coordinator) // how do we make the poped to view controller do some action // might also pass the delegate!
+        childDidFinish(child: fromViewController as? Coordinator) // how do we make the poped to view controller do some action // might also pass the delegate!
     }
     
     func pop() {

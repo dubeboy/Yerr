@@ -14,7 +14,7 @@ private let reuseIdentifier = "Cell"
 class PhotosCollectionViewController: UICollectionViewController {
     
     var coordinator: AssetDetailCoordinator?
-    let presenter: PhotosCollectionViewPresenter = PhotosCollectionViewPresenterImplemantation()
+    var presenter: PhotosCollectionViewPresenter!
     var selectButton: UIBarButtonItem!
     var completion: (([String: PHAsset]) -> Void)?
     
@@ -31,15 +31,16 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     @objc func enableSelection() {
         presenter.selectMode { isInSelection in
-            collectionView.allowsMultipleSelection = isInSelection  // todo: should also unselct all
+            collectionView.allowsMultipleSelection = isInSelection  // todo: should also unselect all
             selectButton.title = isInSelection ? "UnSelect" : "Select"
         }
     }
     
     @objc func done() {
         presenter.done { selectedImages in
-            completion?(selectedImages)
-            coordinator?.pop()
+            dismiss(animated: true) {
+                self.completion?(selectedImages)
+            }
         }
     }
     
@@ -50,6 +51,7 @@ class PhotosCollectionViewController: UICollectionViewController {
         flowLayout.minimumInteritemSpacing = 1 // Todo: - should be in theme
         flowLayout.minimumLineSpacing = 1
         flowLayout.sectionInset = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
+        collectionView.delaysContentTouches = false
         
         let size = collectionView.calculateItemSize(numberOfColumns: 3)
         flowLayout.itemSize = size
@@ -101,10 +103,13 @@ class PhotosCollectionViewController: UICollectionViewController {
     private func showImage(at indexPath: IndexPath) {
         guard let asset = presenter.getItem(at: indexPath) else { return }
         // TODO: - should use the apps naviagtor delegate to move to the 
-        coordinator?.startAssetDetailViewController(asset: asset) { asset in
+        coordinator?.startAssetDetailViewController(navigationController: self.navigationController,
+                                                    asset: asset) { asset in
             // TODO: - can append this image to a list of selected images
-            self.completion?(asset)
-            self.coordinator?.pop()
+           
+            self.dismiss(animated: true) {
+                self.completion?(asset)
+            }
         }
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 // We do data here we inject the Remote
-// We also inject the local data
+// We also inject the local data if needed
 struct StatusRepository: RepositoryInjectable {
 
     @SingletonServiceInstance
@@ -61,6 +61,17 @@ struct StatusRepository: RepositoryInjectable {
     
     func postRemoveVote(voteEntity: VoteEntity, result: @escaping (Result<StatusResponseEntity<Bool>, Error>) -> Void) {
         service.$postRemoveVote(body: voteEntity) { response in
+            switch response {
+                case .success(let statusReponse):
+                    result(.success(statusReponse.body))
+                case .failure(let error):
+                    result(.failure(error))
+            }
+        }
+    }
+    
+    func postStatusMedia(media: MultiPartFormData, result: @escaping (Result<StatusResponseEntity<Status>, Error>) -> Void) {
+        service.$postStatusMedia(body: media) { response in
             switch response {
                 case .success(let statusReponse):
                     result(.success(statusReponse.body))

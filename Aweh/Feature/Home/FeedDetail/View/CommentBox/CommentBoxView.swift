@@ -11,7 +11,7 @@ import UIKit
 class CommentBoxView: UIView, UITextViewDelegate {
     
     enum DisplayType: Equatable {
-        case compact, full
+        case compact(UITextView), full
     }
     
     private static let indicatorWidth: Double = 25
@@ -40,8 +40,14 @@ class CommentBoxView: UIView, UITextViewDelegate {
     init(displayType: DisplayType = .full) {
         self.displayType = displayType
         super.init(frame: .zero)
+        switch displayType {
+            case .full:
+                commentTextView = UITextView(frame: .zero)
+            case .compact(let textView):
+                commentTextView = textView
+        }
         containerStackView = UIStackView(frame: .zero)
-        commentTextView = UITextView(frame: .zero)
+        containerStackView = UIStackView(frame: .zero)
         commentTextViewDelegate = TextViewDelegateImplementation(delegate: self)
         selectePhotosButton = YerrButton(type: .custom)
         replyButton = YerrButton(frame: .zero)

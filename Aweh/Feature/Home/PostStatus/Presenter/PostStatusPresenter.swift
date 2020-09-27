@@ -59,7 +59,8 @@ class PostStatusPresenterImplementation: PostStatusPresenter {
         
         // we should try to get the location if we cannnot get it
         // everytime the user signs in we cache their current location and
-        // if we cannot get the current when the user is posting a new status then we use the one that was cached when loggig in
+        // if we cannot get the current when the user is posting a new status
+        // then we use the one that was cached when loggig in
         // cache and also update the server of the user current location
         // rememeber also its an atomic write when chaching the location
        
