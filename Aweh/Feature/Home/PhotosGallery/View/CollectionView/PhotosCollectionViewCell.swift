@@ -18,6 +18,15 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         imageView.contentMode = .scaleAspectFill
+//        imageView.isUserInteractionEnabled = false
+//        imageIsSelected.isUserInteractionEnabled = false
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(action1))
+        imageView.addGestureRecognizer(tap)
+    }
+    
+    @objc func action1() {
+        Logger.i("tapped it!!!")
     }
     
     // move logic to presenter

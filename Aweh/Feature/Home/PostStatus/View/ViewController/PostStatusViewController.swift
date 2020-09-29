@@ -43,7 +43,6 @@ class PostStatusViewController: UIViewController {
         super.viewDidLoad()
         location = GeoLocationServices(delegate: self)
         commentBox = CommentBoxView(displayType: .compact(statusTextView))
-        commentBox.placeHolderText = placeHolderText
         title = "Post status"
         setupStatusTextiew()
         configureSelf()
@@ -52,13 +51,11 @@ class PostStatusViewController: UIViewController {
     
     private func configureSelf() {
         view.addSubview(commentBox)
-        commentBox.translatesAutoresizingMaskIntoConstraints = false
-        commentBox.topAnchor --> statusTextView.bottomAnchor + Const.View.m16
-        bottomConstraint = commentBox.bottomAnchor --> view.safeAreaLayoutGuide.bottomAnchor
-        commentBox.trailingAnchor --> view.trailingAnchor
-        commentBox.leadingAnchor --> view.leadingAnchor
-        commentBox.replyButton.addTarget(self, action: #selector(post), for: .touchUpInside)
-        commentBox.selectePhotosButton.addTarget(self, action: #selector(requestAuthorisation), for: .touchUpInside)
+        setUpCommentBox()
+    }
+    
+    private func setUpImagesCollectionView() {
+        
     }
     
     private func setupStatusTextiew() {
@@ -145,13 +142,20 @@ extension PostStatusViewController {
     
     private func loadPhotos() {
         // TODO: - test this out for string reference cycles
-        coordinator?.startPhotosGalleryViewController(navigationController: navigationController) { [weak self] assets in
-            self?.didGetAssets(assets: assets) // tell presenter here!
+        coordinator?.startPhotosGalleryViewController(navigationController: navigationController) { assets in
+            self.didGetAssets(assets: assets) // tell presenter here!
         }
     }
     
     private func setUpCommentBox(){
         commentBox.placeHolderText = placeHolderText
+        commentBox.translatesAutoresizingMaskIntoConstraints = false
+        commentBox.topAnchor --> statusTextView.bottomAnchor + Const.View.m16
+        bottomConstraint = commentBox.bottomAnchor --> view.safeAreaLayoutGuide.bottomAnchor
+        commentBox.trailingAnchor --> view.trailingAnchor
+        commentBox.leadingAnchor --> view.leadingAnchor
+        commentBox.replyButton.addTarget(self, action: #selector(post), for: .touchUpInside)
+        commentBox.selectePhotosButton.addTarget(self, action: #selector(requestAuthorisation), for: .touchUpInside)
     }
     
     private func didGetAssets(assets: [String: PHAsset]) {

@@ -83,12 +83,12 @@
 		7196DD1424B0B6D700384B84 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DD1324B0B6D700384B84 /* ProfileViewController.swift */; };
 		7196DD1624B0B6EC00384B84 /* ProfileViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7196DD1524B0B6EC00384B84 /* ProfileViewController.storyboard */; };
 		719824D924B0F450004EB567 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719824D824B0F450004EB567 /* ProfilePresenter.swift */; };
-		7198AC73249184B4002029CF /* PhotosCollectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7198AC72249184B4002029CF /* PhotosCollectionViewController.storyboard */; };
 		7198AC76249186BE002029CF /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7198AC74249186BE002029CF /* PhotosCollectionViewCell.swift */; };
 		7198AC77249186BE002029CF /* PhotosCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7198AC75249186BE002029CF /* PhotosCollectionViewCell.xib */; };
 		7198AC7F24918B36002029CF /* PhotosCollectionViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7198AC7E24918B36002029CF /* PhotosCollectionViewPresenter.swift */; };
 		7198AC8124918BBD002029CF /* PhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7198AC8024918BBD002029CF /* PhotosCollectionViewController.swift */; };
 		7198AC8324918C1A002029CF /* PhotosCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7198AC8224918C1A002029CF /* PhotosCollectionViewModel.swift */; };
+		71A5C2D42523ADF000029C7D /* UIEdgeInsets+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A5C2D32523ADF000029C7D /* UIEdgeInsets+Elements.swift */; };
 		71A77FCF249C33F800F8D442 /* FeedDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A77FCE249C33F800F8D442 /* FeedDetailCoordinator.swift */; };
 		71A77FD1249C345E00F8D442 /* FeedDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A77FD0249C345E00F8D442 /* FeedDetailViewModel.swift */; };
 		71A77FD3249C373D00F8D442 /* CommentCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A77FD2249C373D00F8D442 /* CommentCellPresenter.swift */; };
@@ -228,12 +228,12 @@
 		7196DD1324B0B6D700384B84 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7196DD1524B0B6EC00384B84 /* ProfileViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileViewController.storyboard; sourceTree = "<group>"; };
 		719824D824B0F450004EB567 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
-		7198AC72249184B4002029CF /* PhotosCollectionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PhotosCollectionViewController.storyboard; sourceTree = "<group>"; };
 		7198AC74249186BE002029CF /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		7198AC75249186BE002029CF /* PhotosCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotosCollectionViewCell.xib; sourceTree = "<group>"; };
 		7198AC7E24918B36002029CF /* PhotosCollectionViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewPresenter.swift; sourceTree = "<group>"; };
 		7198AC8024918BBD002029CF /* PhotosCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewController.swift; sourceTree = "<group>"; };
 		7198AC8224918C1A002029CF /* PhotosCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewModel.swift; sourceTree = "<group>"; };
+		71A5C2D32523ADF000029C7D /* UIEdgeInsets+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Elements.swift"; sourceTree = "<group>"; };
 		71A77FCE249C33F800F8D442 /* FeedDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailCoordinator.swift; sourceTree = "<group>"; };
 		71A77FD0249C345E00F8D442 /* FeedDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewModel.swift; sourceTree = "<group>"; };
 		71A77FD2249C373D00F8D442 /* CommentCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellPresenter.swift; sourceTree = "<group>"; };
@@ -370,6 +370,7 @@
 				7169A9E424C3B228005B05BE /* UIImageView+Elements.swift */,
 				71777B6924C662470075F4F7 /* String+Elements.swift */,
 				71FBCF2D2512BD3A00FC7557 /* CGFloat+Elements.swift */,
+				71A5C2D32523ADF000029C7D /* UIEdgeInsets+Elements.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1327,7 +1328,6 @@
 			isa = PBXGroup;
 			children = (
 				7198AC8024918BBD002029CF /* PhotosCollectionViewController.swift */,
-				7198AC72249184B4002029CF /* PhotosCollectionViewController.storyboard */,
 			);
 			path = PhotoGrid;
 			sourceTree = "<group>";
@@ -1446,7 +1446,6 @@
 				7119E3A024B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard in Resources */,
 				7116C11024A2AD4200749620 /* SingleStatusViewController.storyboard in Resources */,
 				7172D615248F1E420083B7F6 /* PostStatusViewController.storyboard in Resources */,
-				7198AC73249184B4002029CF /* PhotosCollectionViewController.storyboard in Resources */,
 				71F46CEB24994CA3002B8EFC /* AssetDetailViewController.storyboard in Resources */,
 				71ECFDFC2487187000943917 /* FeedCollectionViewCell.xib in Resources */,
 				71CCF0DB249C23B30054C210 /* CommentCollectionViewCell.xib in Resources */,
@@ -1562,6 +1561,7 @@
 				716A0C9424A2E54200F18ED6 /* InterestsCellPresenter.swift in Sources */,
 				718757882517C9D500598E4B /* LikeVoteHStaskPanel.swift in Sources */,
 				719824D924B0F450004EB567 /* ProfilePresenter.swift in Sources */,
+				71A5C2D42523ADF000029C7D /* UIEdgeInsets+Elements.swift in Sources */,
 				71C46DA024B26B0800A9DB14 /* PickInterestCollectionViewCell.swift in Sources */,
 				71BBCA7324B8C5DC00044629 /* GuageViewModel.swift in Sources */,
 				718BE80B2486BA8000CA328B /* AppDelegate.swift in Sources */,

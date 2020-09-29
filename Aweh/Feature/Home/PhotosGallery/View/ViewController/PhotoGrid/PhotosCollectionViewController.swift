@@ -12,11 +12,23 @@ import Photos
 private let reuseIdentifier = "Cell"
 
 class PhotosCollectionViewController: UICollectionViewController {
-    
+
     var coordinator: AssetDetailCoordinator?
     var presenter: PhotosCollectionViewPresenter!
     var selectButton: UIBarButtonItem!
     var completion: (([String: PHAsset]) -> Void)?
+    
+    init() {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.minimumLineSpacing = Const.View.m1
+        flowLayout.minimumInteritemSpacing = Const.View.m1
+        flowLayout.sectionInset = .equalEdgeInsets(Const.View.m1)
+        super.init(collectionViewLayout: flowLayout)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,14 +60,14 @@ class PhotosCollectionViewController: UICollectionViewController {
         collectionView.register(PhotosCollectionViewCell.self)
         
         let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
-        flowLayout.minimumInteritemSpacing = 1 // Todo: - should be in theme
-        flowLayout.minimumLineSpacing = 1
-        flowLayout.sectionInset = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
-        collectionView.delaysContentTouches = false
-        
         let size = collectionView.calculateItemSize(numberOfColumns: 3)
         flowLayout.itemSize = size
         
+        collectionView.delaysContentTouches = false
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = .systemBackground
+    
         presenter.loadImages(for: size) { count in
             collectionView.reloadData()
         }
@@ -83,8 +95,8 @@ class PhotosCollectionViewController: UICollectionViewController {
                 cell.isSelected = isSelected
                 cell.imageView.image = image
             }
-                           
         }
+        
         return cell
     }
     

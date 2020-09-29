@@ -17,12 +17,14 @@ protocol PhotosGalleryCoordinator: Coordinator {
 extension HomeCoordinator: PhotosGalleryCoordinator {
     func startPhotosGalleryViewController(navigationController: UINavigationController?,
                                           completion: @escaping (([String: PHAsset]) -> Void)) {
-        let viewController = PhotosCollectionViewController.instantiate()
+        let viewController = PhotosCollectionViewController()
         viewController.coordinator = self
         viewController.completion = completion
         viewController.presenter = PhotosCollectionViewPresenterImplemantation()
         // TODO: check if iOS 14 then lauch the phos iOS 14
+        
         let photosNavigationController = UINavigationController(rootViewController: viewController)
+        photosNavigationController.modalPresentationStyle = .fullScreen
         navigationController?.present(photosNavigationController, animated: true, completion: nil)
     }
     
