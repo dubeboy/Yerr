@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CircleProgressIndicator: UIView {
+class CircleProgressIndicatorView: UIView {
     
     private var animatableBorderLayer: BorderLayer!
     private var trackLayer: BorderLayer!

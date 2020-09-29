@@ -38,17 +38,13 @@ class AssetsHorizontalListView: UIScrollView {
     }
     
     private func fetchImages(from assets: [String: PHAsset] ) {
-        let rect = CGRect(x: 0, y: 0, width: 80, height: 100)
+        let rect = CGRect(x: 0, y: 0, width: 80, height: 80)
         let imageManager = PHImageManager.default()
         for (_, asset) in assets {
-            let imageView = UIImageView()
+            let imageView = UIImageView(frame: rect)
             imageView.translatesAutoresizingMaskIntoConstraints = false
             stackView.addArrangedSubview(imageView)
-            imageView.layer.cornerRadius = 10
-            imageView.clipsToBounds = true
-            imageView.widthAnchor --> 80
-            imageView.heightAnchor --> 100
-            
+            // TODO: show some for of loading indicator here bro 
             imageManager.requestImage(
                 for: asset,
                 targetSize: rect.size,
