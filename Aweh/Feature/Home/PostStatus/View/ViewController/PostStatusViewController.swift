@@ -44,23 +44,9 @@ class PostStatusViewController: UIViewController {
         location = GeoLocationServices(delegate: self)
         commentBox = CommentBoxView(displayType: .compact(statusTextView))
         title = "Post status"
-        setupStatusTextiew()
         configureSelf()
+        setupStatusTextiew()
         navigationItem.rightBarButtonItem = postButton       
-    }
-    
-    private func configureSelf() {
-        view.addSubview(commentBox)
-        setUpCommentBox()
-    }
-    
-    private func setUpImagesCollectionView() {
-        
-    }
-    
-    private func setupStatusTextiew() {
-        statusTextView.text = placeHolderText
-        statusTextView.clipsToBounds = true
     }
     
     @objc func post() {
@@ -140,6 +126,16 @@ extension PostStatusViewController {
         Logger.i("Not authonticated")
     }
     
+    private func configureSelf() {
+        view.addSubview(commentBox)
+        setUpCommentBox()
+    }
+    
+    private func setupStatusTextiew() {
+        statusTextView.text = placeHolderText
+        statusTextView.clipsToBounds = true
+    }
+    
     private func loadPhotos() {
         // TODO: - test this out for string reference cycles
         coordinator?.startPhotosGalleryViewController(navigationController: navigationController) { assets in
@@ -155,16 +151,13 @@ extension PostStatusViewController {
         commentBox.trailingAnchor --> view.trailingAnchor
         commentBox.leadingAnchor --> view.leadingAnchor
         commentBox.replyButton.addTarget(self, action: #selector(post), for: .touchUpInside)
-        commentBox.selectePhotosButton.addTarget(self, action: #selector(requestAuthorisation), for: .touchUpInside)
+        commentBox.selectPhotosButton.addTarget(self, action: #selector(requestAuthorisation), for: .touchUpInside)
     }
     
     private func didGetAssets(assets: [String: PHAsset]) {
         self.assets = assets
-//        let assetsView = AssetsHorizontalListView(assets: assets)
-//        let ass = assetsContainerView.subviews.last
-//        ass?.removeFromSuperview() // TODO: - the view should auto update instead of removing from superview
-//        assetsContainerView.addSubview(assetsView)
-//        assetsView --> assetsContainerView
+        presenter.appendSelectedImages(assets: assets)
+        commentBox.showImageAssets(assets: assets)
     }
 }
 

@@ -132,7 +132,7 @@ private extension FeedDetailViewController {
         commentBox.trailingAnchor --> view.safeAreaLayoutGuide.trailingAnchor
         
         commentBox.replyButton.addTarget(self, action: #selector(didTapOnReplyButton(_:)), for: .touchUpInside)
-        commentBox.selectePhotosButton.addTarget(self, action: #selector(didTapOnSelectedPhotosButton(_:)), for: .touchUpInside)
+        commentBox.selectPhotosButton.addTarget(self, action: #selector(didTapOnSelectedPhotosButton(_:)), for: .touchUpInside)
     }
     
     

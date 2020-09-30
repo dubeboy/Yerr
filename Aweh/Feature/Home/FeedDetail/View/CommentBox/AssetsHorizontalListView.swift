@@ -9,13 +9,14 @@
 import UIKit
 import Photos
 
+/// Fetchs the images and displayes them
 class AssetsHorizontalListView: UIScrollView {
    let stackView: UIStackView = UIStackView()
+    private var imageHeight: CGFloat = 80
  
-   init(assets: [String: PHAsset]) {
+   init() {
         super.init(frame: .zero)
         setup()
-        fetchImages(from: assets)
     }
     
     required init?(coder: NSCoder) {
@@ -32,17 +33,24 @@ class AssetsHorizontalListView: UIScrollView {
         stackView.spacing = 8
         addSubview(stackView)
         stackView --> self
+        self.heightAnchor --> imageHeight
+        stackView.heightAnchor --> imageHeight
         
         showsHorizontalScrollIndicator = false
         showsVerticalScrollIndicator = false
     }
     
+    func addImages(assets: [String: PHAsset]) {
+        fetchImages(from: assets)
+    }
+    
     private func fetchImages(from assets: [String: PHAsset] ) {
-        let rect = CGRect(x: 0, y: 0, width: 80, height: 80)
+        let rect = CGRect(x: 0, y: 0, width: imageHeight, height: imageHeight)
         let imageManager = PHImageManager.default()
         for (_, asset) in assets {
             let imageView = UIImageView(frame: rect)
             imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.heightAnchor --> imageHeight
             stackView.addArrangedSubview(imageView)
             // TODO: show some for of loading indicator here bro 
             imageManager.requestImage(

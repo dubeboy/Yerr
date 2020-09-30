@@ -111,6 +111,7 @@
 		71CCF0D6249AB2B30054C210 /* FeedDetailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71CCF0D4249AB2B30054C210 /* FeedDetailCollectionViewCell.xib */; };
 		71CCF0DA249C23B30054C210 /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CCF0D8249C23B30054C210 /* CommentCollectionViewCell.swift */; };
 		71CCF0DB249C23B30054C210 /* CommentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71CCF0D9249C23B30054C210 /* CommentCollectionViewCell.xib */; };
+		71D4EBB82523D13100CEBB3A /* PostStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D4EBB72523D13100CEBB3A /* PostStatusViewModel.swift */; };
 		71D5B9C225114A5A0077DB09 /* PresenterCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D5B9C125114A5A0077DB09 /* PresenterCompletion.swift */; };
 		71D5B9C5251193D20077DB09 /* GeoLocationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D5B9C4251193D10077DB09 /* GeoLocationServices.swift */; };
 		71D5B9C7251194650077DB09 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D5B9C6251194650077DB09 /* LocationViewModel.swift */; };
@@ -124,7 +125,7 @@
 		71EECE8F249324A900902181 /* PhotosGalleryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EECE8E249324A900902181 /* PhotosGalleryCoordinator.swift */; };
 		71F46CEB24994CA3002B8EFC /* AssetDetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7170EA012495EBBD00B1D15F /* AssetDetailViewController.storyboard */; };
 		71F46CEE24995610002B8EFC /* LivePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F46CED24995610002B8EFC /* LivePhotoView.swift */; };
-		71FBCF2C2512B9A100FC7557 /* CircleProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FBCF2B2512B9A100FC7557 /* CircleProgressIndicator.swift */; };
+		71FBCF2C2512B9A100FC7557 /* CircleProgressIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FBCF2B2512B9A100FC7557 /* CircleProgressIndicatorView.swift */; };
 		71FBCF2E2512BD3A00FC7557 /* CGFloat+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FBCF2D2512BD3A00FC7557 /* CGFloat+Elements.swift */; };
 		71FBCF312512C06F00FC7557 /* PulseLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FBCF302512C06F00FC7557 /* PulseLayer.swift */; };
 		B85A20466A2089397D8C4CD3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85A20EC711E645832C537F5 /* User.swift */; };
@@ -256,6 +257,7 @@
 		71CCF0D4249AB2B30054C210 /* FeedDetailCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedDetailCollectionViewCell.xib; sourceTree = "<group>"; };
 		71CCF0D8249C23B30054C210 /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
 		71CCF0D9249C23B30054C210 /* CommentCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCollectionViewCell.xib; sourceTree = "<group>"; };
+		71D4EBB72523D13100CEBB3A /* PostStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStatusViewModel.swift; sourceTree = "<group>"; };
 		71D5B9C125114A5A0077DB09 /* PresenterCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterCompletion.swift; sourceTree = "<group>"; };
 		71D5B9C4251193D10077DB09 /* GeoLocationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoLocationServices.swift; sourceTree = "<group>"; };
 		71D5B9C6251194650077DB09 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
@@ -268,7 +270,7 @@
 		71ECFDFA2487187000943917 /* FeedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedCollectionViewCell.xib; sourceTree = "<group>"; };
 		71EECE8E249324A900902181 /* PhotosGalleryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosGalleryCoordinator.swift; sourceTree = "<group>"; };
 		71F46CED24995610002B8EFC /* LivePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePhotoView.swift; sourceTree = "<group>"; };
-		71FBCF2B2512B9A100FC7557 /* CircleProgressIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleProgressIndicator.swift; sourceTree = "<group>"; };
+		71FBCF2B2512B9A100FC7557 /* CircleProgressIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleProgressIndicatorView.swift; sourceTree = "<group>"; };
 		71FBCF2D2512BD3A00FC7557 /* CGFloat+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Elements.swift"; sourceTree = "<group>"; };
 		71FBCF302512C06F00FC7557 /* PulseLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseLayer.swift; sourceTree = "<group>"; };
 		B1D3C935954DEE8CCB341F75 /* Pods_Aweh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aweh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -432,6 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				7121DA8C250972BF00EE21D5 /* CommentBoxView.swift */,
+				71D6BAE02495737100F4B5D8 /* AssetsHorizontalListView.swift */,
 			);
 			path = CommentBox;
 			sourceTree = "<group>";
@@ -807,6 +810,7 @@
 			isa = PBXGroup;
 			children = (
 				716DA6C3248D7E69001B74E2 /* PostStatusPresenter.swift */,
+				71D4EBB72523D13100CEBB3A /* PostStatusViewModel.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -1233,8 +1237,7 @@
 		71D6BADF249570C200F4B5D8 /* Widget */ = {
 			isa = PBXGroup;
 			children = (
-				71D6BAE02495737100F4B5D8 /* AssetsHorizontalListView.swift */,
-				71FBCF2B2512B9A100FC7557 /* CircleProgressIndicator.swift */,
+				71FBCF2B2512B9A100FC7557 /* CircleProgressIndicatorView.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -1550,12 +1553,13 @@
 				71C46DA324B26B2600A9DB14 /* PickInterestPresenter.swift in Sources */,
 				71D7675424BF808300D9507E /* CompactFeedCollectionViewCell.swift in Sources */,
 				71FBCF2E2512BD3A00FC7557 /* CGFloat+Elements.swift in Sources */,
+				71D4EBB82523D13100CEBB3A /* PostStatusViewModel.swift in Sources */,
 				7155E30E24BCE485006EBED8 /* BasePageViewController.swift in Sources */,
 				7116C11C24A2B13400749620 /* StatusIndicator.swift in Sources */,
 				7198AC8124918BBD002029CF /* PhotosCollectionViewController.swift in Sources */,
 				71ADA9782517D4BF005FF2BF /* YerrButton.swift in Sources */,
 				71D6BAE12495737100F4B5D8 /* AssetsHorizontalListView.swift in Sources */,
-				71FBCF2C2512B9A100FC7557 /* CircleProgressIndicator.swift in Sources */,
+				71FBCF2C2512B9A100FC7557 /* CircleProgressIndicatorView.swift in Sources */,
 				71CCF0CB249AB1450054C210 /* FeedDetailViewController.swift in Sources */,
 				716DA6C2248D7E55001B74E2 /* PostStatusViewController.swift in Sources */,
 				716A0C9424A2E54200F18ED6 /* InterestsCellPresenter.swift in Sources */,

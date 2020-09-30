@@ -6,7 +6,7 @@
 //  Copyright © 2020 com.github.aweh. All rights reserved.
 //
 
-import Foundation
+import Photos
 
 protocol PostStatusPresenter {
     var placeHolderText: String { get }
@@ -20,26 +20,14 @@ protocol PostStatusPresenter {
                     completion: @escaping Completion<StatusViewModel>,
                     error: @escaping Completion<String>)
     
-}
-
-
-struct PostStatusViewModel {
+    func appendSelectedImages(assets: [String: PHAsset])
     
-    let placeHolderText: String = "Aweh!!! What's poppin'?"
-    let numberOfAllowedChars = 240
-    var locationState: LocationStateViewModel = .waiting
-    var currentLocation: Location? = nil {
-        didSet {
-            if currentLocation != nil {
-                locationState = .success
-            } else {
-                locationState = .error
-            }
-        }
-    }
 }
+
 
 class PostStatusPresenterImplementation: PostStatusPresenter {
+   
+    
     let feedInteractor = FeedInteractor()
     var viewModel = PostStatusViewModel()
     
@@ -47,8 +35,9 @@ class PostStatusPresenterImplementation: PostStatusPresenter {
         viewModel.placeHolderText
     }
     
+    // is it still in use
     var numberOfAllowedChars: String {
-        "\(viewModel.numberOfAllowedChars)"
+    "\(Const.maximumTextLength)"
     }
     
     func postStatus(status: String?,
@@ -98,6 +87,11 @@ class PostStatusPresenterImplementation: PostStatusPresenter {
         viewModel.currentLocation = nil
     }
     
+    func appendSelectedImages(assets: [String: PHAsset]) {
+        viewModel.selectedImages = assets
+       
+    }
+
     deinit {
         print("killed❌")
     }

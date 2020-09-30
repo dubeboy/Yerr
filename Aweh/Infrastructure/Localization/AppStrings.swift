@@ -17,6 +17,7 @@ enum AppStrings {
     
     enum FeedDetail {
         static let replyButton = "Reply"
+        static let replyTextViewPlaceholderText = "Reply"
         static let replyPlaceholderText = "Reply to this status"
     }
     

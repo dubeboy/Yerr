@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class CommentBoxView: UIView, UITextViewDelegate {
     
@@ -17,7 +18,7 @@ class CommentBoxView: UIView, UITextViewDelegate {
     private static let indicatorWidth: Double = 25
     
     @LateInit
-    private var circleProgressIndicator: CircleProgressIndicator
+    private var circleProgressIndicator: CircleProgressIndicatorView
     @LateInit
     private var iconsView: UIView
     @LateInit
@@ -25,15 +26,17 @@ class CommentBoxView: UIView, UITextViewDelegate {
     @LateInit
     private var commentTextView: UITextView
     @LateInit
-    private(set) var selectePhotosButton: YerrButton
+    private(set) var selectPhotosButton: YerrButton
     @LateInit
     private(set) var replyButton: YerrButton
     @LateInit
     private var commentTextViewDelegate: TextViewDelegateImplementation
+    @LateInit
+    private var assetsHorizontalListView: AssetsHorizontalListView
     
     var delegate: ((Int) -> Void)?
    
-    var placeHolderText: String = "Reply"
+    var placeHolderText: String = AppStrings.FeedDetail.replyPlaceholderText
     
     private var displayType: DisplayType
    
@@ -46,15 +49,18 @@ class CommentBoxView: UIView, UITextViewDelegate {
             case .compact(let textView):
                 commentTextView = textView
         }
+        
         containerStackView = UIStackView(frame: .zero)
         containerStackView = UIStackView(frame: .zero)
         commentTextViewDelegate = TextViewDelegateImplementation(delegate: self)
-        selectePhotosButton = YerrButton(type: .custom)
+        selectPhotosButton = YerrButton(type: .custom)
         replyButton = YerrButton(frame: .zero)
         iconsView = UIView()
-        circleProgressIndicator = CircleProgressIndicator()
+        circleProgressIndicator = CircleProgressIndicatorView()
+        assetsHorizontalListView = AssetsHorizontalListView()
         
         configureSelf()
+        configureImageHStack()
         configureInputBox()
         configureIconsView()
         addIconsToIconsStackView()
@@ -75,12 +81,19 @@ class CommentBoxView: UIView, UITextViewDelegate {
         return commentTextView.text
     }
     
-    func changeDisplayType(displayType: DisplayType) {
-        
-    }
+    func changeDisplayType(displayType: DisplayType) {}
     
     func textViewBecomeFirstResponder() {
         commentTextView.becomeFirstResponder()
+    }
+    
+    func showImageAssets(assets: [String: PHAsset]) {
+//        let view = UIView()
+//        view.backgroundColor = .red
+//        view.heightAnchor --> 60
+//        containerStackView.addSubview()
+        assetsHorizontalListView.addImages(assets: assets)
+        assetsHorizontalListView.isHidden = false
     }
 }
 
@@ -106,6 +119,12 @@ private extension CommentBoxView {
         
         self.addDividerLine(to: [.top])
         self.backgroundColor = Const.Color.systemWhite
+    }
+    
+    private func configureImageHStack() {
+        assetsHorizontalListView.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(assetsHorizontalListView)
+        assetsHorizontalListView.isHidden = true
     }
     
     private func configureIconsView() {
@@ -158,10 +177,10 @@ private extension CommentBoxView {
     }
     
     private func addLeftIcons() {
-        configurePhotosButton(button: selectePhotosButton)
+        configurePhotosButton(button: selectPhotosButton)
         
         let leftIconsStackView = createIconsStackView()
-        leftIconsStackView.addArrangedSubview(selectePhotosButton)
+        leftIconsStackView.addArrangedSubview(selectPhotosButton)
         leftIconsStackView.translatesAutoresizingMaskIntoConstraints = false
         iconsView.addSubview(leftIconsStackView)
         leftIconsStackView.topAnchor --> iconsView.topAnchor
@@ -183,8 +202,8 @@ private extension CommentBoxView {
     }
     
     private func configurePhotosButton(button: UIButton) {
-        selectePhotosButton.setImage(Const.Assets.FeedDetail.iconImage, for: .normal)
-        selectePhotosButton.tintColor = Const.Color.actionButtonColor
+        selectPhotosButton.setImage(Const.Assets.FeedDetail.iconImage, for: .normal)
+        selectPhotosButton.tintColor = Const.Color.actionButtonColor
         // TODO: fix selectde| higlighted states for tinted image
         button.layer.borderWidth = Const.View.borderWidth
         button.layer.masksToBounds = true

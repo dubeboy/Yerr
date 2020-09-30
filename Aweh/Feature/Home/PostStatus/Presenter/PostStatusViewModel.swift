@@ -6,4 +6,22 @@
 //  Copyright © 2020 com.github.aweh. All rights reserved.
 //
 
-import Foundation
+import Photos
+
+struct PostStatusViewModel {
+    
+    let placeHolderText: String = "Aweh!!! What's poppin'?"
+    let numberOfAllowedChars = 240
+    var locationState: LocationStateViewModel = .waiting
+    var selectedImages: [String: PHAsset] = [:]
+    
+    var currentLocation: Location? = nil {
+        didSet {
+            if currentLocation != nil {
+                locationState = .success
+            } else {
+                locationState = .error
+            }
+        }
+    }
+}
