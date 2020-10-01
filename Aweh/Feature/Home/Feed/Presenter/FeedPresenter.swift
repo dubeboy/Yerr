@@ -10,83 +10,116 @@ import Foundation
 
 protocol FeedPresenter {
     var statusCount: Int { get }
-    
-    func getStatuses(status: @escaping (_ status: [StatusViewModel]) -> Void)
-    func getStatus(at index: IndexPath) -> StatusViewModel
-    
     var feedCellPresenter: FeedCellPresenter { get }
-    
+
+    func getStatuses(completion: @escaping (Int?, String?) -> Void)
+    func getStatus(at index: IndexPath) -> StatusViewModel
     func index(for item: StatusViewModel) -> Int
-
+    
+    func addNewStatus(_ statusViewModel: StatusViewModel)
+    
+    func didTapLikeButton(at indexPath: IndexPath)
+    func didTapDownVoteButton(at indexPath: IndexPath)
+    func didTapUpVoteButton(at indexPath: IndexPath)
 }
 
-protocol StoriesPresenter {
+class FeedPresenterImplemantation: FeedPresenter {
+    let feedCellPresenter: FeedCellPresenter = FeedCellPresenter()
+    let feedIntercator: StatusesUseCase = FeedInteractor()
     
-}
+    var viewModel: [StatusViewModel] = []
 
-class FeedPresenterImplemantation {
-    
-    var feedCellPresenter: FeedCellPresenter = FeedCellPresenter()
-    
-//    should have a init with status object
-    
-}
-
-extension FeedPresenterImplemantation: FeedPresenter {
     func index(for item: StatusViewModel) -> Int {
-        Self.mockStatus().firstIndex {
+        viewModel.firstIndex {
             item == $0
-       } ?? 0
+        } ?? 0
     }
     
     func getStatus(at index: IndexPath) -> StatusViewModel {
-        Self.mockStatus()[index.item]
+        viewModel[index.item]
     }
     
     var statusCount: Int {
-        Self.mockStatus().count
+        viewModel.count
     }
     
-    func getStatuses(status: @escaping (_ status: [StatusViewModel]) -> Void) {
-        status(FeedPresenterImplemantation.mockStatus())
+    func getStatuses(completion: @escaping (Int?, String?) -> Void) {
+        feedIntercator.getStatuses { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let result):
+                self.viewModel = result.map(StatusViewModel.transform(from:))
+                completion(self.viewModel.count, nil)
+            case .failure(let error):
+                completion(nil, error.localizedDescription)
+            }
+        }
     }
     
-    static func status() -> [Status] {
-        return [
-            Status(status: "Some status this is a long status messageg that will span more rhtsdsdsdhshd df",
-                   userName: "Divine",
-                   statusImageLink: "1",
-                   userImageLink: "2",
-                   timeSincePosted: Date(),
-                   distanceFromYou: 30),
-            Status(status: "Some status ",
-                   userName: "Divine",
-                   statusImageLink: "1",
-                   userImageLink: "3",
-                   timeSincePosted: Date(),
-                   distanceFromYou: 30),
-            Status(status: "Some status",
-                   userName: "Divine",
-                   statusImageLink: "1",
-                   userImageLink: "2",
-                   timeSincePosted: Date(),
-                   distanceFromYou: 30),
-            Status(status: "Some status",
-                   userName: "Divine",
-                   statusImageLink: "2",
-                   userImageLink: "3",
-                   timeSincePosted: Date(),
-                   distanceFromYou: 30),
-            Status(status: "Some status",
-                   userName: "Divine",
-                   statusImageLink: "1",
-                   userImageLink: "2",
-                   timeSincePosted: Date(),
-                   distanceFromYou: 30),
-        ]
+    func addNewStatus(_ statusViewModel: StatusViewModel) {
+        viewModel.insert(statusViewModel, at: 0)
     }
     
-    static func mockStatus() -> [StatusViewModel] {
-        FeedPresenterImplemantation.status().map(StatusViewModel.transform(from:))
+    func didTapLikeButton(at indexPath: IndexPath) {
+        let item = viewModel[indexPath.item]
+        feedIntercator.postLike(voteEntity: createPostVoteEntity(item: item)) { result in
+            switch result {
+                case .success(let result):
+                    Logger.i(result)
+                case .failure(let error):
+                    Logger.i(error.localizedDescription)
+            }
+        }
     }
+    
+   
+    func didTapDownVoteButton(at indexPath: IndexPath) {
+        let item = viewModel[indexPath.item]
+        var postVote = createPostVoteEntity(item: item)
+        postVote.direction = false
+        feedIntercator.postVote(voteEntity: postVote) { result in
+            switch result {
+                case .success(let result):
+                    Logger.i(result)
+                case .failure(let error):
+                    Logger.i(error.localizedDescription)
+            }
+        }
+    }
+    
+    func didTapUpVoteButton(at indexPath: IndexPath) {
+        let item = viewModel[indexPath.item]
+        var postVote = createPostVoteEntity(item: item)
+        postVote.direction = true
+        feedIntercator.postVote(voteEntity: postVote) { result in
+            switch result {
+                case .success(let result):
+                    Logger.i(result)
+                    
+                case .failure(let error):
+                    Logger.i(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func removeVote(at indexPath: IndexPath) {
+        let item = viewModel[indexPath.item]
+        let postVote = createPostVoteEntity(item: item)
+        feedIntercator.postRemoveVote(voteEntity: postVote) { result in
+            switch result {
+                case .success(let result):
+                    Logger.i(result)
+                case .failure(let error):
+                    Logger.i(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func createPostVoteEntity(item: StatusViewModel) -> VoteEntity {
+        // TODO get this from the user defaults
+        let userEntityID = UserEntityID(userId: "1000", entityId: item.id)
+        return VoteEntity(id: userEntityID)
+    }
+    
+    
 }

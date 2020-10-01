@@ -8,38 +8,46 @@
 
 import UIKit
 
-struct StatusViewModel: Equatable, Hashable {
-    // TODO: some sort  of id here to help me get the status withis id from server
-    let status: NSAttributedString
-    let userName: String
-    let statusImage: UIImage? // todo: should be an array!
-    let userImage: UIImage
+enum VoteDirectionViewModel {
+    case up, down, none
+}
+
+struct ViewModelVoteEntity: Equatable, Hashable {
+   let direction: VoteDirectionViewModel
+   let hasReachedMaximumLikes: Bool = false
+}
+
+struct StatusViewModel: Equatable, Hashable, Identifiable {
+    let id: String
+    let status: String
+    let user: UserViewModel
+    let media: [MediaViewModel]
     let timeSincePosted: String
-    let distanceFromYou: String
+    var distanceFromYou: String = ""
+    
+    var voteEntity: ViewModelVoteEntity? = nil
+    var likes: Int = 0
+    var votes: Int = 0
 }
 
 extension StatusViewModel {
+
+    private static func calculateDistanceFromMe(from location: Location) -> String {
+        "--"
+    }
+
     static func transform(from status: Status) -> Self {
-        
+
         StatusViewModel(
-            status: NSAttributedString(string: status.status), // no need for it attr string 
-            userName: status.userName,
-            statusImage: status.statusImageLink == nil ? nil : UIImage(named: status.statusImageLink!),
-            userImage: UIImage(named: status.userImageLink!)!,
-            timeSincePosted: prettifyDate(date: status.timeSincePosted),
-            distanceFromYou: String(status.distanceFromYou)
+                id: status.id ?? "",
+                status: status.body,
+                user: .transform(user: status.user), // TODO: should map to a Media viewModel
+                media: status.media,
+                timeSincePosted: status.createdAt.relativeDate(),
+            likes: status.likes,
+            votes: status.votes
         )
     }
     
-    static func prettifyDate(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .none
-        formatter.dateStyle = .short
-        formatter.doesRelativeDateFormatting = true
-        
-        let locale = Locale.current
-        formatter.locale = locale
-        
-        return formatter.string(from: date)
-    }
+    
 }

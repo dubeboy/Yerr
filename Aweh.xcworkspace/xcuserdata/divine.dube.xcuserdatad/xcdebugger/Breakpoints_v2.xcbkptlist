@@ -5,111 +5,99 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
-         <BreakpointContent
-            uuid = "C63C5D2A-5447-479C-8B7C-92807806B730"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            breakpointStackSelectionBehavior = "1"
-            scope = "1"
-            stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "81D1BCE7-C8DA-43E9-9BF0-2CA298C6B4A7"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Status/SingleStatus/Presenter/SingleStatusViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "7"
-            endingLineNumber = "7"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2DD3F585-ECCD-4222-A261-180BF1164CF4"
+            uuid = "882C10EE-D3FC-45ED-8A62-EBC885DCF467"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Status/SingleStatus/View/ViewController/SingleStatusViewController.swift"
+            filePath = "Aweh/Feature/Home/PostStatus/View/ViewController/PostStatusViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "viewDidDisappear(_:)"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "didGetAssets(assets:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3A8CF0FA-1B7A-4BEA-9417-6694C920AAD3"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Aweh/Infrastructure/Elements/Extensions/UIView+Elements.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "addDividerLine(to:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "81D1BCE7-C8DA-43E9-9BF0-2CA298C6B4A7"
+            uuid = "8A1B688F-97D1-45E7-93C1-06B7407417A4"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Status/SingleStatus/Presenter/SingleStatusViewModel.swift"
+            filePath = "../Merchant/Sources/API/HTTPMethod/POST.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "7"
-            endingLineNumber = "7"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2DD3F585-ECCD-4222-A261-180BF1164CF4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Status/SingleStatus/View/ViewController/SingleStatusViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "viewDidDisappear(_:)"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "postMultipart(pathParameters:queryParameters:body:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A68749B7-25E0-48F2-A3DE-8265A2BED36F"
+            uuid = "54ED229B-793D-42D2-8A66-8975E5D2C66C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Profile/Profile/View/ViewController/ProfileViewController.swift"
+            filePath = "../Merchant/Sources/API/HTTPMethod/POST.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "configureCollectionView()"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "post(pathParameters:queryParameters:body:completion:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2BA1919F-641A-4AB6-BCBC-23167B0F03A6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Merchant/Sources/Internal/HTTPClient/HTTPClient.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "uploadMiltipartFormData(url:multipartBody:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2BA1919F-641A-4AB6-BCBC-23167B0F03A6 - 749b493e64ad309c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Merchant.HTTPClient.uploadMiltipartFormData&lt;A where A: Swift.Decodable&gt;(url: Foundation.URL, multipartBody: Swift.Array&lt;Merchant.MultipartBody&gt;, completion: (Swift.Result&lt;Merchant.ResponseObject&lt;A&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Merchant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/divine.dube/Developer/iOS/Merchant/Sources/Internal/HTTPClient/HTTPClient.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "111">
+               </Location>
+               <Location
+                  uuid = "2BA1919F-641A-4AB6-BCBC-23167B0F03A6 - 4c77feb5e841660"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.MultipartFormData) -&gt; () in Merchant.HTTPClient.uploadMiltipartFormData&lt;A where A: Swift.Decodable&gt;(url: Foundation.URL, multipartBody: Swift.Array&lt;Merchant.MultipartBody&gt;, completion: (Swift.Result&lt;Merchant.ResponseObject&lt;A&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Merchant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/divine.dube/Developer/iOS/Merchant/Sources/Internal/HTTPClient/HTTPClient.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "44">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

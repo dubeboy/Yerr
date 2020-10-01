@@ -59,17 +59,17 @@ class StatusPageViewController: UIPageViewController {
                 let self = self,
                 let coordinator = self.coordinator
             else { return }
-            let singleStatusViewControllers = userViewModel.statuses.map(
-                coordinator
-                .createSingleStatusViewController(_:)
-            )
-            self.presenter.setViewControllers(singleStatusViewControllers)
-            self.setViewControllers(
-                [singleStatusViewControllers[0]],
-                direction: .forward,
-                animated: true,
-                completion: nil
-            )
+//            let singleStatusViewControllers = userViewModel.statuses.map(
+//                coordinator
+//                .createSingleStatusViewController(_:)
+//            )
+//            self.presenter.setViewControllers(singleStatusViewControllers)
+//            self.setViewControllers(
+//                [singleStatusViewControllers[0]],
+//                direction: .forward,
+//                animated: true,
+//                completion: nil
+//            )
         }
     }
 

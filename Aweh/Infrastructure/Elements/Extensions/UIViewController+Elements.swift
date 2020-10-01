@@ -34,7 +34,7 @@ extension UIViewController {
     func presentToast(message: String) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         present(alert, animated: true, completion: nil)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
             alert.dismiss(animated: true, completion: nil)
         })
     }
@@ -61,6 +61,23 @@ extension UIViewController {
     func removeSelfFromNotificationObserver() {
         NotificationCenter.default.removeObserver(self)
     }
+    
+    // MARK: Keyboard
+    func keyboardFrame(from notification: NSNotification) -> CGRect? {
+        guard let userInfo = notification.userInfo else { return nil }
+    
+        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey]
+                as? NSValue else { return nil }
+    
+        return keyboardSize.cgRectValue
+    }
+    
+    // This value is import on ipads probaly add a check for ipads
+    var spookyKeyboardHeightConstant: CGFloat {
+        // TODO: 20 for iPad and 50 for tablet
+        50
+    }
+
 }
 
 // MARK: View Controller addition

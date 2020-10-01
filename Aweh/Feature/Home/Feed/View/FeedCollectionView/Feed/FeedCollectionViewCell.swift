@@ -10,60 +10,53 @@ import UIKit
 
 class FeedCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var main: UIView!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var distanceAndTime: UILabel!
     @IBOutlet weak var statusText: UILabel!
-    @IBOutlet weak var statusImage: UIImageView!
+    @IBOutlet weak var containerStackView: UIStackView!
+    
+    @LateInit
+    var likeAndUpVoteHStack: LikeAndVotesHStask
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        likeAndUpVoteHStack = LikeAndVotesHStask()
+        self.clipsToBounds = true
+        translatesAutoresizingMaskIntoConstraints = false
+        configureContentView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView --> self
-        statusImage.contentMode = .scaleAspectFill
+        main.widthAnchor --> contentView.widthAnchor
         configureCell()
     }
     
-//    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-//        setNeedsLayout()
-//        layoutIfNeeded()
-////
-////         let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
-//
-//        let attributes = super.preferredLayoutAttributesFitting(layoutAttributes)
-//        var frame = attributes.frame
-//        frame.size.height = ceil(10)
-//        layoutAttributes.frame = frame
-//        return layoutAttributes
-//    }
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        setNeedsLayout()
+        layoutIfNeeded()
+        let contentViewSize = contentView.bounds
+        let size = contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        let attr = super.preferredLayoutAttributesFitting(layoutAttributes)
+        let newSize = CGSize(width: contentViewSize.width, height: size.height)
+        var newFrame = attr.frame
 
-//    private func calculateFrame() -> CGSize {
-//        
-//        let imageHeight: CGFloat = statusImage.image == nil ? 0 : 150 // todo add these to global file
-//        let cellHeight = contentView.bounds.height + imageHeight + statusText.bounds.height + statusImage.bounds.height
-//        let size = CGSize(width: bounds.width, height: cellHeight)
-//    
-//       return size
-//    }
+        newFrame.size = newSize
+        attr.frame = newFrame
+        return attr
+    }
     
     private func configureCell() {
         configureContentView()
         configureProfileImage()
+        configureLikeAndUpVoteButtons()
     }
     
     private func configureProfileImage() {
         profileImage.makeImageRound()
     }
     
-    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        setNeedsLayout()
-        layoutIfNeeded()
-        let size = contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-        let attr = super.preferredLayoutAttributesFitting(layoutAttributes)
-
-        var newFrame = attr.frame
-
-        newFrame.size = size
-        return attr
+    private func configureLikeAndUpVoteButtons() {
+        likeAndUpVoteHStack.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(likeAndUpVoteHStack)
     }
 }

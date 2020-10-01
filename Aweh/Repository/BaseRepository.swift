@@ -12,6 +12,4 @@ protocol BaseRepository {
     
 }
 
-struct Inject {
-    
-}
+

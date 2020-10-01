@@ -65,33 +65,33 @@ class InterestsPresenterImplemantation: InterestsPresenter {
     }
     
     func fetchInterests(completion: @escaping () -> Void) {
-        viewModel = Self.stub()
+//        viewModel = Self.stub()
         completion()
     }
 }
 
 extension InterestsPresenterImplemantation {
-    static func stub() -> [InterestViewModel] {
-        dummy().map(InterestViewModel.transform(from:))
-    }
+//    static func stub() -> [InterestViewModel] {
+//        dummy().map(InterestViewModel.transform(from:))
+//    }
     
-    static func dummy() -> [Interest] {
-        [
-            Interest(interestName: "General",
-                     hasNewStatus: true,
-                     interestImageLink: "1",
-                     users: [User(name: "John", profilePictureUrl: "2", statuses: FeedPresenterImplemantation.status()),
-                             User(name: "Rahim Stelling", profilePictureUrl: "1", statuses: FeedPresenterImplemantation.status())
-            ]),
-            Interest(interestName: "Food", hasNewStatus: true, interestImageLink: "1"),
-            Interest(interestName: "Morning Jog", hasNewStatus: false, interestImageLink: "2"),
-            Interest(interestName: "Sale", hasNewStatus: true, interestImageLink: "1"),
-            Interest(interestName: "Sports", hasNewStatus: false, interestImageLink: "1"),
-            Interest(interestName: "Dating", hasNewStatus: true, interestImageLink: "1"),
-            Interest(interestName: "Bussines", hasNewStatus: false, interestImageLink: "1"),
-            Interest(interestName: "Ride Share", hasNewStatus: true, interestImageLink: "1"),
-            Interest(interestName: "My Community", hasNewStatus: true, interestImageLink: "1"),
-            Interest(interestName: "Comunity Sevices", hasNewStatus: true, interestImageLink: "1"),
-        ]
-    }
+//    static func dummy() -> [Interest] {
+//        [
+//            Interest(interestName: "General",
+//                     hasNewStatus: true,
+//                     interestImageLink: "1",
+//                     users: [User(name: "John", profilePictureUrl: "2", statuses: FeedPresenterImplemantation.status()),
+//                             User(name: "Rahim Stelling", profilePictureUrl: "1", statuses: FeedPresenterImplemantation.status())
+//            ]),
+//            Interest(interestName: "Food", hasNewStatus: true, interestImageLink: "1"),
+//            Interest(interestName: "Morning Jog", hasNewStatus: false, interestImageLink: "2"),
+//            Interest(interestName: "Sale", hasNewStatus: true, interestImageLink: "1"),
+//            Interest(interestName: "Sports", hasNewStatus: false, interestImageLink: "1"),
+//            Interest(interestName: "Dating", hasNewStatus: true, interestImageLink: "1"),
+//            Interest(interestName: "Bussines", hasNewStatus: false, interestImageLink: "1"),
+//            Interest(interestName: "Ride Share", hasNewStatus: true, interestImageLink: "1"),
+//            Interest(interestName: "My Community", hasNewStatus: true, interestImageLink: "1"),
+//            Interest(interestName: "Comunity Sevices", hasNewStatus: true, interestImageLink: "1"),
+//        ]
+//    }
 }

@@ -58,5 +58,14 @@
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>The app needs to access to your media so that you can select photos and video you would to share.</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Needed so that you can share your statuses to people who are nearest to you.</string>
+	<key>Privacy – Location Usage Description</key>
+	<string>Needed so that you can share your statuses to people who are nearest to you two.</string>
 </dict>
 </plist>

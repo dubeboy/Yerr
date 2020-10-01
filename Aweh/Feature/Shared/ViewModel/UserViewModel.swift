@@ -10,19 +10,29 @@ import Foundation
 import UIKit
 
 struct UserViewModel: Hashable {
-    let userImage: UIImage?
-    let userName: String
-    let statuses: [StatusViewModel]
+    let profilePicture: String // TODO change this to imageLink
+    let name: String
     let point: GuageViewViewModel?
 }
 
 extension UserViewModel {
-    static func transform(user: User) -> UserViewModel {
+    static func transform(user: User) -> Self {
         UserViewModel(
-            userImage: UIImage(named: user.profilePictureUrl),
-            userName: user.name,
-            statuses: user.statuses.map(StatusViewModel.transform(from:)),
-            point: .transform(point: user.point)
+            profilePicture: user.profilePicture?.location ?? "",
+            name: user.name,
+            point: nil
         )
+    }
+}
+
+extension User {
+    static func transform(user: UserViewModel) -> Self {
+        User(id: nil, name: user.name, handle: "", phoneNumber: "", profilePicture:
+                Media(name: "",
+                      type: .picture,
+                      location: "",
+                      createAt: Date(),
+                      size: 0),
+             point: Point(score: 0, badge: ""))
     }
 }

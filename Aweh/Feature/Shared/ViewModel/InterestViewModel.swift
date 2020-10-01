@@ -11,18 +11,10 @@ import UIKit
 
 struct InterestViewModel: Hashable {
     let interestName: String
-    let hasNewStatus: Bool
-    private(set) var interestImage: UIImage? = nil
-    let users: [UserViewModel]
 }
 
 extension InterestViewModel {
     static func transform(from interest: Interest) -> InterestViewModel {
-        return InterestViewModel(
-            interestName: interest.interestName,
-            hasNewStatus: interest.hasNewStatus,
-            interestImage: UIImage(named: interest.interestImageLink),
-            users: interest.users.map(UserViewModel.transform(user:))
-        )
+        InterestViewModel(interestName: interest.name)
     }
 }

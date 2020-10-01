@@ -7,23 +7,59 @@
 //
 
 import Foundation
+import Merchant
 
-// this will this be a merchant service
-struct AwehService {
+struct AwehService: Service {
+        
+    let baseURL: String = "http://localhost:8080/"
+    var query = ["key" : "hdsdt662266gbeww666", "os": "ios"]
+    // TODO: pass back an static instace here? [Merchant]
+
+    /// --------------------
+    // MARK: Statuses
+    /// --------------------
+    
+    @GET("statuses")
+    var getStatuses: StatusResponseEntity<[Status]>
+
+    @PUT("statuses", body: Status.self)
+    var postStatus: StatusResponseEntity<Status>
+    
+    @POST("statuses/like", body: VoteEntity.self)
+    var postLike: StatusResponseEntity<Bool>
+    
+    @POST("statuses/vote", body: VoteEntity.self)
+    var postVote: StatusResponseEntity<Bool>
+    
+    @POST("statuses/vote/delete", body: VoteEntity.self)
+    var postRemoveVote: StatusResponseEntity<Bool>
+
+    @POST("statuses/{status_id}/files", body: [MultipartBody].self, formURLEncoded: true)
+    var postStatusMedia: StatusResponseEntity<Status>
+    
+    /// --------------------
+    // MARK: Status Comments
+    /// --------------------
+    
+    @GET("statuses/{status_id}/comments")
+    var getComments: StatusResponseEntity<[Comment]>
+    
+    @POST("statuses/{status_id}/comments", body: Comment.self)
+    var postComment: StatusResponseEntity<String>
     
 }
 
-// MARK: AwehService + PostStatus
-extension AwehService {
+
+/// We maintain a static reference to our service
+@propertyWrapper
+struct SingletonServiceInstance {
     
+    @Autowired
+    static var service: AwehService
+
+    var wrappedValue: AwehService {
+        Self.service
+    }
 }
 
-// MARK: AwehService + Status
-extension AwehService {
-    
-}
 
-// MARK: AwehService + Stories
-extension AwehService {
-    
-}

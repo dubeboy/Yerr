@@ -9,13 +9,9 @@
 import Foundation
 
 class FeedDetailCellPresenter {
-    func configure(with cell: FeedDetailCollectionViewCell, forDisplaying model: FeedDetailViewModel){
-        let status = model.feed
-        cell.userHandleLabel.isHidden = true
-        cell.mediaCollectionView.isHidden = true
-        cell.mediaCollectionView.backgroundColor = .systemBlue
-        cell.userNameLabel.text = status.userName
-        cell.userImage.image = status.userImage
-        cell.statusText.text = status.status.string
+    func configure(with cell: FeedDetailCollectionViewCell, forDisplaying model: FeedDetailViewModel) {
+        cell.userNameLabel.text = model.feed.user.name
+        cell.userImage.downloadImage(fromUrl: model.feed.user.profilePicture)
+        cell.statusText.text = model.feed.status
     }
 }

@@ -12,11 +12,23 @@ import Photos
 private let reuseIdentifier = "Cell"
 
 class PhotosCollectionViewController: UICollectionViewController {
-    
+
     var coordinator: AssetDetailCoordinator?
-    let presenter: PhotosCollectionViewPresenter = PhotosCollectionViewPresenterImplemantation()
+    var presenter: PhotosCollectionViewPresenter!
     var selectButton: UIBarButtonItem!
     var completion: (([String: PHAsset]) -> Void)?
+    
+    init() {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.minimumLineSpacing = Const.View.m1
+        flowLayout.minimumInteritemSpacing = Const.View.m1
+        flowLayout.sectionInset = .equalEdgeInsets(Const.View.m1)
+        super.init(collectionViewLayout: flowLayout)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,15 +43,16 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     @objc func enableSelection() {
         presenter.selectMode { isInSelection in
-            collectionView.allowsMultipleSelection = isInSelection  // todo: should also unselct all
+            collectionView.allowsMultipleSelection = isInSelection  // todo: should also unselect all
             selectButton.title = isInSelection ? "UnSelect" : "Select"
         }
     }
     
     @objc func done() {
         presenter.done { selectedImages in
-            completion?(selectedImages)
-            coordinator?.pop()
+            dismiss(animated: true) {
+                self.completion?(selectedImages)
+            }
         }
     }
     
@@ -47,13 +60,14 @@ class PhotosCollectionViewController: UICollectionViewController {
         collectionView.register(PhotosCollectionViewCell.self)
         
         let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
-        flowLayout.minimumInteritemSpacing = 1 // Todo: - should be in theme
-        flowLayout.minimumLineSpacing = 1
-        flowLayout.sectionInset = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
-        
         let size = collectionView.calculateItemSize(numberOfColumns: 3)
         flowLayout.itemSize = size
         
+        collectionView.delaysContentTouches = false
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = .systemBackground
+    
         presenter.loadImages(for: size) { count in
             collectionView.reloadData()
         }
@@ -81,8 +95,8 @@ class PhotosCollectionViewController: UICollectionViewController {
                 cell.isSelected = isSelected
                 cell.imageView.image = image
             }
-                           
         }
+        
         return cell
     }
     
@@ -101,10 +115,13 @@ class PhotosCollectionViewController: UICollectionViewController {
     private func showImage(at indexPath: IndexPath) {
         guard let asset = presenter.getItem(at: indexPath) else { return }
         // TODO: - should use the apps naviagtor delegate to move to the 
-        coordinator?.startAssetDetailViewController(asset: asset) { asset in
+        coordinator?.startAssetDetailViewController(navigationController: self.navigationController,
+                                                    asset: asset) { asset in
             // TODO: - can append this image to a list of selected images
-            self.completion?(asset)
-            self.coordinator?.pop()
+           
+            self.dismiss(animated: true) {
+                self.completion?(asset)
+            }
         }
     }
 }

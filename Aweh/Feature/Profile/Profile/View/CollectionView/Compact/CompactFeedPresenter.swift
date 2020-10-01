@@ -10,12 +10,12 @@ import Foundation
 
 class CompactFeedPresenter {
     func configure(with cell: CompactFeedCollectionViewCell, forDisplaying model: StatusViewModel) {
-        if let image = model.statusImage {
-            cell.imageView.image = image
-            cell.statusText.attributedText = model.status
-        } else {
-            cell.compactBackGroundView.isHidden = true
-            cell.imageView.isHidden = true
-        }
+//        if let image = model.media?. {
+//            cell.imageView.downloadImage(fromUrl: image)
+//            cell.statusText.text = model.status
+//        } else {
+//            cell.compactBackGroundView.isHidden = true
+//            cell.imageView.isHidden = true
+//        }
     }
 }

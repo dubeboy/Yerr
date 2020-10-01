@@ -14,7 +14,6 @@ class FeedViewController: UIViewController {
     var layout: UICollectionViewFlowLayout!
     weak var coordinator: (PostStatusCoordinator & FeedDetailCoordinator)!
     
-    let reuseIdentifier = FeedCollectionViewCell.reuseIdentifier
 
     @IBOutlet weak var postButton: UIButton! {
         didSet {
@@ -22,29 +21,36 @@ class FeedViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var collectionView: UICollectionView! {
-        didSet {
-           configureCollectionView()
-        }
-    }
-    
+    @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Feed"
-        collectionView.reloadData() // initiate the load data
+        configureCollectionView()
+        presenter.getStatuses { [weak self] count, error in
+            guard let self = self else { return }
+            
+            guard let _ = count else {
+                self.presentToast(message: .error(error))
+                return
+            }
+            
+            self.collectionView.reloadData()
+        }
     }
     
     private func configureCollectionView() {
-        collectionView.backgroundColor = .systemGray5
-        collectionView.collectionViewLayout = FeedCollectionViewFlowLayout()
-        
-        collectionView.register(
-            UINib(nibName: reuseIdentifier, bundle: nil),
-            forCellWithReuseIdentifier: reuseIdentifier
-        )
-        let layout = collectionView.collectionViewLayout as! FeedCollectionViewFlowLayout
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        collectionView.backgroundColor = Const.Color.backgroundColor
+       
+        let flowLayout = UICollectionViewFlowLayout()
+
+        flowLayout.sectionInset = UIEdgeInsets(top: Const.View.m8, left: Const.View.m8, bottom: Const.View.m8, right: Const.View.m8)
+        flowLayout.minimumLineSpacing = Const.View.m8
+        flowLayout.minimumInteritemSpacing = 0
+        collectionView.collectionViewLayout = flowLayout
+        collectionView.showsVerticalScrollIndicator = false
+        flowLayout.estimatedItemSize = collectionView.calculateItemSize(numberOfColumns: 1)
+        collectionView.register(FeedCollectionViewCell.self)
         collectionView.dataSource = self
         collectionView.delegate = self
     }
@@ -56,30 +62,14 @@ class FeedViewController: UIViewController {
     }
     
     @IBAction func postButtonAction(_ sender: Any) {
-        coordinator.startPostStatusViewController()
+        coordinator.startPostStatusViewController { statusViewModel in
+            self.collectionView.setContentOffset(.zero, animated: false)
+            self.collectionView.performBatchUpdates {
+                self.presenter.addNewStatus(statusViewModel)
+                self.collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
+            } completion: { _ in }
+        }
     }
-    
-//    func createToolbarItems() -> [UIBarButtonItem] {
-//        return [
-//            UIBarButtonItem(title: "Feed", style: .plain, target: self, action: #selector(goToFeed)),
-//            UIBarButtonItem(title: "Notifications", style: .plain, target: self, action: #selector(goNotifications)),
-//            UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(goProfile))
-//        ]
-//    }
-//
- 
-//
-//    @objc func goToFeed() {
-//
-//    }
-//
-//    @objc func goProfile() {
-//
-//    }
-//
-//    @objc func goNotifications() {
-//
-//    }
 }
 
 extension FeedViewController: UICollectionViewDataSource {
@@ -90,8 +80,15 @@ extension FeedViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let status = presenter.getStatus(at: indexPath)
         let cell = collectionView.deque(FeedCollectionViewCell.self, at: indexPath)
-        // TODO: - move to the presenter
         presenter.feedCellPresenter.configure(with: cell, forDisplaying: status)
+        presenter.feedCellPresenter.setLikeAndVoteButtonsActions(for: cell) { [weak self] in
+            self?.presenter.didTapLikeButton(at: indexPath)
+        } didTapDownVoteButton: { [weak self] in
+            self?.presenter.didTapDownVoteButton(at: indexPath)
+        } didTapUpVoteButton: { [weak self] in
+            self?.presenter.didTapUpVoteButton(at: indexPath)
+        }
+        
         return cell
     }
     

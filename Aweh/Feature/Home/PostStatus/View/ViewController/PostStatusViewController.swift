@@ -11,16 +11,27 @@ import Photos
 
 class PostStatusViewController: UIViewController {
     
-    var placeHolderText = "Aweh!!! What's poppin'?"
+    var presenter: PostStatusPresenter!
     weak var coordinator: PhotosGalleryCoordinator?
-    var numberOfCharactorsButton: UIBarButtonItem =
-        UIBarButtonItem(title: "240", style: .plain, target: self, action: nil)
-    var postButton =
-        UIBarButtonItem(title: "POST", style: .plain, target: self, action: #selector(post))
-    var assets: [String: PHAsset] = [:]
+    var delegate: Completion<StatusViewModel>!
     
-    @IBOutlet weak var assetsContainerView: UIView!
-    @IBOutlet weak var statusTextBottomConstraint: NSLayoutConstraint!
+    @LateInit
+    var location: GeoLocationServices
+    @LateInit
+    var numberOfCharactorsButton: UIBarButtonItem
+    @LateInit
+    var commentBox: CommentBoxView
+    
+    var placeHolderText: String {
+        presenter.placeHolderText
+    }
+    
+//    var postButton = UIBarButtonItem(title: "Post", style: .plain, target: self, action: #selector(post))
+    var postButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closs))
+
+    var assets: [String: PHAsset] = [:]
+
+    var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var statusTextView: UITextView!
     @IBOutlet weak var profileImage: UIImageView! {
         didSet {
@@ -28,34 +39,29 @@ class PostStatusViewController: UIViewController {
         }
     }
    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = "Post status"
-
-        statusTextView.text = placeHolderText
-        statusTextView.textColor = .systemGray2
-        statusTextView.delegate = self
-        
-        statusTextView.inputAccessoryView = createToolBar()
-        statusTextView.sizeToFit()
-        
-        postButton.isEnabled = false
-        navigationItem.rightBarButtonItem = postButton
-        numberOfCharactorsButton.isEnabled = false
-        numberOfCharactorsButton.setTitleTextAttributes(
-                [NSAttributedString.Key.foregroundColor: UIColor.systemBlue],
-                for: .disabled
-        )
+        location = GeoLocationServices(delegate: self)
+        commentBox = CommentBoxView(displayType: .compact(statusTextView))
+        title = AppStrings.PostStatus.title
+        configureSelf()
+        setupStatusTextiew()
+        navigationItem.rightBarButtonItem = postButton       
     }
     
     @objc func post() {
-        if statusTextView.textColor != UIColor.systemGray2 {
-            print("""
-                posting \(String(describing: statusTextView.text)) number of assets is \(assets.count)
-""")
+        let status = commentBox.commentText()
+        presenter.postStatus(status: status) { [weak self] status in
+            guard let self = self else { return }
+            self.closs()
+            self.delegate(status)
+        } error: { errorMessage in
+            self.presentToast(message: errorMessage)
         }
+    }
+    
+    @objc private func closs() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,7 +75,7 @@ class PostStatusViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        statusTextView.becomeFirstResponder()
+        commentBox.becomeFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -79,7 +85,8 @@ class PostStatusViewController: UIViewController {
     
     @objc func keyboardWillAppear(notification: NSNotification) {
         guard let frame = keyboardFrame(from: notification) else { return }
-        statusTextBottomConstraint.constant = frame.size.height + 8
+        // TODO: fix this is unaccaptable
+        bottomConstraint.constant = -(frame.size.height - spookyKeyboardHeightConstant + 20)
     }
     
     
@@ -101,104 +108,70 @@ class PostStatusViewController: UIViewController {
                 }
             }
             default:
-             // you are restricted fo  accessing from images
             noAuthorised()
         }
     }
     
+    deinit {
+        print("ahhhhhh❌") // TODO not being deinit!!!
+    }
+}
+
+// MARK: PRIVATE Functions
+
+extension PostStatusViewController {
     private func noAuthorised() {
-       // show not authorise toast viewController
+        // TODO: fix it
+        // show not authorise toast viewController // present actionable toast
+        // show persist toast to take them to setting page where they can change these settings
+        Logger.i("Not authonticated")
+    }
+    
+    private func configureSelf() {
+        view.addSubview(commentBox)
+        setUpCommentBox()
+    }
+    
+    private func setupStatusTextiew() {
+        statusTextView.text = placeHolderText
+        statusTextView.clipsToBounds = true
     }
     
     private func loadPhotos() {
         // TODO: - test this out for string reference cycles
-        coordinator?.startPhotosGalleryViewController { [weak self] assets in
-            self?.didGetAssets(assets: assets) // tell presenter here!
+        coordinator?.startPhotosGalleryViewController(navigationController: navigationController) { assets in
+            self.didGetAssets(assets: assets) // tell presenter here!
         }
     }
     
-    private func createToolBar() -> UIToolbar {
-  
-        let actionsToolBar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
-        actionsToolBar.barStyle = .default
-       
-        actionsToolBar.items = [
-            UIBarButtonItem(title: "Add Images", style: .plain, target: self, action: #selector(requestAuthorisation)),
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            // should be a custom UI progress UI
-            numberOfCharactorsButton]
-        return actionsToolBar
+    private func setUpCommentBox() {
+        commentBox.replyButton.setTitle(AppStrings.PostStatus.postStatusButtonTitle, for: .normal)
+        commentBox.placeHolderText = placeHolderText
+        commentBox.translatesAutoresizingMaskIntoConstraints = false
+        commentBox.topAnchor --> statusTextView.bottomAnchor + Const.View.m16
+        bottomConstraint = commentBox.bottomAnchor --> view.safeAreaLayoutGuide.bottomAnchor
+        commentBox.trailingAnchor --> view.trailingAnchor
+        commentBox.leadingAnchor --> view.leadingAnchor
+        commentBox.replyButton.addTarget(self, action: #selector(post), for: .touchUpInside)
+        commentBox.selectPhotosButton.addTarget(self, action: #selector(requestAuthorisation), for: .touchUpInside)
     }
     
     private func didGetAssets(assets: [String: PHAsset]) {
         self.assets = assets
-       let assetsView = AssetsHorizontalListView(assets: assets)
-       let ass = assetsContainerView.subviews.last
-       ass?.removeFromSuperview() // TODO: - the view should auto update instead of removing from superview
-       assetsContainerView.addSubview(assetsView)
-       assetsView --> assetsContainerView
+        presenter.appendSelectedImages(assets: assets)
+        commentBox.showImageAssets(assets: assets)
     }
 }
 
-//MARK: - extension
-extension PostStatusViewController: UITextViewDelegate {
+extension PostStatusViewController: GeoLocationServicesDelegate {
     
-    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        if textView.text == placeHolderText {
-            moveCursorToFront(textView)
-        }
-        return true
+    func didFetchCurrentLocation(_ location: Location) {
+        presenter.saveCurrentLocation(location: location)
     }
     
-    // TODO: - 1 fix the fact that the text is highlightable replace with a UIlabel
-    // listen to end editing to get the final text and send to presenter
-    // https://grokswift.com/uitextview-placeholder/
-    // https://tij.me/blog/adding-placeholders-to-uitextviews-in-swift/
-    func textView(_ textView: UITextView,
-                  shouldChangeTextIn range: NSRange,
-                  replacementText text: String) -> Bool {
-        let newLength = textView.text.utf16.count + text.utf16.count - range.length
-        if newLength > 0 {
-            if newLength > 240 {
-                return false
-            } else if textView.text == placeHolderText {
-                if text.utf16.count == 0 {
-                    postButton.isEnabled = false
-                    return false
-                }
-                applyNonPlaceholderStyle(textView)
-                textView.text = ""
-            }
-            postButton.isEnabled = true
-            updateCharactorCount(length: newLength)
-        } else {
-            applyPlaceholderStyle(textView, placeholderText: placeHolderText)
-            moveCursorToFront(textView)
-            postButton.isEnabled = false
-            return false
-        }
-        
-        postButton.isEnabled = true
-        return true
+    func fetchCurrentLocationFailed(error: Error) {
+        Logger.i(error)
+        presentToast(message: AppStrings.Shared.GeoLocationServices.failedToGetLocation)
     }
     
-    private func applyPlaceholderStyle(_ textView: UITextView, placeholderText: String) {
-        textView.text = placeholderText
-        textView.textColor = UIColor.systemGray2
-    }
-    
-    private func applyNonPlaceholderStyle(_ textView: UITextView) {
-        textView.textColor = UIColor(named: "textViewInputTextColor")
-    }
-    
-    
-    private func moveCursorToFront(_ textView: UITextView) {
-        textView.selectedRange = NSRange(location: 0, length: 0)
-        
-    }
-    
-    private func updateCharactorCount(length: Int) {
-        numberOfCharactorsButton.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: length > 200 ? UIColor.systemRed : UIColor.systemBlue], for: .disabled)
-        numberOfCharactorsButton.title = "\((240)  - length)"
-    }
 }

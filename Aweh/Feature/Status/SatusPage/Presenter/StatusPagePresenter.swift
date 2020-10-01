@@ -34,12 +34,13 @@ class StatusPagePresenterImplemantation: StatusPagePresenter {
         completion: @escaping (UserViewModel) -> Void
     ) {
         // TODO: - here we should perform a request here based on interest ID
-        let userViewModel = viewModel.users[page]
-        completion(userViewModel)
+//        let userViewModel = viewModel.users[page]
+//        completion(userViewModel)
     }
     
     func getFirstPageCount() -> Int {
-        return viewModel.users.count
+//        viewModel.users.count
+        return 0
     }
     
     func setViewControllers(_ singlePageViewControllers: [SingleStatusViewController]) {

@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GaugeView" customModule="Aweh" customModuleProvider="target">
             <connections>
-                <outlet property="userImage" destination="a6a-0v-zsF" id="gKN-Qv-Cbj"/>
+                <outlet property="profilePicture" destination="a6a-0v-zsF" id="gKN-Qv-Cbj"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

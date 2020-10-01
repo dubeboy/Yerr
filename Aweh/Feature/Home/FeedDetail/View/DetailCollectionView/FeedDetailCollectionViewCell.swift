@@ -18,7 +18,6 @@ class FeedDetailCollectionViewCell: UICollectionViewCell {
         }
     }
     @IBOutlet weak var mediaCollectionView: UICollectionView!
-    
     @IBOutlet weak var statusText: UILabel! {
         didSet {
             statusText.numberOfLines = 0

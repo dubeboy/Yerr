@@ -17,7 +17,7 @@ class MainStatusPresenterImplementation: MainStatusPresenter {
     
     var viewsInMemory = [Int: Bool]()
     
-    init(_ viewModel: MainStatusViewModel = MainStatusPresenterImplementation.mockData()) {
+    init(_ viewModel: MainStatusViewModel) {
         self.viewModel = viewModel
     }
     
@@ -29,11 +29,5 @@ class MainStatusPresenterImplementation: MainStatusPresenter {
         } else {
             preconditionFailure("There should only be two indices")
         }
-    }
-    
-    private static func mockData() -> MainStatusViewModel {
-        let mockInterest = InterestsPresenterImplemantation.stub()[0]
-        let replies = RepliesViewModel()
-        return MainStatusViewModel(interests: mockInterest, replies: replies)
     }
 }

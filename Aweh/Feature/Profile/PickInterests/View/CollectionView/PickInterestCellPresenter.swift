@@ -11,7 +11,7 @@ import Foundation
 class PickInterestCellPresenter {
     func configure(_ cell: PickInterestCollectionViewCell, forDisplaying model: InterestViewModel) {
         // TODO: Remove this / subscribed or not
-        let buttonTitle = model.hasNewStatus ? "Subscribe" : "Subscribed"
+        let buttonTitle = true ? "Subscribe" : "Subscribed" // TODO: change
         cell.action = {
             cell.addToInterest.setTitle(buttonTitle, for: .normal)
         }

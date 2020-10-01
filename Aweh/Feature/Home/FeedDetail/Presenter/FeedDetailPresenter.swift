@@ -13,7 +13,12 @@ protocol FeedDetailPresenter {
     var title: String { get }
     func configure(_ cell: FeedDetailCollectionViewCell)
     func configure(_ cell: CommentCollectionViewCell, for indexPath: IndexPath)
-    func fetchComments(page: Int, completion: @escaping (_ count: Int) -> Void)
+    func fetchComments(page: Int,
+                       completion: @escaping (Int) -> Void,
+                       failuire: @escaping (String) -> Void
+    )
+    
+    func postComment(comment: String, completion: @escaping Completion<DetailCommentViewModel>, error: @escaping Completion<String>)
 }
 
 class FeedDetailPresenterImplemantation: FeedDetailPresenter {
@@ -21,9 +26,10 @@ class FeedDetailPresenterImplemantation: FeedDetailPresenter {
     let feedDetailCellPresenter: FeedDetailCellPresenter = FeedDetailCellPresenter()
     let commentsPresenter: CommentCellPresenter = CommentCellPresenter()
     var viewModel: FeedDetailViewModel
+    var feedDetailInteratctor = FeedDetailInteractor()
     
     var commentsCount: Int {
-        viewModel.comments?.count ?? 0
+        viewModel.comments.count
     }
     
     init(statusViewModel: FeedDetailViewModel) {
@@ -35,24 +41,44 @@ class FeedDetailPresenterImplemantation: FeedDetailPresenter {
     }
     
     func configure(_ cell: CommentCollectionViewCell, for indexPath: IndexPath) {
-        let commentViewModel = viewModel.comments?[indexPath.item - 1]
-        guard let viewModel = commentViewModel else { return }
-        commentsPresenter.configure(with: cell, forDisplaying: viewModel)
+        let commentViewModel = viewModel.comments[indexPath.item - 1]
+        commentsPresenter.configure(with: cell, forDisplaying: commentViewModel)
     }
     
-    func fetchComments(page: Int, completion: @escaping (_ count: Int) -> Void) {
-        viewModel.comments = Self.commentsStub().map(DetailCommentViewModel.tranform(comment:))
-        completion(viewModel.comments?.count ?? 0)
+    func fetchComments(page: Int,
+                       completion: @escaping (Int) -> Void,
+                       failuire: @escaping (String) -> Void
+    )  {
+        feedDetailInteratctor.getComments(statusId: viewModel.feed.id) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+                case .success(let result):
+                    self.viewModel.comments.append(contentsOf: result.map(DetailCommentViewModel.tranform(comment:))
+                    ) 
+                    completion(self.viewModel.comments.count)
+                case .failure(let error):
+                    failuire(error.localizedDescription)
+            }
+        }
     }
     
-    static func commentsStub() -> [Comment] {
-        [Comment(name: "Joe", timestamp: Date(), comment: "nice nice.", userImageURL: "1"),
-        Comment(name: "Joe", timestamp: Date(), comment: "really really really long text option 3. is really looong ey I have to say its lengthy", userImageURL: "2"),
-        Comment(name: "Dave Chapel", timestamp: Date(), comment: "nice nice.", userImageURL: "1"),
-        Comment(name: "Seth Kooth", timestamp: Date(timeIntervalSinceNow: 60 * 60 * 24 * 2), comment: "Thank you so much man", userImageURL: "1"),
-        Comment(name: "Some random text", timestamp: Date(), comment: "You name is whack!!!!!😅🚨🔥", userImageURL: "1"),
-         Comment(name: "Some random text 333", timestamp: Date(), comment: "You name is whack!!!!!😅🚨🔥", userImageURL: "1"),
-          Comment(name: "Long name", timestamp: Date(), comment: "You name is whack!!!!!😅🚨🔥", userImageURL: "1")
-        ]
+    func postComment(comment: String, completion: @escaping Completion<DetailCommentViewModel>, error: @escaping Completion<String>) {
+        var commentEntity = Comment(body: comment,
+                                    user: .dummyUser,
+                                    media: [],
+                                    createdAt: Date(), // TODO should be nullable
+                                    location: .dummyLocation,
+                                    id: nil)
+        feedDetailInteratctor.postComments(statusId: viewModel.feed.id, comment: commentEntity) { result in
+            switch result {
+                case .success(let result):
+                    commentEntity.id = result
+                    let newComment = DetailCommentViewModel.tranform(comment: commentEntity)
+                    self.viewModel.comments.insert(newComment, at: 0)
+                    completion(newComment)
+                case .failure(let e):
+                    error(e.localizedDescription)
+            }
+        }
     }
 }
