@@ -7,6 +7,7 @@
 //
 
 import Photos
+import Merchant // TODO should not import this here
 
 protocol PostStatusPresenter {
     var placeHolderText: String { get }
@@ -28,7 +29,7 @@ protocol PostStatusPresenter {
 class PostStatusPresenterImplementation: PostStatusPresenter {
    
     
-    let feedInteractor = FeedInteractor()
+    let feedInteractor: StatusesUseCase = FeedInteractor()
     var viewModel = PostStatusViewModel()
     
     var placeHolderText: String {
@@ -54,9 +55,11 @@ class PostStatusPresenterImplementation: PostStatusPresenter {
         // rememeber also its an atomic write when chaching the location
        
         let location = viewModel.currentLocation == nil ? {
-            Logger.wtf("current location does not exist this is wrong!!! ")
+            Logger.wtf("current location does not exist this is wrong!!!, should not happen ")
             return Location.dummyLocation
         }() :  viewModel.currentLocation!
+        
+        let multipartBody = createMultipartBody()
         
         let statusEntity = Status(id: nil, // add default value to make this shorter please!!!
                                   body: status,
@@ -67,8 +70,8 @@ class PostStatusPresenterImplementation: PostStatusPresenter {
                                   likes: 0,
                                   votes: 0,
                                   createdAt: Date())
-        
-        feedInteractor.postStatuses(status: statusEntity) { result in
+                
+        feedInteractor.postStatuses(status: statusEntity, statusMultipart: multipartBody) { result in
             switch result {
                 case .success(let success):
                     completion(.transform(from: success))
@@ -98,4 +101,50 @@ class PostStatusPresenterImplementation: PostStatusPresenter {
     
 }
 
+// MARK: Private functions
+
+extension PostStatusPresenterImplementation {
+    private func createMultipartBody() -> [MultipartBody] {
+        var multipartImages = [MultipartBody]()
+        
+        viewModel.selectedImages.forEach { (key, asset) in
+            let manager = PHImageManager.default()
+            let options = PHImageRequestOptions()
+            options.version = .original // .current for edited one
+            options.isSynchronous = true
+            
+            // TODO: assess memory leak
+            if #available(iOS 13, *) {
+                manager.requestImageDataAndOrientation(for: asset, options: options) { [self] (imageData, _, _, _) in
+                    guard let multiFormData = createMultiPart(imageData: imageData) else {
+                        Logger.i("Photos returned nil image")
+                        Logger.log(AppStrings.Error.Analytics.photosReturnedNullImage)
+                        return
+                    }
+                    multipartImages.append(multiFormData)
+                }
+            } else {
+                manager.requestImageData(for: asset, options: options) { [self] imageData, _, _, _ in
+                    guard let multiFormData = createMultiPart(imageData: imageData) else {
+                        Logger.i("Photos returned nil image")
+                        Logger.log(AppStrings.Error.Analytics.photosReturnedNullImage)
+                        return
+                    }
+                    
+                    multipartImages.append(multiFormData)
+                }
+            }
+        }
+        
+        return multipartImages
+    }
+    
+    private func createMultiPart(imageData: Data?) -> MultipartBody? {
+        guard let imageData = imageData else {
+            return nil
+        }
+        return MultipartBody(name: "files", body: imageData, filename: "\(UUID().uuidString).png", mime: "image/png")
+    }
+    
+}
 

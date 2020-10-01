@@ -19,7 +19,6 @@
 		7116C11024A2AD4200749620 /* SingleStatusViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7116C10F24A2AD4200749620 /* SingleStatusViewController.storyboard */; };
 		7116C11824A2B03000749620 /* SingleStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116C11724A2B03000749620 /* SingleStatusPresenter.swift */; };
 		7116C11C24A2B13400749620 /* StatusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116C11B24A2B13400749620 /* StatusIndicator.swift */; };
-		7116E34D251AB0FD00502C92 /* MultiPartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116E34C251AB0FD00502C92 /* MultiPartFormData.swift */; };
 		7116E350251AB2E100502C92 /* UserPrefrencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116E34F251AB2E100502C92 /* UserPrefrencies.swift */; };
 		7119E3A024B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7119E39F24B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard */; };
 		711EADEA249DDE8600D33072 /* Date+Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711EADE9249DDE8600D33072 /* Date+Element.swift */; };
@@ -162,7 +161,6 @@
 		7116C10F24A2AD4200749620 /* SingleStatusViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SingleStatusViewController.storyboard; sourceTree = "<group>"; };
 		7116C11724A2B03000749620 /* SingleStatusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleStatusPresenter.swift; sourceTree = "<group>"; };
 		7116C11B24A2B13400749620 /* StatusIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusIndicator.swift; sourceTree = "<group>"; };
-		7116E34C251AB0FD00502C92 /* MultiPartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPartFormData.swift; sourceTree = "<group>"; };
 		7116E34F251AB2E100502C92 /* UserPrefrencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrefrencies.swift; sourceTree = "<group>"; };
 		7119E39F24B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickInterestCollectionViewController.storyboard; sourceTree = "<group>"; };
 		711EADE9249DDE8600D33072 /* Date+Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Element.swift"; sourceTree = "<group>"; };
@@ -1072,7 +1070,6 @@
 			children = (
 				71ADA97E25180CBC005FF2BF /* UserEntityId.swift */,
 				71ADA97A25180B91005FF2BF /* VoteEntity.swift */,
-				7116E34C251AB0FD00502C92 /* MultiPartFormData.swift */,
 			);
 			path = RequestObject;
 			sourceTree = "<group>";
@@ -1521,7 +1518,6 @@
 				7196DD1424B0B6D700384B84 /* ProfileViewController.swift in Sources */,
 				71585EE224A2932800092D6E /* StatusPagePresenter.swift in Sources */,
 				716A0C7F24A2BE3200F18ED6 /* IntrestsPresenter.swift in Sources */,
-				7116E34D251AB0FD00502C92 /* MultiPartFormData.swift in Sources */,
 				7172D617248F2D700083B7F6 /* UIView+Elements.swift in Sources */,
 				7116C10E24A2AD3100749620 /* SingleStatusViewController.swift in Sources */,
 				7116E350251AB2E100502C92 /* UserPrefrencies.swift in Sources */,

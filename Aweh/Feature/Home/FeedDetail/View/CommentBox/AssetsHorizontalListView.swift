@@ -43,7 +43,7 @@ class AssetsHorizontalListView: UIScrollView {
     func addImages(assets: [String: PHAsset]) {
         fetchImages(from: assets)
     }
-    
+//    https://developer.apple.com/documentation/uikit/uiimage/1624115-jpegdata
     private func fetchImages(from assets: [String: PHAsset] ) {
         let rect = CGRect(x: 0, y: 0, width: imageHeight, height: imageHeight)
         let imageManager = PHImageManager.default()
@@ -57,7 +57,7 @@ class AssetsHorizontalListView: UIScrollView {
                 for: asset,
                 targetSize: rect.size,
                 contentMode: .aspectFill,
-                options: nil
+                options: nil // TODO: Check available option to optimse
             ) { image, _ in
                 imageView.image = image
             }

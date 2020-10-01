@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct FeedDetailRepository: RepositoryInjectable {
+struct FeedDetailRepository: NewInstanceInjectable {
     
     @SingletonServiceInstance
     var service: AwehService

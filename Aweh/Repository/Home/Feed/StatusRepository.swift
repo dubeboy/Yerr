@@ -6,11 +6,12 @@
 //  Copyright © 2020 com.github.aweh. All rights reserved.
 //
 
-import Foundation
+import Merchant
 
 // We do data here we inject the Remote
 // We also inject the local data if needed
-struct StatusRepository: RepositoryInjectable {
+// should be interfaced out!!!
+struct StatusRepository: NewInstanceInjectable {
 
     @SingletonServiceInstance
     var service: AwehService
@@ -70,8 +71,11 @@ struct StatusRepository: RepositoryInjectable {
         }
     }
     
-    func postStatusMedia(media: MultiPartFormData, result: @escaping (Result<StatusResponseEntity<Status>, Error>) -> Void) {
-        service.$postStatusMedia(body: media) { response in
+    func postStatusMedia(statusId: String,
+                         media: [MultipartBody],
+                         result: @escaping (Result<StatusResponseEntity<Status>, Error>) -> Void) {
+        
+        service.$postStatusMedia(["status_id": statusId], body: media) { response in
             switch response {
                 case .success(let statusReponse):
                     result(.success(statusReponse.body))

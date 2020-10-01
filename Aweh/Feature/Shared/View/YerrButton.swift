@@ -10,7 +10,7 @@ import UIKit
 
 class YerrButton: UIButton {
     
-    private static let buttonEdgeInset = UIEdgeInsets(top: Const.View.m8, left: Const.View.m8, bottom: Const.View.m8, right: Const.View.m8)
+    private static let buttonEdgeInset: UIEdgeInsets = .equalEdgeInsets(Const.View.m8)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,6 +20,12 @@ class YerrButton: UIButton {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+//    @objc var delegate: (() -> Void)? {
+//        didSet {
+//            addTarget(self, action: #selector(getter: delegate), for: .touchUpInside)
+//        }
+//    }
 }
 
 extension YerrButton {

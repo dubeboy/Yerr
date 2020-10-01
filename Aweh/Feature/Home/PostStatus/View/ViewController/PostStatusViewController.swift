@@ -43,7 +43,7 @@ class PostStatusViewController: UIViewController {
         super.viewDidLoad()
         location = GeoLocationServices(delegate: self)
         commentBox = CommentBoxView(displayType: .compact(statusTextView))
-        title = "Post status"
+        title = AppStrings.PostStatus.title
         configureSelf()
         setupStatusTextiew()
         navigationItem.rightBarButtonItem = postButton       
@@ -108,7 +108,6 @@ class PostStatusViewController: UIViewController {
                 }
             }
             default:
-             // you are restricted fo  accessing from images
             noAuthorised()
         }
     }
@@ -118,11 +117,13 @@ class PostStatusViewController: UIViewController {
     }
 }
 
-// MARK: priate functions
+// MARK: PRIVATE Functions
+
 extension PostStatusViewController {
     private func noAuthorised() {
         // TODO: fix it
         // show not authorise toast viewController // present actionable toast
+        // show persist toast to take them to setting page where they can change these settings
         Logger.i("Not authonticated")
     }
     
@@ -143,7 +144,8 @@ extension PostStatusViewController {
         }
     }
     
-    private func setUpCommentBox(){
+    private func setUpCommentBox() {
+        commentBox.replyButton.setTitle(AppStrings.PostStatus.postStatusButtonTitle, for: .normal)
         commentBox.placeHolderText = placeHolderText
         commentBox.translatesAutoresizingMaskIntoConstraints = false
         commentBox.topAnchor --> statusTextView.bottomAnchor + Const.View.m16

@@ -14,7 +14,7 @@ protocol CommentsUseCase {
 
 struct FeedDetailInteractor: CommentsUseCase {
     
-    @InjectRepository
+    @InjectNewInstance
     private var feedDetailRepository: FeedDetailRepository
     
     func getComments(statusId: String, result: @escaping (Result<[Comment], Error>) -> Void) {
