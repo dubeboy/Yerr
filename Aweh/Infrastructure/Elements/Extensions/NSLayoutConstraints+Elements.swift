@@ -16,7 +16,7 @@ precedencegroup NSLayoutPrecedence {
 }
 
 infix operator -->: NSLayoutPrecedence
-infix operator +: AdditionPrecedence
+infix operator +: AdditionPrecedence // Change this so can have a proper precedence for addition
 //infix operator +
 //infix operator <-- --<= -->=
 

@@ -38,13 +38,3 @@ struct LateInit<T> {
         self.storage = nil
     }
 }
-
-class J {
-
-    @LateInit
-    var s: Int
-
-    func sss() {
-        print(s)
-    }
-}

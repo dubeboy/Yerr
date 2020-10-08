@@ -14,6 +14,9 @@ enum AppStrings {
     enum Error {
         static let genericError = "Sorry something unexpected happened. Please try again."
         static let noInternetConnection = "Sorry something unexpected happened. Please make sure you are connected to the internet."
+        static func clampedValueNotInRage<T: Comparable>(value: T, range: ClosedRange<T>) -> String {
+            String(format: "Clamped value %s is not in range: %s", "\(value)", "\(range)")
+        }
         
         // For error analytics create a tuple that create represented as a string and has an ID as well??? 
         enum Analytics {

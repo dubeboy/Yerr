@@ -52,7 +52,6 @@
 		716A0C8124A2BE5300F18ED6 /* InterestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716A0C8024A2BE5300F18ED6 /* InterestsViewController.swift */; };
 		716A0C8324A2BE6200F18ED6 /* InterestsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 716A0C8224A2BE6200F18ED6 /* InterestsViewController.storyboard */; };
 		716A0C8924A2D66700F18ED6 /* InterestsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716A0C8724A2D66700F18ED6 /* InterestsCollectionViewCell.swift */; };
-		716A0C8A24A2D66700F18ED6 /* InterestsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 716A0C8824A2D66700F18ED6 /* InterestsCollectionViewCell.xib */; };
 		716A0C8D24A2DA4800F18ED6 /* InterestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716A0C8C24A2DA4800F18ED6 /* InterestViewModel.swift */; };
 		716A0C9224A2E01A00F18ED6 /* UICollectionFlowLayout+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716A0C9124A2E01A00F18ED6 /* UICollectionFlowLayout+Elements.swift */; };
 		716A0C9424A2E54200F18ED6 /* InterestsCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716A0C9324A2E54200F18ED6 /* InterestsCellPresenter.swift */; };
@@ -127,6 +126,8 @@
 		71FBCF2C2512B9A100FC7557 /* CircleProgressIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FBCF2B2512B9A100FC7557 /* CircleProgressIndicatorView.swift */; };
 		71FBCF2E2512BD3A00FC7557 /* CGFloat+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FBCF2D2512BD3A00FC7557 /* CGFloat+Elements.swift */; };
 		71FBCF312512C06F00FC7557 /* PulseLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FBCF302512C06F00FC7557 /* PulseLayer.swift */; };
+		71FFECC1252F90B20019BA8C /* InterestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFECC0252F90B20019BA8C /* InterestCell.swift */; };
+		71FFECC4252FA86C0019BA8C /* UIColor+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFECC3252FA86C0019BA8C /* UIColor+Elements.swift */; };
 		B85A20466A2089397D8C4CD3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85A20EC711E645832C537F5 /* User.swift */; };
 		B85A21F211E390A4BADD7DBA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85A2E4E191241692CF54133 /* Comment.swift */; };
 		B85A2395BD40056CE7DE394F /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85A25DA50413131BFF709F3 /* Status.swift */; };
@@ -194,7 +195,6 @@
 		716A0C8024A2BE5300F18ED6 /* InterestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestsViewController.swift; sourceTree = "<group>"; };
 		716A0C8224A2BE6200F18ED6 /* InterestsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InterestsViewController.storyboard; sourceTree = "<group>"; };
 		716A0C8724A2D66700F18ED6 /* InterestsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestsCollectionViewCell.swift; sourceTree = "<group>"; };
-		716A0C8824A2D66700F18ED6 /* InterestsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InterestsCollectionViewCell.xib; sourceTree = "<group>"; };
 		716A0C8C24A2DA4800F18ED6 /* InterestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestViewModel.swift; sourceTree = "<group>"; };
 		716A0C9124A2E01A00F18ED6 /* UICollectionFlowLayout+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionFlowLayout+Elements.swift"; sourceTree = "<group>"; };
 		716A0C9324A2E54200F18ED6 /* InterestsCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestsCellPresenter.swift; sourceTree = "<group>"; };
@@ -271,6 +271,8 @@
 		71FBCF2B2512B9A100FC7557 /* CircleProgressIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleProgressIndicatorView.swift; sourceTree = "<group>"; };
 		71FBCF2D2512BD3A00FC7557 /* CGFloat+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Elements.swift"; sourceTree = "<group>"; };
 		71FBCF302512C06F00FC7557 /* PulseLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseLayer.swift; sourceTree = "<group>"; };
+		71FFECC0252F90B20019BA8C /* InterestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestCell.swift; sourceTree = "<group>"; };
+		71FFECC3252FA86C0019BA8C /* UIColor+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Elements.swift"; sourceTree = "<group>"; };
 		B1D3C935954DEE8CCB341F75 /* Pods_Aweh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aweh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B85A20EC711E645832C537F5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B85A217653E718A2A0E1B70E /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 				71777B6924C662470075F4F7 /* String+Elements.swift */,
 				71FBCF2D2512BD3A00FC7557 /* CGFloat+Elements.swift */,
 				71A5C2D32523ADF000029C7D /* UIEdgeInsets+Elements.swift */,
+				71FFECC3252FA86C0019BA8C /* UIColor+Elements.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -743,6 +746,7 @@
 		716A0C7B24A2BE0600F18ED6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				71FFECBF252F90960019BA8C /* InterestCell */,
 				716A0C8424A2D58C00F18ED6 /* CollectionView */,
 				716A0C7D24A2BE1700F18ED6 /* ViewController */,
 			);
@@ -770,7 +774,6 @@
 			isa = PBXGroup;
 			children = (
 				716A0C8724A2D66700F18ED6 /* InterestsCollectionViewCell.swift */,
-				716A0C8824A2D66700F18ED6 /* InterestsCollectionViewCell.xib */,
 				716A0C9324A2E54200F18ED6 /* InterestsCellPresenter.swift */,
 			);
 			path = CollectionView;
@@ -1358,6 +1361,14 @@
 			path = Layer;
 			sourceTree = "<group>";
 		};
+		71FFECBF252F90960019BA8C /* InterestCell */ = {
+			isa = PBXGroup;
+			children = (
+				71FFECC0252F90B20019BA8C /* InterestCell.swift */,
+			);
+			path = InterestCell;
+			sourceTree = "<group>";
+		};
 		8EBD9E0B790EE9692A460572 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1453,7 +1464,6 @@
 				716A0C8324A2BE6200F18ED6 /* InterestsViewController.storyboard in Resources */,
 				718BE8122486BA8000CA328B /* FeedViewController.storyboard in Resources */,
 				71CCF0D0249AB1E00054C210 /* FeedDetailViewController.storyboard in Resources */,
-				716A0C8A24A2D66700F18ED6 /* InterestsCollectionViewCell.xib in Resources */,
 				0EBF8BA9F4CC0701B3038642 /* Localizable.strings in Resources */,
 				5DF83BD5B5EA8261ECF1CF38 /* InfoPlist.strings in Resources */,
 			);
@@ -1522,6 +1532,7 @@
 				7116C10E24A2AD3100749620 /* SingleStatusViewController.swift in Sources */,
 				7116E350251AB2E100502C92 /* UserPrefrencies.swift in Sources */,
 				71CCF0DA249C23B30054C210 /* CommentCollectionViewCell.swift in Sources */,
+				71FFECC4252FA86C0019BA8C /* UIColor+Elements.swift in Sources */,
 				71CCF0D5249AB2B30054C210 /* FeedDetailCollectionViewCell.swift in Sources */,
 				7155E30924BCE080006EBED8 /* MainStatusPresenter.swift in Sources */,
 				7198AC76249186BE002029CF /* PhotosCollectionViewCell.swift in Sources */,
@@ -1551,6 +1562,7 @@
 				71FBCF2E2512BD3A00FC7557 /* CGFloat+Elements.swift in Sources */,
 				71D4EBB82523D13100CEBB3A /* PostStatusViewModel.swift in Sources */,
 				7155E30E24BCE485006EBED8 /* BasePageViewController.swift in Sources */,
+				71FFECC1252F90B20019BA8C /* InterestCell.swift in Sources */,
 				7116C11C24A2B13400749620 /* StatusIndicator.swift in Sources */,
 				7198AC8124918BBD002029CF /* PhotosCollectionViewController.swift in Sources */,
 				71ADA9782517D4BF005FF2BF /* YerrButton.swift in Sources */,
