@@ -45,10 +45,17 @@ extension InterestViewModel {
                 case 3:
                     let interests1 =  interests[advanceBy]
                     advanceBy += 1
-                    guard let interests2 =  interests.get(advanceBy) else { interestNames.append(InterestViewModel(interestName: InterestsContainerConfiguration.transform(from: [interests1], randomNumber: 1)))
+                    guard let interests2 = interests.get(advanceBy) else { interestNames.append(InterestViewModel(interestName: InterestsContainerConfiguration.transform(from: [interests1], randomNumber: 1)))
                         break
                     }
-                    interestNames.append(InterestViewModel(interestName: InterestsContainerConfiguration.transform(from: [interests1, interests2],
+                    
+                    advanceBy += 1
+                    
+                    guard let interests3 = interests.get(advanceBy) else { interestNames.append(InterestViewModel(interestName: InterestsContainerConfiguration.transform(from: [interests1, interests2], randomNumber: 2)))
+                        break
+                    }
+                    
+                    interestNames.append(InterestViewModel(interestName: InterestsContainerConfiguration.transform(from: [interests1, interests2, interests3],
                                                                                    randomNumber: randomAmountOfElements)))
                     advanceBy += 1
                 default:
@@ -71,7 +78,7 @@ extension InterestsContainerConfiguration {
             case 2:
                 return .two(insterest[0].name, insterest[1].name)
             case 3:
-                return .three(insterest[0].name, insterest[1].name)
+                return .three(insterest[0].name, insterest[1].name, insterest[2].name)
             default:
                 let errorMsg = AppStrings.Error.clampedValueNotInRage(value: randomNumber, range: 1...3)
                 Logger.log(errorMsg)
