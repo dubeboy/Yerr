@@ -10,22 +10,23 @@ import UIKit
 
 class InterestsCollectionViewCell: UICollectionViewCell {
 
+    // TODO: create three layers of this and add then on top of each other
+    let interestsContainerView: InterestsContainerView
+    
+    override init(frame: CGRect) {
+        interestsContainerView = InterestsContainerView(frame: frame)
+        super.init(frame: frame)
+        interestsContainerView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(interestsContainerView)
+        interestsContainerView --> self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        // Hide layers
+    }
 }
-
-
-
-//
-//    let visualEffectView = addBlurVisualEffect(for: imageView)
-//    visualEffectView.layer.cornerRadius = 10
-//    visualEffectView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-//    visualEffectView.alpha = 0.7 // TODO: wrong
-
-//    func addBlurVisualEffect(for view: UIView) -> UIVisualEffectView {
-//        let blurEffect = UIBlurEffect(style: .systemThinMaterialLight)
-//        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-//        blurEffectView.frame = view.bounds
-//        blurEffectView.clipsToBounds = true
-//        view.insertSubview(blurEffectView, at: 0)
-//        blurEffectView --> view
-//        return blurEffectView
-//    }

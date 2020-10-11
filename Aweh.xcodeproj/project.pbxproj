@@ -10,6 +10,7 @@
 		0EBF8BA9F4CC0701B3038642 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC9189450DA44193028C9404 /* Localizable.strings */; };
 		5DF83BD5B5EA8261ECF1CF38 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA5487558A5C7D94A3E5D7FE /* InfoPlist.strings */; };
 		710578B824BD039B0056DBA8 /* InterestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710578B724BD039B0056DBA8 /* InterestCoordinator.swift */; };
+		7110882225327BB400228124 /* Collection+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7110882125327BB400228124 /* Collection+Elements.swift */; };
 		71138AA224B4F4B400AC7D1C /* GaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71138AA124B4F4B400AC7D1C /* GaugeView.swift */; };
 		71138AA424B4F64600AC7D1C /* NSObject+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71138AA324B4F64600AC7D1C /* NSObject+Elements.swift */; };
 		71138AA624B4F9C700AC7D1C /* GaugeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71138AA524B4F9C700AC7D1C /* GaugeView.xib */; };
@@ -126,8 +127,13 @@
 		71FBCF2C2512B9A100FC7557 /* CircleProgressIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FBCF2B2512B9A100FC7557 /* CircleProgressIndicatorView.swift */; };
 		71FBCF2E2512BD3A00FC7557 /* CGFloat+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FBCF2D2512BD3A00FC7557 /* CGFloat+Elements.swift */; };
 		71FBCF312512C06F00FC7557 /* PulseLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FBCF302512C06F00FC7557 /* PulseLayer.swift */; };
-		71FFECC1252F90B20019BA8C /* InterestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFECC0252F90B20019BA8C /* InterestCell.swift */; };
+		71FFECC1252F90B20019BA8C /* InterestsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFECC0252F90B20019BA8C /* InterestsContainerView.swift */; };
 		71FFECC4252FA86C0019BA8C /* UIColor+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFECC3252FA86C0019BA8C /* UIColor+Elements.swift */; };
+		71FFECCA252FD96D0019BA8C /* SingleInterestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFECC9252FD96D0019BA8C /* SingleInterestView.swift */; };
+		71FFED0D25324D660019BA8C /* CirclesInterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFED0C25324D660019BA8C /* CirclesInterator.swift */; };
+		71FFED12253250BF0019BA8C /* UserCircleRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFED11253250BF0019BA8C /* UserCircleRequestObject.swift */; };
+		71FFED15253251610019BA8C /* InteractorResponseClousure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFED14253251610019BA8C /* InteractorResponseClousure.swift */; };
+		71FFED20253255890019BA8C /* CirclesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FFED1F253255890019BA8C /* CirclesRepository.swift */; };
 		B85A20466A2089397D8C4CD3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85A20EC711E645832C537F5 /* User.swift */; };
 		B85A21F211E390A4BADD7DBA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85A2E4E191241692CF54133 /* Comment.swift */; };
 		B85A2395BD40056CE7DE394F /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85A25DA50413131BFF709F3 /* Status.swift */; };
@@ -153,6 +159,7 @@
 		04EF57C966FF289E9F3A5828 /* Pods-Aweh.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.release.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.release.xcconfig"; sourceTree = "<group>"; };
 		6CABDDE37419B79E3395D4FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		710578B724BD039B0056DBA8 /* InterestCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestCoordinator.swift; sourceTree = "<group>"; };
+		7110882125327BB400228124 /* Collection+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Elements.swift"; sourceTree = "<group>"; };
 		71138AA124B4F4B400AC7D1C /* GaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeView.swift; sourceTree = "<group>"; };
 		71138AA324B4F64600AC7D1C /* NSObject+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Elements.swift"; sourceTree = "<group>"; };
 		71138AA524B4F9C700AC7D1C /* GaugeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GaugeView.xib; sourceTree = "<group>"; };
@@ -271,8 +278,13 @@
 		71FBCF2B2512B9A100FC7557 /* CircleProgressIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleProgressIndicatorView.swift; sourceTree = "<group>"; };
 		71FBCF2D2512BD3A00FC7557 /* CGFloat+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Elements.swift"; sourceTree = "<group>"; };
 		71FBCF302512C06F00FC7557 /* PulseLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseLayer.swift; sourceTree = "<group>"; };
-		71FFECC0252F90B20019BA8C /* InterestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestCell.swift; sourceTree = "<group>"; };
+		71FFECC0252F90B20019BA8C /* InterestsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestsContainerView.swift; sourceTree = "<group>"; };
 		71FFECC3252FA86C0019BA8C /* UIColor+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Elements.swift"; sourceTree = "<group>"; };
+		71FFECC9252FD96D0019BA8C /* SingleInterestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleInterestView.swift; sourceTree = "<group>"; };
+		71FFED0C25324D660019BA8C /* CirclesInterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclesInterator.swift; sourceTree = "<group>"; };
+		71FFED11253250BF0019BA8C /* UserCircleRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCircleRequestObject.swift; sourceTree = "<group>"; };
+		71FFED14253251610019BA8C /* InteractorResponseClousure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorResponseClousure.swift; sourceTree = "<group>"; };
+		71FFED1F253255890019BA8C /* CirclesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclesRepository.swift; sourceTree = "<group>"; };
 		B1D3C935954DEE8CCB341F75 /* Pods_Aweh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aweh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B85A20EC711E645832C537F5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B85A217653E718A2A0E1B70E /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
@@ -374,6 +386,7 @@
 				71FBCF2D2512BD3A00FC7557 /* CGFloat+Elements.swift */,
 				71A5C2D32523ADF000029C7D /* UIEdgeInsets+Elements.swift */,
 				71FFECC3252FA86C0019BA8C /* UIColor+Elements.swift */,
+				7110882125327BB400228124 /* Collection+Elements.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -467,6 +480,7 @@
 			isa = PBXGroup;
 			children = (
 				7145AADD25197CB600657062 /* UserInteractor.swift */,
+				71FFED14253251610019BA8C /* InteractorResponseClousure.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -533,6 +547,7 @@
 		7157C21E24886E0700F0A7F0 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				71FFED18253254130019BA8C /* Interests */,
 				716DA6BD248D7DBE001B74E2 /* Home */,
 				7157C21F24886E2100F0A7F0 /* BaseRepository.swift */,
 			);
@@ -694,6 +709,7 @@
 		7162C60E24886307002D8ED4 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
+				71FFED0B25324BA60019BA8C /* Interests */,
 				7145AADC25197CAA00657062 /* Shared */,
 				B85A2FAEC161C0AA7F9D913A /* FeedError.swift */,
 				716DA6BC248D7D76001B74E2 /* Home */,
@@ -746,7 +762,7 @@
 		716A0C7B24A2BE0600F18ED6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				71FFECBF252F90960019BA8C /* InterestCell */,
+				71FFECBF252F90960019BA8C /* InterestsContainerView */,
 				716A0C8424A2D58C00F18ED6 /* CollectionView */,
 				716A0C7D24A2BE1700F18ED6 /* ViewController */,
 			);
@@ -1073,6 +1089,7 @@
 			children = (
 				71ADA97E25180CBC005FF2BF /* UserEntityId.swift */,
 				71ADA97A25180B91005FF2BF /* VoteEntity.swift */,
+				71FFED11253250BF0019BA8C /* UserCircleRequestObject.swift */,
 			);
 			path = RequestObject;
 			sourceTree = "<group>";
@@ -1361,12 +1378,45 @@
 			path = Layer;
 			sourceTree = "<group>";
 		};
-		71FFECBF252F90960019BA8C /* InterestCell */ = {
+		71FFECBF252F90960019BA8C /* InterestsContainerView */ = {
 			isa = PBXGroup;
 			children = (
-				71FFECC0252F90B20019BA8C /* InterestCell.swift */,
+				71FFECC0252F90B20019BA8C /* InterestsContainerView.swift */,
+				71FFECC9252FD96D0019BA8C /* SingleInterestView.swift */,
 			);
-			path = InterestCell;
+			path = InterestsContainerView;
+			sourceTree = "<group>";
+		};
+		71FFED0B25324BA60019BA8C /* Interests */ = {
+			isa = PBXGroup;
+			children = (
+				71FFED1C253255210019BA8C /* Circles */,
+			);
+			path = Interests;
+			sourceTree = "<group>";
+		};
+		71FFED18253254130019BA8C /* Interests */ = {
+			isa = PBXGroup;
+			children = (
+				71FFED1E253255530019BA8C /* Circles */,
+			);
+			path = Interests;
+			sourceTree = "<group>";
+		};
+		71FFED1C253255210019BA8C /* Circles */ = {
+			isa = PBXGroup;
+			children = (
+				71FFED0C25324D660019BA8C /* CirclesInterator.swift */,
+			);
+			path = Circles;
+			sourceTree = "<group>";
+		};
+		71FFED1E253255530019BA8C /* Circles */ = {
+			isa = PBXGroup;
+			children = (
+				71FFED1F253255890019BA8C /* CirclesRepository.swift */,
+			);
+			path = Circles;
 			sourceTree = "<group>";
 		};
 		8EBD9E0B790EE9692A460572 /* Pods */ = {
@@ -1526,12 +1576,14 @@
 				716DA6BB248C581F001B74E2 /* Theme.swift in Sources */,
 				716A0C8D24A2DA4800F18ED6 /* InterestViewModel.swift in Sources */,
 				7196DD1424B0B6D700384B84 /* ProfileViewController.swift in Sources */,
+				71FFED12253250BF0019BA8C /* UserCircleRequestObject.swift in Sources */,
 				71585EE224A2932800092D6E /* StatusPagePresenter.swift in Sources */,
 				716A0C7F24A2BE3200F18ED6 /* IntrestsPresenter.swift in Sources */,
 				7172D617248F2D700083B7F6 /* UIView+Elements.swift in Sources */,
 				7116C10E24A2AD3100749620 /* SingleStatusViewController.swift in Sources */,
 				7116E350251AB2E100502C92 /* UserPrefrencies.swift in Sources */,
 				71CCF0DA249C23B30054C210 /* CommentCollectionViewCell.swift in Sources */,
+				71FFED0D25324D660019BA8C /* CirclesInterator.swift in Sources */,
 				71FFECC4252FA86C0019BA8C /* UIColor+Elements.swift in Sources */,
 				71CCF0D5249AB2B30054C210 /* FeedDetailCollectionViewCell.swift in Sources */,
 				7155E30924BCE080006EBED8 /* MainStatusPresenter.swift in Sources */,
@@ -1546,6 +1598,7 @@
 				7116C11824A2B03000749620 /* SingleStatusPresenter.swift in Sources */,
 				7157C2342488766F00F0A7F0 /* NSLayoutConstraints+Elements.swift in Sources */,
 				7170EA042495EBF800B1D15F /* AssetDetailPresenter.swift in Sources */,
+				71FFED15253251610019BA8C /* InteractorResponseClousure.swift in Sources */,
 				7170EA002495EB9C00B1D15F /* AssetDetailViewController.swift in Sources */,
 				716A0C8124A2BE5300F18ED6 /* InterestsViewController.swift in Sources */,
 				71ADA97F25180CBC005FF2BF /* UserEntityId.swift in Sources */,
@@ -1562,7 +1615,7 @@
 				71FBCF2E2512BD3A00FC7557 /* CGFloat+Elements.swift in Sources */,
 				71D4EBB82523D13100CEBB3A /* PostStatusViewModel.swift in Sources */,
 				7155E30E24BCE485006EBED8 /* BasePageViewController.swift in Sources */,
-				71FFECC1252F90B20019BA8C /* InterestCell.swift in Sources */,
+				71FFECC1252F90B20019BA8C /* InterestsContainerView.swift in Sources */,
 				7116C11C24A2B13400749620 /* StatusIndicator.swift in Sources */,
 				7198AC8124918BBD002029CF /* PhotosCollectionViewController.swift in Sources */,
 				71ADA9782517D4BF005FF2BF /* YerrButton.swift in Sources */,
@@ -1590,6 +1643,7 @@
 				71ECFDFB2487187000943917 /* FeedCollectionViewCell.swift in Sources */,
 				71FBCF312512C06F00FC7557 /* PulseLayer.swift in Sources */,
 				71F46CEE24995610002B8EFC /* LivePhotoView.swift in Sources */,
+				7110882225327BB400228124 /* Collection+Elements.swift in Sources */,
 				71A77FD1249C345E00F8D442 /* FeedDetailViewModel.swift in Sources */,
 				7145AADE25197CB600657062 /* UserInteractor.swift in Sources */,
 				71A77FD5249C378100F8D442 /* FeedDetailCellPresenter.swift in Sources */,
@@ -1620,7 +1674,9 @@
 				7159B44425094D5E000FA1B1 /* FeedDetailInterator.swift in Sources */,
 				B85A284F72F811F9B86C14B1 /* DefaultCodable.swift in Sources */,
 				B85A26A5C64FE47673385025 /* LossyArray.swift in Sources */,
+				71FFED20253255890019BA8C /* CirclesRepository.swift in Sources */,
 				71D5B9C7251194650077DB09 /* LocationViewModel.swift in Sources */,
+				71FFECCA252FD96D0019BA8C /* SingleInterestView.swift in Sources */,
 				B85A2BA78118ED22F3A3D94D /* DateValue.swift in Sources */,
 				B85A2D91728D4B52F08C4010 /* DefaultFalse.swift in Sources */,
 				B85A267A8160EDABE988DDAB /* ISO8601Strategy.swift in Sources */,

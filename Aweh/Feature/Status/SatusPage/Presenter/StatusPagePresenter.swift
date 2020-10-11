@@ -20,7 +20,7 @@ protocol StatusPagePresenter {
 }
 
 class StatusPagePresenterImplemantation: StatusPagePresenter {
-    var title: String { viewModel.interestName }
+    var title: String = "jfdfjdhfgdhjgfd"
     let viewModel: InterestViewModel
     
     var currentPages: [SingleStatusViewController] = []

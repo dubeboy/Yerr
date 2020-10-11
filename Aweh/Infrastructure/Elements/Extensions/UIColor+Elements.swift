@@ -14,7 +14,7 @@ extension UIColor {
     }
     
     static func random(from text: String) -> UIColor {
-        let textHash = text.hash
+        let textHash = text.hash % 200
         srand48(textHash * 200)
         let r = CGFloat(drand48())
         srand48(textHash)
@@ -26,8 +26,8 @@ extension UIColor {
     }
     
     static func randomPalate(from text: String) -> UIColor {
-        let textHash = text.hash % text.count
-        let hue = CGFloat(textHash / text.count)
+        let textHash = text.hash % 100
+        let hue = CGFloat(textHash / 100)
         return UIColor(hue: hue, saturation: 1, brightness: 1, alpha: 1)
     }
 

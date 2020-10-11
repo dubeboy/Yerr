@@ -8,8 +8,10 @@
 
 import Foundation
 
+typealias RepositoryResponseClousure<T: Codable> = (Result<StatusResponseEntity<T>, Error>) -> Void
+
 protocol BaseRepository {
-    
+    // use extension to get static instaces
 }
 
 

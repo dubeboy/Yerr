@@ -15,7 +15,7 @@ struct User: Codable {
 }
 
 extension User {
-    static let dummyUser = User(id: "60000", name: "User100", handle: "aweee", phoneNumber: "089898888", profilePicture: nil, point: Point(score: 0, badge: ""))
+    static let dummyUser = User(id: "1000", name: "User100", handle: "aweee", phoneNumber: "089898888", profilePicture: nil, point: Point(score: 0, badge: ""))
 }
 
 struct Point: Codable {

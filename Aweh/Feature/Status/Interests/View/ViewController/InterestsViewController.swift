@@ -16,32 +16,29 @@ class InterestsViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCollectionViewCell()
+        configureCollectionView()
         collectionView.allowsMultipleSelection = presenter.isMultiSelectEnabled
         presenter.fetchInterests { [weak self] in
             self?.collectionView.reloadData()
+        } failure: { [weak self] errorMessage in
+            self?.presentToast(message: errorMessage)
         }
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let bar = navigationController?.navigationBar
-//        bar.
-//        bar?.setNeedsLayout()
-//        bar?.layoutIfNeeded()
-//        bar?.setNeedsDisplay()
     }
     
-    private func configureCollectionViewCell() {
+    private func configureCollectionView() {
         let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
-        flowLayout.minimumInteritemSpacing = 8
-        flowLayout.minimumLineSpacing = 16
-        flowLayout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        
+        flowLayout.minimumInteritemSpacing = Const.View.m8
+        flowLayout.minimumLineSpacing = Const.View.m8
+        flowLayout.sectionInset = .equalEdgeInsets(Const.View.m16)
         flowLayout.itemSize = collectionView.calculateItemSize(numberOfColumns: numberOfCollumns)
         flowLayout.estimatedItemSize = .zero
-        collectionView.register(InterestsCollectionViewCell.self)
+        flowLayout.scrollDirection = .vertical
+        collectionView.registerClass(InterestsCollectionViewCell.self)
     }
     
     

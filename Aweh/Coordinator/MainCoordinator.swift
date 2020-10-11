@@ -80,16 +80,16 @@ class HomeCoordinator: MainCoordinator {
 
 class StatusCoordinator: MainCoordinator {
     
-    lazy var homeCoordinator: HomeCoordinator =
-        HomeCoordinator(navigationController: navigationController)
+    lazy var mainCoordinator: InterestCoordinator =
+        StatusCoordinator(navigationController: navigationController)
     
     override func start() -> Self {
         // TODO: Fix these so that they look like feed viewController
         navigationController.delegate = self
-        let mainViewController = MainStatusViewController()
+        let mainViewController = mainCoordinator.createInterestViewController(
+            presenter: InterestsPresenterImplemantation()
+        )
         mainViewController.coordinator = self
-        mainViewController.feedCoordinator = homeCoordinator
-        mainViewController.title = "Notifications"
         navigationController.pushViewController(mainViewController, animated: true)
         return self
     }
