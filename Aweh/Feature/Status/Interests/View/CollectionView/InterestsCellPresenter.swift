@@ -9,7 +9,8 @@
 import Foundation
 
 class InterestsCellPresenter {
-    func configure(_ cell: InterestsCollectionViewCell, with viewModel: InterestViewModel) {
+    func configure(_ cell: InterestsCollectionViewCell, with viewModel: InterestViewModel, delegate: SingleInterestViewDelegate) {
         cell.interestsContainerView.children = viewModel.interestName
+        cell.interestsContainerView.delegate = delegate
     }
 }

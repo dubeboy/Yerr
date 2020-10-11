@@ -24,6 +24,22 @@ class InterestsContainerView: UIView {
         }
     }
     
+    var delegate: SingleInterestViewDelegate? = nil {
+        didSet {
+            switch children {
+                case .one:
+                    interestsViews[0].delegate = delegate
+                case .two:
+                    interestsViews[0].delegate = delegate
+                    interestsViews[1].delegate = delegate
+                case .three:
+                    interestsViews[0].delegate = delegate
+                    interestsViews[1].delegate = delegate
+                    interestsViews[2].delegate = delegate
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         interestsViews = []
@@ -93,7 +109,7 @@ extension InterestsContainerView {
         
         interestsViews.append(interestView)
         interestsViews.append(interestView1)
-        interestsViews.append(interestView2)
+        interestsViews.append(interestView3)
     }
     
     private func configureTwoChildren(_ interest: String, _ interest1: String) {

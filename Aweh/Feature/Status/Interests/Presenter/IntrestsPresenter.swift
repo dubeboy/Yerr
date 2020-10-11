@@ -12,7 +12,7 @@ protocol InterestsPresenter {
     var numberOfItems: Int { get }
     var isMultiSelectEnabled: Bool { get }
     func fetchInterests(completion: @escaping () -> Void, failure: @escaping (String) -> Void)
-    func configure(cell: InterestsCollectionViewCell, at indexPath: IndexPath)
+    func configure(cell: InterestsCollectionViewCell, at indexPath: IndexPath, delegate: SingleInterestViewDelegate)
     func didSelect(at item: IndexPath, completion: (SelectAction) -> Void)
 }
 
@@ -59,8 +59,8 @@ class InterestsPresenterImplemantation: InterestsPresenter {
         }
     }
     
-    func configure(cell: InterestsCollectionViewCell, at indexPath: IndexPath) {
-        interestCellPresenter.configure(cell, with: viewModel[indexPath.item] )
+    func configure(cell: InterestsCollectionViewCell, at indexPath: IndexPath, delegate: SingleInterestViewDelegate) {
+        interestCellPresenter.configure(cell, with: viewModel[indexPath.item], delegate: delegate)
     }
     
     func fetchInterests(completion: @escaping () -> Void,

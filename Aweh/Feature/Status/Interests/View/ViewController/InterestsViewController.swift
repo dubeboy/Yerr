@@ -48,19 +48,13 @@ class InterestsViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.deque(InterestsCollectionViewCell.self, at: indexPath)
-        presenter.configure(cell: cell, at: indexPath)
+        presenter.configure(cell: cell, at: indexPath, delegate: self)
         return cell
     }
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presenter.didSelect(at: indexPath) { [weak self] selectAction in
-            let selectedCell = collectionView.cellForItem(at: indexPath)
-            switch selectAction {
-                case .multiSelect(let isSelected):
-                    selectedCell?.isSelected = isSelected
-                case .select(let interestViewModel):
-                    self?.coordinator.startStatusPageViewController(viewModel: interestViewModel)
-            }
-        }
+}
+
+extension InterestsViewController: SingleInterestViewDelegate {
+    func didClickSingleIntrestView(name: String) {
+        print("tap tap tap \(name)")
     }
 }
