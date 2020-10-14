@@ -10,8 +10,9 @@ import UIKit
 
 class FeedViewController: UIViewController {
   
-    let presenter: FeedPresenter = FeedPresenterImplemantation()
-    var layout: UICollectionViewFlowLayout!
+    var presenter: FeedPresenter!
+    var interestName: String?
+    
     weak var coordinator: (PostStatusCoordinator & FeedDetailCoordinator)!
     
 
@@ -27,7 +28,7 @@ class FeedViewController: UIViewController {
         super.viewDidLoad()
         title = "Feed"
         configureCollectionView()
-        presenter.getStatuses { [weak self] count, error in
+        presenter.getStatuses(interestName: interestName) { [weak self] count, error in
             guard let self = self else { return }
             
             guard let _ = count else {

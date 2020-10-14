@@ -23,6 +23,17 @@ struct CirclesRepository: NewInstanceInjectable {
             }
         }
     }
+
+    func getStatusForInterest(interestName: String, result: @escaping (Result<StatusResponseEntity<[Status]>, Error>) -> Void) {
+        service.$getStatusesForInterest(query: ["circle_name": interestName]) { response in
+            switch response {
+            case .success(let statusReponse):
+                result(.success(statusReponse.body))
+            case .failure(let error):
+                result(.failure(error))
+            }
+        }
+    }
     
     func postJoinCircle(userCircleRequestObject: UserCircleRequestObject,
                      result: @escaping RepositoryResponseClousure<Bool>) {

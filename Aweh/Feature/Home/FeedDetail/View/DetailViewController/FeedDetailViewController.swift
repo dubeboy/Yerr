@@ -109,7 +109,6 @@ extension FeedDetailViewController {
     }
 }
 
-
 // MARK: private methods
 private extension FeedDetailViewController {
     private func configureCollectionView() {

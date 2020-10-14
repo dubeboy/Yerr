@@ -14,6 +14,7 @@ enum AppStrings {
     enum Error {
         static let genericError = "Sorry something unexpected happened. Please try again."
         static let noInternetConnection = "Sorry something unexpected happened. Please make sure you are connected to the internet."
+        static let interestNameNil = "Inetrest name is nil"
         static func clampedValueNotInRage<T: Comparable>(value: T, range: ClosedRange<T>) -> String {
             String(format: "Clamped value %s is not in range: %s", "\(value)", "\(range)")
             

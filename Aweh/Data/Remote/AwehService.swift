@@ -60,6 +60,10 @@ struct AwehService: Service {
     
     @GET("circles/my_circles")
     var getMyCircles: StatusResponseEntity<[Interest]>
+
+    @GET("circles/statuses")
+    var getStatusesForInterest: StatusResponseEntity<[Status]>
+
 }
 
 /// We maintain a static reference to our service

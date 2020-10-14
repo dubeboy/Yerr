@@ -12,7 +12,7 @@ protocol FeedPresenter {
     var statusCount: Int { get }
     var feedCellPresenter: FeedCellPresenter { get }
 
-    func getStatuses(completion: @escaping (Int?, String?) -> Void)
+    func getStatuses(interestName: String?, completion: @escaping (Int?, String?) -> Void)
     func getStatus(at index: IndexPath) -> StatusViewModel
     func index(for item: StatusViewModel) -> Int
     
@@ -24,8 +24,11 @@ protocol FeedPresenter {
 }
 
 class FeedPresenterImplemantation: FeedPresenter {
+   
+    
     let feedCellPresenter: FeedCellPresenter = FeedCellPresenter()
     let feedIntercator: StatusesUseCase = FeedInteractor()
+    var interest: InterestViewModel? = nil
     
     var viewModel: [StatusViewModel] = []
 
@@ -43,17 +46,46 @@ class FeedPresenterImplemantation: FeedPresenter {
         viewModel.count
     }
     
-    func getStatuses(completion: @escaping (Int?, String?) -> Void) {
+    func getStatuses(interestName: String?, completion: @escaping (Int?, String?) -> Void) {
+        if interestName == nil {
+            getFeedStatuses(completion: completion)
+        } else {
+            guard let interestName = interestName else {
+                Logger.log(AppStrings.Error.interestNameNil)
+                return
+            }
+            getFeedStatusesForInterest(name: interestName, completion: completion)
+        }
+    }
+    
+    private func getFeedStatuses(completion: @escaping (Int?, String?) -> ()) {
         feedIntercator.getStatuses { [weak self] result in
             guard let self = self else { return }
-            switch result {
-            case .success(let result):
-                self.viewModel = result.map(StatusViewModel.transform(from:))
-                completion(self.viewModel.count, nil)
-            case .failure(let error):
-                completion(nil, error.localizedDescription)
-            }
+            self.handleStatusResponse(result: result, completion: completion)
         }
+    }
+
+    private func getFeedStatusesForInterest(name: String, completion: @escaping (Int?, String?) -> ()) {
+        feedIntercator.getStatuses(interestName: name) { [weak self] result in
+            guard let self = self else { return }
+            self.handleStatusResponse(result: result, completion: completion)
+        }
+    }
+
+
+    private func handleStatusResponse(result: Result<[Status], Error>,
+                                      completion: @escaping (Int?, String?) -> Void) {
+        switch result {
+        case .success(let result):
+            self.viewModel = result.map(StatusViewModel.transform(from:))
+            completion(self.viewModel.count, nil)
+        case .failure(let error):
+            completion(nil, error.localizedDescription)
+        }
+    }
+
+    private func statusResponse(result: StatusViewModel, completion: @escaping (Int?, String?) -> Void) {
+
     }
     
     func addNewStatus(_ statusViewModel: StatusViewModel) {

@@ -13,6 +13,7 @@ class InterestsViewController: UICollectionViewController {
     var numberOfCollumns: CGFloat = 2
     var presenter: InterestsPresenter!
     weak var coordinator: StatusPageCoordinator! // TODO: Ref is lost when manually instatiated
+    weak var homeCoordinator: FeedCoordinator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +56,6 @@ class InterestsViewController: UICollectionViewController {
 
 extension InterestsViewController: SingleInterestViewDelegate {
     func didClickSingleIntrestView(name: String) {
-        print("tap tap tap \(name)")
+        homeCoordinator.startFeedViewController(forInterestName: name)
     }
 }

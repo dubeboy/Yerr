@@ -11,6 +11,7 @@ import Merchant
 
 protocol StatusesUseCase: NewInstanceInjectable {
     func getStatuses(result: @escaping (Result<[Status], Error>) -> Void)
+    func getStatuses(interestName: String, result: @escaping (Result<[Status], Error>) -> Void)
     func postStatuses(status: Status,  statusMultipart: [MultipartBody], result: @escaping (Result<Status, Error>) -> Void)
     func postLike(voteEntity: VoteEntity, result: @escaping (Result<Bool, Error>) -> Void)
     func postVote(voteEntity: VoteEntity, result: @escaping (Result<Bool, Error>) -> Void)
@@ -19,25 +20,25 @@ protocol StatusesUseCase: NewInstanceInjectable {
 
 struct FeedInteractor: StatusesUseCase {
 
-
     @InjectNewInstance
     private var statusRepository: StatusRepository
-    
+
+    @InjectNewInstance
+    private var cirlesRepository: CirclesRepository
+
+
     func getStatuses(result: @escaping (Result<[Status], Error>) -> Void) {
         statusRepository.getStatuses { response in
-            switch response {
-            case .success(let statusResponse):
-                guard let entity = statusResponse.entity else {
-                    return result(.failure(FeedError.nilStatusesArray))
-                }
-                result(.success(entity))
-            case .failure(let error):
-                Logger.log(error)
-                return result(.failure(FeedError.noInternetConnection))
-            }
+            handleStatusReponse(response: response, result: result)
         }
     }
-    
+
+    func getStatuses(interestName: String, result: @escaping (Result<[Status], Error>) -> Void) {
+        cirlesRepository.getStatusForInterest(interestName: interestName) { response in
+            self.handleStatusReponse(response: response, result: result)
+        }
+    }
+
     // part of feed because this view will be modally presented
     func postStatuses(status: Status,
                       statusMultipart: [MultipartBody],
@@ -135,5 +136,20 @@ struct FeedInteractor: StatusesUseCase {
 //                    return result(.failure(FeedError.noInternetConnection))
 //            }
 //        }
+    }
+}
+
+extension FeedInteractor {
+    private func handleStatusReponse(response: Result<StatusResponseEntity<[Status]>, Error>, result: @escaping (Result<[Status], Error>) -> Void ) {
+        switch response {
+        case .success(let statusResponse):
+            guard let entity = statusResponse.entity else {
+                return result(.failure(FeedError.nilStatusesArray))
+            }
+            result(.success(entity))
+        case .failure(let error):
+            Logger.log(error)
+            return result(.failure(FeedError.noInternetConnection))
+        }
     }
 }

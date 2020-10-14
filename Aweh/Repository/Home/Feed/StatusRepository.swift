@@ -26,7 +26,7 @@ struct StatusRepository: NewInstanceInjectable {
             }
         }
     }
-    
+
     func postStatus(status: Status, result: @escaping (Result<StatusResponseEntity<Status>, Error>) -> Void) {
         service.$postStatus(body: status) { response in
             switch response {

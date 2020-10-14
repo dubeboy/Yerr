@@ -69,7 +69,8 @@ class PostStatusPresenterImplementation: PostStatusPresenter {
                                   media: [],
                                   likes: 0,
                                   votes: 0,
-                                  createdAt: Date())
+                                  createdAt: Date(),
+                                  circleName: "Food") // Please change this
                 
         feedInteractor.postStatuses(status: statusEntity, statusMultipart: multipartBody) { result in
             switch result {

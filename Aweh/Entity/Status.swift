@@ -17,4 +17,5 @@ struct Status: Codable {
     let likes, votes: Int
     @DateValue<ISO8601Strategy>
     var createdAt: Date
+    var circleName: String
 }
