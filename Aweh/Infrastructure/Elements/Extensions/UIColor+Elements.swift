@@ -48,3 +48,24 @@ extension UIColor {
     //        return color;
     //    }
 }
+
+extension UIColor {
+    convenience init(rgb: UInt32, alpha: CGFloat = 1.0) {
+        self.init(
+            red: CGFloat((rgb >> 16) & 0xFF) / 255.0,
+            green: CGFloat((rgb >> 8) & 0xFF) / 255.0,
+            blue: CGFloat(rgb & 0xFF) / 255.0,
+            alpha: alpha
+        )
+    }
+    
+    convenience init(hex: String, alpha: CGFloat = 1.0) {
+        guard let colorHex = UInt32(hex) else {
+            preconditionFailure(AppStrings.Error.InvalideColor)
+        }
+        self.init(
+            rgb: colorHex,
+            alpha: alpha
+        )
+    }
+}

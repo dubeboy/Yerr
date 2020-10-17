@@ -9,10 +9,18 @@
 import Foundation
 import UIKit
 
+
+struct PointsViewModel: Hashable {
+    let score: Int
+    let badge: String
+    let color: String
+}
+
 struct UserViewModel: Hashable {
     let profilePicture: String // TODO change this to imageLink
     let name: String
-    let point: GuageViewViewModel?
+    let point: PointsViewModel?
+    var statuses: [StatusViewModel] = []
 }
 
 extension UserViewModel {

@@ -23,6 +23,12 @@ extension UIView {
 }
 
 extension UIView {
+    func autoresizingOff() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+}
+
+extension UIView {
     
     /// if you add a border to all sides, call without params
     func addDividerLine(to sides: [UIRectEdge] = []) {

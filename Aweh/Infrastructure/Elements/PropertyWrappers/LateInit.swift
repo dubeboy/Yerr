@@ -32,6 +32,7 @@ struct LateInit<T> {
     
     var projectedValue: Self { self }
 
+    // Change to isNil or add this function
     var isInitialized: Bool {  storage != nil }
     
     mutating func release() {

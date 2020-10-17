@@ -18,3 +18,8 @@ enum FeedError: Error, LocalizedError {
         }
     }
 }
+
+enum UserError: Error {
+    case userPhoneNumberIsRequired
+    case currentUserIdIsNil
+}

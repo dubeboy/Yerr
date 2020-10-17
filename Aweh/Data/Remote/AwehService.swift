@@ -14,7 +14,7 @@ struct AwehService: Service {
     let baseURL: String = "http://localhost:8080/"
     var query = ["key" : "hdsdt662266gbeww666", "os": "ios"] // TODO: does not log this
     // TODO: pass back an static instace here? [Merchant]
-    // prettiyfy
+    // TODO: prettiyfy
 
     // --------------------
     // MARK: Statuses
@@ -48,9 +48,9 @@ struct AwehService: Service {
     @POST("statuses/{status_id}/comments", body: Comment.self)
     var postComment: StatusResponseEntity<String>
     
-    /// --------------------
+    // --------------------
     // MARK: Circles
-    /// --------------------
+    // --------------------
     
     @GET("circles")
     var getAllCircles: StatusResponseEntity<[Interest]>
@@ -63,6 +63,20 @@ struct AwehService: Service {
 
     @GET("circles/statuses")
     var getStatusesForInterest: StatusResponseEntity<[Status]>
+    
+    // --------------------
+    // MARK: User
+    // --------------------
+    
+    @GET("users/statuses")
+    var getUserStatuses: StatusResponseEntity<[Status]>
+    
+    @POST("users/signIn", body: User.self)
+    var signInUser:  StatusResponseEntity<User>
+    
+    @GET("user_exists")
+    var userExists: StatusResponseEntity<User>
+    
 
 }
 

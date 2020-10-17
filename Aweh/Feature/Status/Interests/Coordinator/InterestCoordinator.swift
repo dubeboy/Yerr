@@ -28,7 +28,7 @@ extension StatusCoordinator: InterestCoordinator {
         let mainViewController = InterestsViewController.instantiate()
         mainViewController.coordinator = self
         mainViewController.presenter = presenter
-        mainViewController.title = "Status"
+        mainViewController.title = AppStrings.Interests.title
         return mainViewController
     }
 }

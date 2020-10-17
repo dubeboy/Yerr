@@ -11,6 +11,6 @@ import UIKit
 
 extension UIImageView {
     func downloadImage(fromUrl: String?) {
-//        let service = 
+        backgroundColor = UIColor.systemGray6 // this is the place holder
     }
 }

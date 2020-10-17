@@ -21,4 +21,6 @@ extension User {
 struct Point: Codable {
     let score: Int
     let badge: String
+    // maybe add color here that is passed from the server!!!
+    
 }

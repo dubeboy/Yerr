@@ -20,10 +20,16 @@ enum AppStrings {
             
         }
         
+        static let InvalideColor = "Invalide hex color, therefore cannot be convert to UIInt32"
+        
         // For error analytics create a tuple that create represented as a string and has an ID as well??? 
         enum Analytics {
             static let photosReturnedNullImage = "Photos returned null error"
             static let nullStatusID = "Null status Id"
+        }
+        
+        enum Profile {
+            static let IncositentViewModel: String = "View Model is in an inconstent state"
         }
     }
     
@@ -46,9 +52,22 @@ enum AppStrings {
         static let postStatusButtonTitle = "Post"
     }
     
+    enum Interests {
+        static let title: String = "Interests"
+    }
+    
+    enum Profile {
+        static let pleaseSignIn: String = "Please Sign in"
+    }
+
+    
     enum Shared {
         enum GeoLocationServices {
             static let failedToGetLocation = "Sorry failed to get your current location"
+        }
+        
+        enum UserDefaults: String {
+            case user
         }
     }
 }
