@@ -16,17 +16,17 @@ enum UserFailureType {
 protocol ProfilePresenter {
     var cellPresenter: CompactFeedPresenter { get }
     var numberOfStatuses: Int { get }
+    var isUserLoggedIn: Bool { get }
+    
     func getCurrentUser(completion: @escaping (UserViewModel) -> Void, failure: @escaping Completion<UserFailureType>)
     func getCurrentUser(phoneNumber: String, completion: @escaping (UserViewModel) -> Void, failure: @escaping Completion<UserFailureType>)
-    func getStatuses(completion: @escaping (Int) -> Void, failure: @escaping (UserFailureType) -> Void)
     func status(at indexPath: IndexPath) -> StatusViewModel?
     func signIn(user: User, completion: @escaping (Bool) -> Void, failure: @escaping Completion<UserFailureType>)
+    func getStatuses(completion: @escaping Completion<Int>, failure: @escaping Completion<UserFailureType>)
 }
 
 
 class ProfilePresenterImplementation: ProfilePresenter {
-    
-    
     private var viewModel: UserViewModel?
     let cellPresenter: CompactFeedPresenter
     let userInteractor: ProfileInteractor = ProfileInteractorImplementation()
@@ -36,8 +36,8 @@ class ProfilePresenterImplementation: ProfilePresenter {
         self.cellPresenter = CompactFeedPresenter()
     }
     
-    func isUserLoggedIn() -> Bool {
-        return false
+    var isUserLoggedIn: Bool {
+        userInteractor.isUserLoggedIn
     }
     
     func signIn(user: User, completion: @escaping (Bool) -> Void, failure: @escaping Completion<UserFailureType>) {
@@ -98,17 +98,15 @@ class ProfilePresenterImplementation: ProfilePresenter {
         viewModel?.statuses.count ?? 0
     }
     
-    
-    
-    func getStatuses(completion: @escaping (Int) -> Void, failure: @escaping (UserFailureType) -> Void) {
-        userInteractor.getUserStatuses { [self] response in
-            switch response {
+    func getStatuses(completion: @escaping (Int) -> Void, failure: @escaping Completion<UserFailureType>) {
+        userInteractor.getUserStatuses { [self] result in
+            switch result {
                 case .success(let statuses):
                     guard var viewModel = viewModel else {
-                        return failure(.pleaselogin(AppStrings.Profile.pleaseSignIn))
+                        failure(.pleaselogin(AppStrings.Profile.pleaseSignIn))
+                        return
                     }
                     viewModel.statuses.append(contentsOf: statuses.map(StatusViewModel.transform(from:)))
-                    completion(viewModel.statuses.count)
                 case .failure(let error):
                     failure(.generic(error.localizedDescription))
             }

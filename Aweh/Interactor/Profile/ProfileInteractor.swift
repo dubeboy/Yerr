@@ -9,15 +9,23 @@
 import Foundation
 
 protocol ProfileInteractor {
+    var isUserLoggedIn: Bool { get }
+    
     func getUserIfExists(phoneNumber: String, result: @escaping InteractorResponseClousure<User>)
     func getUserStatuses(result: @escaping InteractorResponseClousure<[Status]>)
     func signIn(user: User, result: @escaping InteractorResponseClousure<User>)
 }
 
 class ProfileInteractorImplementation: ProfileInteractor {
+   
+    
     @InjectNewInstance
     private var userRepository: UserRepository
 
+    
+    var isUserLoggedIn: Bool {
+        userRepository.isUserLoggedIn
+    }
     
     func getUserIfExists(phoneNumber: String, result: @escaping InteractorResponseClousure<User>) {
         if let currentUser = userRepository.currentUser, !userRepository.userNeedsUpdate {
@@ -41,7 +49,7 @@ class ProfileInteractorImplementation: ProfileInteractor {
         }
     }
     
-    func getUserStatuses(result:  @escaping InteractorResponseClousure<[Status]>) {
+    func getUserStatuses(result: @escaping InteractorResponseClousure<[Status]>) {
         
         guard let currentUser = userRepository.currentUser, let userId = currentUser.id else {
             return result(.failure(UserError.currentUserIdIsNil))

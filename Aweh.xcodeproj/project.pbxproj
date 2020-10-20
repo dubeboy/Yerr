@@ -646,6 +646,9 @@
 		71585EDD24A292CC00092D6E /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				71E25CA7253E95DF009CD37A /* YerrInitAcceptTcsAndCs */,
+				71E25CA3253E956D009CD37A /* YerrInitPhoneNumberInput */,
+				71E25CA2253E94B0009CD37A /* YerrInitInfoInput */,
 				71C46D9324B269BB00A9DB14 /* PickInterests */,
 				71C46D9224B269AE00A9DB14 /* Profile */,
 			);
@@ -1332,6 +1335,51 @@
 				71D7675724BF810100D9507E /* Compact */,
 			);
 			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		71E25CA2253E94B0009CD37A /* YerrInitInfoInput */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = YerrInitInfoInput;
+			sourceTree = "<group>";
+		};
+		71E25CA3253E956D009CD37A /* YerrInitPhoneNumberInput */ = {
+			isa = PBXGroup;
+			children = (
+				71E25CA6253E95A2009CD37A /* Coordinator */,
+				71E25CA5253E9593009CD37A /* Presenter */,
+				71E25CA4253E9587009CD37A /* View */,
+			);
+			path = YerrInitPhoneNumberInput;
+			sourceTree = "<group>";
+		};
+		71E25CA4253E9587009CD37A /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		71E25CA5253E9593009CD37A /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		71E25CA6253E95A2009CD37A /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		71E25CA7253E95DF009CD37A /* YerrInitAcceptTcsAndCs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = YerrInitAcceptTcsAndCs;
 			sourceTree = "<group>";
 		};
 		71E3C56C24A8A96F00ABC5B6 /* ViewModel */ = {

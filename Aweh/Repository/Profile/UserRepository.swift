@@ -15,9 +15,13 @@ struct UserRepository: NewInstanceInjectable {
     private var service: AwehService
 //    @UserDefaultsBacked(key: AppStrings.Shared.UserDefaults.user, defaultValue: nil)
     
-     var currentUser: User?
+    var currentUser: User?
 //    @UserDefaultsBacked(key: AppStrings.Shared.UserDefaults.user, defaultValue: false)
     var userNeedsUpdate: Bool = true
+    
+    var isUserLoggedIn: Bool {
+        currentUser != nil
+    }
     
     func getUserStatuses(userId: String, result: @escaping RepositoryResponseClousure<[Status]>) {
         service.$getUserStatuses(query: ["userId": userId]) { response in

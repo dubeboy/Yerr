@@ -19,7 +19,6 @@ protocol Coordinator: AnyObject {
 }
 
 // TODO:  make this an abstract class
-// TODO: This class should also hide the navigation bar if its not the main navigation
 open class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
   
     var childCoordinators = [Coordinator]()

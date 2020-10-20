@@ -20,15 +20,9 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureSelf()
         configureProfileImageView()
-        presenter.profileImage { [weak self] imageURL in
-            guard let self = self else { return }
-            
-            self.profilePictureView.downloadImage(url: imageURL)
-        }
-        
         stylePointDescriptionView()
-        navigationController?.view.backgroundColor = .red
         navigationItem.rightBarButtonItems = [
             .init(
                 title: "Interests",
@@ -44,6 +38,34 @@ class ProfileViewController: UIViewController {
         ]
         
         halfSectionView.addDividerLine(to: [.top, .bottom])
+        
+        presenter.getCurrentUser { [weak self] response in
+            guard let self = self else { return }
+            self.navigationItem.title = response.name
+            self.profilePictureView.downloadImage(url: response.profilePicture)
+            self.profilePictureView.borderColor(color: response.point.colorHex)
+        } failure: { [weak self] error in
+            switch error {
+                case UserFailureType.pleaselogin(let message):
+                    self?.presentToast(message: message)
+                    // show login screen!!!
+                case .generic(let message):
+                    self?.presentToast(message: message)
+            }
+        }
+        
+        presenter.getStatuses { [weak self] count in
+            self?.statusesCollectionView.reloadData()
+        } failure: { [weak self] error in
+            switch error {
+                case .generic(let message):
+                    self?.presentToast(message: message)
+                case .pleaselogin(let message):
+                    self?.presentToast(message: message)
+                    // Show login screen here!!!!
+            }
+        }
+
     }
      
     override func viewDidLayoutSubviews() {
@@ -81,7 +103,7 @@ extension ProfileViewController: UICollectionViewDataSource {
 // MARK: Private functions
 extension ProfileViewController {
     private func configureSelf() {
-        
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func configureProfileImageView() {
