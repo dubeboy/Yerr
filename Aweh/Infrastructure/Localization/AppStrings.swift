@@ -59,6 +59,14 @@ enum AppStrings {
     enum Profile {
         static let pleaseSignIn: String = "Please Sign in"
     }
+    
+    enum AcceptTsAndCs {
+        static let title: String = "Welcome to Yerr"
+        static let acceptTsAndCsButtonTitle: String = "Agree & Continue"
+        static let acceptTsAndC: String = #"Tap "\#(acceptTsAndCsButtonTitle)" to accept the Yerr "#
+        static let linkToTsCs: String = "Terms of Service and Privacy Policy"
+    }
+    
 
     
     enum Shared {

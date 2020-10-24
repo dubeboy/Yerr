@@ -10,6 +10,7 @@
 		0EBF8BA9F4CC0701B3038642 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC9189450DA44193028C9404 /* Localizable.strings */; };
 		5DF83BD5B5EA8261ECF1CF38 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA5487558A5C7D94A3E5D7FE /* InfoPlist.strings */; };
 		710578B824BD039B0056DBA8 /* InterestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710578B724BD039B0056DBA8 /* InterestCoordinator.swift */; };
+		7109D9AD2543BB46005579AF /* InitPhoneNumberInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9AC2543BB46005579AF /* InitPhoneNumberInput.swift */; };
 		7110882225327BB400228124 /* Collection+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7110882125327BB400228124 /* Collection+Elements.swift */; };
 		71138AA224B4F4B400AC7D1C /* GaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71138AA124B4F4B400AC7D1C /* GaugeView.swift */; };
 		71138AA424B4F64600AC7D1C /* NSObject+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71138AA324B4F64600AC7D1C /* NSObject+Elements.swift */; };
@@ -24,6 +25,9 @@
 		7119E3A024B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7119E39F24B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard */; };
 		711EADEA249DDE8600D33072 /* Date+Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711EADE9249DDE8600D33072 /* Date+Element.swift */; };
 		7121DA8D250972BF00EE21D5 /* CommentBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121DA8C250972BF00EE21D5 /* CommentBoxView.swift */; };
+		71297FDE254105D200E8440F /* InitAcceptTcsAndCsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71297FDD254105D200E8440F /* InitAcceptTcsAndCsViewController.swift */; };
+		71297FE2254105EB00E8440F /* InitAcceptTcsAndCsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71297FE1254105EB00E8440F /* InitAcceptTcsAndCsPresenter.swift */; };
+		71297FE5254105FA00E8440F /* InitAcceptTcsAndCsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71297FE4254105FA00E8440F /* InitAcceptTcsAndCsCoordinator.swift */; };
 		713549B1248BE45A0009EE6A /* UICollectionView+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */; };
 		713549B3248BE8F10009EE6A /* FeedCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713549B2248BE8F10009EE6A /* FeedCellPresenter.swift */; };
 		7137311924BF8A34001CE972 /* CompactFeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7137311824BF8A34001CE972 /* CompactFeedPresenter.swift */; };
@@ -163,6 +167,7 @@
 		04EF57C966FF289E9F3A5828 /* Pods-Aweh.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.release.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.release.xcconfig"; sourceTree = "<group>"; };
 		6CABDDE37419B79E3395D4FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		710578B724BD039B0056DBA8 /* InterestCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestCoordinator.swift; sourceTree = "<group>"; };
+		7109D9AC2543BB46005579AF /* InitPhoneNumberInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPhoneNumberInput.swift; sourceTree = "<group>"; };
 		7110882125327BB400228124 /* Collection+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Elements.swift"; sourceTree = "<group>"; };
 		71138AA124B4F4B400AC7D1C /* GaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeView.swift; sourceTree = "<group>"; };
 		71138AA324B4F64600AC7D1C /* NSObject+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Elements.swift"; sourceTree = "<group>"; };
@@ -177,6 +182,9 @@
 		7119E39F24B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickInterestCollectionViewController.storyboard; sourceTree = "<group>"; };
 		711EADE9249DDE8600D33072 /* Date+Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Element.swift"; sourceTree = "<group>"; };
 		7121DA8C250972BF00EE21D5 /* CommentBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentBoxView.swift; sourceTree = "<group>"; };
+		71297FDD254105D200E8440F /* InitAcceptTcsAndCsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitAcceptTcsAndCsViewController.swift; sourceTree = "<group>"; };
+		71297FE1254105EB00E8440F /* InitAcceptTcsAndCsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitAcceptTcsAndCsPresenter.swift; sourceTree = "<group>"; };
+		71297FE4254105FA00E8440F /* InitAcceptTcsAndCsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitAcceptTcsAndCsCoordinator.swift; sourceTree = "<group>"; };
 		713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Elements.swift"; sourceTree = "<group>"; };
 		713549B2248BE8F10009EE6A /* FeedCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCellPresenter.swift; sourceTree = "<group>"; };
 		7137311824BF8A34001CE972 /* CompactFeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactFeedPresenter.swift; sourceTree = "<group>"; };
@@ -464,6 +472,30 @@
 			path = CommentBox;
 			sourceTree = "<group>";
 		};
+		71297FDA2541057F00E8440F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				71297FDD254105D200E8440F /* InitAcceptTcsAndCsViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		71297FDB2541058500E8440F /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				71297FE1254105EB00E8440F /* InitAcceptTcsAndCsPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		71297FDC2541058C00E8440F /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				71297FE4254105FA00E8440F /* InitAcceptTcsAndCsCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		7135D15A250D7030007CEF87 /* Theme */ = {
 			isa = PBXGroup;
 			children = (
@@ -646,9 +678,9 @@
 		71585EDD24A292CC00092D6E /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				71E25CA7253E95DF009CD37A /* YerrInitAcceptTcsAndCs */,
-				71E25CA3253E956D009CD37A /* YerrInitPhoneNumberInput */,
-				71E25CA2253E94B0009CD37A /* YerrInitInfoInput */,
+				71E25CA7253E95DF009CD37A /* InitAcceptTcsAndCs */,
+				71E25CA3253E956D009CD37A /* InitPhoneNumberInput */,
+				71E25CA2253E94B0009CD37A /* InitInfoInput */,
 				71C46D9324B269BB00A9DB14 /* PickInterests */,
 				71C46D9224B269AE00A9DB14 /* Profile */,
 			);
@@ -1337,26 +1369,27 @@
 			path = CollectionView;
 			sourceTree = "<group>";
 		};
-		71E25CA2253E94B0009CD37A /* YerrInitInfoInput */ = {
+		71E25CA2253E94B0009CD37A /* InitInfoInput */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = YerrInitInfoInput;
+			path = InitInfoInput;
 			sourceTree = "<group>";
 		};
-		71E25CA3253E956D009CD37A /* YerrInitPhoneNumberInput */ = {
+		71E25CA3253E956D009CD37A /* InitPhoneNumberInput */ = {
 			isa = PBXGroup;
 			children = (
 				71E25CA6253E95A2009CD37A /* Coordinator */,
 				71E25CA5253E9593009CD37A /* Presenter */,
 				71E25CA4253E9587009CD37A /* View */,
 			);
-			path = YerrInitPhoneNumberInput;
+			path = InitPhoneNumberInput;
 			sourceTree = "<group>";
 		};
 		71E25CA4253E9587009CD37A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7109D9AC2543BB46005579AF /* InitPhoneNumberInput.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1375,11 +1408,14 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
-		71E25CA7253E95DF009CD37A /* YerrInitAcceptTcsAndCs */ = {
+		71E25CA7253E95DF009CD37A /* InitAcceptTcsAndCs */ = {
 			isa = PBXGroup;
 			children = (
+				71297FDC2541058C00E8440F /* Coordinator */,
+				71297FDB2541058500E8440F /* Presenter */,
+				71297FDA2541057F00E8440F /* View */,
 			);
-			path = YerrInitAcceptTcsAndCs;
+			path = InitAcceptTcsAndCs;
 			sourceTree = "<group>";
 		};
 		71E3C56C24A8A96F00ABC5B6 /* ViewModel */ = {
@@ -1662,6 +1698,7 @@
 				71FFED0D25324D660019BA8C /* CirclesInterator.swift in Sources */,
 				71FFECC4252FA86C0019BA8C /* UIColor+Elements.swift in Sources */,
 				71CCF0D5249AB2B30054C210 /* FeedDetailCollectionViewCell.swift in Sources */,
+				71297FE5254105FA00E8440F /* InitAcceptTcsAndCsCoordinator.swift in Sources */,
 				7155E30924BCE080006EBED8 /* MainStatusPresenter.swift in Sources */,
 				71956FAB253B598A00D59D29 /* KeychainBacked.swift in Sources */,
 				7198AC76249186BE002029CF /* PhotosCollectionViewCell.swift in Sources */,
@@ -1709,6 +1746,7 @@
 				71BBCA7324B8C5DC00044629 /* GuageViewModel.swift in Sources */,
 				718BE80B2486BA8000CA328B /* AppDelegate.swift in Sources */,
 				7157C22024886E2100F0A7F0 /* BaseRepository.swift in Sources */,
+				71297FDE254105D200E8440F /* InitAcceptTcsAndCsViewController.swift in Sources */,
 				71C46DA824B2705F00A9DB14 /* PickInterestCellPresenter.swift in Sources */,
 				7137311924BF8A34001CE972 /* CompactFeedPresenter.swift in Sources */,
 				716A0C9224A2E01A00F18ED6 /* UICollectionFlowLayout+Elements.swift in Sources */,
@@ -1756,6 +1794,7 @@
 				71FFED20253255890019BA8C /* CirclesRepository.swift in Sources */,
 				71D5B9C7251194650077DB09 /* LocationViewModel.swift in Sources */,
 				71FFECCA252FD96D0019BA8C /* SingleInterestView.swift in Sources */,
+				71297FE2254105EB00E8440F /* InitAcceptTcsAndCsPresenter.swift in Sources */,
 				B85A2BA78118ED22F3A3D94D /* DateValue.swift in Sources */,
 				B85A2D91728D4B52F08C4010 /* DefaultFalse.swift in Sources */,
 				B85A267A8160EDABE988DDAB /* ISO8601Strategy.swift in Sources */,
@@ -1773,6 +1812,7 @@
 				B85A2B30C1FA35B1BF23940C /* FeedInteractor.swift in Sources */,
 				71CAE62D253A58B500213764 /* ProfilePictureView.swift in Sources */,
 				B85A23DEFEE23F3EAC350607 /* FeedError.swift in Sources */,
+				7109D9AD2543BB46005579AF /* InitPhoneNumberInput.swift in Sources */,
 				B85A2532105E6BAE66227646 /* MediaViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
