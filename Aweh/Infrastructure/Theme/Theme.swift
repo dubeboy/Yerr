@@ -51,6 +51,13 @@ enum Const {
             static let like: UIImage? = getSystemResource(systemName: "heart")
         }
         
+        enum InitPhoneNumber {
+            static let chevronRight: UIImage? = getSystemResource(systemName: "chevron.right")
+        }
+        
+        enum InitInfoInput {
+            static let editButton: UIImage? = getSystemResource(systemName: "pencil")
+        }
     }
     
 //    enum Font {

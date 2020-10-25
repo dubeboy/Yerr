@@ -11,6 +11,12 @@
 		5DF83BD5B5EA8261ECF1CF38 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA5487558A5C7D94A3E5D7FE /* InfoPlist.strings */; };
 		710578B824BD039B0056DBA8 /* InterestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710578B724BD039B0056DBA8 /* InterestCoordinator.swift */; };
 		7109D9AD2543BB46005579AF /* InitPhoneNumberInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9AC2543BB46005579AF /* InitPhoneNumberInput.swift */; };
+		7109D9B02543C4D0005579AF /* InitPhoneNumberInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9AF2543C4D0005579AF /* InitPhoneNumberInputPresenter.swift */; };
+		7109D9B72543D68B005579AF /* InfoInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9B62543D68B005579AF /* InfoInputViewController.swift */; };
+		7109D9BB2543D6A5005579AF /* InfoInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9BA2543D6A5005579AF /* InfoInputPresenter.swift */; };
+		7109D9BE2543D6B3005579AF /* InfoInputCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9BD2543D6B3005579AF /* InfoInputCoordinator.swift */; };
+		7109D9C62543F1DC005579AF /* InitPhoneNumberVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9C52543F1DC005579AF /* InitPhoneNumberVerificationViewController.swift */; };
+		7109D9C92545E2BB005579AF /* InitPhoneNumberVerificationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9C82545E2BB005579AF /* InitPhoneNumberVerificationPresenter.swift */; };
 		7110882225327BB400228124 /* Collection+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7110882125327BB400228124 /* Collection+Elements.swift */; };
 		71138AA224B4F4B400AC7D1C /* GaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71138AA124B4F4B400AC7D1C /* GaugeView.swift */; };
 		71138AA424B4F64600AC7D1C /* NSObject+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71138AA324B4F64600AC7D1C /* NSObject+Elements.swift */; };
@@ -168,6 +174,12 @@
 		6CABDDE37419B79E3395D4FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		710578B724BD039B0056DBA8 /* InterestCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestCoordinator.swift; sourceTree = "<group>"; };
 		7109D9AC2543BB46005579AF /* InitPhoneNumberInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPhoneNumberInput.swift; sourceTree = "<group>"; };
+		7109D9AF2543C4D0005579AF /* InitPhoneNumberInputPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPhoneNumberInputPresenter.swift; sourceTree = "<group>"; };
+		7109D9B62543D68B005579AF /* InfoInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoInputViewController.swift; sourceTree = "<group>"; };
+		7109D9BA2543D6A5005579AF /* InfoInputPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoInputPresenter.swift; sourceTree = "<group>"; };
+		7109D9BD2543D6B3005579AF /* InfoInputCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoInputCoordinator.swift; sourceTree = "<group>"; };
+		7109D9C52543F1DC005579AF /* InitPhoneNumberVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPhoneNumberVerificationViewController.swift; sourceTree = "<group>"; };
+		7109D9C82545E2BB005579AF /* InitPhoneNumberVerificationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPhoneNumberVerificationPresenter.swift; sourceTree = "<group>"; };
 		7110882125327BB400228124 /* Collection+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Elements.swift"; sourceTree = "<group>"; };
 		71138AA124B4F4B400AC7D1C /* GaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeView.swift; sourceTree = "<group>"; };
 		71138AA324B4F64600AC7D1C /* NSObject+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Elements.swift"; sourceTree = "<group>"; };
@@ -359,6 +371,74 @@
 				710578B724BD039B0056DBA8 /* InterestCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		7109D9B22543D66B005579AF /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				7109D9BD2543D6B3005579AF /* InfoInputCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		7109D9B32543D672005579AF /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				7109D9BA2543D6A5005579AF /* InfoInputPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		7109D9B42543D677005579AF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7109D9B62543D68B005579AF /* InfoInputViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7109D9C02543EE43005579AF /* InitPhoneNumberVerificationCode */ = {
+			isa = PBXGroup;
+			children = (
+				7109D9C42543F09F005579AF /* Presenter */,
+				7109D9C32543F097005579AF /* Coordinator */,
+				7109D9C22543F08E005579AF /* View */,
+			);
+			path = InitPhoneNumberVerificationCode;
+			sourceTree = "<group>";
+		};
+		7109D9C12543EE83005579AF /* Init */ = {
+			isa = PBXGroup;
+			children = (
+				7109D9C02543EE43005579AF /* InitPhoneNumberVerificationCode */,
+				71E25CA7253E95DF009CD37A /* InitAcceptTcsAndCs */,
+				71E25CA3253E956D009CD37A /* InitPhoneNumberInput */,
+				71E25CA2253E94B0009CD37A /* InitInfoInput */,
+			);
+			path = Init;
+			sourceTree = "<group>";
+		};
+		7109D9C22543F08E005579AF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7109D9C52543F1DC005579AF /* InitPhoneNumberVerificationViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7109D9C32543F097005579AF /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		7109D9C42543F09F005579AF /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				7109D9C82545E2BB005579AF /* InitPhoneNumberVerificationPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		71138AA024B4F3B400AC7D1C /* Widget */ = {
@@ -625,6 +705,7 @@
 		7157C22E24886FAE00F0A7F0 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				7109D9C12543EE83005579AF /* Init */,
 				71585EDD24A292CC00092D6E /* Profile */,
 				71585EDC24A292BD00092D6E /* Status */,
 				71585EDB24A2929900092D6E /* Home */,
@@ -678,9 +759,6 @@
 		71585EDD24A292CC00092D6E /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				71E25CA7253E95DF009CD37A /* InitAcceptTcsAndCs */,
-				71E25CA3253E956D009CD37A /* InitPhoneNumberInput */,
-				71E25CA2253E94B0009CD37A /* InitInfoInput */,
 				71C46D9324B269BB00A9DB14 /* PickInterests */,
 				71C46D9224B269AE00A9DB14 /* Profile */,
 			);
@@ -1372,6 +1450,9 @@
 		71E25CA2253E94B0009CD37A /* InitInfoInput */ = {
 			isa = PBXGroup;
 			children = (
+				7109D9B42543D677005579AF /* View */,
+				7109D9B32543D672005579AF /* Presenter */,
+				7109D9B22543D66B005579AF /* Coordinator */,
 			);
 			path = InitInfoInput;
 			sourceTree = "<group>";
@@ -1397,6 +1478,7 @@
 		71E25CA5253E9593009CD37A /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				7109D9AF2543C4D0005579AF /* InitPhoneNumberInputPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -1680,6 +1762,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7109D9C62543F1DC005579AF /* InitPhoneNumberVerificationViewController.swift in Sources */,
 				71585EE624A2936600092D6E /* StatusPageViewController.swift in Sources */,
 				7155E31324BCE726006EBED8 /* BasePagePresenter.swift in Sources */,
 				7157C21D24886DB400F0A7F0 /* StatusRepository.swift in Sources */,
@@ -1705,6 +1788,7 @@
 				716DA6CE248EE57D001B74E2 /* MainCoordinator.swift in Sources */,
 				7170E9FE2495EB7D00B1D15F /* AssetDetailCoordinator.swift in Sources */,
 				7162C60B24884BAB002D8ED4 /* FeedPresenter.swift in Sources */,
+				7109D9BE2543D6B3005579AF /* InfoInputCoordinator.swift in Sources */,
 				7162C60D24884BBB002D8ED4 /* StatusViewModel.swift in Sources */,
 				7169A9E524C3B228005B05BE /* UIImageView+Elements.swift in Sources */,
 				71ADA97B25180B92005FF2BF /* VoteEntity.swift in Sources */,
@@ -1715,6 +1799,7 @@
 				71FFED15253251610019BA8C /* InteractorResponseClousure.swift in Sources */,
 				7170EA002495EB9C00B1D15F /* AssetDetailViewController.swift in Sources */,
 				716A0C8124A2BE5300F18ED6 /* InterestsViewController.swift in Sources */,
+				7109D9B02543C4D0005579AF /* InitPhoneNumberInputPresenter.swift in Sources */,
 				71ADA97F25180CBC005FF2BF /* UserEntityId.swift in Sources */,
 				713549B1248BE45A0009EE6A /* UICollectionView+Elements.swift in Sources */,
 				716DA6C4248D7E69001B74E2 /* PostStatusPresenter.swift in Sources */,
@@ -1733,6 +1818,7 @@
 				71FFECC1252F90B20019BA8C /* InterestsContainerView.swift in Sources */,
 				7116C11C24A2B13400749620 /* StatusIndicator.swift in Sources */,
 				7198AC8124918BBD002029CF /* PhotosCollectionViewController.swift in Sources */,
+				7109D9B72543D68B005579AF /* InfoInputViewController.swift in Sources */,
 				71ADA9782517D4BF005FF2BF /* YerrButton.swift in Sources */,
 				71D6BAE12495737100F4B5D8 /* AssetsHorizontalListView.swift in Sources */,
 				71FBCF2C2512B9A100FC7557 /* CircleProgressIndicatorView.swift in Sources */,
@@ -1767,6 +1853,7 @@
 				71138AA824B4FA4600AC7D1C /* BorderLayer.swift in Sources */,
 				71138AAB24B519AC00AC7D1C /* LateInit.swift in Sources */,
 				71777B6D24C664D10075F4F7 /* AppStrings.swift in Sources */,
+				7109D9C92545E2BB005579AF /* InitPhoneNumberVerificationPresenter.swift in Sources */,
 				716A0C8924A2D66700F18ED6 /* InterestsCollectionViewCell.swift in Sources */,
 				716A0C9624A2E9C800F18ED6 /* StatusPageCoordinator.swift in Sources */,
 				7157C2322488761900F0A7F0 /* SimpleDependencyInjector.swift in Sources */,
@@ -1781,6 +1868,7 @@
 				7121DA8D250972BF00EE21D5 /* CommentBoxView.swift in Sources */,
 				71D5B9C5251193D20077DB09 /* GeoLocationServices.swift in Sources */,
 				715A0DFC24A88F6900030458 /* UserViewModel.swift in Sources */,
+				7109D9BB2543D6A5005579AF /* InfoInputPresenter.swift in Sources */,
 				7155E30B24BCE126006EBED8 /* MainStatusViewModel.swift in Sources */,
 				7159B44825094F5C000FA1B1 /* FeedDetailRepository.swift in Sources */,
 				7157C22524886EB300F0A7F0 /* AwehService.swift in Sources */,

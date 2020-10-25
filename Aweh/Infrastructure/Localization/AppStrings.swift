@@ -9,6 +9,9 @@
 import Foundation
 
 // Should localize these strings in the future
+// Afrikaans
+// Zulu
+
 
 enum AppStrings {
     enum Error {
@@ -66,8 +69,23 @@ enum AppStrings {
         static let acceptTsAndC: String = #"Tap "\#(acceptTsAndCsButtonTitle)" to accept the Yerr "#
         static let linkToTsCs: String = "Terms of Service and Privacy Policy"
     }
-    
 
+    enum InitPhoneNumberInput {
+        static let confirmPhoneNumberText = "Please confirm you country code and enter your phone number"
+        static let phoneNumberPlaceholderText = "Your phone number"
+        static let title = "Your phone number"
+    }
+    
+    enum InfoInput {
+        static let namePlaceHolder = "Your Name"
+        static let handlePlaceHolder = "Your Handle"
+        static let title = "Complete Your Profile"
+    }
+    
+    enum OTP {
+        static let headerText = "We have sent you an SMS with a code to the number above. \n To Complete your phone number verification, please enter the 6-digit activation code."
+
+    }
     
     enum Shared {
         enum GeoLocationServices {
