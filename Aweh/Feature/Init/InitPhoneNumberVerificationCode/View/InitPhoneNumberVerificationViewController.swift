@@ -8,11 +8,14 @@
 
 import UIKit
 
+// TODO: put this inside a UIScrollView
 class InitPhoneNumberVerificationViewController: UIViewController {
     
     var otpPinCode: UITextField = UITextField()
     var headerExplainerTextLabel: UILabel = UILabel()
     var continueButton = UIButton()
+    var resendButton = UIButton()
+    var actionButtonStackView = UIStackView()
     
     let spacing = 30
     let placeHolderText = "-"
@@ -25,6 +28,7 @@ class InitPhoneNumberVerificationViewController: UIViewController {
         configureSelf()
         configureHeaderExplainerTextLabel()
         configureOtpPinCodetextField()
+        configureActionButtons()
     }
     
 }
@@ -58,6 +62,24 @@ extension InitPhoneNumberVerificationViewController {
         otpPinCode.trailingAnchor --> view.trailingAnchor
         otpPinCode.topAnchor --> headerExplainerTextLabel.bottomAnchor
         otpPinCode.addDividerLine(to: [.bottom])
+    }
+    
+    private func configureActionButtons() {
+        resendButton.autoresizingOff()
+        continueButton.autoresizingOff()
+        resendButton.setTitle(presenter.resendButtonTitle, for: .normal)
+        continueButton.setTitle(presenter.continueButtonTitle, for: .normal)
+        
+        actionButtonStackView.autoresizingOff()
+        actionButtonStackView.alignment = .center
+        actionButtonStackView.distribution = .fillEqually
+        actionButtonStackView.axis = .vertical
+        actionButtonStackView.addArrangedSubview(resendButton)
+        actionButtonStackView.addArrangedSubview(continueButton)
+        view.addSubview(actionButtonStackView)
+        actionButtonStackView.leadingAnchor --> view.leadingAnchor
+        actionButtonStackView.trailingAnchor --> view.trailingAnchor
+        actionButtonStackView.topAnchor --> otpPinCode.bottomAnchor
     }
 
     
