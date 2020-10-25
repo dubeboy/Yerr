@@ -9,11 +9,11 @@
 import UIKit
 
 class InfoInput: UIViewController {
-    var userProfileImageView: UIImageView = UIImageView()
-    var nameTextField = UITextField()
-    var handleField = UITextField()
-    var nameHandleStackView = UIStackView()
-    var editButton = YerrButton(frame: .zero)
+    private var userProfileImageView: UIImageView = UIImageView()
+    private var nameTextField = UITextField()
+    private var handleField = UITextField()
+    private var nameHandleStackView = UIStackView()
+    private var editProfileImageButton = YerrButton(frame: .zero)
     
     var presenter: InfoInputPresenter!
     
@@ -22,6 +22,8 @@ class InfoInput: UIViewController {
         title = presenter.title
         configureSelf()
         configurenameHandleStackView()
+        
+        // add a close UIBarItem here
     }
 }
 
@@ -33,11 +35,11 @@ extension InfoInput {
         userProfileImageView.widthAnchor --> 150
         userProfileImageView.heightAnchor --> 150
         userProfileImageView.topAnchor --> view.topAnchor + Const.View.m16
-        editButton.autoresizingOff()
-        userProfileImageView.addSubview(editButton)
-        editButton --> userProfileImageView
-        editButton.setImage(Const.Assets.InitInfoInput.editButton, for: .normal)
-        editButton.backgroundColor = Const.Color.lightGray
+        editProfileImageButton.autoresizingOff()
+        userProfileImageView.addSubview(editProfileImageButton)
+        editProfileImageButton --> userProfileImageView
+        editProfileImageButton.setImage(Const.Assets.InitInfoInput.editButton, for: .normal)
+        editProfileImageButton.backgroundColor = Const.Color.lightGray
     }
     
     private func configurenameHandleStackView() {

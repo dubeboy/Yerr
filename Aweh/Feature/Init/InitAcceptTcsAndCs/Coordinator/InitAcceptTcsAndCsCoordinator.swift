@@ -7,3 +7,25 @@
 //
 
 import Foundation
+
+protocol InitAcceptTcsAndCsCoordinator {
+    func createAcceptTermsAndConditionsViewController() -> InitAcceptTcsAndCsViewController
+    func startAcceptTermsAndConditionsViewController()
+}
+
+extension InitScreensCoordinator: InitAcceptTcsAndCsCoordinator  {
+    func startAcceptTermsAndConditionsViewController() {
+        let viewController = createAcceptTermsAndConditionsViewController()
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func createAcceptTermsAndConditionsViewController() -> InitAcceptTcsAndCsViewController  {
+        navigationController.delegate = self
+        let mainViewController = InitAcceptTcsAndCsViewController()
+        mainViewController.coordinator = self
+        mainViewController.presenter = InitAcceptTcsAndCsPresenterImplemetation()
+        return mainViewController
+    }
+    
+    
+}

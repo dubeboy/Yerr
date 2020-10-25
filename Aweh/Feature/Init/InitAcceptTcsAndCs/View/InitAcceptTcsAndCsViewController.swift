@@ -17,6 +17,7 @@ class InitAcceptTcsAndCsViewController: UIViewController {
     var welcomeTitle: UILabel = UILabel()
     
     var presenter: InitAcceptTcsAndCsPresenter!
+    var coordinator: InitScreensCoordinator!
     
     override func viewDidLoad() {
         super.viewDidLoad()

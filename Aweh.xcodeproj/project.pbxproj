@@ -34,6 +34,7 @@
 		71297FDE254105D200E8440F /* InitAcceptTcsAndCsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71297FDD254105D200E8440F /* InitAcceptTcsAndCsViewController.swift */; };
 		71297FE2254105EB00E8440F /* InitAcceptTcsAndCsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71297FE1254105EB00E8440F /* InitAcceptTcsAndCsPresenter.swift */; };
 		71297FE5254105FA00E8440F /* InitAcceptTcsAndCsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71297FE4254105FA00E8440F /* InitAcceptTcsAndCsCoordinator.swift */; };
+		712FC38F2545F70E00B7D7D4 /* InitPhoneNumberVerficationCodeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712FC38E2545F70E00B7D7D4 /* InitPhoneNumberVerficationCodeCoordinator.swift */; };
 		713549B1248BE45A0009EE6A /* UICollectionView+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */; };
 		713549B3248BE8F10009EE6A /* FeedCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713549B2248BE8F10009EE6A /* FeedCellPresenter.swift */; };
 		7137311924BF8A34001CE972 /* CompactFeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7137311824BF8A34001CE972 /* CompactFeedPresenter.swift */; };
@@ -197,6 +198,7 @@
 		71297FDD254105D200E8440F /* InitAcceptTcsAndCsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitAcceptTcsAndCsViewController.swift; sourceTree = "<group>"; };
 		71297FE1254105EB00E8440F /* InitAcceptTcsAndCsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitAcceptTcsAndCsPresenter.swift; sourceTree = "<group>"; };
 		71297FE4254105FA00E8440F /* InitAcceptTcsAndCsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitAcceptTcsAndCsCoordinator.swift; sourceTree = "<group>"; };
+		712FC38E2545F70E00B7D7D4 /* InitPhoneNumberVerficationCodeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPhoneNumberVerficationCodeCoordinator.swift; sourceTree = "<group>"; };
 		713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Elements.swift"; sourceTree = "<group>"; };
 		713549B2248BE8F10009EE6A /* FeedCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCellPresenter.swift; sourceTree = "<group>"; };
 		7137311824BF8A34001CE972 /* CompactFeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactFeedPresenter.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 		7109D9C32543F097005579AF /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				712FC38E2545F70E00B7D7D4 /* InitPhoneNumberVerficationCodeCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -1877,6 +1880,7 @@
 				718BE80D2486BA8000CA328B /* SceneDelegate.swift in Sources */,
 				716DA6CB248EE4D2001B74E2 /* UIViewController+Elements.swift in Sources */,
 				7159B44425094D5E000FA1B1 /* FeedDetailInterator.swift in Sources */,
+				712FC38F2545F70E00B7D7D4 /* InitPhoneNumberVerficationCodeCoordinator.swift in Sources */,
 				B85A284F72F811F9B86C14B1 /* DefaultCodable.swift in Sources */,
 				B85A26A5C64FE47673385025 /* LossyArray.swift in Sources */,
 				71FFED20253255890019BA8C /* CirclesRepository.swift in Sources */,

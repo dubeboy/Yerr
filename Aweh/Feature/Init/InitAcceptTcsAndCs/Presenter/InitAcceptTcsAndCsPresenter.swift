@@ -21,5 +21,4 @@ class InitAcceptTcsAndCsPresenterImplemetation: InitAcceptTcsAndCsPresenter {
     let acceptTsAndCButtonTitle = AppStrings.AcceptTsAndCs.acceptTsAndCsButtonTitle
     let linkToTsCs = AppStrings.AcceptTsAndCs.linkToTsCs
     let welcomeTitle = AppStrings.AcceptTsAndCs.title
-
 }

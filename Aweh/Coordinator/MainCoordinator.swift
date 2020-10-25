@@ -18,7 +18,7 @@ protocol Coordinator: AnyObject {
     func dismiss()
 }
 
-// TODO:  make this an abstract class
+// TODO: make this an abstract class
 open class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
   
     var childCoordinators = [Coordinator]()
@@ -35,7 +35,7 @@ open class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegat
     func start() -> Self {
         self
     }
-    
+
     func childDidFinish(child: Coordinator?) {
         for (index, coordinator) in childCoordinators.enumerated() {
             if coordinator === child {
@@ -75,6 +75,13 @@ class HomeCoordinator: MainCoordinator {
         startFeedViewController()
         return self
     }    
+}
+
+class InitScreensCoordinator: MainCoordinator {
+    override func start() -> Self {
+       
+       return self
+    }
 }
 
 class StatusCoordinator: MainCoordinator {

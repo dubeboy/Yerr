@@ -17,10 +17,12 @@ class InitPhoneNumberVerificationViewController: UIViewController {
     var resendButton = UIButton()
     var actionButtonStackView = UIStackView()
     
+    
     let spacing = 30
     let placeHolderText = "-"
     let count = 6
     
+    var coordinator: InitScreensCoordinator!
     var presenter: InitPhoneNumberVerificationPresenter!
     
     override func viewDidLoad() {
