@@ -10,7 +10,7 @@
 		0EBF8BA9F4CC0701B3038642 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC9189450DA44193028C9404 /* Localizable.strings */; };
 		5DF83BD5B5EA8261ECF1CF38 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA5487558A5C7D94A3E5D7FE /* InfoPlist.strings */; };
 		710578B824BD039B0056DBA8 /* InterestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710578B724BD039B0056DBA8 /* InterestCoordinator.swift */; };
-		7109D9AD2543BB46005579AF /* InitPhoneNumberInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9AC2543BB46005579AF /* InitPhoneNumberInput.swift */; };
+		7109D9AD2543BB46005579AF /* InitPhoneNumberInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9AC2543BB46005579AF /* InitPhoneNumberInputViewController.swift */; };
 		7109D9B02543C4D0005579AF /* InitPhoneNumberInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9AF2543C4D0005579AF /* InitPhoneNumberInputPresenter.swift */; };
 		7109D9B72543D68B005579AF /* InfoInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9B62543D68B005579AF /* InfoInputViewController.swift */; };
 		7109D9BB2543D6A5005579AF /* InfoInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9BA2543D6A5005579AF /* InfoInputPresenter.swift */; };
@@ -134,6 +134,8 @@
 		71D7674D24BF587600D9507E /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7674C24BF587600D9507E /* FeedCoordinator.swift */; };
 		71D7675424BF808300D9507E /* CompactFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7675224BF808300D9507E /* CompactFeedCollectionViewCell.swift */; };
 		71D7675524BF808300D9507E /* CompactFeedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71D7675324BF808300D9507E /* CompactFeedCollectionViewCell.xib */; };
+		71E0C5B025487BFB00B69FB9 /* InitPhoneNumberCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E0C5AF25487BFB00B69FB9 /* InitPhoneNumberCoordinator.swift */; };
+		71E0E744254DE3270040930C /* OPTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E0E743254DE3270040930C /* OPTView.swift */; };
 		71ECFDFB2487187000943917 /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ECFDF92487187000943917 /* FeedCollectionViewCell.swift */; };
 		71ECFDFC2487187000943917 /* FeedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71ECFDFA2487187000943917 /* FeedCollectionViewCell.xib */; };
 		71EECE8F249324A900902181 /* PhotosGalleryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EECE8E249324A900902181 /* PhotosGalleryCoordinator.swift */; };
@@ -174,7 +176,7 @@
 		04EF57C966FF289E9F3A5828 /* Pods-Aweh.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.release.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.release.xcconfig"; sourceTree = "<group>"; };
 		6CABDDE37419B79E3395D4FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		710578B724BD039B0056DBA8 /* InterestCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestCoordinator.swift; sourceTree = "<group>"; };
-		7109D9AC2543BB46005579AF /* InitPhoneNumberInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPhoneNumberInput.swift; sourceTree = "<group>"; };
+		7109D9AC2543BB46005579AF /* InitPhoneNumberInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPhoneNumberInputViewController.swift; sourceTree = "<group>"; };
 		7109D9AF2543C4D0005579AF /* InitPhoneNumberInputPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPhoneNumberInputPresenter.swift; sourceTree = "<group>"; };
 		7109D9B62543D68B005579AF /* InfoInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoInputViewController.swift; sourceTree = "<group>"; };
 		7109D9BA2543D6A5005579AF /* InfoInputPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoInputPresenter.swift; sourceTree = "<group>"; };
@@ -301,6 +303,8 @@
 		71D7674C24BF587600D9507E /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
 		71D7675224BF808300D9507E /* CompactFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactFeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		71D7675324BF808300D9507E /* CompactFeedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompactFeedCollectionViewCell.xib; sourceTree = "<group>"; };
+		71E0C5AF25487BFB00B69FB9 /* InitPhoneNumberCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPhoneNumberCoordinator.swift; sourceTree = "<group>"; };
+		71E0E743254DE3270040930C /* OPTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPTView.swift; sourceTree = "<group>"; };
 		71ECFDF92487187000943917 /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		71ECFDFA2487187000943917 /* FeedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedCollectionViewCell.xib; sourceTree = "<group>"; };
 		71EECE8E249324A900902181 /* PhotosGalleryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosGalleryCoordinator.swift; sourceTree = "<group>"; };
@@ -423,6 +427,7 @@
 		7109D9C22543F08E005579AF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				71E0E742254DE3150040930C /* Widget */,
 				7109D9C52543F1DC005579AF /* InitPhoneNumberVerificationViewController.swift */,
 			);
 			path = View;
@@ -1450,6 +1455,14 @@
 			path = CollectionView;
 			sourceTree = "<group>";
 		};
+		71E0E742254DE3150040930C /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				71E0E743254DE3270040930C /* OPTView.swift */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
 		71E25CA2253E94B0009CD37A /* InitInfoInput */ = {
 			isa = PBXGroup;
 			children = (
@@ -1473,7 +1486,7 @@
 		71E25CA4253E9587009CD37A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7109D9AC2543BB46005579AF /* InitPhoneNumberInput.swift */,
+				7109D9AC2543BB46005579AF /* InitPhoneNumberInputViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1489,6 +1502,7 @@
 		71E25CA6253E95A2009CD37A /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				71E0C5AF25487BFB00B69FB9 /* InitPhoneNumberCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -1787,6 +1801,7 @@
 				71297FE5254105FA00E8440F /* InitAcceptTcsAndCsCoordinator.swift in Sources */,
 				7155E30924BCE080006EBED8 /* MainStatusPresenter.swift in Sources */,
 				71956FAB253B598A00D59D29 /* KeychainBacked.swift in Sources */,
+				71E0C5B025487BFB00B69FB9 /* InitPhoneNumberCoordinator.swift in Sources */,
 				7198AC76249186BE002029CF /* PhotosCollectionViewCell.swift in Sources */,
 				716DA6CE248EE57D001B74E2 /* MainCoordinator.swift in Sources */,
 				7170E9FE2495EB7D00B1D15F /* AssetDetailCoordinator.swift in Sources */,
@@ -1902,9 +1917,10 @@
 				B85A27C138A8C4738AEE9B58 /* Interest.swift in Sources */,
 				7175E7122516C40C0073AC47 /* TextViewDelegate.swift in Sources */,
 				B85A2B30C1FA35B1BF23940C /* FeedInteractor.swift in Sources */,
+				71E0E744254DE3270040930C /* OPTView.swift in Sources */,
 				71CAE62D253A58B500213764 /* ProfilePictureView.swift in Sources */,
 				B85A23DEFEE23F3EAC350607 /* FeedError.swift in Sources */,
-				7109D9AD2543BB46005579AF /* InitPhoneNumberInput.swift in Sources */,
+				7109D9AD2543BB46005579AF /* InitPhoneNumberInputViewController.swift in Sources */,
 				B85A2532105E6BAE66227646 /* MediaViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,12 +8,14 @@
 
 import UIKit
 
-class InfoInput: UIViewController {
+class InfoInputViewController: UIViewController {
     private var userProfileImageView: UIImageView = UIImageView()
     private var nameTextField = UITextField()
     private var handleField = UITextField()
     private var nameHandleStackView = UIStackView()
     private var editProfileImageButton = YerrButton(frame: .zero)
+    
+    var coordinator: InitScreensCoordinator!
     
     var presenter: InfoInputPresenter!
     
@@ -27,7 +29,7 @@ class InfoInput: UIViewController {
     }
 }
 
-extension InfoInput {
+extension InfoInputViewController {
     private func configureSelf() {
         userProfileImageView.autoresizingOff()
         view.addSubview(userProfileImageView)

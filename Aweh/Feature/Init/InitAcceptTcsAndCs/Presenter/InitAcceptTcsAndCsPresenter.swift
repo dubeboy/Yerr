@@ -13,12 +13,15 @@ protocol InitAcceptTcsAndCsPresenter {
     var linkToTsCs: String { get }
     var acceptTsAndCButtonTitle: String { get }
     var welcomeTitle: String { get }
-
+    var title: String { get }
 }
 
 class InitAcceptTcsAndCsPresenterImplemetation: InitAcceptTcsAndCsPresenter {
+    var title: String =  AppStrings.AcceptTsAndCs.title
+    
     let acceptTsText = AppStrings.AcceptTsAndCs.acceptTsAndC
     let acceptTsAndCButtonTitle = AppStrings.AcceptTsAndCs.acceptTsAndCsButtonTitle
     let linkToTsCs = AppStrings.AcceptTsAndCs.linkToTsCs
     let welcomeTitle = AppStrings.AcceptTsAndCs.title
+    
 }

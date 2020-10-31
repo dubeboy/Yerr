@@ -14,12 +14,7 @@ protocol InitAcceptTcsAndCsCoordinator {
 }
 
 extension InitScreensCoordinator: InitAcceptTcsAndCsCoordinator  {
-    func startAcceptTermsAndConditionsViewController() {
-        let viewController = createAcceptTermsAndConditionsViewController()
-        navigationController.pushViewController(viewController, animated: true)
-    }
-    
-    func createAcceptTermsAndConditionsViewController() -> InitAcceptTcsAndCsViewController  {
+    func createAcceptTermsAndConditionsViewController() -> InitAcceptTcsAndCsViewController {
         navigationController.delegate = self
         let mainViewController = InitAcceptTcsAndCsViewController()
         mainViewController.coordinator = self
@@ -27,5 +22,9 @@ extension InitScreensCoordinator: InitAcceptTcsAndCsCoordinator  {
         return mainViewController
     }
     
-    
+    func startAcceptTermsAndConditionsViewController() {
+        let viewController = createAcceptTermsAndConditionsViewController()
+        navigationController.pushViewController(viewController, animated: true)
+    }
 }
+

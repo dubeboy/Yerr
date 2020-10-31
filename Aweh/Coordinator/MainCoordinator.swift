@@ -78,8 +78,21 @@ class HomeCoordinator: MainCoordinator {
 }
 
 class InitScreensCoordinator: MainCoordinator {
+    
+    @UserDefaultsBacked(key: .currentViewController, defaultValue: 0)
+    var lastViewController: Int
+    
     override func start() -> Self {
-       
+        switch lastViewController {
+            case 0:
+                startAcceptTermsAndConditionsViewController()
+            case 1:
+                startInitPhoneNumberCoordinatorViewController()
+            case 2:
+                startInfoInputViewController()
+            default:
+                startAcceptTermsAndConditionsViewController()
+        }
        return self
     }
 }

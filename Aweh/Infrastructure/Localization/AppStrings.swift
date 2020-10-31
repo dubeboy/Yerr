@@ -74,6 +74,7 @@ enum AppStrings {
         static let confirmPhoneNumberText = "Please confirm you country code and enter your phone number"
         static let phoneNumberPlaceholderText = "Your phone number"
         static let title = "Your phone number"
+        static let doneBarButton = "Done"
     }
     
     enum InfoInput {
@@ -83,7 +84,7 @@ enum AppStrings {
     }
     
     enum OTP {
-        static let headerText = "We have sent you an SMS with a code to the number above. \n To Complete your phone number verification, please enter the 6-digit activation code."
+        static let headerText = "We have sent you an SMS with a code to the number above. \n\nTo Complete your phone number verification, please enter the 6-digit activation code."
         static let resend = "Resend"
         
         static let continueTitle = "Continue"
@@ -96,6 +97,8 @@ enum AppStrings {
         
         enum UserDefaults: String {
             case user
+            case currentViewController
+            case didFinishLauching
         }
     }
 }

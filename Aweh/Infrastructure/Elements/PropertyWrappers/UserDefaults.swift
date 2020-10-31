@@ -25,6 +25,7 @@ extension Optional: AnyOptional {
     var isNil: Bool { self == nil }
 }
 
+@propertyWrapper
 struct UserDefaultsBacked<T> {
     let key: AppStrings.Shared.UserDefaults
     let defaultValue: T
@@ -43,6 +44,8 @@ struct UserDefaultsBacked<T> {
             }
         }
     }
+    
+    
 }
 
 extension UserDefaultsBacked where T: ExpressibleByNilLiteral {

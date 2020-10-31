@@ -7,3 +7,24 @@
 //
 
 import Foundation
+
+protocol InfoInputCoordinator {
+    func createInfoInputViewController() -> InfoInputViewController
+    func startInfoInputViewController()
+}
+
+extension InitScreensCoordinator: InfoInputCoordinator  {
+    func createInfoInputViewController() -> InfoInputViewController {
+        navigationController.delegate = self
+        let mainViewController = InfoInputViewController()
+        mainViewController.coordinator = self
+        mainViewController.presenter = InfoInputPresenterImplementation()
+        return mainViewController
+    }
+    
+    func startInfoInputViewController() {
+        let viewController = createAcceptTermsAndConditionsViewController()
+        navigationController.pushViewController(viewController, animated: true)
+    }
+}
+

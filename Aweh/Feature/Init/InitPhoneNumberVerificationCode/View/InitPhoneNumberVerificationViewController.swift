@@ -8,17 +8,18 @@
 
 import UIKit
 
+
 // TODO: put this inside a UIScrollView
 class InitPhoneNumberVerificationViewController: UIViewController {
     
-    var otpPinCode: UITextField = UITextField()
+    var otpView = OTPView()
+    
     var headerExplainerTextLabel: UILabel = UILabel()
-    var continueButton = UIButton()
-    var resendButton = UIButton()
+    var continueButton = YerrButton()
+    var resendButton = YerrButton()
     var actionButtonStackView = UIStackView()
     
-    
-    let spacing = 30
+    let spacing = 10
     let placeHolderText = "-"
     let count = 6
     
@@ -27,9 +28,10 @@ class InitPhoneNumberVerificationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         configureSelf()
         configureHeaderExplainerTextLabel()
-        configureOtpPinCodetextField()
+        configureOTPView()
         configureActionButtons()
     }
     
@@ -44,26 +46,24 @@ extension InitPhoneNumberVerificationViewController {
     private func configureHeaderExplainerTextLabel() {
         headerExplainerTextLabel.textAlignment = .center
         headerExplainerTextLabel.text = presenter.headerText
+        headerExplainerTextLabel.numberOfLines = 0
+        headerExplainerTextLabel.lineBreakMode = .byWordWrapping
         headerExplainerTextLabel.autoresizingOff()
         view.addSubview(headerExplainerTextLabel)
-        headerExplainerTextLabel.topAnchor --> view.topAnchor
-        headerExplainerTextLabel.leadingAnchor --> view.leadingAnchor
-        headerExplainerTextLabel.trailingAnchor --> view.trailingAnchor
-        headerExplainerTextLabel.addDividerLine(to: [.bottom])
+        headerExplainerTextLabel.topAnchor --> view.safeAreaLayoutGuide.topAnchor + Const.View.m16
+        headerExplainerTextLabel.leadingAnchor --> view.leadingAnchor + Const.View.m16
+        headerExplainerTextLabel.trailingAnchor --> view.trailingAnchor + -Const.View.m16
     }
     
-    private func configureOtpPinCodetextField() {
-        otpPinCode.textAlignment = .center
-        otpPinCode.textContentType = .oneTimeCode
-        let spacingAttribues: [NSAttributedString.Key: Any] = [.kern: spacing]
-        let mutableAttributedString = NSAttributedString(string: createPlaceHolderText(), attributes: spacingAttribues)
-        otpPinCode.attributedText = mutableAttributedString
-        otpPinCode.autoresizingOff()
-        view.addSubview(otpPinCode)
-        otpPinCode.leadingAnchor --> view.leadingAnchor
-        otpPinCode.trailingAnchor --> view.trailingAnchor
-        otpPinCode.topAnchor --> headerExplainerTextLabel.bottomAnchor
-        otpPinCode.addDividerLine(to: [.bottom])
+    private func configureOTPView() {
+        otpView.autoresizingOff()
+
+        view.addSubview(otpView)
+//        otpView.leadingAnchor --> view.leadingAnchor
+//        otpView.trailingAnchor --> view.trailingAnchor
+        otpView.centerXAnchor --> view.centerXAnchor
+        otpView.topAnchor --> headerExplainerTextLabel.bottomAnchor + Const.View.m16
+        otpView.addDividerLine(to: [.bottom, .top])
     }
     
     private func configureActionButtons() {
@@ -71,7 +71,9 @@ extension InitPhoneNumberVerificationViewController {
         continueButton.autoresizingOff()
         resendButton.setTitle(presenter.resendButtonTitle, for: .normal)
         continueButton.setTitle(presenter.continueButtonTitle, for: .normal)
-        
+        resendButton.setTitleColor(Const.Color.label, for: .normal)
+        continueButton.setTitleColor(Const.Color.label, for: .normal)
+
         actionButtonStackView.autoresizingOff()
         actionButtonStackView.alignment = .center
         actionButtonStackView.distribution = .fillEqually
@@ -81,7 +83,7 @@ extension InitPhoneNumberVerificationViewController {
         view.addSubview(actionButtonStackView)
         actionButtonStackView.leadingAnchor --> view.leadingAnchor
         actionButtonStackView.trailingAnchor --> view.trailingAnchor
-        actionButtonStackView.topAnchor --> otpPinCode.bottomAnchor
+//        actionButtonStackView.topAnchor --> otpPinCode.bottomAnchor + Const.View.m8
     }
 
     
@@ -89,7 +91,7 @@ extension InitPhoneNumberVerificationViewController {
         var string = ""
         for i in 0..<count {
             if i == (count / 2) {
-                string += ""
+                string += " "
             } else {
                 string += placeHolderText
             }
@@ -99,5 +101,3 @@ extension InitPhoneNumberVerificationViewController {
     }
     
 }
-
-
