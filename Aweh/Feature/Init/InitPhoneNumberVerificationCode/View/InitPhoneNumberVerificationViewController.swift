@@ -69,10 +69,10 @@ extension InitPhoneNumberVerificationViewController {
     private func configureActionButtons() {
         resendButton.autoresizingOff()
         continueButton.autoresizingOff()
+        resendButton.setTitleColor(Const.Color.InitInfoInput.resendColor, for: .normal)
+        continueButton.setTitleColor(Const.Color.InitInfoInput.resendColor, for: .normal)
         resendButton.setTitle(presenter.resendButtonTitle, for: .normal)
         continueButton.setTitle(presenter.continueButtonTitle, for: .normal)
-        resendButton.setTitleColor(Const.Color.label, for: .normal)
-        continueButton.setTitleColor(Const.Color.label, for: .normal)
 
         actionButtonStackView.autoresizingOff()
         actionButtonStackView.alignment = .center
@@ -83,7 +83,7 @@ extension InitPhoneNumberVerificationViewController {
         view.addSubview(actionButtonStackView)
         actionButtonStackView.leadingAnchor --> view.leadingAnchor
         actionButtonStackView.trailingAnchor --> view.trailingAnchor
-//        actionButtonStackView.topAnchor --> otpPinCode.bottomAnchor + Const.View.m8
+        actionButtonStackView.topAnchor --> otpView.bottomAnchor + Const.View.m8
     }
 
     

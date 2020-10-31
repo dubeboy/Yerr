@@ -75,20 +75,26 @@ enum Const {
         
         // SHould have a private BASE
         // then put all the System colors in system
-        
+        // These should be private!!
         static let lightGray = UIColor.systemGray6
         static let backgroundColor = UIColor.systemGray5
         static let systemWhite = UIColor.systemBackground
         static let actionButtonColor = UIColor(named: "blueActionButton")! // TODO: test that these color exist
         static let label = UIColor.label
+        static let linkColor = UIColor.link
         
         enum Feed {
-            static let commentBox = Color.lightGray
+            static let commentBox = lightGray
             static let trackColor = Color.actionButtonColor
             static let trackBackGroundColor = Color.lightGray
             static let textColor = Color.label
             static let warningMaximumTextLength = UIColor.systemYellow
             static let alertMaximumTextLength = UIColor.systemRed
+        }
+        
+        enum InitInfoInput {
+            static let resendColor = linkColor
+            static let continueColor = linkColor
         }
     }
     

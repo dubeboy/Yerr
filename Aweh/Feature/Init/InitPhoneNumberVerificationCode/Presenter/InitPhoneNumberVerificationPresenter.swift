@@ -12,7 +12,6 @@ protocol InitPhoneNumberVerificationPresenter {
     var headerText: String { get }
     var resendButtonTitle: String { get }
     var continueButtonTitle: String { get }
-    
 }
 
 class InitPhoneNumberVerificationPresenterImplementation: InitPhoneNumberVerificationPresenter {
