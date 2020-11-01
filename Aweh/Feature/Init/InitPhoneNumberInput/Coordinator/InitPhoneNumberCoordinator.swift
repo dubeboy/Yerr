@@ -11,7 +11,7 @@ import Foundation
 
 import Foundation
 
-protocol InitPhoneNumberCoordinator {
+protocol InitPhoneNumberCoordinator: AnyObject {
     func createInitPhoneNumberViewController() -> InitPhoneNumberInputViewController
     func startInitPhoneNumberCoordinatorViewController()
 }

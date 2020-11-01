@@ -30,6 +30,11 @@ enum Const {
     
     // MARK: App assets
     enum Assets {
+        
+        private enum CommonAssets {
+            static let chevronRight: UIImage? = getSystemResource(systemName: "chevron.right")
+        }
+         
         enum Interests {
             static let iconCheckmark: UIImage? = getSystemResource(systemName: "checkmark.circle")
         }
@@ -52,11 +57,15 @@ enum Const {
         }
         
         enum InitPhoneNumber {
-            static let chevronRight: UIImage? = getSystemResource(systemName: "chevron.right")
+            static let chevronRight: UIImage? = CommonAssets.chevronRight
         }
         
         enum InitInfoInput {
             static let editButton: UIImage? = getSystemResource(systemName: "pencil")
+        }
+        
+        enum InitCountryLists {
+            static let chevronRight: UIImage? = CommonAssets.chevronRight
         }
     }
     

@@ -25,6 +25,7 @@ class InitAcceptTcsAndCsViewController: UIViewController {
         title = presenter.title
         configureSelf()
         configureImageView()
+        navigationItem.hidesBackButton = true
     }
     
     @objc func didTapContinue() {

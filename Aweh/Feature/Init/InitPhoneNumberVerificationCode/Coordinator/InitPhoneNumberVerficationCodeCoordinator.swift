@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol InitPhoneNumberVerficationCodeCoordinator {
+protocol InitPhoneNumberVerficationCodeCoordinator: AnyObject {
     func createOTPViewController() -> InitPhoneNumberVerificationViewController
     func startOTPViewController()
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol InterestCoordinator {
+protocol InterestCoordinator: AnyObject {
     func startInterestViewController(with presenter: InterestsPresenter)
     func createInterestViewController(
         presenter: InterestsPresenter

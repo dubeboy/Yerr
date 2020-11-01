@@ -23,7 +23,7 @@ class InitPhoneNumberInputViewController: UIViewController {
     // save this as the current position in the case that the uer  exit the app
     // log exits
     
-    var coordinator: InitPhoneNumberVerficationCodeCoordinator!
+    weak var coordinator: (InitPhoneNumberVerficationCodeCoordinator & InitCountryListsCoordinator)!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +32,17 @@ class InitPhoneNumberInputViewController: UIViewController {
         configureSelf()
         
         navigationItem.rightBarButtonItem  = UIBarButtonItem(title: presenter.doneBarButtonItem, style: .plain, target: self, action: #selector(doneBarButtonTapped))
+        navigationItem.hidesBackButton = true
     }
     
     @objc func doneBarButtonTapped() {
         coordinator.startOTPViewController()
+    }
+    
+    @objc func selectedCountry() {
+        coordinator.startInitCountryListsViewController { [weak self] country in
+            self?.selectedButtonTitle.setTitle(country.name, for: .normal)
+        }
     }
 }
 
@@ -64,6 +71,8 @@ extension InitPhoneNumberInputViewController {
         selectedButtonIcon.autoresizingOff()
         selectedButtonTitle.autoresizingOff()
         buttonSectionView.autoresizingOff()
+        selectedButtonIcon.addTarget(self, action: #selector(selectedCountry), for: .touchUpInside)
+        selectedButtonIcon.addTarget(self, action: #selector(selectedCountry), for: .touchUpInside)
         buttonSectionView.addSubview(selectedButtonIcon)
         buttonSectionView.addSubview(selectedButtonTitle)
         let icon = Const.Assets.InitPhoneNumber.chevronRight

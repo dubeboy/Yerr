@@ -13,7 +13,7 @@ private let reuseIdentifier = "Cell"
 
 class PhotosCollectionViewController: UICollectionViewController {
 
-    var coordinator: AssetDetailCoordinator?
+    weak var coordinator: AssetDetailCoordinator?
     var presenter: PhotosCollectionViewPresenter!
     var selectButton: UIBarButtonItem!
     var completion: (([String: PHAsset]) -> Void)?

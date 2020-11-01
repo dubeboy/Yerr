@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var containerStackView: UIStackView!
     var presenter: ProfilePresenter = ProfilePresenterImplementation()
-    var coordinator: MainProfileCoordinator!
+    weak var coordinator: MainProfileCoordinator!
     
     override func viewDidLoad() {
         super.viewDidLoad()

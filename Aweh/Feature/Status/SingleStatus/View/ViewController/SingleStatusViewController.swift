@@ -22,7 +22,7 @@ class SingleStatusViewController: UIViewController {
     @IBOutlet weak var commentDividerLine: UIView!
     
     var presenter: SingleStatusPresenter!
-    var coordinator: Coordinator!
+    weak var coordinator: Coordinator!
    
     override func viewDidLoad() {
         super.viewDidLoad()

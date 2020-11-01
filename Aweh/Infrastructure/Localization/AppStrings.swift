@@ -81,13 +81,19 @@ enum AppStrings {
         static let namePlaceHolder = "Your Name"
         static let handlePlaceHolder = "Your Handle"
         static let title = "Complete Your Profile"
+        static let doneButtonTitle = "Done"
     }
     
+    // InitPhoneNumberVerification
     enum OTP {
         static let headerText = "We have sent you an SMS with a code to the number above. \n\nTo Complete your phone number verification, please enter the 6-digit activation code."
         static let resend = "Resend"
         
         static let continueTitle = "Continue"
+    }
+    
+    enum InitCoutryLists {
+        static let title = "Select Your Country"
     }
     
     enum Shared {

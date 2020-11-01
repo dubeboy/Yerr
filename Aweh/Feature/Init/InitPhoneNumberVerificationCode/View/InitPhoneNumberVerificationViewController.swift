@@ -19,9 +19,6 @@ class InitPhoneNumberVerificationViewController: UIViewController {
     var resendButton = YerrButton()
     var actionButtonStackView = UIStackView()
     
-    let spacing = 10
-    let placeHolderText = "-"
-    let count = 6
     
     var coordinator: InitScreensCoordinator!
     var presenter: InitPhoneNumberVerificationPresenter!
@@ -29,12 +26,21 @@ class InitPhoneNumberVerificationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        navigationItem.hidesBackButton = true
         configureSelf()
         configureHeaderExplainerTextLabel()
         configureOTPView()
         configureActionButtons()
     }
     
+    
+    @objc func continueButtonTapped() {
+        coordinator.startInfoInputViewController()
+    }
+    
+    @objc func resendButtonTapped() {
+        
+    }
 }
 
 // MARK: Helper functions
@@ -69,6 +75,8 @@ extension InitPhoneNumberVerificationViewController {
     private func configureActionButtons() {
         resendButton.autoresizingOff()
         continueButton.autoresizingOff()
+        resendButton.addTarget(self, action: #selector(resendButtonTapped), for: .touchUpInside)
+        continueButton.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
         resendButton.setTitleColor(Const.Color.InitInfoInput.resendColor, for: .normal)
         continueButton.setTitleColor(Const.Color.InitInfoInput.resendColor, for: .normal)
         resendButton.setTitle(presenter.resendButtonTitle, for: .normal)
@@ -84,20 +92,6 @@ extension InitPhoneNumberVerificationViewController {
         actionButtonStackView.leadingAnchor --> view.leadingAnchor
         actionButtonStackView.trailingAnchor --> view.trailingAnchor
         actionButtonStackView.topAnchor --> otpView.bottomAnchor + Const.View.m8
-    }
-
-    
-    private func createPlaceHolderText() -> String {
-        var string = ""
-        for i in 0..<count {
-            if i == (count / 2) {
-                string += " "
-            } else {
-                string += placeHolderText
-            }
-        }
-        string += placeHolderText
-        return string
     }
     
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol InfoInputCoordinator {
+protocol InfoInputCoordinator: AnyObject {
     func createInfoInputViewController() -> InfoInputViewController
     func startInfoInputViewController()
 }
@@ -23,7 +23,7 @@ extension InitScreensCoordinator: InfoInputCoordinator  {
     }
     
     func startInfoInputViewController() {
-        let viewController = createAcceptTermsAndConditionsViewController()
+        let viewController = createInfoInputViewController()
         navigationController.pushViewController(viewController, animated: true)
     }
 }

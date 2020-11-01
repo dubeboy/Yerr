@@ -12,9 +12,12 @@ protocol InfoInputPresenter {
     var namePlaceHolder: String { get }
     var handleFieldPlaceHolder: String { get }
     var title: String { get }
+    var doneButtonTitle: String { get }
 }
 
 class InfoInputPresenterImplementation: InfoInputPresenter {
+    var doneButtonTitle: String = AppStrings.InfoInput.doneButtonTitle
+
     var title: String = AppStrings.InfoInput.title
     
     var namePlaceHolder: String = AppStrings.InfoInput.namePlaceHolder

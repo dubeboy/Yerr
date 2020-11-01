@@ -6,7 +6,7 @@ class AssetDetailViewController: UIViewController {
     
     var asset: PHAsset!
     var completion: (([String: PHAsset]) -> Void)?
-    var coordinator: Coordinator!
+    weak var coordinator: Coordinator!
     
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var imageView: UIImageView!

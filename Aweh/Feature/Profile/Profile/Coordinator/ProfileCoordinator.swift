@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol MainProfileCoordinator {
+protocol MainProfileCoordinator: AnyObject {
     func startStatusViewController(userViewModel: UserViewModel)
 }
 

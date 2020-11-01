@@ -14,7 +14,7 @@ class PickInterestCollectionViewController: UICollectionViewController {
     
     var presenter: PickInterestPresenter!
     
-    var coordinator: Coordinator!
+    weak var coordinator: Coordinator!
 
     override func viewDidLoad() {
         super.viewDidLoad()
