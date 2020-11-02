@@ -18,6 +18,7 @@ extension InitScreensCoordinator: InitCountryListsCoordinator {
         viewController.coordinator = self
         viewController.didSelect = didSelectCountry
         viewController.presenter = InitCountryListsPresenterImplementation()
+        viewController.hidesBottomBarWhenPushed = true
         let presentationNav = UINavigationController(rootViewController: viewController)
         navigationController.present(presentationNav, animated: true, completion: nil)
     }

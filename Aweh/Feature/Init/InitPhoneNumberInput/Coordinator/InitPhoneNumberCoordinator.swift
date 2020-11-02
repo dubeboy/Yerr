@@ -22,6 +22,7 @@ extension InitScreensCoordinator: InitPhoneNumberCoordinator  {
         let mainViewController = InitPhoneNumberInputViewController()
         mainViewController.coordinator = self
         mainViewController.presenter = InitPhoneNumberInputPresenterImplementation()
+        mainViewController.hidesBottomBarWhenPushed = true
         return mainViewController
     }
     

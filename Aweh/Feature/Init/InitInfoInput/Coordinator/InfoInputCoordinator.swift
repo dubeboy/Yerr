@@ -19,6 +19,7 @@ extension InitScreensCoordinator: InfoInputCoordinator  {
         let mainViewController = InfoInputViewController()
         mainViewController.coordinator = self
         mainViewController.presenter = InfoInputPresenterImplementation()
+        mainViewController.hidesBottomBarWhenPushed = true
         return mainViewController
     }
     

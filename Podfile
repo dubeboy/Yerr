@@ -6,5 +6,9 @@ target 'Aweh' do
   use_frameworks!
   
  pod 'Merchant', :path => '~/Developer/iOS/Merchant'
+ pod 'FirebaseUI/Facebook'
+ pod 'FirebaseUI/Phone'
+ pod 'Firebase/Auth'
+
  
 end

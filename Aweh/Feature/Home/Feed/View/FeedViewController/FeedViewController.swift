@@ -12,6 +12,7 @@ class FeedViewController: UIViewController {
   
     var presenter: FeedPresenter!
     var interestName: String?
+    var introCoordinator: InitScreensCoordinator!
     
     weak var coordinator: (PostStatusCoordinator & FeedDetailCoordinator)!
     

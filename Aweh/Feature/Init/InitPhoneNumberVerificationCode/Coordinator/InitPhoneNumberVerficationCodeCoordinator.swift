@@ -19,6 +19,7 @@ extension InitScreensCoordinator: InitPhoneNumberVerficationCodeCoordinator  {
         let mainViewController = InitPhoneNumberVerificationViewController()
         mainViewController.coordinator = self
         mainViewController.presenter = InitPhoneNumberVerificationPresenterImplementation()
+        mainViewController.hidesBottomBarWhenPushed = true
         return mainViewController
     }
     

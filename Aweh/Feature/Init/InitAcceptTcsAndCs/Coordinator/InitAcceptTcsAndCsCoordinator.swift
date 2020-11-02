@@ -19,6 +19,7 @@ extension InitScreensCoordinator: InitAcceptTcsAndCsCoordinator  {
         let mainViewController = InitAcceptTcsAndCsViewController()
         mainViewController.coordinator = self
         mainViewController.presenter = InitAcceptTcsAndCsPresenterImplemetation()
+        mainViewController.hidesBottomBarWhenPushed = true
         return mainViewController
     }
     

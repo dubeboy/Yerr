@@ -58,6 +58,7 @@ extension InitCountryListsViewController {
         collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
+        self.definesPresentationContext = true
         view.addSubview(collectionView)
         collectionView --> view
         collectionView.backgroundColor = .clear
@@ -70,6 +71,7 @@ extension InitCountryListsViewController {
         navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
+        self.definesPresentationContext = true
     }
 }
 
