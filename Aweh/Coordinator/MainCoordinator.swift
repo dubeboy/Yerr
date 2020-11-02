@@ -79,9 +79,18 @@ class HomeCoordinator: MainCoordinator {
 
 class InitScreensCoordinator: MainCoordinator {
     
+
     @UserDefaultsBacked(key: .currentViewController, defaultValue: 0)
     var lastViewController: Int
     
+    var completionViewController: SetupCompleteDelegate
+    
+    init(completionViewController: SetupCompleteDelegate, navigationController: UINavigationController) {
+        self.completionViewController = completionViewController
+        super.init(navigationController: navigationController)
+    }
+    
+    @discardableResult
     override func start() -> Self {
         switch lastViewController {
             case 0:

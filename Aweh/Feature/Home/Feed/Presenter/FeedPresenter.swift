@@ -21,16 +21,20 @@ protocol FeedPresenter {
     func didTapLikeButton(at indexPath: IndexPath)
     func didTapDownVoteButton(at indexPath: IndexPath)
     func didTapUpVoteButton(at indexPath: IndexPath)
+    func didCompleteSetup(complete: Completion<()>, notComplete: Completion<()>)
+    func setupComplete(completion: Completion<()>)
 }
 
 class FeedPresenterImplemantation: FeedPresenter {
-   
-    
+  
     let feedCellPresenter: FeedCellPresenter = FeedCellPresenter()
     let feedIntercator: StatusesUseCase = FeedInteractor()
     var interest: InterestViewModel? = nil
     
     var viewModel: [StatusViewModel] = []
+    
+    @UserDefaultsBacked(key: .didFinishLaunching, defaultValue: false)
+    var didCompleteSetup: Bool
 
     func index(for item: StatusViewModel) -> Int {
         viewModel.firstIndex {
@@ -132,6 +136,20 @@ class FeedPresenterImplemantation: FeedPresenter {
                     Logger.i(error.localizedDescription)
             }
         }
+    }
+    
+    func didCompleteSetup(complete: Completion<()>, notComplete: Completion<()>) {
+        switch didCompleteSetup {
+            case true:
+                complete(())
+            case false:
+                notComplete(())
+        }
+    }
+    
+    func setupComplete(completion: Completion<()>) {
+        didCompleteSetup = true
+        completion(())
     }
     
     private func removeVote(at indexPath: IndexPath) {

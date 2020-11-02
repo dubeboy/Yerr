@@ -12,30 +12,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var coordinators: [Coordinator]?
-    @UserDefaultsBacked(key: .didFinishLauching, defaultValue: false)
+    @UserDefaultsBacked(key: .didFinishLaunching, defaultValue: false)
     var didCompleteSetup: Bool
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: scene)
         
-      
-        coordinators = []
-        if !didCompleteSetup {
-            let initViewController = InitScreensCoordinator()
-            window.rootViewController = initViewController.start().navigationController
-        } else {
-            let tabBarController = UITabBarController()
-
-            coordinators = [
-                HomeCoordinator(tabBarController), // pass in the tab bar controller
-                StatusCoordinator(tabBarController),
-                ProfileCoordinator(tabBarController)
-            ].map { $0.start() }
-            tabBarController.viewControllers = coordinators?.map { $0.navigationController }
-            window.rootViewController = tabBarController
-        }
-       
+        let tabBarController = UITabBarController()
+        
+        coordinators = [
+            HomeCoordinator(tabBarController), // pass in the tab bar controller
+            StatusCoordinator(tabBarController),
+            ProfileCoordinator(tabBarController)
+        ].map { $0.start() }
+        tabBarController.viewControllers = coordinators?.map { $0.navigationController }
+        window.rootViewController = tabBarController
        
         self.window = window
         window.makeKeyAndVisible()

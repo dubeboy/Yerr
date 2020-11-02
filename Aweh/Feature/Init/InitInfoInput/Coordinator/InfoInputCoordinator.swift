@@ -11,14 +11,20 @@ import Foundation
 protocol InfoInputCoordinator: AnyObject {
     func createInfoInputViewController() -> InfoInputViewController
     func startInfoInputViewController()
+    func popToSetupViewController()
 }
 
-extension InitScreensCoordinator: InfoInputCoordinator  {
+extension InitScreensCoordinator: InfoInputCoordinator {
+    func popToSetupViewController() {
+        navigationController.popToRootViewController(animated: false)
+    }
+    
     func createInfoInputViewController() -> InfoInputViewController {
         navigationController.delegate = self
         let mainViewController = InfoInputViewController()
         mainViewController.coordinator = self
         mainViewController.presenter = InfoInputPresenterImplementation()
+        mainViewController.delegate = completionViewController
         mainViewController.hidesBottomBarWhenPushed = true
         return mainViewController
     }

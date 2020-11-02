@@ -27,7 +27,7 @@ extension HomeCoordinator: FeedCoordinator {
         mainViewController.coordinator = self
         mainViewController.title = "Feed"
         mainViewController.presenter = FeedPresenterImplemantation()
-        mainViewController.introCoordinator = InitScreensCoordinator(navigationController: navigationController)
+        mainViewController.introCoordinator = InitScreensCoordinator(completionViewController: mainViewController, navigationController: navigationController)
         return mainViewController
     }
     

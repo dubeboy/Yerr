@@ -15,7 +15,6 @@ class FeedViewController: UIViewController {
     var introCoordinator: InitScreensCoordinator!
     
     weak var coordinator: (PostStatusCoordinator & FeedDetailCoordinator)!
-    
 
     @IBOutlet weak var postButton: UIButton! {
         didSet {
@@ -28,19 +27,13 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Feed"
-        configureCollectionView()
-        presenter.getStatuses(interestName: interestName) { [weak self] count, error in
-            guard let self = self else { return }
-            
-            guard let _ = count else {
-                self.presentToast(message: .error(error))
-                return
-            }
-            
-            self.collectionView.reloadData()
+        presenter.didCompleteSetup { [self] in
+            configureSelf()
+        } notComplete: { [self] in
+            launchSetup()
         }
     }
-    
+        
     private func configureCollectionView() {
         collectionView.backgroundColor = Const.Color.backgroundColor
        
@@ -100,5 +93,34 @@ extension FeedViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // this should be started from the presenter
         coordinator.startFeedDetailViewController(feedViewModel: presenter.getStatus(at: indexPath))
+    }
+}
+
+extension FeedViewController {
+    private func configureSelf() {
+        configureCollectionView()
+        presenter.getStatuses(interestName: interestName) { [weak self] count, error in
+            guard let self = self else { return }
+            
+            guard let _ = count else {
+                self.presentToast(message: .error(error))
+                return
+            }
+            
+            self.collectionView.reloadData()
+        }
+    }
+    
+    private func launchSetup() {
+        introCoordinator.start()
+    }
+}
+
+
+extension FeedViewController: SetupCompleteDelegate {
+    func didCompleteSetup() {
+        presenter.setupComplete {
+            self.configureSelf()
+        }
     }
 }

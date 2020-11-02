@@ -104,7 +104,7 @@ enum AppStrings {
         enum UserDefaults: String {
             case user
             case currentViewController
-            case didFinishLauching
+            case didFinishLaunching
         }
     }
 }

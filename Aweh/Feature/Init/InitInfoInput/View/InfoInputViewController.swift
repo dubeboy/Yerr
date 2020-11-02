@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol SetupCompleteDelegate: AnyObject {
+    func didCompleteSetup()
+}
+
 class InfoInputViewController: UIViewController {
     private var userProfileImageView: UIImageView = UIImageView()
     private var nameTextField = UITextField()
@@ -15,7 +19,8 @@ class InfoInputViewController: UIViewController {
     private var nameHandleStackView = UIStackView()
     private var editProfileImageButton = YerrButton(frame: .zero)
     
-    weak var coordinator: InitScreensCoordinator!
+    weak var coordinator: InfoInputCoordinator!
+    weak var delegate: SetupCompleteDelegate!
     
     var presenter: InfoInputPresenter!
     
@@ -31,7 +36,8 @@ class InfoInputViewController: UIViewController {
     }
     
     @objc func done() {
-        
+        coordinator.popToSetupViewController()
+        delegate.didCompleteSetup()
     }
 }
 
