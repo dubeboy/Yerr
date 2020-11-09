@@ -16,7 +16,7 @@ protocol InfoInputCoordinator: AnyObject {
 
 extension InitScreensCoordinator: InfoInputCoordinator {
     func popToSetupViewController() {
-        navigationController.popToRootViewController(animated: false)
+        navigationController.popToRootViewController(animated: true)
     }
     
     func createInfoInputViewController() -> InfoInputViewController {

@@ -13,6 +13,7 @@ protocol ProfileInteractor {
     
     func getUserIfExists(phoneNumber: String, result: @escaping InteractorResponseClousure<User>)
     func getUserStatuses(result: @escaping InteractorResponseClousure<[Status]>)
+    // TODO: should be in init viewcontroller
     func signIn(user: User, result: @escaping InteractorResponseClousure<User>)
 }
 
@@ -28,7 +29,8 @@ class ProfileInteractorImplementation: ProfileInteractor {
     }
     
     func getUserIfExists(phoneNumber: String, result: @escaping InteractorResponseClousure<User>) {
-        if let currentUser = userRepository.currentUser, !userRepository.userNeedsUpdate {
+            
+        if let currentUser = userRepository.currentUser {
            return result(.success(currentUser))
         } else {
             guard !phoneNumber.isEmpty else {
@@ -51,11 +53,11 @@ class ProfileInteractorImplementation: ProfileInteractor {
     
     func getUserStatuses(result: @escaping InteractorResponseClousure<[Status]>) {
         
-        guard let currentUser = userRepository.currentUser, let userId = currentUser.id else {
+        guard let currentUser = userRepository.currentUser else {
             return result(.failure(UserError.currentUserIdIsNil))
         }
         
-        userRepository.getUserStatuses(userId: userId) { response in
+        userRepository.getUserStatuses { response in
             switch response {
                 case .success(let status):
                     guard let entity = status.entity else {

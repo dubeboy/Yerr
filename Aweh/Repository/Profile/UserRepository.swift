@@ -13,18 +13,29 @@ struct UserRepository: NewInstanceInjectable {
     
     @SingletonServiceInstance
     private var service: AwehService
-//    @UserDefaultsBacked(key: AppStrings.Shared.UserDefaults.user, defaultValue: nil)
     
-    var currentUser: User?
-//    @UserDefaultsBacked(key: AppStrings.Shared.UserDefaults.user, defaultValue: false)
-    var userNeedsUpdate: Bool = true
+    // we need a database!!!
+//    @UserDefaultsBacked(key: .user, defaultValue: nil)
+//    var currentUser: User? =
+//    @UserDefaultsBacked(key: .userId, defaultValue: User.dummyUser.id)
+    var userId: String? = User.dummyUser.id
+//    @UserDefaultsBacked(key: .userName, defaultValue: "")
+    var userName: String = User.dummyUser.name
     
     var isUserLoggedIn: Bool {
-        currentUser != nil
+        userId != nil
+    }
+        
+    var currentUser: User? {
+        guard isUserLoggedIn else {
+            return nil
+        }
+        
+        return User.dummyUser
     }
     
-    func getUserStatuses(userId: String, result: @escaping RepositoryResponseClousure<[Status]>) {
-        service.$getUserStatuses(query: ["userId": userId]) { response in
+    func getUserStatuses(result: @escaping RepositoryResponseClousure<[Status]>) {
+        service.$getUserStatuses(query: ["user_id": userId]) { response in
             switch response {
                 case .success(let user):
                     result(.success(user.body))
