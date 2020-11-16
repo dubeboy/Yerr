@@ -12,9 +12,8 @@ class FeedViewController: UIViewController {
   
     var presenter: FeedPresenter!
     var interestName: String?
-    var introCoordinator: InitScreensCoordinator!
-    
-    weak var coordinator: (PostStatusCoordinator & FeedDetailCoordinator)!
+    var introCoordinator: InitScreensCoordinator! // TODO: why is this not weak??
+    weak var coordinator: (PostStatusCoordinator & FeedDetailCoordinator & StatusPageCoordinator)!
 
     @IBOutlet weak var postButton: UIButton! {
         didSet {
@@ -39,15 +38,36 @@ class FeedViewController: UIViewController {
        
         let flowLayout = UICollectionViewFlowLayout()
 
-        flowLayout.sectionInset = UIEdgeInsets(top: Const.View.m8, left: Const.View.m8, bottom: Const.View.m8, right: Const.View.m8)
+        flowLayout.sectionInset = UIEdgeInsets(top: Const.View.m8,
+                                               left: Const.View.m8,
+                                               bottom: Const.View.m8,
+                                               right: Const.View.m8)
         flowLayout.minimumLineSpacing = Const.View.m8
         flowLayout.minimumInteritemSpacing = 0
+        flowLayout.scrollDirection = .vertical
         collectionView.collectionViewLayout = flowLayout
         collectionView.showsVerticalScrollIndicator = false
-        flowLayout.estimatedItemSize = collectionView.calculateItemSize(numberOfColumns: 1)
+        
+        
+        let leftRightInset = flowLayout.sectionInset.right + flowLayout.sectionInset.left
+        let itemWidth = UIScreen.main.bounds.width - leftRightInset
+        let lineSpacing = flowLayout.minimumLineSpacing
+        let itemHeight =  view.bounds.height
+                            - flowLayout.sectionInset.top
+                            - flowLayout.sectionInset.bottom
+                            - lineSpacing
+                            - lineSpacing
+                            - (tabBarController?.tabBar.frame.height ?? 0)
+                            - (navigationController?.navigationBar.frame.size.height ?? 0)
+       
+        let itemSize = CGSize(width: itemWidth, height: itemHeight)
+        
+        flowLayout.itemSize = itemSize
         collectionView.register(FeedCollectionViewCell.self)
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        
     }
     
     private func configurePostButton() {
@@ -75,7 +95,10 @@ extension FeedViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let status = presenter.getStatus(at: indexPath)
         let cell = collectionView.deque(FeedCollectionViewCell.self, at: indexPath)
-        presenter.feedCellPresenter.configure(with: cell, forDisplaying: status)
+        presenter.feedCellPresenter.configure(with: cell,
+                                                    forDisplaying: status,
+                                                    statusPageCoordinator: coordinator,
+                                                    parentViewController: self)
         presenter.feedCellPresenter.setLikeAndVoteButtonsActions(for: cell) { [weak self] in
             self?.presenter.didTapLikeButton(at: indexPath)
         } didTapDownVoteButton: { [weak self] in

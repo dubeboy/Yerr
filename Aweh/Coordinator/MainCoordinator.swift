@@ -119,7 +119,7 @@ class StatusCoordinator: MainCoordinator {
         let mainViewController = mainCoordinator.createInterestViewController(
             presenter: InterestsPresenterImplemantation()
         )
-        mainViewController.coordinator = self
+//        mainViewController.coordinator = self
         mainViewController.homeCoordinator = homeCoordinator
         navigationController.pushViewController(mainViewController, animated: true)
         return self

@@ -17,17 +17,16 @@ protocol StatusPagePresenter {
     func indexOf(viewController: SingleStatusViewController) -> Int?
     func viewController(at index: Int) -> SingleStatusViewController?
     func currentPagesCount() -> Int
+    func setViewModel(viewModel: StatusPageViewModel)
 }
 
 class StatusPagePresenterImplemantation: StatusPagePresenter {
+   
     var title: String = "jfdfjdhfgdhjgfd"
-    let viewModel: InterestViewModel
+    
+    var viewModel: StatusPageViewModel?
     
     var currentPages: [SingleStatusViewController] = []
-    
-    init(with viewModel: InterestViewModel) {
-        self.viewModel = viewModel
-    }
     
     func getUserStatus(
         page: Int,
@@ -62,6 +61,8 @@ class StatusPagePresenterImplemantation: StatusPagePresenter {
         currentPages.count
     }
     
-    
-    
+    func setViewModel(viewModel: StatusPageViewModel) {
+        self.viewModel = viewModel
+        // TODO: trigger the view to load the content
+    }
 }

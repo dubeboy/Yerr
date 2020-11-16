@@ -13,6 +13,7 @@ struct AwehService: Service {
         
     let baseURL: String = "http://localhost:8080/"
     var query = ["key" : "hdsdt662266gbeww666", "os": "ios"] // TODO: does not log this
+    // there should be a headers parameter
     // TODO: pass back an static instace here? [Merchant]
     // TODO: prettiyfy
 

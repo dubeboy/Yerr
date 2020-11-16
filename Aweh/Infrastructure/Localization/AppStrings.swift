@@ -23,7 +23,7 @@ enum AppStrings {
             
         }
         
-        static let InvalideColor = "Invalide hex color, therefore cannot be convert to UIInt32"
+        static let invalideColor = "Invalide hex color, therefore cannot be convert to UIInt32"
         
         // For error analytics create a tuple that create represented as a string and has an ID as well??? 
         enum Analytics {
@@ -33,6 +33,10 @@ enum AppStrings {
         
         enum Profile {
             static let IncositentViewModel: String = "View Model is in an inconstent state"
+        }
+        
+        enum StatusVideoPlayer {
+            static let invalidURL: String = "Invalid status video URL"
         }
     }
     

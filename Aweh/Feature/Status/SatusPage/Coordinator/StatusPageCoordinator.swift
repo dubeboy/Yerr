@@ -10,18 +10,19 @@ import Foundation
 import UIKit
 
 protocol StatusPageCoordinator: AnyObject {
-    func startStatusPageViewController(viewModel: InterestViewModel)
+    func createStatusPageViewController() -> StatusPageViewController
 }
 
-extension StatusCoordinator: StatusPageCoordinator {
-    func startStatusPageViewController(viewModel: InterestViewModel) {
+extension HomeCoordinator: StatusPageCoordinator {
+
+    func createStatusPageViewController() -> StatusPageViewController {
         let viewController = StatusPageViewController(
             transitionStyle: .scroll,
             navigationOrientation: .horizontal,
             options: nil
         )
-        viewController.coordinator = self
-        viewController.presenter = StatusPagePresenterImplemantation(with: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
+//        viewController.coordinator = self
+        viewController.presenter = StatusPagePresenterImplemantation()
+        return viewController
     }
 }

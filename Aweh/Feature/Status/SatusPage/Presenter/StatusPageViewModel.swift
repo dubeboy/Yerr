@@ -8,6 +8,8 @@
 
 import Foundation
 
-//struct StatusPageViewModel {
-//    var statuses: [SingleStatusViewModel]
-//}
+struct StatusPageViewModel: Hashable {
+    let media: [MediaViewModel]
+    let status: String
+}
+

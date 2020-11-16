@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LikeAndVotesHStask: UIView {
+class LikeAndVotesVStask: UIView {
     
     @LateInit
     private var constainerStackView: UIStackView
@@ -74,14 +74,14 @@ class LikeAndVotesHStask: UIView {
 }
 
 // MARK: helper functions
-extension LikeAndVotesHStask {
+extension LikeAndVotesVStask {
     private func configureSelf() {
-        constainerStackView.axis = .horizontal
+        constainerStackView.axis = .vertical
         constainerStackView.distribution = .fillEqually
         constainerStackView.alignment = .fill
         constainerStackView.spacing = Const.View.m8
-        heightAnchor --> 40
-        constainerStackView.heightAnchor --> 40
+        widthAnchor --> 40
+        constainerStackView.widthAnchor --> 40
         addSubview(constainerStackView)
     }
     

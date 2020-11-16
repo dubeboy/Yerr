@@ -9,13 +9,19 @@
 import Foundation
 
 class FeedCellPresenter {
-    func configure(with cell: FeedCollectionViewCell, forDisplaying model: StatusViewModel) {
+    func configure(with cell: FeedCollectionViewCell,
+                     forDisplaying model: StatusViewModel,
+                     statusPageCoordinator: StatusPageCoordinator,
+                     parentViewController: FeedViewController) {
+        
+        cell.coordinator = statusPageCoordinator
+        cell.parentViewController = parentViewController
+        cell.loadContent(with: model.statusPageViewModel)
         cell.userName.text = model.user.name // change this to attributed string
-        cell.statusText.text = model.status
-        cell.distanceAndTime.text = model.distanceFromYou + "KM・\(model.timeSincePosted)" // change this to attributed string
-        cell.likeAndUpVoteHStack.setUpVoteText(text: getVotesString(votes: model.votes))
-        cell.likeAndUpVoteHStack.setDownVoteText(text: getVotesString(votes: model.votes))
-        cell.likeAndUpVoteHStack.setLikeVoteText(text: getVotesString(votes: model.likes))
+        cell.distance.text = model.distanceFromYou + "KM・\(model.timeSincePosted)" // change this to attributed string
+        cell.likeAndUpVoteVStack.setUpVoteText(text: getVotesString(votes: model.votes))
+        cell.likeAndUpVoteVStack.setDownVoteText(text: getVotesString(votes: model.votes))
+        cell.likeAndUpVoteVStack.setLikeVoteText(text: getVotesString(votes: model.likes))
     }
     
     private func getVotesString(votes: Int) -> String {
@@ -31,9 +37,9 @@ class FeedCellPresenter {
                                didTapDownVoteButton: @escaping () -> Void,
                                didTapUpVoteButton: @escaping () -> Void) {
         
-        cell.likeAndUpVoteHStack.didTapUpVoteAction = didTapUpVoteButton
-        cell.likeAndUpVoteHStack.didTapDownVoteAction = didTapDownVoteButton
-        cell.likeAndUpVoteHStack.didTapLikeAction = didTapLikeButton
+        cell.likeAndUpVoteVStack.didTapUpVoteAction = didTapUpVoteButton
+        cell.likeAndUpVoteVStack.didTapDownVoteAction = didTapDownVoteButton
+        cell.likeAndUpVoteVStack.didTapLikeAction = didTapLikeButton
     }
     
 }

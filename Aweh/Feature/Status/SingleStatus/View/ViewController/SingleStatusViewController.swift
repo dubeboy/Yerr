@@ -28,7 +28,7 @@ class SingleStatusViewController: UIViewController {
         super.viewDidLoad()
         presenter.getStatus { [weak self] viewModel in
             guard let self = self else { return }
-            self.statusLabel.text = viewModel.status
+//            self.statusLabel.text = viewModel.status
 //            self.statusImage.downloadImage(fromUrl: viewModel.media?.uuid)
         }
     }

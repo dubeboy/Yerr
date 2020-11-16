@@ -21,7 +21,7 @@ extension InterestViewModel {
         while(advanceBy < interests.count) {
             // TODO: not sure if we should generate this random number here
             // TODO: random Elements should also be driven by the server!!! so that they all render the same everytime
-            let randomAmountOfElements = Int.random(in: 1...3)
+            let randomAmountOfElements = Int.random(in: 1...3) // TODO do not ranomise do it for each row use % 
             switch randomAmountOfElements {
                 case 1:
                     let interest = interests[advanceBy]

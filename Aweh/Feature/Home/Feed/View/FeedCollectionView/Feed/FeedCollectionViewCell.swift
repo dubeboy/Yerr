@@ -10,45 +10,64 @@ import UIKit
 
 class FeedCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var main: UIView!
+    @IBOutlet weak var canvas: UIView!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var distanceAndTime: UILabel!
+    @IBOutlet weak var distance: UILabel!
     @IBOutlet weak var statusText: UILabel!
     @IBOutlet weak var containerStackView: UIStackView!
+    @IBOutlet weak var songsView: UIView!
+    @IBOutlet weak var circlesView: UIView!
+    @IBOutlet weak var circlesContainer: UIView!
+    
+    var videoPlayer = StatusVideoView() // should be in StatusPage
+    var likeAndUpVoteVStack: LikeAndVotesVStask = LikeAndVotesVStask()
+    weak var coordinator: StatusPageCoordinator!
+    weak var parentViewController: UIViewController!
     
     @LateInit
-    var likeAndUpVoteHStack: LikeAndVotesHStask
+    var statusPageViewController: StatusPageViewController
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        likeAndUpVoteHStack = LikeAndVotesHStask()
         self.clipsToBounds = true
         translatesAutoresizingMaskIntoConstraints = false
-        configureContentView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        main.widthAnchor --> contentView.widthAnchor
         configureCell()
     }
     
-    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        setNeedsLayout()
-        layoutIfNeeded()
-        let contentViewSize = contentView.bounds
-        let size = contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-        let attr = super.preferredLayoutAttributesFitting(layoutAttributes)
-        let newSize = CGSize(width: contentViewSize.width, height: size.height)
-        var newFrame = attr.frame
-
-        newFrame.size = newSize
-        attr.frame = newFrame
-        return attr
+    func loadContent(with viewModel: StatusPageViewModel) {
+        statusPageViewController.setViewModel(viewModel: viewModel)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        statusPageViewController.resetView()
+    }
+}
+
+extension FeedCollectionViewCell {
     private func configureCell() {
         configureContentView()
         configureProfileImage()
         configureLikeAndUpVoteButtons()
+        configureCirclesContainer()
+        configureStatusPageViewController()
+    }
+    
+    private func configureStatusPageViewController() {
+        statusPageViewController = coordinator.createStatusPageViewController()
+        parentViewController.addChild(statusPageViewController)
+        canvas.addSubview(statusPageViewController.view)
+        statusPageViewController.view.frame = canvas.bounds
+        statusPageViewController.view.autoresizingOff()
+        statusPageViewController.view --> canvas
+        statusPageViewController.didMove(toParent: parentViewController)
+    }
+    
+    private func configureCirclesContainer() {
+        circlesContainer.layer.cornerRadius = Const.View.radius
+        circlesContainer.backgroundColor = Const.Color.lightGray
     }
     
     private func configureProfileImage() {
@@ -56,7 +75,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureLikeAndUpVoteButtons() {
-        likeAndUpVoteHStack.translatesAutoresizingMaskIntoConstraints = false
-        containerStackView.addArrangedSubview(likeAndUpVoteHStack)
+        likeAndUpVoteVStack.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(likeAndUpVoteVStack)
     }
 }

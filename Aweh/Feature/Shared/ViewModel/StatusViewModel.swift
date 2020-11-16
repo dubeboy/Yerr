@@ -19,9 +19,8 @@ struct ViewModelVoteEntity: Equatable, Hashable {
 
 struct StatusViewModel: Equatable, Hashable, Identifiable {
     let id: String
-    let status: String
     let user: UserViewModel
-    let media: [MediaViewModel]
+    let statusPageViewModel: StatusPageViewModel
     let timeSincePosted: String
     var distanceFromYou: String = ""
     
@@ -40,12 +39,11 @@ extension StatusViewModel {
 
         StatusViewModel(
                 id: status.id ?? "",
-                status: status.body,
                 user: .transform(user: status.user), // TODO: should map to a Media viewModel
-                media: status.media,
+                statusPageViewModel: StatusPageViewModel(media: status.media, status: status.body),
                 timeSincePosted: status.createdAt.relativeDate(),
-            likes: status.likes,
-            votes: status.votes
+                likes: status.likes,
+                votes: status.votes
         )
     }
     

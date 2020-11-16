@@ -26,7 +26,7 @@ extension StatusCoordinator: InterestCoordinator {
     ) -> InterestsViewController {
         navigationController.delegate = self
         let mainViewController = InterestsViewController.instantiate()
-        mainViewController.coordinator = self
+//        mainViewController.coordinator = self // TODO: why is this needed
         mainViewController.presenter = presenter
         mainViewController.title = AppStrings.Interests.title
         return mainViewController

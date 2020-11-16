@@ -12,7 +12,7 @@ class InterestsViewController: UICollectionViewController {
     
     var numberOfCollumns: CGFloat = 2
     var presenter: InterestsPresenter!
-    weak var coordinator: StatusPageCoordinator! // TODO: Ref is lost when manually instatiated
+    weak var coordinator: HomeCoordinator! // TODO: Ref is lost when manually instatiated
     weak var homeCoordinator: FeedCoordinator!
     
     override func viewDidLoad() {
