@@ -14,6 +14,8 @@ class FeedViewController: UIViewController {
     var interestName: String?
     var introCoordinator: InitScreensCoordinator! // TODO: why is this not weak??
     weak var coordinator: (PostStatusCoordinator & FeedDetailCoordinator)!
+    private var indexOfCellBeforeDragging = 0
+    private let swipeVelocityThreshold: CGFloat = 0.5
 
     @IBOutlet weak var postButton: UIButton! {
         didSet {
@@ -57,6 +59,7 @@ class FeedViewController: UIViewController {
                             - flowLayout.sectionInset.bottom
                             - lineSpacing
                             - lineSpacing
+                            - 30
                             - (tabBarController?.tabBar.frame.height ?? 0)
                             - (navigationController?.navigationBar.frame.size.height ?? 0)
        
@@ -66,7 +69,7 @@ class FeedViewController: UIViewController {
         collectionView.register(FeedCollectionViewCell.self)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.isPagingEnabled = true
+//        collectionView.isPagingEnabled = true
     
     }
     
@@ -84,6 +87,17 @@ class FeedViewController: UIViewController {
                 self.collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
             } completion: { _ in }
         }
+    }
+    
+    private func indexOfMajorCell() -> Int {
+        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return 0 }
+        let itemHeight = flowLayout.itemSize.height
+        let proportionalOffset = collectionView.contentOffset.y / itemHeight
+        
+        let index = Int(round(proportionalOffset))
+        let safeIndex = max(0, min(presenter.statusCount - 1, index))
+        
+        return safeIndex
     }
 }
 
@@ -107,13 +121,49 @@ extension FeedViewController: UICollectionViewDataSource {
         
         return cell
     }
-    
 }
 
 extension FeedViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // this should be started from the presenter
         coordinator.startFeedDetailViewController(feedViewModel: presenter.getStatus(at: indexPath))
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        indexOfCellBeforeDragging = indexOfMajorCell()
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        targetContentOffset.pointee = scrollView.contentOffset
+        let indexOfMajorCell = self.indexOfMajorCell()
+    
+        let majorCellBeforeDragging = indexOfMajorCell == indexOfCellBeforeDragging
+        let hasEnoughVelocityToSlideToTheNextCell = indexOfCellBeforeDragging + 1
+                                                    < presenter.statusCount && velocity.y
+                                                    > swipeVelocityThreshold
+        let hasEnoughVelocityToSlideToThePreviousCell = indexOfCellBeforeDragging - 1
+                                                        >= 0 && velocity.y < -swipeVelocityThreshold
+        let majorCellIsTheCellBeforeDragging = indexOfMajorCell == indexOfCellBeforeDragging
+        let didUseSwipeToSkipCell = majorCellIsTheCellBeforeDragging && (hasEnoughVelocityToSlideToTheNextCell || hasEnoughVelocityToSlideToThePreviousCell)
+        
+        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        
+        if didUseSwipeToSkipCell {
+//            decay animation
+            let snapToIndex = indexOfCellBeforeDragging + (hasEnoughVelocityToSlideToTheNextCell ? 1 : -1)
+            let toValue = flowLayout.itemSize.height * CGFloat(snapToIndex)
+            // Damping equal 1 => no oscillations => decay animation:
+            
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: velocity.y, options: .allowUserInteraction, animations: {
+                scrollView.contentOffset = CGPoint(x: 0, y: toValue)
+                scrollView.layoutIfNeeded()
+            }, completion: nil)
+            
+        } else {
+            let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
+    
+            collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
+        }
     }
 }
 
