@@ -36,6 +36,9 @@ func -->(lhs: UIView, rhs: UIView) { // wanna also be able to do somthing like v
 }
 
 
+// tenary operators
+//https://natecook.com/blog/2014/10/ternary-operators-in-swift/
+
 @discardableResult
 func -->(lhs: NSLayoutXAxisAnchor, rhs: NSLayoutXAxisAnchor) -> NSLayoutConstraint {
     let contraint = lhs.constraint(equalTo: rhs)

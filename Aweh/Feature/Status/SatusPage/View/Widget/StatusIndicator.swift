@@ -24,17 +24,30 @@ class StatusIndicator: UIStackView { // TODO: shits should not be a UIView
     private var timer: Timer?
     private var statusIndicatorIndex: Int = 0
     
-    init(itemCount: Int, delegate: StatusTimoutDelegate? = nil) {
+    init(delegate: StatusTimoutDelegate) {
         self.delegate = delegate
         super.init(frame: .zero)
-        timer = scheduledTimer()
         setupStackView()
-        initialiseProgressView(itemCount: itemCount)
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setItemCount(itemCount: Int) {
+//        timer = scheduledTimer()
+        initialiseProgressView(itemCount: itemCount)
+    }
+    
+    func setCurrentStatusAt(statusIndex: Int) {
+        timer?.invalidate()
+        runCount = 0
+        statusIndicatorIndex = statusIndex
+        timer = scheduledTimer()
+    }
+}
+
+extension StatusIndicator {
     
     private func setupStackView() {
         translatesAutoresizingMaskIntoConstraints = false
@@ -55,30 +68,24 @@ class StatusIndicator: UIStackView { // TODO: shits should not be a UIView
         progressView.layer.sublayers![1].cornerRadius = 2
         progressView.subviews[1].clipsToBounds = true
         let trackColor: UIColor = .cyan
-//        let comp = trackColor.withAlphaComponent(0.4)
+        //        let comp = trackColor.withAlphaComponent(0.4)
         progressView.trackTintColor = trackColor
         let fillColor: UIColor = .black
-//        let _ = fillColor.withAlphaComponent(0.8) // TODO: use these
+        //        let _ = fillColor.withAlphaComponent(0.8) // TODO: use these
         progressView.progressTintColor = fillColor
         return progressView
     }
     
     private func initialiseProgressView(itemCount: Int) {
+        removeAllArrangedSubviews() // TODO: please make this more efficient
         for _ in 0..<itemCount {
             let progressView = createProgressView()
             addArrangedSubview(progressView)
         }
     }
-    
-    func setCurrentStatusAt(statusIndex: Int) {
-        timer?.invalidate()
-        runCount = 0
-        statusIndicatorIndex = statusIndex
-        timer = scheduledTimer()
-    }
-    
+
     // TODO: - Using a timer isnt the best sulution
-    @objc func timerAction() {
+    @objc private func timerAction() {
         let maxTime: Float = 60.0 * 3.0
         guard runCount <= maxTime else {
             timer?.invalidate()

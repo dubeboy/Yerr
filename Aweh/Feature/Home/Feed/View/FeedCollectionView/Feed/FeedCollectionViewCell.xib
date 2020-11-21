@@ -26,21 +26,7 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vkM-Hh-Lc4">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="394"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cFb-oq-1T4">
-                                                <rect key="frame" x="0.0" y="0.0" width="374" height="394"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="cFb-oq-1T4" secondAttribute="trailing" id="DS0-8f-S7P"/>
-                                            <constraint firstAttribute="bottom" secondItem="cFb-oq-1T4" secondAttribute="bottom" id="PfD-Sa-S1p"/>
-                                            <constraint firstItem="cFb-oq-1T4" firstAttribute="top" secondItem="vkM-Hh-Lc4" secondAttribute="top" id="YkI-Hu-T6v"/>
-                                            <constraint firstItem="cFb-oq-1T4" firstAttribute="leading" secondItem="vkM-Hh-Lc4" secondAttribute="leading" id="wEh-as-0U9"/>
-                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -178,7 +164,6 @@
                 <outlet property="distance" destination="Eaq-Ku-Xxy" id="vAy-56-oLT"/>
                 <outlet property="profileImage" destination="S6M-xS-Dy9" id="EIM-gX-F3s"/>
                 <outlet property="songsView" destination="VJ2-1k-Uns" id="7Hn-AI-Upq"/>
-                <outlet property="statusText" destination="cFb-oq-1T4" id="hAx-Ly-AYc"/>
                 <outlet property="userName" destination="TFQ-Ub-mPP" id="qKo-zf-sby"/>
             </connections>
             <point key="canvasLocation" x="308.69565217391306" y="227.67857142857142"/>

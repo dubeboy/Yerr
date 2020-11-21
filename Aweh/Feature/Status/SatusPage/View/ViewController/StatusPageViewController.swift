@@ -136,7 +136,7 @@ extension StatusPageViewController: StatusTimoutDelegate {
 extension StatusPageViewController {
     
     private func setupStatusIndicatorView(bar: UINavigationBar, itemCount: Int) {
-        statusView = StatusIndicator(itemCount: itemCount, delegate: self)
+        statusView = StatusIndicator(delegate: self)
         bar.addSubview(statusView)
         statusView.translatesAutoresizingMaskIntoConstraints = false
         statusView.bottomAnchor.constraint(equalTo: bar.topAnchor, constant: 0).isActive = true

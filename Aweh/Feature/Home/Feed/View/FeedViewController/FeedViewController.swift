@@ -13,7 +13,7 @@ class FeedViewController: UIViewController {
     var presenter: FeedPresenter!
     var interestName: String?
     var introCoordinator: InitScreensCoordinator! // TODO: why is this not weak??
-    weak var coordinator: (PostStatusCoordinator & FeedDetailCoordinator & StatusPageCoordinator)!
+    weak var coordinator: (PostStatusCoordinator & FeedDetailCoordinator)!
 
     @IBOutlet weak var postButton: UIButton! {
         didSet {
@@ -66,8 +66,8 @@ class FeedViewController: UIViewController {
         collectionView.register(FeedCollectionViewCell.self)
         collectionView.dataSource = self
         collectionView.delegate = self
-        
-        
+        collectionView.isPagingEnabled = true
+    
     }
     
     private func configurePostButton() {
@@ -96,9 +96,7 @@ extension FeedViewController: UICollectionViewDataSource {
         let status = presenter.getStatus(at: indexPath)
         let cell = collectionView.deque(FeedCollectionViewCell.self, at: indexPath)
         presenter.feedCellPresenter.configure(with: cell,
-                                                    forDisplaying: status,
-                                                    statusPageCoordinator: coordinator,
-                                                    parentViewController: self)
+                                                    forDisplaying: status)
         presenter.feedCellPresenter.setLikeAndVoteButtonsActions(for: cell) { [weak self] in
             self?.presenter.didTapLikeButton(at: indexPath)
         } didTapDownVoteButton: { [weak self] in

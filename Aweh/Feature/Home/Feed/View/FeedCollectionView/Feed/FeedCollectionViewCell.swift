@@ -14,19 +14,14 @@ class FeedCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var distance: UILabel!
-    @IBOutlet weak var statusText: UILabel!
     @IBOutlet weak var containerStackView: UIStackView!
     @IBOutlet weak var songsView: UIView!
     @IBOutlet weak var circlesView: UIView!
     @IBOutlet weak var circlesContainer: UIView!
     
-    var videoPlayer = StatusVideoView() // should be in StatusPage
     var likeAndUpVoteVStack: LikeAndVotesVStask = LikeAndVotesVStask()
-    weak var coordinator: StatusPageCoordinator!
-    weak var parentViewController: UIViewController!
     
-    @LateInit
-    var statusPageViewController: StatusPageViewController
+    var statusesView: StatusesView = StatusesView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,13 +31,12 @@ class FeedCollectionViewCell: UICollectionViewCell {
         configureCell()
     }
     
-    func loadContent(with viewModel: StatusPageViewModel) {
-        statusPageViewController.setViewModel(viewModel: viewModel)
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
-        statusPageViewController.resetView()
+    }
+    
+    func setViewModel(viewModel: StatusPageViewModel) {
+        statusesView.setViewModel(viewModel: viewModel)
     }
 }
 
@@ -52,17 +46,13 @@ extension FeedCollectionViewCell {
         configureProfileImage()
         configureLikeAndUpVoteButtons()
         configureCirclesContainer()
-        configureStatusPageViewController()
+        configureStatusesView()
     }
     
-    private func configureStatusPageViewController() {
-        statusPageViewController = coordinator.createStatusPageViewController()
-        parentViewController.addChild(statusPageViewController)
-        canvas.addSubview(statusPageViewController.view)
-        statusPageViewController.view.frame = canvas.bounds
-        statusPageViewController.view.autoresizingOff()
-        statusPageViewController.view --> canvas
-        statusPageViewController.didMove(toParent: parentViewController)
+    private func configureStatusesView() {
+        statusesView.autoresizingOff()
+        canvas.addSubview(statusesView)
+        statusesView --> canvas
     }
     
     private func configureCirclesContainer() {

@@ -6,10 +6,11 @@
 //  Copyright © 2020 com.github.aweh. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct StatusPageViewModel: Hashable {
     let media: [MediaViewModel]
     let status: String
+    var backgroundColor: String = "" // should be a hex color
 }
 

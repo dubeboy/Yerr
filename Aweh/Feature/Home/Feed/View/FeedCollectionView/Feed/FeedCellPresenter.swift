@@ -10,13 +10,8 @@ import Foundation
 
 class FeedCellPresenter {
     func configure(with cell: FeedCollectionViewCell,
-                     forDisplaying model: StatusViewModel,
-                     statusPageCoordinator: StatusPageCoordinator,
-                     parentViewController: FeedViewController) {
-        
-        cell.coordinator = statusPageCoordinator
-        cell.parentViewController = parentViewController
-        cell.loadContent(with: model.statusPageViewModel)
+                     forDisplaying model: StatusViewModel) {
+        cell.setViewModel(viewModel: model.statusPageViewModel)
         cell.userName.text = model.user.name // change this to attributed string
         cell.distance.text = model.distanceFromYou + "KM・\(model.timeSincePosted)" // change this to attributed string
         cell.likeAndUpVoteVStack.setUpVoteText(text: getVotesString(votes: model.votes))

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0EBF8BA9F4CC0701B3038642 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC9189450DA44193028C9404 /* Localizable.strings */; };
+		28827F248E34A4C202467BE4 /* Pods_Aweh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0FF8F24776E8207F68991D5 /* Pods_Aweh.framework */; };
 		5DF83BD5B5EA8261ECF1CF38 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA5487558A5C7D94A3E5D7FE /* InfoPlist.strings */; };
 		710578B824BD039B0056DBA8 /* InterestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710578B724BD039B0056DBA8 /* InterestCoordinator.swift */; };
 		7109D9AD2543BB46005579AF /* InitPhoneNumberInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9AC2543BB46005579AF /* InitPhoneNumberInputViewController.swift */; };
@@ -35,6 +36,7 @@
 		71297FDE254105D200E8440F /* InitAcceptTcsAndCsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71297FDD254105D200E8440F /* InitAcceptTcsAndCsViewController.swift */; };
 		71297FE2254105EB00E8440F /* InitAcceptTcsAndCsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71297FE1254105EB00E8440F /* InitAcceptTcsAndCsPresenter.swift */; };
 		71297FE5254105FA00E8440F /* InitAcceptTcsAndCsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71297FE4254105FA00E8440F /* InitAcceptTcsAndCsCoordinator.swift */; };
+		712D257B2569165E0071C82C /* StatusesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712D257A2569165E0071C82C /* StatusesView.swift */; };
 		712FC38F2545F70E00B7D7D4 /* InitPhoneNumberVerficationCodeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712FC38E2545F70E00B7D7D4 /* InitPhoneNumberVerficationCodeCoordinator.swift */; };
 		713549B1248BE45A0009EE6A /* UICollectionView+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */; };
 		713549B3248BE8F10009EE6A /* FeedCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713549B2248BE8F10009EE6A /* FeedCellPresenter.swift */; };
@@ -109,6 +111,8 @@
 		71A77FD3249C373D00F8D442 /* CommentCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A77FD2249C373D00F8D442 /* CommentCellPresenter.swift */; };
 		71A77FD5249C378100F8D442 /* FeedDetailCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A77FD4249C378100F8D442 /* FeedDetailCellPresenter.swift */; };
 		71A8325124B91CEB009F2D5C /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A8325024B91CEB009F2D5C /* ProfileCoordinator.swift */; };
+		71AD2FCF256928ED007CA16C /* StatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AD2FCE256928ED007CA16C /* StatusCell.swift */; };
+		71AD2FD225694EF9007CA16C /* UIStackView+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AD2FD125694EF9007CA16C /* UIStackView+Elements.swift */; };
 		71ADA9782517D4BF005FF2BF /* YerrButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ADA9772517D4BF005FF2BF /* YerrButton.swift */; };
 		71ADA97B25180B92005FF2BF /* VoteEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ADA97A25180B91005FF2BF /* VoteEntity.swift */; };
 		71ADA97F25180CBC005FF2BF /* UserEntityId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ADA97E25180CBC005FF2BF /* UserEntityId.swift */; };
@@ -178,11 +182,11 @@
 		B85A2D91728D4B52F08C4010 /* DefaultFalse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85A2B5B9D897C51BCE9277B /* DefaultFalse.swift */; };
 		B85A2F5D10A869360638BF2A /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85A217653E718A2A0E1B70E /* Media.swift */; };
 		B85A2FBAAEA2DD569D86A537 /* StatusResponseEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85A296C58297C1865DA996D /* StatusResponseEntity.swift */; };
-		CA1872A92BCDA22AD14F0E4F /* Pods_Aweh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1D3C935954DEE8CCB341F75 /* Pods_Aweh.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		04EF57C966FF289E9F3A5828 /* Pods-Aweh.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.release.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.release.xcconfig"; sourceTree = "<group>"; };
+		01A757184C7F6BE99E5BB21A /* Pods-Aweh.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.release.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.release.xcconfig"; sourceTree = "<group>"; };
+		490A1E7A388425D4532B01EE /* Pods-Aweh.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.debug.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.debug.xcconfig"; sourceTree = "<group>"; };
 		6CABDDE37419B79E3395D4FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		710578B724BD039B0056DBA8 /* InterestCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestCoordinator.swift; sourceTree = "<group>"; };
 		7109D9AC2543BB46005579AF /* InitPhoneNumberInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPhoneNumberInputViewController.swift; sourceTree = "<group>"; };
@@ -210,6 +214,7 @@
 		71297FDD254105D200E8440F /* InitAcceptTcsAndCsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitAcceptTcsAndCsViewController.swift; sourceTree = "<group>"; };
 		71297FE1254105EB00E8440F /* InitAcceptTcsAndCsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitAcceptTcsAndCsPresenter.swift; sourceTree = "<group>"; };
 		71297FE4254105FA00E8440F /* InitAcceptTcsAndCsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitAcceptTcsAndCsCoordinator.swift; sourceTree = "<group>"; };
+		712D257A2569165E0071C82C /* StatusesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusesView.swift; sourceTree = "<group>"; };
 		712FC38E2545F70E00B7D7D4 /* InitPhoneNumberVerficationCodeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPhoneNumberVerficationCodeCoordinator.swift; sourceTree = "<group>"; };
 		713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Elements.swift"; sourceTree = "<group>"; };
 		713549B2248BE8F10009EE6A /* FeedCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCellPresenter.swift; sourceTree = "<group>"; };
@@ -287,6 +292,8 @@
 		71A77FD2249C373D00F8D442 /* CommentCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellPresenter.swift; sourceTree = "<group>"; };
 		71A77FD4249C378100F8D442 /* FeedDetailCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailCellPresenter.swift; sourceTree = "<group>"; };
 		71A8325024B91CEB009F2D5C /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		71AD2FCE256928ED007CA16C /* StatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCell.swift; sourceTree = "<group>"; };
+		71AD2FD125694EF9007CA16C /* UIStackView+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Elements.swift"; sourceTree = "<group>"; };
 		71ADA9772517D4BF005FF2BF /* YerrButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YerrButton.swift; sourceTree = "<group>"; };
 		71ADA97A25180B91005FF2BF /* VoteEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteEntity.swift; sourceTree = "<group>"; };
 		71ADA97E25180CBC005FF2BF /* UserEntityId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntityId.swift; sourceTree = "<group>"; };
@@ -337,7 +344,6 @@
 		71FFED11253250BF0019BA8C /* UserCircleRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCircleRequestObject.swift; sourceTree = "<group>"; };
 		71FFED14253251610019BA8C /* InteractorResponseClousure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorResponseClousure.swift; sourceTree = "<group>"; };
 		71FFED1F253255890019BA8C /* CirclesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclesRepository.swift; sourceTree = "<group>"; };
-		B1D3C935954DEE8CCB341F75 /* Pods_Aweh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aweh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B85A20EC711E645832C537F5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B85A217653E718A2A0E1B70E /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		B85A23F70F9E2140597F651D /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -356,8 +362,8 @@
 		B85A2CCE429920E19BFB9967 /* Flagged.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flagged.swift; sourceTree = "<group>"; };
 		B85A2E4E191241692CF54133 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		B85A2FAEC161C0AA7F9D913A /* FeedError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedError.swift; sourceTree = "<group>"; };
+		D0FF8F24776E8207F68991D5 /* Pods_Aweh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aweh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9168E3BC48D20E0D22255BF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		F07E647C345BF200C8E4AE3C /* Pods-Aweh.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.debug.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,7 +371,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA1872A92BCDA22AD14F0E4F /* Pods_Aweh.framework in Frameworks */,
+				28827F248E34A4C202467BE4 /* Pods_Aweh.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,14 +385,6 @@
 				CA5487558A5C7D94A3E5D7FE /* InfoPlist.strings */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		66BD81E114A7E4A9D3CF5F12 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B1D3C935954DEE8CCB341F75 /* Pods_Aweh.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		710578B624BD03810056DBA8 /* Coordinator */ = {
@@ -513,6 +511,7 @@
 				71A5C2D32523ADF000029C7D /* UIEdgeInsets+Elements.swift */,
 				71FFECC3252FA86C0019BA8C /* UIColor+Elements.swift */,
 				7110882125327BB400228124 /* Collection+Elements.swift */,
+				71AD2FD125694EF9007CA16C /* UIStackView+Elements.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -538,7 +537,6 @@
 		7116C11524A2AF8000749620 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				71CDFC4125631E3600F7AFC0 /* StatusPageViewModel.swift */,
 				71585EE124A2932800092D6E /* StatusPagePresenter.swift */,
 			);
 			path = Presenter;
@@ -610,6 +608,25 @@
 				71297FE4254105FA00E8440F /* InitAcceptTcsAndCsCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		712D2578256915E30071C82C /* StatusesView */ = {
+			isa = PBXGroup;
+			children = (
+				712D257A2569165E0071C82C /* StatusesView.swift */,
+				71AD2FCE256928ED007CA16C /* StatusCell.swift */,
+			);
+			path = StatusesView;
+			sourceTree = "<group>";
+		};
+		712D2579256916010071C82C /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				7187578B2517CA2B00598E4B /* LikeAndVotesHStack */,
+				7116CCCB2561DF44007A61A4 /* VideoView */,
+				712D2578256915E30071C82C /* StatusesView */,
+			);
+			path = Widget;
 			sourceTree = "<group>";
 		};
 		7135D15A250D7030007CEF87 /* Theme */ = {
@@ -1097,7 +1114,7 @@
 				718BE8092486BA8000CA328B /* Aweh */,
 				718BE8082486BA8000CA328B /* Products */,
 				8EBD9E0B790EE9692A460572 /* Pods */,
-				66BD81E114A7E4A9D3CF5F12 /* Frameworks */,
+				A06C550A1BDD78A74C289217 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1346,8 +1363,7 @@
 		71C78E5424886A0000E29082 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7116CCCB2561DF44007A61A4 /* VideoView */,
-				7187578B2517CA2B00598E4B /* LikeAndVotesHStack */,
+				712D2579256916010071C82C /* Widget */,
 				71ECFDF62487060500943917 /* FeedCollectionView */,
 				71ECFDF5248705F400943917 /* FeedViewController */,
 			);
@@ -1603,6 +1619,7 @@
 		71E3C56C24A8A96F00ABC5B6 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				71CDFC4125631E3600F7AFC0 /* StatusPageViewModel.swift */,
 				716A0C8C24A2DA4800F18ED6 /* InterestViewModel.swift */,
 				7162C60C24884BBB002D8ED4 /* StatusViewModel.swift */,
 				715A0DFB24A88F6900030458 /* UserViewModel.swift */,
@@ -1716,10 +1733,18 @@
 		8EBD9E0B790EE9692A460572 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F07E647C345BF200C8E4AE3C /* Pods-Aweh.debug.xcconfig */,
-				04EF57C966FF289E9F3A5828 /* Pods-Aweh.release.xcconfig */,
+				490A1E7A388425D4532B01EE /* Pods-Aweh.debug.xcconfig */,
+				01A757184C7F6BE99E5BB21A /* Pods-Aweh.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		A06C550A1BDD78A74C289217 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D0FF8F24776E8207F68991D5 /* Pods_Aweh.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		B85A2BA1F53A221B00B6D847 /* Feed */ = {
@@ -1737,11 +1762,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 718BE81B2486BA8200CA328B /* Build configuration list for PBXNativeTarget "Aweh" */;
 			buildPhases = (
-				2FB395313F011DDAF314E540 /* [CP] Check Pods Manifest.lock */,
+				8F66DD30C0EDD0FB984B23DA /* [CP] Check Pods Manifest.lock */,
 				718BE8032486BA8000CA328B /* Sources */,
 				718BE8042486BA8000CA328B /* Frameworks */,
 				718BE8052486BA8000CA328B /* Resources */,
-				1ADC5EB1399EEF0D09D19A72 /* [CP] Embed Pods Frameworks */,
+				645B47F760E531C002892C37 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1816,7 +1841,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1ADC5EB1399EEF0D09D19A72 /* [CP] Embed Pods Frameworks */ = {
+		645B47F760E531C002892C37 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1833,7 +1858,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Aweh/Pods-Aweh-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2FB395313F011DDAF314E540 /* [CP] Check Pods Manifest.lock */ = {
+		8F66DD30C0EDD0FB984B23DA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1878,6 +1903,7 @@
 				7116C10E24A2AD3100749620 /* SingleStatusViewController.swift in Sources */,
 				7116E350251AB2E100502C92 /* UserPrefrencies.swift in Sources */,
 				71CCF0DA249C23B30054C210 /* CommentCollectionViewCell.swift in Sources */,
+				712D257B2569165E0071C82C /* StatusesView.swift in Sources */,
 				71FFED0D25324D660019BA8C /* CirclesInterator.swift in Sources */,
 				71FFECC4252FA86C0019BA8C /* UIColor+Elements.swift in Sources */,
 				71CCF0D5249AB2B30054C210 /* FeedDetailCollectionViewCell.swift in Sources */,
@@ -1913,6 +1939,7 @@
 				7167C5C324959A9200B49096 /* ToastAlert.swift in Sources */,
 				711EADEA249DDE8600D33072 /* Date+Element.swift in Sources */,
 				7116CCCD2561DF5F007A61A4 /* StatusVideoView.swift in Sources */,
+				71AD2FD225694EF9007CA16C /* UIStackView+Elements.swift in Sources */,
 				71A77FD3249C373D00F8D442 /* CommentCellPresenter.swift in Sources */,
 				71A77FCF249C33F800F8D442 /* FeedDetailCoordinator.swift in Sources */,
 				71C46DA324B26B2600A9DB14 /* PickInterestPresenter.swift in Sources */,
@@ -1942,6 +1969,7 @@
 				71297FDE254105D200E8440F /* InitAcceptTcsAndCsViewController.swift in Sources */,
 				71C46DA824B2705F00A9DB14 /* PickInterestCellPresenter.swift in Sources */,
 				7137311924BF8A34001CE972 /* CompactFeedPresenter.swift in Sources */,
+				71AD2FCF256928ED007CA16C /* StatusCell.swift in Sources */,
 				716A0C9224A2E01A00F18ED6 /* UICollectionFlowLayout+Elements.swift in Sources */,
 				71CCF0CE249AB1590054C210 /* FeedDetailPresenter.swift in Sources */,
 				71A8325124B91CEB009F2D5C /* ProfileCoordinator.swift in Sources */,
@@ -2173,7 +2201,7 @@
 		};
 		718BE81C2486BA8200CA328B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F07E647C345BF200C8E4AE3C /* Pods-Aweh.debug.xcconfig */;
+			baseConfigurationReference = 490A1E7A388425D4532B01EE /* Pods-Aweh.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -2192,7 +2220,7 @@
 		};
 		718BE81D2486BA8200CA328B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 04EF57C966FF289E9F3A5828 /* Pods-Aweh.release.xcconfig */;
+			baseConfigurationReference = 01A757184C7F6BE99E5BB21A /* Pods-Aweh.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
