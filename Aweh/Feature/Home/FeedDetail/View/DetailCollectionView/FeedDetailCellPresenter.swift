@@ -12,6 +12,6 @@ class FeedDetailCellPresenter {
     func configure(with cell: FeedDetailCollectionViewCell, forDisplaying model: FeedDetailViewModel) {
         cell.userNameLabel.text = model.feed.user.name
         cell.userImage.downloadImage(fromUrl: model.feed.user.profilePicture)
-//        cell.statusText.text = model.feed.status
+        
     }
 }

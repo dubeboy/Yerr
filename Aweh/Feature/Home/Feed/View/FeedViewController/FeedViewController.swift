@@ -11,17 +11,12 @@ import UIKit
 class FeedViewController: UIViewController {
   
     var presenter: FeedPresenter!
+    var isPresenting: Bool!
     var interestName: String?
     var introCoordinator: InitScreensCoordinator! // TODO: why is this not weak??
     weak var coordinator: (PostStatusCoordinator & FeedDetailCoordinator)!
     private var indexOfCellBeforeDragging = 0
     private let swipeVelocityThreshold: CGFloat = 0.5
-
-    @IBOutlet weak var postButton: UIButton! {
-        didSet {
-            configurePostButton()
-        }
-    }
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -57,9 +52,8 @@ class FeedViewController: UIViewController {
         let itemHeight =  view.bounds.height
                             - flowLayout.sectionInset.top
                             - flowLayout.sectionInset.bottom
-                            - lineSpacing
-                            - lineSpacing
-                            - 30
+                            - (lineSpacing * 2)
+                            - 60 // Peaking
                             - (tabBarController?.tabBar.frame.height ?? 0)
                             - (navigationController?.navigationBar.frame.size.height ?? 0)
        
@@ -69,17 +63,9 @@ class FeedViewController: UIViewController {
         collectionView.register(FeedCollectionViewCell.self)
         collectionView.dataSource = self
         collectionView.delegate = self
-//        collectionView.isPagingEnabled = true
-    
     }
     
-    private func configurePostButton() {
-        postButton.layer.cornerRadius = postButton.frame.height / 2
-        postButton.clipsToBounds = true
-        postButton.backgroundColor = .systemRed
-    }
-    
-    @IBAction func postButtonAction(_ sender: Any) {
+    @objc func postButtonAction(_ sender: Any) {
         coordinator.startPostStatusViewController { statusViewModel in
             self.collectionView.setContentOffset(.zero, animated: false)
             self.collectionView.performBatchUpdates {
@@ -87,17 +73,6 @@ class FeedViewController: UIViewController {
                 self.collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
             } completion: { _ in }
         }
-    }
-    
-    private func indexOfMajorCell() -> Int {
-        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return 0 }
-        let itemHeight = flowLayout.itemSize.height
-        let proportionalOffset = collectionView.contentOffset.y / itemHeight
-        
-        let index = Int(round(proportionalOffset))
-        let safeIndex = max(0, min(presenter.statusCount - 1, index))
-        
-        return safeIndex
     }
 }
 
@@ -132,12 +107,13 @@ extension FeedViewController: UICollectionViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         indexOfCellBeforeDragging = indexOfMajorCell()
     }
+    // https://medium.com/umake/making-animations-fun-again-838c60418598
+    // https://medium.com/@shaibalassiano/tutorial-horizontal-uicollectionview-with-paging-9421b479ee94
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         targetContentOffset.pointee = scrollView.contentOffset
         let indexOfMajorCell = self.indexOfMajorCell()
     
-        let majorCellBeforeDragging = indexOfMajorCell == indexOfCellBeforeDragging
         let hasEnoughVelocityToSlideToTheNextCell = indexOfCellBeforeDragging + 1
                                                     < presenter.statusCount && velocity.y
                                                     > swipeVelocityThreshold
@@ -165,9 +141,11 @@ extension FeedViewController: UICollectionViewDelegate {
             collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
         }
     }
+    
 }
 
-extension FeedViewController {
+// MARK: Private Helper functions
+private extension FeedViewController {
     private func configureSelf() {
         configureCollectionView()
         presenter.getStatuses(interestName: interestName) { [weak self] count, error in
@@ -180,13 +158,25 @@ extension FeedViewController {
             
             self.collectionView.reloadData()
         }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(postButtonAction))
     }
     
     private func launchSetup() {
         introCoordinator.start()
     }
+    
+    private func indexOfMajorCell() -> Int {
+        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return 0 }
+        let itemHeight = flowLayout.itemSize.height
+        let proportionalOffset = collectionView.contentOffset.y / itemHeight
+        
+        let index = Int(round(proportionalOffset))
+        let safeIndex = max(0, min(presenter.statusCount - 1, index))
+        
+        return safeIndex
+    }
 }
-
 
 extension FeedViewController: SetupCompleteDelegate {
     func didCompleteSetup() {

@@ -13,11 +13,11 @@ class LikeAndVotesVStask: UIView {
     @LateInit
     private var constainerStackView: UIStackView
     @LateInit
-    private var likeButton: YerrButton
+    private var likeButton: BottomLabelButton
     @LateInit
-    private var upVoteButton: YerrButton
+    private var upVoteButton: BottomLabelButton
     @LateInit
-    private var downVoteButton: YerrButton
+    private var downVoteButton: BottomLabelButton
     
     var didTapLikeAction: (() -> Void)?
     var didTapUpVoteAction: (() -> Void)?
@@ -26,9 +26,9 @@ class LikeAndVotesVStask: UIView {
     init() {
         super.init(frame: .zero)
         constainerStackView = UIStackView()
-        likeButton = YerrButton(frame: .zero)
-        upVoteButton = YerrButton(frame: .zero)
-        downVoteButton = YerrButton(frame: .zero)
+        likeButton = BottomLabelButton(frame: .zero)
+        upVoteButton = BottomLabelButton(frame: .zero)
+        downVoteButton = BottomLabelButton(frame: .zero)
         configureSelf()
         configureAndAddButtons()
     }
@@ -57,19 +57,15 @@ class LikeAndVotesVStask: UIView {
     }
     
     func setUpVoteText(text: String) {
-        upVoteButton.setTitle(text, for: .normal)
-        likeButton.setTitleColor(.label, for: .normal)
+        upVoteButton.setText(text: text)
     }
     
     func setDownVoteText(text: String) {
-        downVoteButton.setTitle(text, for: .normal)
-        likeButton.setTitleColor(.label, for: .normal)
+        downVoteButton.setText(text: text)
     }
     
     func setLikeVoteText(text: String) {
-        likeButton.setTitle(text, for: .normal)
-        likeButton.setTitleColor(.label, for: .normal)
-//        likeButton.imageEdgeInsets.left = -50
+        likeButton.setText(text: text)
     }
 }
 
@@ -78,31 +74,29 @@ extension LikeAndVotesVStask {
     private func configureSelf() {
         constainerStackView.axis = .vertical
         constainerStackView.distribution = .fillEqually
-        constainerStackView.alignment = .fill
-        constainerStackView.spacing = Const.View.m8
-        widthAnchor --> 40
-        constainerStackView.widthAnchor --> 40
+        constainerStackView.spacing = Const.View.m2
+        constainerStackView.alignment = .center
+        constainerStackView.spacing = 0
+        
         addSubview(constainerStackView)
     }
     
     private func configureLikeButton() {
         likeButton.translatesAutoresizingMaskIntoConstraints = false
-        likeButton.setImage(Const.Assets.Feed.like, for: .normal)
-        likeButton.addTarget(self, action: #selector(didTapLikeButtonTarget), for: .touchUpInside)
+        likeButton.set(image: Const.Assets.Feed.like, text: "-")
+        likeButton.action = didTapLikeAction
     }
     
     private func configureUpVoteButton() {
-        //        likeButton.setTitle(AppStrings.Feed.likeButton, for: .normal)
         upVoteButton.translatesAutoresizingMaskIntoConstraints = false
-        upVoteButton.setImage(Const.Assets.Feed.upVoteArrow, for: .normal)
-        upVoteButton.addTarget(self, action: #selector(didTapUpVoteButton), for: .touchUpInside)
+        upVoteButton.set(image: Const.Assets.Feed.upVoteArrow, text: "-")
+        upVoteButton.action = didTapUpVoteAction
     }
     
     private func configureDownVoteButton() {
-        //        likeButton.setTitle(AppStrings.Feed.likeButton, for: .normal)
         downVoteButton.translatesAutoresizingMaskIntoConstraints = false
-        downVoteButton.setImage(Const.Assets.Feed.downVoteArrow, for: .normal)
-        downVoteButton.addTarget(self, action: #selector(didTapDownVoteButton), for: .touchUpInside)
+        downVoteButton.set(image: Const.Assets.Feed.downVoteArrow, text: "-")
+        downVoteButton.action = didTapDownVoteAction
     }
     
     private func configureAndAddButtons() {
@@ -112,6 +106,6 @@ extension LikeAndVotesVStask {
         
         constainerStackView.addArrangedSubview(likeButton)
         constainerStackView.addArrangedSubview(downVoteButton)
-        constainerStackView.addArrangedSubview(upVoteButton)
+        constainerStackView.addArrangedSubview(upVoteButton)        
     }
 }

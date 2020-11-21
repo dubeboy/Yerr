@@ -91,8 +91,8 @@ extension StatusesView {
         addSubview(statusText)
         
         statusText.topAnchor --> self.topAnchor
-        statusText.leadingAnchor --> self.leadingAnchor + Const.View.m16
-        statusText.trailingAnchor --> self.trailingAnchor + -Const.View.m16
+        statusText.leadingAnchor --> self.leadingAnchor + Const.View.m16 * 2
+        statusText.trailingAnchor --> self.trailingAnchor + -Const.View.m16 * 2
         statusText.bottomAnchor --> self.bottomAnchor
         
         statusText.textAlignment = .center

@@ -6,7 +6,7 @@
 //  Copyright © 2020 com.github.aweh. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol FeedDetailCoordinator: Coordinator {
     func startFeedDetailViewController(feedViewModel: StatusViewModel)
@@ -18,6 +18,8 @@ extension HomeCoordinator: FeedDetailCoordinator {
         viewController.coordinator = self
         let feedPresenter = FeedDetailPresenterImplemantation(statusViewModel: .tranform(feed: feedViewModel))
         viewController.presenter = feedPresenter
-        navigationController.pushViewController(viewController, animated: true)
+        let feedDetail = UINavigationController(rootViewController: viewController)
+        feedDetail.modalPresentationStyle = .overFullScreen
+        navigationController.present(feedDetail, animated: true)
     }
 }

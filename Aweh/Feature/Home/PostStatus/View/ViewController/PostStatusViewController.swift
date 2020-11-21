@@ -27,7 +27,6 @@ class PostStatusViewController: UIViewController {
     }
     
 //    var postButton = UIBarButtonItem(title: "Post", style: .plain, target: self, action: #selector(post))
-    var postButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closs))
 
     var assets: [String: PHAsset] = [:]
 
@@ -46,21 +45,21 @@ class PostStatusViewController: UIViewController {
         title = AppStrings.PostStatus.title
         configureSelf()
         setupStatusTextiew()
-        navigationItem.rightBarButtonItem = postButton       
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(close))
     }
     
     @objc func post() {
         let status = commentBox.commentText()
         presenter.postStatus(status: status) { [weak self] status in
             guard let self = self else { return }
-            self.closs()
+            self.close()
             self.delegate(status)
         } error: { errorMessage in
             self.presentToast(message: errorMessage)
         }
     }
     
-    @objc private func closs() {
+    @objc func close() {
         self.dismiss(animated: true, completion: nil)
     }
     
