@@ -10,9 +10,10 @@ import UIKit
 
 class BottomLabelButton: UIView {
     
-    let imageView: UIImageView
+    private let imageView: UIImageView
     private let label = UILabel()
-    private var containerStackView = UIStackView()
+    private let containerStackView = UIStackView()
+    var action: (() -> Void)? = nil
 //    var action: (() -> Void)? = nil {
 //        didSet {
 //            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapAction))
@@ -22,10 +23,9 @@ class BottomLabelButton: UIView {
     
     init() {
         imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 22, height: 22))
-//        imageView.backgroundColor = .red
-//        label.backgroundColor = .gray
         super.init(frame: .zero)
         configureSelf()
+
     }
     
     required init?(coder: NSCoder) {
@@ -42,23 +42,32 @@ class BottomLabelButton: UIView {
     }
 }
 
-extension BottomLabelButton {
+private extension BottomLabelButton {
     private func configureSelf() {
         containerStackView.autoresizingOff()
         addSubview(containerStackView)
         containerStackView.distribution = .fillEqually
         containerStackView.axis = .vertical
-        containerStackView.alignment = .top
+        containerStackView.alignment = .center
         containerStackView.spacing = Const.View.m1
         
         containerStackView --> self
         
         label.autoresizingOff()
+//        label.heightAnchor --> 22
         imageView.autoresizingOff()
         
         label.textAlignment = .center
         label.numberOfLines = 1
         containerStackView.addArrangedSubview(imageView)
         containerStackView.addArrangedSubview(label)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapButton))
+        addGestureRecognizer(tapGesture)
+    }
+    
+    
+    @objc private func didTapButton() {
+        action?()
     }
 }

@@ -28,18 +28,6 @@ class LikeAndVotesVStask: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc private func didTapLikeButtonTarget() {
-        didTapLikeAction?()
-    }
-    
-    @objc private func didTapUpVoteButton() {
-        didTapUpVoteAction?()
-    }
-    
-    @objc private func didTapDownVoteButton() {
-        didTapDownVoteAction?()
-    }
-    
     func setUpVoteText(text: String) {
         upVoteButton.setText(text: text)
     }
@@ -54,7 +42,7 @@ class LikeAndVotesVStask: UIStackView {
 }
 
 // MARK: helper functions
-extension LikeAndVotesVStask {
+private extension LikeAndVotesVStask {
     private func configureSelf() {
         axis = .vertical
         distribution = .fillEqually
@@ -66,16 +54,25 @@ extension LikeAndVotesVStask {
     private func configureLikeButton() {
         likeButton.autoresizingOff()
         likeButton.set(image: Const.Assets.Feed.like, text: "-")
+        likeButton.action = { [weak self] in
+            self?.didTapLikeAction?()
+        }
     }
     
     private func configureUpVoteButton() {
         upVoteButton.autoresizingOff()
         upVoteButton.set(image: Const.Assets.Feed.upVoteArrow, text: "-")
+        upVoteButton.action = { [weak self] in
+            self?.didTapUpVoteAction?()
+        }
     }
     
     private func configureDownVoteButton() {
         downVoteButton.autoresizingOff()
         downVoteButton.set(image: Const.Assets.Feed.downVoteArrow, text: "-")
+        downVoteButton.action = { [weak self] in
+            self?.didTapDownVoteAction?()
+        }
     }
     
     private func configureAndAddButtons() {
