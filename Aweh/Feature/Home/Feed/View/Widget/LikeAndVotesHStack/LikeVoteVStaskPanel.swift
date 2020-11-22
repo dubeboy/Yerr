@@ -8,16 +8,11 @@
 
 import UIKit
 
-class LikeAndVotesVStask: UIView {
+class LikeAndVotesVStask: UIStackView {
     
-    @LateInit
-    private var constainerStackView: UIStackView
-    @LateInit
-    private var likeButton: BottomLabelButton
-    @LateInit
-    private var upVoteButton: BottomLabelButton
-    @LateInit
-    private var downVoteButton: BottomLabelButton
+    private var likeButton: BottomLabelButton = BottomLabelButton()
+    private var upVoteButton: BottomLabelButton = BottomLabelButton()
+    private var downVoteButton: BottomLabelButton = BottomLabelButton()
     
     var didTapLikeAction: (() -> Void)?
     var didTapUpVoteAction: (() -> Void)?
@@ -25,23 +20,12 @@ class LikeAndVotesVStask: UIView {
     
     init() {
         super.init(frame: .zero)
-        constainerStackView = UIStackView()
-        likeButton = BottomLabelButton(frame: .zero)
-        upVoteButton = BottomLabelButton(frame: .zero)
-        downVoteButton = BottomLabelButton(frame: .zero)
         configureSelf()
         configureAndAddButtons()
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        constainerStackView.translatesAutoresizingMaskIntoConstraints = false
-        constainerStackView --> self
-        
     }
     
     @objc private func didTapLikeButtonTarget() {
@@ -72,31 +56,26 @@ class LikeAndVotesVStask: UIView {
 // MARK: helper functions
 extension LikeAndVotesVStask {
     private func configureSelf() {
-        constainerStackView.axis = .vertical
-        constainerStackView.distribution = .fillEqually
-        constainerStackView.spacing = Const.View.m2
-        constainerStackView.alignment = .center
-        constainerStackView.spacing = 0
-        
-        addSubview(constainerStackView)
+        axis = .vertical
+        distribution = .fillEqually
+        spacing = Const.View.m2
+        alignment = .center
+        spacing = 0
     }
     
     private func configureLikeButton() {
-        likeButton.translatesAutoresizingMaskIntoConstraints = false
+        likeButton.autoresizingOff()
         likeButton.set(image: Const.Assets.Feed.like, text: "-")
-        likeButton.action = didTapLikeAction
     }
     
     private func configureUpVoteButton() {
-        upVoteButton.translatesAutoresizingMaskIntoConstraints = false
+        upVoteButton.autoresizingOff()
         upVoteButton.set(image: Const.Assets.Feed.upVoteArrow, text: "-")
-        upVoteButton.action = didTapUpVoteAction
     }
     
     private func configureDownVoteButton() {
-        downVoteButton.translatesAutoresizingMaskIntoConstraints = false
+        downVoteButton.autoresizingOff()
         downVoteButton.set(image: Const.Assets.Feed.downVoteArrow, text: "-")
-        downVoteButton.action = didTapDownVoteAction
     }
     
     private func configureAndAddButtons() {
@@ -104,8 +83,8 @@ extension LikeAndVotesVStask {
         configureUpVoteButton()
         configureDownVoteButton()
         
-        constainerStackView.addArrangedSubview(likeButton)
-        constainerStackView.addArrangedSubview(downVoteButton)
-        constainerStackView.addArrangedSubview(upVoteButton)        
+        addArrangedSubview(likeButton)
+        addArrangedSubview(downVoteButton)
+        addArrangedSubview(upVoteButton)
     }
 }

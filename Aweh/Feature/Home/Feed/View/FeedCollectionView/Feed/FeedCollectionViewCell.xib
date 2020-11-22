@@ -118,13 +118,6 @@
                                     <constraint firstAttribute="height" constant="60" id="lv3-xL-HTs"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="8tl-Dr-L8Q" userLabel="actionButtonStackView">
-                                <rect key="frame" x="332" y="228" width="40" height="150"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="gjx-GX-6fA"/>
-                                    <constraint firstAttribute="height" constant="150" id="ubA-2W-j8o"/>
-                                </constraints>
-                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -138,8 +131,6 @@
                             <constraint firstAttribute="trailing" secondItem="4rv-UK-Or0" secondAttribute="trailing" id="etN-hk-vtt"/>
                             <constraint firstAttribute="trailing" secondItem="Eaq-Ku-Xxy" secondAttribute="trailing" constant="16" id="jaT-cr-LKM"/>
                             <constraint firstItem="Eaq-Ku-Xxy" firstAttribute="leading" secondItem="TFQ-Ub-mPP" secondAttribute="trailing" constant="8" id="kTb-pq-9WC"/>
-                            <constraint firstAttribute="trailing" secondItem="8tl-Dr-L8Q" secondAttribute="trailing" constant="2" id="mhs-Dt-beU"/>
-                            <constraint firstAttribute="bottom" secondItem="8tl-Dr-L8Q" secondAttribute="bottom" constant="16" id="myi-fO-wvw"/>
                             <constraint firstItem="4rv-UK-Or0" firstAttribute="leading" secondItem="N7g-sF-ebT" secondAttribute="leading" id="uQT-rJ-BOf"/>
                             <constraint firstItem="TFQ-Ub-mPP" firstAttribute="leading" secondItem="Rex-aa-8TK" secondAttribute="trailing" constant="8" id="ucS-ab-s8t"/>
                             <constraint firstItem="Rex-aa-8TK" firstAttribute="top" secondItem="N7g-sF-ebT" secondAttribute="top" constant="16" id="xzR-O6-GoK"/>
@@ -160,13 +151,12 @@
                 <outlet property="canvas" destination="vkM-Hh-Lc4" id="bTw-s9-ag5"/>
                 <outlet property="circlesContainer" destination="H7C-l7-E0h" id="msf-db-qnz"/>
                 <outlet property="circlesView" destination="JgV-Vx-tHd" id="4r4-OB-iOQ"/>
-                <outlet property="containerStackView" destination="8tl-Dr-L8Q" id="8Zq-uA-skp"/>
                 <outlet property="distance" destination="Eaq-Ku-Xxy" id="vAy-56-oLT"/>
                 <outlet property="profileImage" destination="S6M-xS-Dy9" id="EIM-gX-F3s"/>
                 <outlet property="songsView" destination="VJ2-1k-Uns" id="7Hn-AI-Upq"/>
                 <outlet property="userName" destination="TFQ-Ub-mPP" id="qKo-zf-sby"/>
             </connections>
-            <point key="canvasLocation" x="308.69565217391306" y="227.67857142857142"/>
+            <point key="canvasLocation" x="360.86956521739131" y="265.84821428571428"/>
         </collectionViewCell>
     </objects>
     <resources>

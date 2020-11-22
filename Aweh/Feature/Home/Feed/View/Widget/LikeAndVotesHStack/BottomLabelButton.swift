@@ -10,18 +10,21 @@ import UIKit
 
 class BottomLabelButton: UIView {
     
-    var imageView: UIImageView = UIImageView()
-    var label = UILabel()
-    var containerStackView = UIStackView()
-    var action: (() -> Void)? = nil {
-        didSet {
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapAction))
-            self.addGestureRecognizer(tapGesture)
-        }
-    }
+    let imageView: UIImageView
+    private let label = UILabel()
+    private var containerStackView = UIStackView()
+//    var action: (() -> Void)? = nil {
+//        didSet {
+//            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapAction))
+//            self.addGestureRecognizer(tapGesture)
+//        }
+//    }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 22, height: 22))
+//        imageView.backgroundColor = .red
+//        label.backgroundColor = .gray
+        super.init(frame: .zero)
         configureSelf()
     }
     
@@ -37,25 +40,24 @@ class BottomLabelButton: UIView {
     func setText(text: String) {
         label.text = text
     }
-    
-    @objc func didTapAction() {
-        action?()
-    }
-    
 }
 
 extension BottomLabelButton {
     private func configureSelf() {
         containerStackView.autoresizingOff()
         addSubview(containerStackView)
-        containerStackView.distribution = .fillProportionally
+        containerStackView.distribution = .fillEqually
         containerStackView.axis = .vertical
         containerStackView.alignment = .top
         containerStackView.spacing = Const.View.m1
+        
+        containerStackView --> self
+        
+        label.autoresizingOff()
         imageView.autoresizingOff()
-        imageView.widthAnchor --> 22
-        imageView.heightAnchor --> 22
+        
         label.textAlignment = .center
+        label.numberOfLines = 1
         containerStackView.addArrangedSubview(imageView)
         containerStackView.addArrangedSubview(label)
     }

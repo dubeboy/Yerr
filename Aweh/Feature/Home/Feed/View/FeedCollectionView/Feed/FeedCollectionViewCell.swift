@@ -14,7 +14,6 @@ class FeedCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var distance: UILabel!
-    @IBOutlet weak var containerStackView: UIStackView!
     @IBOutlet weak var songsView: UIView!
     @IBOutlet weak var circlesView: UIView!
     @IBOutlet weak var circlesContainer: UIView!
@@ -65,7 +64,9 @@ extension FeedCollectionViewCell {
     }
     
     private func configureLikeAndUpVoteButtons() {
-        likeAndUpVoteVStack.translatesAutoresizingMaskIntoConstraints = false
-        containerStackView.addArrangedSubview(likeAndUpVoteVStack)
+        likeAndUpVoteVStack.autoresizingOff()
+        contentView.addSubview(likeAndUpVoteVStack)
+        likeAndUpVoteVStack.bottomAnchor --> contentView.bottomAnchor
+        likeAndUpVoteVStack.trailingAnchor --> contentView.trailingAnchor + -Const.View.m8
     }
 }
