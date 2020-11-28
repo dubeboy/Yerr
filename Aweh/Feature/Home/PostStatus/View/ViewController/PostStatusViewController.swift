@@ -15,33 +15,26 @@ class PostStatusViewController: UIViewController {
     weak var coordinator: PhotosGalleryCoordinator?
     var delegate: Completion<StatusViewModel>!
     
-    @LateInit
-    var location: GeoLocationServices
-    @LateInit
-    var numberOfCharactorsButton: UIBarButtonItem
-    @LateInit
-    var commentBox: CommentBoxView
-    
     var placeHolderText: String {
         presenter.placeHolderText
     }
     
-//    var postButton = UIBarButtonItem(title: "Post", style: .plain, target: self, action: #selector(post))
-
+    @LateInit
+    private var location: GeoLocationServices
+    @LateInit
+    private var numberOfCharactorsButton: UIBarButtonItem
+    @LateInit
+    private var bottomConstraint: NSLayoutConstraint
+    
     var assets: [String: PHAsset] = [:]
 
-    var bottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var statusTextView: UITextView!
-    @IBOutlet weak var profileImage: UIImageView! {
-        didSet {
-            profileImage.makeImageRound()
-        }
-    }
+    private var statusTextView: UITextView = UITextView()
+    private var profileImage: UIImageView = UIImageView()
    
     override func viewDidLoad() {
         super.viewDidLoad()
         location = GeoLocationServices(delegate: self)
-        commentBox = CommentBoxView(displayType: .compact(statusTextView))
+        profileImage.makeImageRound()
         title = AppStrings.PostStatus.title
         configureSelf()
         setupStatusTextiew()
@@ -49,7 +42,6 @@ class PostStatusViewController: UIViewController {
     }
     
     @objc func post() {
-        let status = commentBox.commentText()
         presenter.postStatus(status: status) { [weak self] status in
             guard let self = self else { return }
             self.close()

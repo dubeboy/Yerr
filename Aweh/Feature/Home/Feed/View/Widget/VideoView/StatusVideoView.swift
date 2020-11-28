@@ -11,7 +11,7 @@ import AVFoundation
 
 class StatusVideoView: UIView {
     
-    var statusLabel: UILabel = UILabel()
+    private var statusLabel: UILabel = UILabel()
     
     private let avPlayer: AVPlayer = AVPlayer()
     private let playerLayer: AVPlayerLayer
@@ -44,11 +44,19 @@ class StatusVideoView: UIView {
         super.layoutSubviews()
         playerLayer.frame = self.bounds
     }
+    
+    func hideLabel() {
+        statusLabel.isHidden = true
+    }
+    
+    func showLabel() {
+        statusLabel.isHidden = false
+    }
 }
 
 extension StatusVideoView {
     private func configureSelf() {
-        let effectsView = UIView()
+        let effectsView = UIView() // effects we can use to blur the video player
         effectsView.autoresizingOff()
         effectsView.bottomAnchor --> bottomAnchor + Const.View.m16
         effectsView.leadingAnchor --> leadingAnchor + Const.View.m16 * 2

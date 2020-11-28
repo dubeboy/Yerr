@@ -31,6 +31,11 @@
 		7116CCCD2561DF5F007A61A4 /* StatusVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116CCCC2561DF5F007A61A4 /* StatusVideoView.swift */; };
 		7116E350251AB2E100502C92 /* UserPrefrencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116E34F251AB2E100502C92 /* UserPrefrencies.swift */; };
 		7119E3A024B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7119E39F24B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard */; };
+		711E79C0256B04D70060DB76 /* PostStatusTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E79BF256B04D70060DB76 /* PostStatusTextView.swift */; };
+		711E79C5256B086D0060DB76 /* TrimPostVideoStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E79C4256B086D0060DB76 /* TrimPostVideoStatusView.swift */; };
+		711E7AB1256BFDBE0060DB76 /* PostStatusVideoPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E7AB0256BFDBE0060DB76 /* PostStatusVideoPreview.swift */; };
+		711E7AB9256C12FB0060DB76 /* TrimPostStatusBoderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E7AB8256C12FB0060DB76 /* TrimPostStatusBoderView.swift */; };
+		711E7ABC256C15100060DB76 /* TrimPostVideoEndIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E7ABB256C15100060DB76 /* TrimPostVideoEndIndicator.swift */; };
 		711EADEA249DDE8600D33072 /* Date+Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711EADE9249DDE8600D33072 /* Date+Element.swift */; };
 		7121DA8D250972BF00EE21D5 /* CommentBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121DA8C250972BF00EE21D5 /* CommentBoxView.swift */; };
 		71297FDE254105D200E8440F /* InitAcceptTcsAndCsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71297FDD254105D200E8440F /* InitAcceptTcsAndCsViewController.swift */; };
@@ -42,6 +47,11 @@
 		713549B3248BE8F10009EE6A /* FeedCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713549B2248BE8F10009EE6A /* FeedCellPresenter.swift */; };
 		7137311924BF8A34001CE972 /* CompactFeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7137311824BF8A34001CE972 /* CompactFeedPresenter.swift */; };
 		713D265224BA090400E2CFC5 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713D265124BA090400E2CFC5 /* Logger.swift */; };
+		7143561A256C19CE00ACAEA5 /* TrimPostCVideoIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71435619256C19CE00ACAEA5 /* TrimPostCVideoIndicator.swift */; };
+		7143561E256C1B6000ACAEA5 /* TrimPostVideoStartIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7143561D256C1B6000ACAEA5 /* TrimPostVideoStartIndicator.swift */; };
+		71435621256C1C7600ACAEA5 /* TrimPostVideoTumbnailsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71435620256C1C7600ACAEA5 /* TrimPostVideoTumbnailsManager.swift */; };
+		71435624256C2BBB00ACAEA5 /* TimePostStatusTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71435623256C2BBB00ACAEA5 /* TimePostStatusTimeView.swift */; };
+		71435627256C30AF00ACAEA5 /* TimePostVideoRangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71435626256C30AF00ACAEA5 /* TimePostVideoRangeSlider.swift */; };
 		7145AADE25197CB600657062 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145AADD25197CB600657062 /* ProfileInteractor.swift */; };
 		7148CC1A2559B8DC0010B3F5 /* FeedStackedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7148CC192559B8DC0010B3F5 /* FeedStackedLayout.swift */; };
 		7155E30624BCDFA7006EBED8 /* MainStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7155E30524BCDFA7006EBED8 /* MainStatusViewController.swift */; };
@@ -210,6 +220,11 @@
 		7116CCCC2561DF5F007A61A4 /* StatusVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusVideoView.swift; sourceTree = "<group>"; };
 		7116E34F251AB2E100502C92 /* UserPrefrencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrefrencies.swift; sourceTree = "<group>"; };
 		7119E39F24B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickInterestCollectionViewController.storyboard; sourceTree = "<group>"; };
+		711E79BF256B04D70060DB76 /* PostStatusTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStatusTextView.swift; sourceTree = "<group>"; };
+		711E79C4256B086D0060DB76 /* TrimPostVideoStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimPostVideoStatusView.swift; sourceTree = "<group>"; };
+		711E7AB0256BFDBE0060DB76 /* PostStatusVideoPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStatusVideoPreview.swift; sourceTree = "<group>"; };
+		711E7AB8256C12FB0060DB76 /* TrimPostStatusBoderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimPostStatusBoderView.swift; sourceTree = "<group>"; };
+		711E7ABB256C15100060DB76 /* TrimPostVideoEndIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimPostVideoEndIndicator.swift; sourceTree = "<group>"; };
 		711EADE9249DDE8600D33072 /* Date+Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Element.swift"; sourceTree = "<group>"; };
 		7121DA8C250972BF00EE21D5 /* CommentBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentBoxView.swift; sourceTree = "<group>"; };
 		71297FDD254105D200E8440F /* InitAcceptTcsAndCsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitAcceptTcsAndCsViewController.swift; sourceTree = "<group>"; };
@@ -221,6 +236,11 @@
 		713549B2248BE8F10009EE6A /* FeedCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCellPresenter.swift; sourceTree = "<group>"; };
 		7137311824BF8A34001CE972 /* CompactFeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactFeedPresenter.swift; sourceTree = "<group>"; };
 		713D265124BA090400E2CFC5 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		71435619256C19CE00ACAEA5 /* TrimPostCVideoIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimPostCVideoIndicator.swift; sourceTree = "<group>"; };
+		7143561D256C1B6000ACAEA5 /* TrimPostVideoStartIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimPostVideoStartIndicator.swift; sourceTree = "<group>"; };
+		71435620256C1C7600ACAEA5 /* TrimPostVideoTumbnailsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimPostVideoTumbnailsManager.swift; sourceTree = "<group>"; };
+		71435623256C2BBB00ACAEA5 /* TimePostStatusTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePostStatusTimeView.swift; sourceTree = "<group>"; };
+		71435626256C30AF00ACAEA5 /* TimePostVideoRangeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePostVideoRangeSlider.swift; sourceTree = "<group>"; };
 		7145AADD25197CB600657062 /* ProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInteractor.swift; sourceTree = "<group>"; };
 		7148CC192559B8DC0010B3F5 /* FeedStackedLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedStackedLayout.swift; sourceTree = "<group>"; };
 		7155E30524BCDFA7006EBED8 /* MainStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStatusViewController.swift; sourceTree = "<group>"; };
@@ -577,6 +597,45 @@
 				7116CCCC2561DF5F007A61A4 /* StatusVideoView.swift */,
 			);
 			path = VideoView;
+			sourceTree = "<group>";
+		};
+		711E79BC256B04270060DB76 /* ProgressIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				71FBCF2B2512B9A100FC7557 /* CircleProgressIndicatorView.swift */,
+			);
+			path = ProgressIndicator;
+			sourceTree = "<group>";
+		};
+		711E79BD256B04320060DB76 /* PostTextStatusView */ = {
+			isa = PBXGroup;
+			children = (
+				711E79BF256B04D70060DB76 /* PostStatusTextView.swift */,
+			);
+			path = PostTextStatusView;
+			sourceTree = "<group>";
+		};
+		711E79BE256B04540060DB76 /* TrimPostVideoStatusView */ = {
+			isa = PBXGroup;
+			children = (
+				711E79C4256B086D0060DB76 /* TrimPostVideoStatusView.swift */,
+				711E7AB8256C12FB0060DB76 /* TrimPostStatusBoderView.swift */,
+				711E7ABB256C15100060DB76 /* TrimPostVideoEndIndicator.swift */,
+				71435619256C19CE00ACAEA5 /* TrimPostCVideoIndicator.swift */,
+				7143561D256C1B6000ACAEA5 /* TrimPostVideoStartIndicator.swift */,
+				71435620256C1C7600ACAEA5 /* TrimPostVideoTumbnailsManager.swift */,
+				71435623256C2BBB00ACAEA5 /* TimePostStatusTimeView.swift */,
+				71435626256C30AF00ACAEA5 /* TimePostVideoRangeSlider.swift */,
+			);
+			path = TrimPostVideoStatusView;
+			sourceTree = "<group>";
+		};
+		711E7AAF256BFD9D0060DB76 /* PostStatusPreview */ = {
+			isa = PBXGroup;
+			children = (
+				711E7AB0256BFDBE0060DB76 /* PostStatusVideoPreview.swift */,
+			);
+			path = PostStatusPreview;
 			sourceTree = "<group>";
 		};
 		7121DA8B2509726700EE21D5 /* CommentBox */ = {
@@ -1451,7 +1510,10 @@
 		71D6BADF249570C200F4B5D8 /* Widget */ = {
 			isa = PBXGroup;
 			children = (
-				71FBCF2B2512B9A100FC7557 /* CircleProgressIndicatorView.swift */,
+				711E7AAF256BFD9D0060DB76 /* PostStatusPreview */,
+				711E79BE256B04540060DB76 /* TrimPostVideoStatusView */,
+				711E79BD256B04320060DB76 /* PostTextStatusView */,
+				711E79BC256B04270060DB76 /* ProgressIndicator */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -1918,7 +1980,9 @@
 				716DA6CE248EE57D001B74E2 /* MainCoordinator.swift in Sources */,
 				71CDFC4225631E3700F7AFC0 /* StatusPageViewModel.swift in Sources */,
 				7170E9FE2495EB7D00B1D15F /* AssetDetailCoordinator.swift in Sources */,
+				7143561E256C1B6000ACAEA5 /* TrimPostVideoStartIndicator.swift in Sources */,
 				7162C60B24884BAB002D8ED4 /* FeedPresenter.swift in Sources */,
+				711E7ABC256C15100060DB76 /* TrimPostVideoEndIndicator.swift in Sources */,
 				7109D9BE2543D6B3005579AF /* InfoInputCoordinator.swift in Sources */,
 				7162C60D24884BBB002D8ED4 /* StatusViewModel.swift in Sources */,
 				71E0E759254E05FD0040930C /* PresenterCountryCell.swift in Sources */,
@@ -1940,11 +2004,15 @@
 				71D5B9C225114A5A0077DB09 /* PresenterCompletion.swift in Sources */,
 				7198AC7F24918B36002029CF /* PhotosCollectionViewPresenter.swift in Sources */,
 				7167C5C324959A9200B49096 /* ToastAlert.swift in Sources */,
+				71435624256C2BBB00ACAEA5 /* TimePostStatusTimeView.swift in Sources */,
 				711EADEA249DDE8600D33072 /* Date+Element.swift in Sources */,
 				7116CCCD2561DF5F007A61A4 /* StatusVideoView.swift in Sources */,
 				71AD2FD225694EF9007CA16C /* UIStackView+Elements.swift in Sources */,
 				71A77FD3249C373D00F8D442 /* CommentCellPresenter.swift in Sources */,
+				711E79C5256B086D0060DB76 /* TrimPostVideoStatusView.swift in Sources */,
 				71A77FCF249C33F800F8D442 /* FeedDetailCoordinator.swift in Sources */,
+				71435627256C30AF00ACAEA5 /* TimePostVideoRangeSlider.swift in Sources */,
+				71435621256C1C7600ACAEA5 /* TrimPostVideoTumbnailsManager.swift in Sources */,
 				71C46DA324B26B2600A9DB14 /* PickInterestPresenter.swift in Sources */,
 				71D7675424BF808300D9507E /* CompactFeedCollectionViewCell.swift in Sources */,
 				71956FA8253B4FCB00D59D29 /* UserDefaults.swift in Sources */,
@@ -1952,6 +2020,7 @@
 				71D4EBB82523D13100CEBB3A /* PostStatusViewModel.swift in Sources */,
 				7155E30E24BCE485006EBED8 /* BasePageViewController.swift in Sources */,
 				71FFECC1252F90B20019BA8C /* InterestsContainerView.swift in Sources */,
+				711E7AB9256C12FB0060DB76 /* TrimPostStatusBoderView.swift in Sources */,
 				7116C11C24A2B13400749620 /* StatusIndicator.swift in Sources */,
 				7198AC8124918BBD002029CF /* PhotosCollectionViewController.swift in Sources */,
 				7109D9B72543D68B005579AF /* InfoInputViewController.swift in Sources */,
@@ -1959,7 +2028,9 @@
 				71D6BAE12495737100F4B5D8 /* AssetsHorizontalListView.swift in Sources */,
 				71FBCF2C2512B9A100FC7557 /* CircleProgressIndicatorView.swift in Sources */,
 				71CCF0CB249AB1450054C210 /* FeedDetailViewController.swift in Sources */,
+				711E7AB1256BFDBE0060DB76 /* PostStatusVideoPreview.swift in Sources */,
 				716DA6C2248D7E55001B74E2 /* PostStatusViewController.swift in Sources */,
+				711E79C0256B04D70060DB76 /* PostStatusTextView.swift in Sources */,
 				716A0C9424A2E54200F18ED6 /* InterestsCellPresenter.swift in Sources */,
 				718757882517C9D500598E4B /* LikeVoteVStaskPanel.swift in Sources */,
 				719824D924B0F450004EB567 /* ProfilePresenter.swift in Sources */,
@@ -1993,6 +2064,7 @@
 				71138AAB24B519AC00AC7D1C /* LateInit.swift in Sources */,
 				71777B6D24C664D10075F4F7 /* AppStrings.swift in Sources */,
 				7109D9C92545E2BB005579AF /* InitPhoneNumberVerificationPresenter.swift in Sources */,
+				7143561A256C19CE00ACAEA5 /* TrimPostCVideoIndicator.swift in Sources */,
 				716A0C8924A2D66700F18ED6 /* InterestsCollectionViewCell.swift in Sources */,
 				716A0C9624A2E9C800F18ED6 /* StatusPageCoordinator.swift in Sources */,
 				7157C2322488761900F0A7F0 /* SimpleDependencyInjector.swift in Sources */,

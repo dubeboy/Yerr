@@ -68,6 +68,7 @@ private extension BottomLabelButton {
     
     
     @objc private func didTapButton() {
+        // TODO: play animations here
         action?()
     }
 }
