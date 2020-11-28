@@ -9,6 +9,7 @@
 import UIKit
 import Photos
 
+// This view gives you the ability to add text above a video or just normal text
 class PostStatusViewController: UIViewController {
     
     var presenter: PostStatusPresenter!
@@ -21,8 +22,6 @@ class PostStatusViewController: UIViewController {
     
     @LateInit
     private var location: GeoLocationServices
-    @LateInit
-    private var numberOfCharactorsButton: UIBarButtonItem
     @LateInit
     private var bottomConstraint: NSLayoutConstraint
     
@@ -42,13 +41,13 @@ class PostStatusViewController: UIViewController {
     }
     
     @objc func post() {
-        presenter.postStatus(status: status) { [weak self] status in
-            guard let self = self else { return }
-            self.close()
-            self.delegate(status)
-        } error: { errorMessage in
-            self.presentToast(message: errorMessage)
-        }
+//        presenter.postStatus(status: status) { [weak self] status in
+//            guard let self = self else { return }
+//            self.close()
+//            self.delegate(status)
+//        } error: { errorMessage in
+//            self.presentToast(message: errorMessage)
+//        }
     }
     
     @objc func close() {
@@ -66,7 +65,6 @@ class PostStatusViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        commentBox.becomeFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -135,22 +133,9 @@ extension PostStatusViewController {
         }
     }
     
-    private func setUpCommentBox() {
-        commentBox.replyButton.setTitle(AppStrings.PostStatus.postStatusButtonTitle, for: .normal)
-        commentBox.placeHolderText = placeHolderText
-        commentBox.translatesAutoresizingMaskIntoConstraints = false
-        commentBox.topAnchor --> statusTextView.bottomAnchor + Const.View.m16
-        bottomConstraint = commentBox.bottomAnchor --> view.safeAreaLayoutGuide.bottomAnchor
-        commentBox.trailingAnchor --> view.trailingAnchor
-        commentBox.leadingAnchor --> view.leadingAnchor
-        commentBox.replyButton.addTarget(self, action: #selector(post), for: .touchUpInside)
-        commentBox.selectPhotosButton.addTarget(self, action: #selector(requestAuthorisation), for: .touchUpInside)
-    }
-    
     private func didGetAssets(assets: [String: PHAsset]) {
         self.assets = assets
         presenter.appendSelectedImages(assets: assets)
-        commentBox.showImageAssets(assets: assets)
     }
 }
 

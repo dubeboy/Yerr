@@ -9,14 +9,14 @@
 import UIKit
 
 protocol TimePostVideoRangeSliderDelegate: class {
-    func didChangeValue(videoRangeSlider: TimePostVideoRangeSlider, startTime: Float64, endTime: Float64)
-    func indicatorDidChangePosition(videoRangeSlider: TimePostVideoRangeSlider, position: Float64)
+    func didChangeValue(videoRangeSlider: TimePostVideoRangeSliderView, startTime: Float64, endTime: Float64)
+    func indicatorDidChangePosition(videoRangeSlider: TimePostVideoRangeSliderView, position: Float64)
     
     func sliderGestureBegan()
     func sliderGestureEnded()
 }
 
-class TimePostVideoRangeSlider: UIView, UIGestureRecognizerDelegate {
+class TimePostVideoRangeSliderView: UIView, UIGestureRecognizerDelegate {
     private enum DragHandleChoice {
         case start
         case end
@@ -24,11 +24,11 @@ class TimePostVideoRangeSlider: UIView, UIGestureRecognizerDelegate {
     
     weak var delegate: TimePostVideoRangeSliderDelegate? = nil
     
-    var startIndicator = TrimPostVideoStartIndicator()
-    var endIndicator = TrimPostVideoEndIndicator()
+    var startIndicator = TrimPostVideoStartIndicatorView()
+    var endIndicator = TrimPostVideoEndIndicatorView()
     var topLine = TrimPostStatusBoderView()
     var bottomLine = TrimPostStatusBoderView()
-    var progressIndicator = TrimPostVideoProgressIndicator()
+    var progressIndicator = TrimPostVideoProgressIndicatorView()
     var draggableView = UIView()
     
     var startTimeView = TimePostStatusTimeView()
@@ -106,13 +106,13 @@ class TimePostVideoRangeSlider: UIView, UIGestureRecognizerDelegate {
 
 // MARK: private functions
 
-private extension TimePostVideoRangeSlider {
+private extension TimePostVideoRangeSliderView {
     private func setup() {
         self.isUserInteractionEnabled = true
         
         // setup start indicator
         let startDrag = UIPanGestureRecognizer(target: self, action: #selector(startDragged(recognizer:)))
-        startIndicator = TrimPostVideoStartIndicator(frame: CGRect(x: 0,
+        startIndicator = TrimPostVideoStartIndicatorView(frame: CGRect(x: 0,
                                                                    y: -topBorderHeight,
                                                                    width: 20,
                                                                    height: self.frame.size.height + bottomBorderHeight + topBorderHeight))
@@ -123,7 +123,7 @@ private extension TimePostVideoRangeSlider {
         
         // setup end indicator
         let endDrag = UIPanGestureRecognizer(target: self, action: #selector(endDragged(recognizer:)))
-        endIndicator = TrimPostVideoEndIndicator(frame: CGRect(x: 0, y: -topBorderHeight,
+        endIndicator = TrimPostVideoEndIndicatorView(frame: CGRect(x: 0, y: -topBorderHeight,
                                                                width: indicatorWidth, height: self.frame.size.height + bottomBorderHeight + topBorderHeight))
         endIndicator.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
         endIndicator.addGestureRecognizer(endDrag)
@@ -145,7 +145,7 @@ private extension TimePostVideoRangeSlider {
         // setup progress indicator
         
         let progressDrag = UIPanGestureRecognizer(target: self, action: #selector(progressDragged(recognizer:)))
-        progressIndicator = TrimPostVideoProgressIndicator(frame: CGRect(x: 0, y: -topBorderHeight, width: 10, height: self.frame.size.height + bottomBorderHeight + topBorderHeight))
+        progressIndicator = TrimPostVideoProgressIndicatorView(frame: CGRect(x: 0, y: -topBorderHeight, width: 10, height: self.frame.size.height + bottomBorderHeight + topBorderHeight))
         
         progressIndicator.addGestureRecognizer(progressDrag)
         addSubview(progressIndicator)
@@ -278,7 +278,7 @@ private extension TimePostVideoRangeSlider {
 
 // MARK: Private functions
 
-private extension TimePostVideoRangeSlider {
+private extension TimePostVideoRangeSliderView {
     @objc private func startDragged(recognizer: UIPanGestureRecognizer) {
         self.processHandleDrag(recognizer: recognizer, drag: .start,
                                currentPostionPercentage: self.startTimePercentage,

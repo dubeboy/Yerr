@@ -9,7 +9,8 @@
 import UIKit
 
 class PostStatusVideoPreview: UIView {
-    private var rangeSliderView: TimePostVideoRangeSlider = TimePostVideoRangeSlider()
+    
+    private var rangeSliderView: TimePostVideoRangeSliderView = TimePostVideoRangeSliderView()
     private var videoView: StatusVideoView = StatusVideoView()
     
     init() {
@@ -26,8 +27,8 @@ class PostStatusVideoPreview: UIView {
         rangeSliderView.delegate = delegate
     }
     
-    func play(videoPath: String, status: String) {
-        videoView.play(videoPath: videoPath, status: status)
+    func play(videoPath: String) {
+        videoView.play(videoPath: videoPath, status: "")
     }
 }
 

@@ -105,6 +105,10 @@ enum Const {
             static let resendColor = linkColor
             static let continueColor = linkColor
         }
+        
+        enum CaptureStatus {
+            static let captureButton = UIColor.white.withAlphaComponent(0.5)
+        }
     }
     
     private static func getSystemResource(systemName: String) -> UIImage? {

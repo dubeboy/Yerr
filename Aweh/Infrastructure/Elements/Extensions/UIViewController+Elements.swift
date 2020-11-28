@@ -102,3 +102,14 @@ extension UIViewController {
     }
 }
 
+// MARK navigation item additions
+
+extension UIViewController {
+    func addCloseButtonItem() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(dismissViewController))
+    }
+    
+    @objc private func dismissViewController() {
+        self.dismiss(animated: true, completion: nil)
+    }
+}

@@ -12,7 +12,6 @@ import Foundation
 // Afrikaans
 // Zulu
 
-
 enum AppStrings {
     enum Error {
         static let genericError = "Sorry something unexpected happened. Please try again."

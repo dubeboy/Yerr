@@ -1,5 +1,5 @@
 //
-//  TrimPostVideoEndIndicator.swift
+//  TrimPostIndicator.swift
 //  Aweh
 //
 //  Created by Divine.Dube on 2020/11/23.
@@ -8,16 +8,14 @@
 
 import UIKit
 
-class TrimPostVideoEndIndicator: UIView {
-    
+class TrimPostVideoProgressIndicatorView: UIView {
     var imageView = UIImageView()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.isUserInteractionEnabled = true
         
         let bundle = Bundle(for: Self.self)
-        let image = UIImage(named: "EndIndicator", in: bundle, compatibleWith: nil)
+        let image = UIImage(named: "ProgressIndicator", in: bundle, compatibleWith: nil)
         imageView.frame = self.bounds
         imageView.image = image
         imageView.contentMode = .scaleToFill
@@ -32,4 +30,17 @@ class TrimPostVideoEndIndicator: UIView {
         super.layoutSubviews()
         imageView.frame = self.bounds
     }
+    
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let frame = CGRect(x: -self.frame.size.width / 2,
+                           y: 0, width: self.frame.size.width * 2,
+                           height: self.frame.size.height)
+        if frame.contains(point) {
+            return self
+        } else {
+            return nil
+        }
+    }
+    
 }
