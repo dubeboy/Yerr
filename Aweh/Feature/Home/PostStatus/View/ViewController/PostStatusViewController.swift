@@ -13,7 +13,7 @@ import Photos
 class PostStatusViewController: UIViewController {
     
     var presenter: PostStatusPresenter!
-    weak var coordinator: PhotosGalleryCoordinator?
+    weak var coordinator: (PhotosGalleryCoordinator & CaptureStatusCoordinator)!
     var delegate: Completion<StatusViewModel>!
     
     var placeHolderText: String {
@@ -37,8 +37,14 @@ class PostStatusViewController: UIViewController {
         title = AppStrings.PostStatus.title
         configureSelf()
         setupStatusTextiew()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(close))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(captureStatus))
+        addCloseButtonItem(toLeft: true)
     }
+    
+    @objc func captureStatus() {
+        coordinator.startCaptureStatusViewController()
+    }
+    
     
     @objc func post() {
 //        presenter.postStatus(status: status) { [weak self] status in
@@ -117,8 +123,8 @@ extension PostStatusViewController {
     }
     
     private func configureSelf() {
-        view.addSubview(commentBox)
-        setUpCommentBox()
+//        view.addSubview(commentBox)
+//        setUpCommentBox()
     }
     
     private func setupStatusTextiew() {

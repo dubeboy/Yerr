@@ -19,6 +19,8 @@ extension HomeCoordinator: PostStatusCoordinator  {
         viewController.delegate = delegate
         viewController.presenter = PostStatusPresenterImplementation()
         let postStatusNavigationConstroller = UINavigationController(rootViewController: viewController)
+        postStatusNavigationConstroller.modalPresentationStyle = .fullScreen
+
         navigationController.present(postStatusNavigationConstroller, animated: true)
     }
     

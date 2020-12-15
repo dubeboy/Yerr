@@ -46,7 +46,7 @@ class GaugeView: UIView {
         values.values.enumerated().forEach { [self] index, value in
             let darkBorderLayer = BorderLayer()
             let track = BorderLayer()
-            track.lineColor = UIColor.systemGray6.cgColor
+            track.lineColor = Const.Color.lightGray.cgColor
             track.startRadAngle = Self.startAngle
             track.endRadAngle = Self.endAngle
             

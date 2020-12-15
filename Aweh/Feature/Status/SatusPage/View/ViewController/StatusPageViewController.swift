@@ -21,7 +21,7 @@ class StatusPageViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = presenter.title
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
         
         createPageViewControllers(page: presenter.currentPagesCount())
     }

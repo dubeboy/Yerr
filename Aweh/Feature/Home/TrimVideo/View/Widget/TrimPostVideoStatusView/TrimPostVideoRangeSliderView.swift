@@ -9,14 +9,14 @@
 import UIKit
 
 protocol TimePostVideoRangeSliderDelegate: class {
-    func didChangeValue(videoRangeSlider: TimePostVideoRangeSliderView, startTime: Float64, endTime: Float64)
-    func indicatorDidChangePosition(videoRangeSlider: TimePostVideoRangeSliderView, position: Float64)
+    func didChangeValue(videoRangeSlider: TrimPostVideoRangeSliderView, startTime: Float64, endTime: Float64)
+    func indicatorDidChangePosition(videoRangeSlider: TrimPostVideoRangeSliderView, position: Float64)
     
     func sliderGestureBegan()
     func sliderGestureEnded()
 }
 
-class TimePostVideoRangeSliderView: UIView, UIGestureRecognizerDelegate {
+class TrimPostVideoRangeSliderView: UIView, UIGestureRecognizerDelegate {
     private enum DragHandleChoice {
         case start
         case end
@@ -31,8 +31,8 @@ class TimePostVideoRangeSliderView: UIView, UIGestureRecognizerDelegate {
     var progressIndicator = TrimPostVideoProgressIndicatorView()
     var draggableView = UIView()
     
-    var startTimeView = TimePostStatusTimeView()
-    var endTimeView = TimePostStatusTimeView()
+    var startTimeView = TrimPostStatusTimeView()
+    var endTimeView = TrimPostStatusTimeView()
     
     let thumbnameManager = TrimPostVideoTumbnailsManager()
     var duration: Float64 = 0.0
@@ -106,7 +106,7 @@ class TimePostVideoRangeSliderView: UIView, UIGestureRecognizerDelegate {
 
 // MARK: private functions
 
-private extension TimePostVideoRangeSliderView {
+private extension TrimPostVideoRangeSliderView {
     private func setup() {
         self.isUserInteractionEnabled = true
         
@@ -158,11 +158,11 @@ private extension TimePostVideoRangeSliderView {
         self.sendSubviewToBack(draggableView)
         
         //MARK: setup time label
-        startTimeView = TimePostStatusTimeView(size: CGSize(width: 60, height: 30))
+        startTimeView = TrimPostStatusTimeView(size: CGSize(width: 60, height: 30))
         startTimeView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         addSubview(startTimeView)
         
-        endTimeView = TimePostStatusTimeView(size: CGSize(width: 60, height: 30))
+        endTimeView = TrimPostStatusTimeView(size: CGSize(width: 60, height: 30))
         endTimeView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         addSubview(endTimeView)
         
@@ -213,7 +213,7 @@ private extension TimePostVideoRangeSliderView {
         self.bottomLine.imageView.image = image
     }
     
-    func setTimeView(view: TimePostStatusTimeView) {
+    func setTimeView(view: TrimPostStatusTimeView) {
         startTimeView = view
         endTimeView = view
     }
@@ -278,7 +278,7 @@ private extension TimePostVideoRangeSliderView {
 
 // MARK: Private functions
 
-private extension TimePostVideoRangeSliderView {
+private extension TrimPostVideoRangeSliderView {
     @objc private func startDragged(recognizer: UIPanGestureRecognizer) {
         self.processHandleDrag(recognizer: recognizer, drag: .start,
                                currentPostionPercentage: self.startTimePercentage,

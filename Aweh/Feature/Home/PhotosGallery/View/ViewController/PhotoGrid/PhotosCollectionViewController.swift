@@ -66,7 +66,7 @@ class PhotosCollectionViewController: UICollectionViewController {
         collectionView.delaysContentTouches = false
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = Const.Color.backgroundColor
     
         presenter.loadImages(for: size) { count in
             collectionView.reloadData()

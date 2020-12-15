@@ -26,6 +26,10 @@ class CaptureButton: UIButton {
         super.layoutSubviews()
         borderLayer.frame = bounds
     }
+    
+    func setVideoClickAction(action: Completion<()>) {
+        //
+    }
 }
 
 // MARK: private functions

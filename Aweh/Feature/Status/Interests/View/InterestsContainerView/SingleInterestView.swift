@@ -50,7 +50,13 @@ class SingleInterestView: UIView {
     
     init() {
         super.init(frame: .zero)
-        let blurEffect = UIBlurEffect(style: .systemThinMaterialLight)
+        let blurEffect: UIBlurEffect
+        if #available(iOS 13.0, *) {
+            blurEffect = UIBlurEffect(style: .systemThinMaterialLight)
+        } else {
+            // Fallback on earlier versions
+            blurEffect = UIBlurEffect(style: .light)
+        }
         blurView = UIVisualEffectView(effect: blurEffect)
         configureSelf()
         configureBlurView()

@@ -143,7 +143,7 @@ extension ProfileViewController {
     private func stylePointDescriptionView() {
         containerStackView.arrangedSubviews.forEach { view in
             view.layer.cornerRadius = Const.View.radius
-            view.backgroundColor = UIColor.systemGray6.withAlphaComponent(0.5)
+            view.backgroundColor = Const.Color.backgroundColor.withAlphaComponent(0.5)
         }
     }
 }

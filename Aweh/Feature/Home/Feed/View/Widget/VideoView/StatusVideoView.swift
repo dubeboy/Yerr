@@ -14,9 +14,9 @@ class StatusVideoView: UIView {
     private var statusLabel: UILabel = UILabel()
     
     private let avPlayer: AVPlayer = AVPlayer()
-    private let playerLayer: AVPlayerLayer
+    let playerLayer: AVPlayerLayer
         
-    func play(videoPath: String, status: String) {
+    func play(videoPath: String, status: String = "") {
         statusLabel.text = status
         guard let videoUrl = URL(string: videoPath) else {
             Logger.log(AppStrings.Error.StatusVideoPlayer.invalidURL)

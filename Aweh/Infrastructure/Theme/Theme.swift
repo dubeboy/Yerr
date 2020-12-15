@@ -25,18 +25,17 @@ enum Const {
         static let m4: CGFloat = 2
         static let radius: CGFloat = 10
         static let borderWidth: CGFloat = m2
-       
     }
     
     // MARK: App assets
     enum Assets {
         
         private enum CommonAssets {
-            static let chevronRight: UIImage? = getSystemResource(systemName: "chevron.right")
+            static let chevronRight: UIImage? = getSystemAsset(systemName: "chevron.right")
         }
          
         enum Interests {
-            static let iconCheckmark: UIImage? = getSystemResource(systemName: "checkmark.circle")
+            static let iconCheckmark: UIImage? = getSystemAsset(systemName: "checkmark.circle")
         }
         
         enum Defaults {
@@ -45,15 +44,15 @@ enum Const {
         }
         
         enum FeedDetail {
-            static let iconImage: UIImage? = getSystemResource(systemName: "photo")
-            static let replayImage: UIImage? =  getSystemResource(systemName: "paperplane")
+            static let iconImage: UIImage? = getSystemAsset(systemName: "photo")
+            static let replayImage: UIImage? =  getSystemAsset(systemName: "paperplane")
         }
         
         enum Feed {
-            static let upVoteArrow: UIImage? = getSystemResource(systemName: "arrow.up")
-            static let downVoteArrow: UIImage? = getSystemResource(systemName: "arrow.down")
-            static let likeFill: UIImage? = getSystemResource(systemName: "heart.fill")
-            static let like: UIImage? = getSystemResource(systemName: "heart")
+            static let upVoteArrow: UIImage? = getSystemAsset(systemName: "arrow.up")
+            static let downVoteArrow: UIImage? = getSystemAsset(systemName: "arrow.down")
+            static let likeFill: UIImage? = getSystemAsset(systemName: "heart.fill")
+            static let like: UIImage? = getSystemAsset(systemName: "heart")
         }
         
         enum InitPhoneNumber {
@@ -61,12 +60,29 @@ enum Const {
         }
         
         enum InitInfoInput {
-            static let editButton: UIImage? = getSystemResource(systemName: "pencil")
+            static let editButton: UIImage? = getSystemAsset(systemName: "pencil")
         }
         
         enum InitCountryLists {
             static let chevronRight: UIImage? = CommonAssets.chevronRight
         }
+        
+        private static func getSystemAsset(systemName: String) -> UIImage? {
+            if #available(iOS 13, *) {
+                let image = UIImage(systemName: systemName)
+                if image == nil {
+                    Logger.log("\(#function) image is nil")
+                }
+                return image
+            } else {
+                let image = UIImage(named: systemName)
+                if image == nil {
+                    Logger.log("\(#function): image is nil")
+                }
+                return image
+            }
+        }
+        
     }
     
 //    enum Font {
@@ -80,23 +96,40 @@ enum Const {
     // MARK: Colors
     /// Note: these color must support dark mode
     /// default naming: light mode
+    
+  
+    
     enum Color {
         
+        fileprivate enum AppThemeColors {
+            case grayItem
+            case background
+            case widget
+            
+            case button
+            
+            case label
+            
+            case link
+        }
+        
+       
+       
         // SHould have a private BASE
         // then put all the System colors in system
         // These should be private!!
-        static let lightGray = UIColor.systemGray6
-        static let backgroundColor = UIColor.systemGray5
-        static let systemWhite = UIColor.systemBackground
-        static let actionButtonColor = UIColor(named: "blueActionButton")! // TODO: test that these color exist
-        static let label = UIColor.label
-        static let linkColor = UIColor.link
+        static let lightGray = getColor(color: .grayItem)
+        static let backgroundColor = getColor(color: .background)
+        static let systemWhite = getColor(color: .widget)
+        static let actionButtonColor = getColor(color: .button) // TODO: test that these color exist
+        static let labelColor = getColor(color: .label)
+        static let linkColor = getColor(color: .link)
         
         enum Feed {
             static let commentBox = lightGray
             static let trackColor = Color.actionButtonColor
-            static let trackBackGroundColor = Color.lightGray
-            static let textColor = Color.label
+            static let trackBackGroundColor = lightGray
+            static let textColor = linkColor
             static let warningMaximumTextLength = UIColor.systemYellow
             static let alertMaximumTextLength = UIColor.systemRed
         }
@@ -107,27 +140,44 @@ enum Const {
         }
         
         enum CaptureStatus {
-            static let captureButton = UIColor.white.withAlphaComponent(0.5)
+            static let captureButton = systemWhite.withAlphaComponent(0.5)
         }
     }
-    
-    private static func getSystemResource(systemName: String) -> UIImage? {
-        if #available(iOS 13, *) {
-            let image = UIImage(systemName: systemName)
-            if image == nil {
-                Logger.log("\(#function) image is nil")
-            }
-            return image
-        } else {
-            let image = UIImage(named: systemName)
-            if image == nil {
-                Logger.log("\(#function): image is nil")
-            }
-            return image
+
+    private static func getColor(color: Color.AppThemeColors) -> UIColor {
+        switch color {
+            case .grayItem:
+                if  #available(iOS 13.0, *) {
+                    return UIColor.systemGray6
+                } else {
+                    return UIColor.lightGray
+                }
+            case .background:
+                if  #available(iOS 13.0, *) {
+                    return UIColor.systemGray5
+                } else {
+                    return UIColor.gray
+                }
+            case .widget:
+                if  #available(iOS 13.0, *) {
+                    return UIColor.systemBackground
+                } else {
+                    return UIColor.white
+                }
+            case .button:
+                return UIColor(named: "blueActionButton")!
+            case .label:
+                if  #available(iOS 13.0, *) {
+                    return UIColor.label
+                } else {
+                    return UIColor.lightText
+                }
+            case .link:
+                if  #available(iOS 13.0, *) {
+                    return UIColor.link
+                } else {
+                    return UIColor.blue
+                }
         }
-    }
-    
-    private static func getColor(color: Color) -> UIColor {
-        
     }
 }

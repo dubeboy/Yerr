@@ -15,7 +15,7 @@ struct LateInit<T> {
     var wrappedValue: T {
         get {
            guard let storage = storage else {
-               let errorMessage = "Trying to access LateInit value before setting it."
+            let errorMessage = "Trying to access LateInit value before setting it. -- Nil object -- \(String(describing: self.storage.self))"
                Logger.log(errorMessage)
                preconditionFailure(errorMessage)
            }

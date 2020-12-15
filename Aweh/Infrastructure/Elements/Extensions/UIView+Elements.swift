@@ -18,7 +18,7 @@ extension UIView {
         makeRound()
         contentMode = .scaleAspectFill
         layer.borderWidth = 0.03
-        layer.backgroundColor = UIColor.systemGray6.cgColor
+        layer.backgroundColor = Const.Color.lightGray.cgColor
     }
 }
 

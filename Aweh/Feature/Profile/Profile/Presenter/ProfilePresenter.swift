@@ -88,7 +88,7 @@ class ProfilePresenterImplementation: ProfilePresenter {
     
     func status(at indexPath: IndexPath) -> StatusViewModel? {
         guard let viewModel = viewModel?.statuses[indexPath.item] else {
-            Logger.log(AppStrings.Error.Profile.IncositentViewModel)
+            Logger.log(AppStrings.Error.Profile.incositentViewModel)
             return nil
         }
         return viewModel

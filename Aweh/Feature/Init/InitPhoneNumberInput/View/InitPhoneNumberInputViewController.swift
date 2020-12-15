@@ -87,7 +87,7 @@ extension InitPhoneNumberInputViewController {
         selectedButtonTitle.bottomAnchor --> buttonSectionView.bottomAnchor
         selectedButtonTitle.leadingAnchor --> buttonSectionView.leadingAnchor + Const.View.m16
         selectedButtonTitle.setTitle(presenter.myCountryName, for: .normal)
-        selectedButtonTitle.setTitleColor(Const.Color.label, for: .normal)
+        selectedButtonTitle.setTitleColor(Const.Color.labelColor, for: .normal)
         view.addSubview(buttonSectionView)
         buttonSectionView.topAnchor --> topSectionLabel.bottomAnchor + Const.View.m16
         buttonSectionView.leadingAnchor --> view.leadingAnchor

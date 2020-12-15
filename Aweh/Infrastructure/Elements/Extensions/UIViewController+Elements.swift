@@ -31,6 +31,7 @@ extension UIViewController: Storyborded {
 // MARK: TOASTS
 extension UIViewController {
     // TODO: - should be bale to show image animation
+    // TODO: should be able to blur view controller below and should appear on top
     func presentToast(message: String) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         present(alert, animated: true, completion: nil)
@@ -39,7 +40,7 @@ extension UIViewController {
         })
     }
     
-    func presentAlert(message: String, cancel: () -> Void, ok: () -> Void) {
+    func presentAlert(message: String, ok: (() -> Void)?, cancel: (() -> Void)? = nil) {
         
     }
 }
@@ -105,8 +106,12 @@ extension UIViewController {
 // MARK navigation item additions
 
 extension UIViewController {
-    func addCloseButtonItem() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(dismissViewController))
+    func addCloseButtonItem(toLeft: Bool = false, alertOnClose: Bool = false) {
+        if toLeft {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissViewController))
+        } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissViewController))
+        }
     }
     
     @objc private func dismissViewController() {

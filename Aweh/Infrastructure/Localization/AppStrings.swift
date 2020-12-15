@@ -19,7 +19,6 @@ enum AppStrings {
         static let interestNameNil = "Inetrest name is nil"
         static func clampedValueNotInRage<T: Comparable>(value: T, range: ClosedRange<T>) -> String {
             String(format: "Clamped value %s is not in range: %s", "\(value)", "\(range)")
-            
         }
         
         static let invalideColor = "Invalide hex color, therefore cannot be convert to UIInt32"
@@ -31,12 +30,19 @@ enum AppStrings {
         }
         
         enum Profile {
-            static let IncositentViewModel: String = "View Model is in an inconstent state"
+            static let incositentViewModel: String = "View Model is in an inconstent state"
         }
         
         enum StatusVideoPlayer {
             static let invalidURL: String = "Invalid status video URL"
         }
+        
+        enum TrimVideo {
+            static let createCompositionalTrackFailed = "Something went wrong with the asset"
+            static let exportFailed = "Export failed"
+            static let cannotConvertStringURLToURLObject = "Cannnot convert URL string to URL object"
+        }
+        
     }
     
     enum FeedDetail {
@@ -88,6 +94,24 @@ enum AppStrings {
         static let doneButtonTitle = "Done"
     }
     
+    enum CaptureStatus {
+        // all of these should be moved to error
+        static let cameraAccessRequired = "Please enable camera access."
+        static let frontCameraNotAvailable = "Front camera not available."
+        static let backCameraNotAvailable = "Back camera not available."
+        static let noInputDeviceForBackCamera = "Could not create input device from back camera."
+        static let noInputDeviceForFrontCamera = "Could not create input device from front camera."
+        static let unableToAddBackCameraToSession = "could not add back camera input to capture session."
+        static let unableToAddFrontCameraToSession = "Could not add front camera input to capture session."
+        static let unableToAddVideoOutputToSession = "Could not add video output to session."
+    }
+    
+    enum TrimVideo {
+        static let createCompositionalTrackFailed = "Failed to edit asset. Please try another one."
+        static let exportFailed = "Sorry export failed. Please try again."
+        static let assetNotFound = "Sorry cannot find your media asset. Please try again."
+    }
+    
     // InitPhoneNumberVerification
     enum OTP {
         static let headerText = "We have sent you an SMS with a code to the number above. \n\nTo Complete your phone number verification, please enter the 6-digit activation code."
@@ -100,9 +124,10 @@ enum AppStrings {
         static let title = "Select Your Country"
     }
     
+    
     enum Shared {
         enum GeoLocationServices {
-            static let failedToGetLocation = "Sorry failed to get your current location"
+            static let failedToGetLocation = "Sorry failed to get your current location."
         }
         
         enum UserDefaults: String {

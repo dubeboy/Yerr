@@ -32,7 +32,7 @@ final class FeedDetailViewController: UICollectionViewController {
         } failuire: { errorMessage in
             self.presentToast(message: errorMessage)
         }
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(close))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
     }
     
     @objc func close() {
@@ -116,7 +116,7 @@ private extension FeedDetailViewController {
         let width = collectionView.bounds.width - (layout.sectionInset.left + layout.sectionInset.right)
         layout.estimatedItemSize = CGSize(width: width, height: 100)
         layout.minimumLineSpacing = 1
-        collectionView.backgroundColor = .systemGray5
+        collectionView.backgroundColor = Const.Color.backgroundColor
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
     }

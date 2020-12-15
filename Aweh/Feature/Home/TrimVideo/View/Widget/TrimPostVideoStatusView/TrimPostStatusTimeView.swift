@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TimePostStatusTimeView: UIView {
+class TrimPostStatusTimeView: UIView {
     let space: CGFloat = 8.0
     
     public var timeLabel = UILabel()
