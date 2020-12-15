@@ -188,6 +188,7 @@ private extension CaptureStatusViewController {
     
     func setupPreviewLayer() {
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer.videoGravity = .resizeAspectFill
         view.layer.insertSublayer(previewLayer, below: captureButton.layer)
         previewLayer.frame = self.view.layer.frame
     }
