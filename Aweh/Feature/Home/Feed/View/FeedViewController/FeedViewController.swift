@@ -29,42 +29,7 @@ class FeedViewController: UIViewController {
             launchSetup()
         }
     }
-        
-    private func configureCollectionView() {
-        collectionView.backgroundColor = Const.Color.backgroundColor
-       
-        let flowLayout = UICollectionViewFlowLayout()
-
-        flowLayout.sectionInset = UIEdgeInsets(top: Const.View.m8,
-                                               left: Const.View.m8,
-                                               bottom: Const.View.m8,
-                                               right: Const.View.m8)
-        flowLayout.minimumLineSpacing = Const.View.m8
-        flowLayout.minimumInteritemSpacing = 0
-        flowLayout.scrollDirection = .vertical
-        collectionView.collectionViewLayout = flowLayout
-        collectionView.showsVerticalScrollIndicator = false
-        
-        
-        let leftRightInset = flowLayout.sectionInset.right + flowLayout.sectionInset.left
-        let itemWidth = UIScreen.main.bounds.width - leftRightInset
-        let lineSpacing = flowLayout.minimumLineSpacing
-        let itemHeight =  view.bounds.height
-                            - flowLayout.sectionInset.top
-                            - flowLayout.sectionInset.bottom
-                            - (lineSpacing * 2)
-                            - 60 // Peaking
-                            - (tabBarController?.tabBar.frame.height ?? 0)
-                            - (navigationController?.navigationBar.frame.size.height ?? 0)
-       
-        let itemSize = CGSize(width: itemWidth, height: itemHeight)
-        
-        flowLayout.itemSize = itemSize
-        collectionView.register(FeedCollectionViewCell.self)
-        collectionView.dataSource = self
-        collectionView.delegate = self
-    }
-    
+            
     @objc func postButtonAction(_ sender: Any) {
         coordinator.startPostStatusViewController { statusViewModel in
             self.collectionView.setContentOffset(.zero, animated: false)
@@ -148,6 +113,42 @@ extension FeedViewController: UICollectionViewDelegate {
 
 // MARK: Private Helper functions
 private extension FeedViewController {
+    
+    private func configureCollectionView() {
+        collectionView.backgroundColor = Const.Color.backgroundColor
+        
+        let flowLayout = UICollectionViewFlowLayout()
+        
+        flowLayout.sectionInset = UIEdgeInsets(top: Const.View.m8,
+                                               left: Const.View.m8,
+                                               bottom: Const.View.m8,
+                                               right: Const.View.m8)
+        flowLayout.minimumLineSpacing = Const.View.m8
+        flowLayout.minimumInteritemSpacing = 0
+        flowLayout.scrollDirection = .vertical
+        collectionView.collectionViewLayout = flowLayout
+        collectionView.showsVerticalScrollIndicator = false
+        
+        
+        let leftRightInset = flowLayout.sectionInset.right + flowLayout.sectionInset.left
+        let itemWidth = UIScreen.main.bounds.width - leftRightInset
+        let lineSpacing = flowLayout.minimumLineSpacing
+        let itemHeight =  view.bounds.height
+            - flowLayout.sectionInset.top
+            - flowLayout.sectionInset.bottom
+            - (lineSpacing * 2)
+            - 60 // Peaking
+            - (tabBarController?.tabBar.frame.height ?? 0)
+            - (navigationController?.navigationBar.frame.size.height ?? 0)
+        
+        let itemSize = CGSize(width: itemWidth, height: itemHeight)
+        
+        flowLayout.itemSize = itemSize
+        collectionView.register(FeedCollectionViewCell.self)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+    }
+    
     private func configureSelf() {
         configureCollectionView()
         presenter.getStatuses(interestName: interestName) { [weak self] count, error in

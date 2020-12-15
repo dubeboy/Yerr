@@ -8,14 +8,11 @@
 
 import UIKit
 
-class CaptureButton: UIButton {
-    
-    private let borderLayer: BorderLayer = BorderLayer()
-    
+class CaptureButton: YerrButton {
+        
     init() {
-        super.init(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        super.init(frame: .zero)
         configureSelf()
-        configureBorderLayer()
     }
     
     required init?(coder: NSCoder) {
@@ -24,7 +21,9 @@ class CaptureButton: UIButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        borderLayer.frame = bounds
+        self.layer.cornerRadius = bounds.width / 2
+        self.layer.borderWidth = Const.View.m4 + 2
+        self.layer.borderColor = Const.Color.systemWhite.cgColor
     }
     
     func setVideoClickAction(action: Completion<()>) {
@@ -36,13 +35,6 @@ class CaptureButton: UIButton {
 private extension CaptureButton {
     private func configureSelf() {
         self.backgroundColor = .clear
-        
-    }
-    
-    private func configureBorderLayer() {
-        borderLayer.lineWidth = Const.View.m4
-        borderLayer.endRadAngle = .toRadNormalized(angle: 360)
-        borderLayer.lineColor = Const.Color.CaptureStatus.captureButton.cgColor
-        layer.addSublayer(borderLayer)
+       
     }
 }

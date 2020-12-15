@@ -42,7 +42,7 @@ class PostStatusViewController: UIViewController {
     }
     
     @objc func captureStatus() {
-        coordinator.startCaptureStatusViewController()
+        coordinator.startCaptureStatusViewController(navigationController: navigationController)
     }
     
     

@@ -9,17 +9,14 @@
 import UIKit
 
 protocol CaptureStatusCoordinator: Coordinator {
-    func startCaptureStatusViewController()
+    func startCaptureStatusViewController(navigationController: UINavigationController?)
 }
 
 extension HomeCoordinator: CaptureStatusCoordinator  {
-    func startCaptureStatusViewController() {
+    func startCaptureStatusViewController(navigationController: UINavigationController?) {
         let viewController = CaptureStatusViewController()
         viewController.coordinator = self
 //        viewController.presenter = TrimVideoViewPresenterImplementation(videoURL: videoURL)
-        let trimVideoNavigationController = UINavigationController(rootViewController: viewController)
-        trimVideoNavigationController.modalPresentationStyle = .fullScreen
-        navigationController.present(trimVideoNavigationController, animated: true)
-        navigationController = trimVideoNavigationController
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }

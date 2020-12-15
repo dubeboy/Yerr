@@ -13,9 +13,10 @@ import AVFoundation
 
 class CaptureStatusViewController: UIViewController {
     
-    var coordinator: HomeCoordinator!
+    var coordinator: PhotosGalleryCoordinator!
     
     var captureButton = CaptureButton()
+    var openGalleryButton = UIImageView()
     
     var captureSession: AVCaptureSession!
     
@@ -35,7 +36,9 @@ class CaptureStatusViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureSelf()
         configureCaptureButton()
+        configureOpenGalleryButton()
         // Do any additional setup after loading the view.
     }
     
@@ -45,34 +48,53 @@ class CaptureStatusViewController: UIViewController {
         setupAndStartCaptureSession()
     }
     
-}
-
-// MARK: private functions
-
-private extension CaptureStatusViewController {
-    func configureSelf() {
-        addCloseButtonItem()
-        switchCameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(switchCamera))
-        navigationItem.rightBarButtonItem = switchCameraButton
-    }
-    
     @objc func switchCamera() {
         switchCameraInput()
-    }
-    
-    func configureCaptureButton() {
-        captureButton.autoresizingOff()
-        view.addSubview(captureButton)
-        captureButton.bottomAnchor --> view.bottomAnchor + Const.View.m16 * 2
-        captureButton.centerXAnchor --> view.centerXAnchor
-        captureButton.addTarget(self, action: #selector(takePictureAction), for: .touchUpInside)
-        // add long pressto rec
     }
     
     @objc func takePictureAction() {
         takePicture = true
     }
     
+    @objc func openGalleryAction() {
+        coordinator.startPhotosGalleryViewController(navigationController: navigationController, completion: { _ in })
+    }
+}
+
+// MARK: private functions
+
+private extension CaptureStatusViewController {
+    func configureSelf() {
+        switchCameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(switchCamera))
+        navigationItem.rightBarButtonItem = switchCameraButton
+    }
+    
+    func configureCaptureButton() {
+        captureButton.autoresizingOff()
+        view.addSubview(captureButton)
+        captureButton.bottomAnchor --> view.bottomAnchor + -Const.View.m16 * 2
+        captureButton.centerXAnchor --> view.centerXAnchor
+        captureButton.widthAnchor --> 60
+        captureButton.heightAnchor --> 60
+        captureButton.addTarget(self, action: #selector(takePictureAction), for: .touchUpInside)
+        // add long press to rec
+    }
+    
+    private func configureOpenGalleryButton() {
+        openGalleryButton.autoresizingOff()
+        view.addSubview(openGalleryButton)
+        openGalleryButton.image = Const.Assets.CaptureStatus.openGalleryIcon?.withRenderingMode(.alwaysTemplate)
+        openGalleryButton.tintColor = Const.Color.systemWhite
+        openGalleryButton.leadingAnchor --> view.leadingAnchor + Const.View.m16
+        openGalleryButton.centerYAnchor --> captureButton.centerYAnchor
+        openGalleryButton.widthAnchor --> 40
+        openGalleryButton.heightAnchor --> 40
+        openGalleryButton.contentMode = .scaleAspectFit
+        openGalleryButton.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openGalleryAction))
+        openGalleryButton.addGestureRecognizer(tapGesture)
+    }
+  
     func checkCameraPermission() {
         let cameraAuthStatus = AVCaptureDevice.authorizationStatus(for: .video)
         switch cameraAuthStatus {
@@ -210,6 +232,7 @@ extension CaptureStatusViewController: AVCaptureVideoDataOutputSampleBufferDeleg
         if !takePicture {
             return
         }
+        takePicture = false
         
         guard let cvBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             return
@@ -221,6 +244,8 @@ extension CaptureStatusViewController: AVCaptureVideoDataOutputSampleBufferDeleg
         DispatchQueue.main.async {
            // use the image here
             uiImage
+            
         }
+       
     }
 }

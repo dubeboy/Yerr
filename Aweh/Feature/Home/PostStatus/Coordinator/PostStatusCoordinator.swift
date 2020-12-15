@@ -16,20 +16,14 @@ extension HomeCoordinator: PostStatusCoordinator  {
     func startPostStatusViewController(delegate: @escaping Completion<StatusViewModel>) {
         let viewController = PostStatusViewController.instantiate()
         viewController.coordinator = self
+        navigationController.delegate = self
         viewController.delegate = delegate
         viewController.presenter = PostStatusPresenterImplementation()
         let postStatusNavigationConstroller = UINavigationController(rootViewController: viewController)
         postStatusNavigationConstroller.modalPresentationStyle = .fullScreen
-
+        postStatusNavigationConstroller.delegate = self
         navigationController.present(postStatusNavigationConstroller, animated: true)
     }
-    
-
-//    let child = PostStatusCoordinator(navigationController: navigationController)
-//    child.parentCoordinator = self
-//    childCoordinators.append(child)
-//    child.start()
-
 }
 
 

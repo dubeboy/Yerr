@@ -55,6 +55,10 @@ enum Const {
             static let like: UIImage? = getSystemAsset(systemName: "heart")
         }
         
+        enum CaptureStatus {
+            static let openGalleryIcon: UIImage? = UIImage(named: "gallery")
+        }
+        
         enum InitPhoneNumber {
             static let chevronRight: UIImage? = CommonAssets.chevronRight
         }

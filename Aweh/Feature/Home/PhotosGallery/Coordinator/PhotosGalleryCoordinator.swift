@@ -10,7 +10,6 @@ import UIKit
 import Photos
 
 protocol PhotosGalleryCoordinator: Coordinator {
-    // TODO: should get previously selected images so that we do not got
     func startPhotosGalleryViewController(navigationController: UINavigationController?,
                                           completion: @escaping (([String: PHAsset]) -> Void))
 }

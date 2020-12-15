@@ -23,12 +23,15 @@ open class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegat
   
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
+//    var presentingNavigationController: UINavigationController?
     var tabBarController: UITabBarController? // TODO:  Not sure if I need to pass this one
     // maybe be able to pass in a corrdinator
     init(_ tabBarController: UITabBarController? = nil,
          navigationController: UINavigationController = UINavigationController()) {
         self.navigationController = navigationController
         self.tabBarController = tabBarController
+        super.init()
+        self.navigationController.delegate = self
     }
     
     /// Default Implementation does nothing
