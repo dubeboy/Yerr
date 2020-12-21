@@ -13,6 +13,14 @@ import Foundation
 // Zulu
 
 enum AppStrings {
+
+    // MARK: Common
+    
+    private static let appName = "Yerr"
+    private static let ok = "Ok"
+    private static let cancel = "Cancel"
+    
+  
     enum Error {
         static let genericError = "Sorry something unexpected happened. Please try again."
         static let noInternetConnection = "Sorry something unexpected happened. Please make sure you are connected to the internet."
@@ -41,6 +49,14 @@ enum AppStrings {
             static let createCompositionalTrackFailed = "Something went wrong with the asset"
             static let exportFailed = "Export failed"
             static let cannotConvertStringURLToURLObject = "Cannnot convert URL string to URL object"
+        }
+        
+        enum CaptureStatus {
+            static let phoneIsOverHeating = "Sorry cannot launch your camera right now because your phone is over heating."
+            static let cameraPaused = "Camera session has been paused. reason %s"
+            static let cameraResumed = "Camera session interuption has ended."
+            static let configrationFailed = "Something went wrong camera configuration."
+
         }
         
     }
@@ -104,6 +120,17 @@ enum AppStrings {
         static let unableToAddBackCameraToSession = "could not add back camera input to capture session."
         static let unableToAddFrontCameraToSession = "Could not add front camera input to capture session."
         static let unableToAddVideoOutputToSession = "Could not add video output to session."
+        
+        static let phoneIsOverHeating = "Sorry cannot lauch your camera right now because your phone is over heating. Please try again later."
+        static let videoRecPausedAudioInUse = "Video recording has been paused.\n\nAudio in use."
+        static let cameraPausedTapToResume = "Camera session has been paused.\n\nTap to resume."
+        static let configrationFailed = "Something went wrong camera configuration. Please try again."
+        
+        static let permissionToCameraNotGranted = "\(appName) doesn't have permission to use the camera, please change privacy settings."
+        static let alertTitle = appName
+        static let alertOk = ok
+        static let settings = "Settings"
+
     }
     
     enum TrimVideo {
@@ -136,5 +163,13 @@ enum AppStrings {
             case currentViewController
             case didFinishLaunching
         }
+        
+        enum Extensions {
+            enum UIAlertViewController {
+                static let alertTitle = appName
+                static let alertOk = ok
+            }
+        }
+
     }
 }

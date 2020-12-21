@@ -10,6 +10,7 @@ import UIKit
 import Photos
 
 private let reuseIdentifier = "Cell"
+// TODO: should reload collectionVie wwafter  the user has gratented permisyion
 
 class PhotosCollectionViewController: UICollectionViewController {
 

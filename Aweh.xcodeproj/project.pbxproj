@@ -11,6 +11,7 @@
 		28827F248E34A4C202467BE4 /* Pods_Aweh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0FF8F24776E8207F68991D5 /* Pods_Aweh.framework */; };
 		5DF83BD5B5EA8261ECF1CF38 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA5487558A5C7D94A3E5D7FE /* InfoPlist.strings */; };
 		710578B824BD039B0056DBA8 /* InterestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710578B724BD039B0056DBA8 /* InterestCoordinator.swift */; };
+		7109D24C25898B5E0041ECDF /* UINavigationController+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D24B25898B5E0041ECDF /* UINavigationController+Elements.swift */; };
 		7109D9AD2543BB46005579AF /* InitPhoneNumberInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9AC2543BB46005579AF /* InitPhoneNumberInputViewController.swift */; };
 		7109D9B02543C4D0005579AF /* InitPhoneNumberInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9AF2543C4D0005579AF /* InitPhoneNumberInputPresenter.swift */; };
 		7109D9B72543D68B005579AF /* InfoInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9B62543D68B005579AF /* InfoInputViewController.swift */; };
@@ -209,6 +210,7 @@
 		490A1E7A388425D4532B01EE /* Pods-Aweh.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aweh.debug.xcconfig"; path = "Target Support Files/Pods-Aweh/Pods-Aweh.debug.xcconfig"; sourceTree = "<group>"; };
 		6CABDDE37419B79E3395D4FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		710578B724BD039B0056DBA8 /* InterestCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestCoordinator.swift; sourceTree = "<group>"; };
+		7109D24B25898B5E0041ECDF /* UINavigationController+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Elements.swift"; sourceTree = "<group>"; };
 		7109D9AC2543BB46005579AF /* InitPhoneNumberInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPhoneNumberInputViewController.swift; sourceTree = "<group>"; };
 		7109D9AF2543C4D0005579AF /* InitPhoneNumberInputPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPhoneNumberInputPresenter.swift; sourceTree = "<group>"; };
 		7109D9B62543D68B005579AF /* InfoInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoInputViewController.swift; sourceTree = "<group>"; };
@@ -552,6 +554,7 @@
 				71FFECC3252FA86C0019BA8C /* UIColor+Elements.swift */,
 				7110882125327BB400228124 /* Collection+Elements.swift */,
 				71AD2FD125694EF9007CA16C /* UIStackView+Elements.swift */,
+				7109D24B25898B5E0041ECDF /* UINavigationController+Elements.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2141,6 +2144,7 @@
 				71CCF0D5249AB2B30054C210 /* FeedDetailCollectionViewCell.swift in Sources */,
 				71297FE5254105FA00E8440F /* InitAcceptTcsAndCsCoordinator.swift in Sources */,
 				7155E30924BCE080006EBED8 /* MainStatusPresenter.swift in Sources */,
+				7109D24C25898B5E0041ECDF /* UINavigationController+Elements.swift in Sources */,
 				712C06972571F3E00073DDC1 /* CaptureStatusViewController.swift in Sources */,
 				71956FAB253B598A00D59D29 /* KeychainBacked.swift in Sources */,
 				71E0C5B025487BFB00B69FB9 /* InitPhoneNumberCoordinator.swift in Sources */,

@@ -17,6 +17,8 @@ extension HomeCoordinator: CaptureStatusCoordinator  {
         let viewController = CaptureStatusViewController()
         viewController.coordinator = self
 //        viewController.presenter = TrimVideoViewPresenterImplementation(videoURL: videoURL)
-        navigationController?.pushViewController(viewController, animated: true)
+//        let trimVideoNavigationController = UINavigationController(rootViewController: viewController)
+//        trimVideoNavigationController.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(viewController, animated: false)
     }
 }
