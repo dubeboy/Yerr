@@ -8,8 +8,10 @@
 
 import UIKit
 import AVFoundation
+import Photos
 
 //https://medium.com/@barbulescualex/making-a-custom-camera-in-ios-ea44e3087563
+//https://gist.github.com/yusuke024/b5cd3909d9d7f9e919291491f6b381f0
 
 class CaptureStatusViewController: UIViewController {
     
@@ -21,6 +23,9 @@ class CaptureStatusViewController: UIViewController {
         case configurationFailed
     }
     
+    private enum CaptureState {
+        case idle, 
+    }
     
     var coordinator: PhotosGalleryCoordinator!
     
@@ -38,6 +43,7 @@ class CaptureStatusViewController: UIViewController {
     private var videoOutput: AVCaptureVideoDataOutput!
     
     private var takePicture = false
+    private var takeVideo = false
     
     private var switchCameraButton: UIBarButtonItem!
      
@@ -70,12 +76,7 @@ class CaptureStatusViewController: UIViewController {
             case .success:
                 startCaptureSession()
             case .notAuthorized:
-                let okAction = UIAlertAction(title: AppStrings.CaptureStatus.alertOk, style: .cancel, handler: nil)
-                let settingsAction = UIAlertAction(title: AppStrings.CaptureStatus.settings, style: .default, handler:{ _ in
-                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!,options: [:],completionHandler: nil)
-                    
-                })
-                presentAlert(title: AppStrings.CaptureStatus.alertTitle, message: AppStrings.CaptureStatus.permissionToCameraNotGranted, actions: okAction, settingsAction)
+                presentNotAuthorised(message: AppStrings.CaptureStatus.permissionToCameraNotGranted)
             case .configurationFailed:
                 let okAction = UIAlertAction(title: AppStrings.CaptureStatus.alertOk, style: .cancel, handler: nil)
                 Logger.log(AppStrings.Error.CaptureStatus.configrationFailed)
@@ -177,7 +178,7 @@ class CaptureStatusViewController: UIViewController {
 }
 
 //
-// MARK: Private functions
+// MARK: Private helper functions
 //
 
 private extension CaptureStatusViewController {
@@ -213,6 +214,62 @@ private extension CaptureStatusViewController {
         openGalleryButton.addGestureRecognizer(tapGesture)
     }
     
+    func configureOverlayView() {
+//         TODO add a blurr effect here
+        overlayView.autoresizingOff()
+        overlayView.isHidden = true
+        
+        view.insertSubview(overlayView, aboveSubview: captureButton)
+        overlayView --> view
+
+        overlayLabel.autoresizingOff()
+        overlayLabel.numberOfLines = 0
+        overlayLabel.lineBreakMode = .byWordWrapping
+        overlayLabel.textColor = Const.Color.labelColor
+        overlayView.addSubview(overlayLabel)
+        overlayLabel.centerYAnchor --> overlayView.centerYAnchor
+        overlayLabel.centerXAnchor --> overlayView.centerXAnchor
+
+        let tapGeature = UITapGestureRecognizer(target: self, action: #selector(didTapToResumeCamera))
+        overlayView.addGestureRecognizer(tapGeature)
+    }
+    
+    func requestSavePhotoAccess(completion: @escaping Completion<()>) {
+        let okAction = UIAlertAction(title: AppStrings.CaptureStatus.alertOk, style: .cancel, handler: nil)
+
+        PHPhotoLibrary.requestAuthorization { [self] status in
+            switch status {
+                case .authorized, .limited:
+                    completion(())
+                case .denied:
+                  // we save the photo in temp directory
+                    presentNotAuthorised(message: "")
+                case .notDetermined, .restricted:
+                    Logger.log(AppStrings.Error.CaptureStatus.notAuthOrDet)
+                    presentAlert(title: AppStrings.CaptureStatus.alertTitle, message: AppStrings.CaptureStatus.configrationFailed, actions: okAction)
+                @unknown default:
+                    Logger.log(AppStrings.Error.CaptureStatus.unknown)
+                    presentAlert(title: AppStrings.CaptureStatus.alertTitle, message: AppStrings.CaptureStatus.configrationFailed, actions: okAction)
+            }
+        }
+    }
+    
+    private func presentNotAuthorised(message: String) {
+        let okAction = UIAlertAction(title: AppStrings.CaptureStatus.alertOk, style: .cancel, handler: nil)
+        let settingsAction = UIAlertAction(title: AppStrings.CaptureStatus.settings, style: .default, handler:{ _ in
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!,options: [:],completionHandler: nil)
+            
+        })
+        presentAlert(title: AppStrings.CaptureStatus.alertTitle, message: message, actions: okAction, settingsAction)
+    }
+}
+
+//
+// MARK: Private Session functions
+//
+
+private extension CaptureStatusViewController {
+   
     func startCaptureSession() {
         sessionQueue.async {
             self.addObservers()
@@ -226,25 +283,6 @@ private extension CaptureStatusViewController {
         removeObservers()
     }
     
-    func configureOverlayView() {
-        // TODO add a blurr effect here
-//        overlayView.autoresizingOff()
-//        view.isHidden = true
-//        view.insertSubview(overlayView, aboveSubview: captureButton)
-//        overlayView --> view
-//
-//        overlayLabel.autoresizingOff()
-//        overlayLabel.numberOfLines = 0
-//        overlayLabel.lineBreakMode = .byWordWrapping
-//        overlayLabel.textColor = Const.Color.labelColor
-//        overlayView.addSubview(overlayLabel)
-//        overlayLabel.centerYAnchor --> overlayView.centerYAnchor
-//        overlayLabel.centerXAnchor --> overlayView.centerXAnchor
-//
-//        let tapGeature = UITapGestureRecognizer(target: self, action: #selector(didTapToResumeCamera))
-//        overlayView.addGestureRecognizer(tapGeature)
-    }
-  
     func checkCameraPermission() {
         let cameraAuthStatus = AVCaptureDevice.authorizationStatus(for: .video)
         switch cameraAuthStatus {
@@ -415,13 +453,21 @@ private extension CaptureStatusViewController {
 extension CaptureStatusViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     // This is called when there is that shutter sound!!!
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        if !takePicture {
-            return
+       
+        if takePicture {
+            takePhoto(sampleBuffer: sampleBuffer)
+        } else if {
+            
         }
-        takePicture = false
+        
         
     
         
+       
+       
+    }
+    
+    private func takePhoto(sampleBuffer: CMSampleBuffer ) {
         guard let cvBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             return
         }
@@ -430,10 +476,13 @@ extension CaptureStatusViewController: AVCaptureVideoDataOutputSampleBufferDeleg
         let uiImage = UIImage(ciImage: ciImage)
         
         DispatchQueue.main.async {
-           // use the image here
+            // use the image here
             uiImage
             
         }
-       
+    }
+    
+    private func recordVideo() {
+        
     }
 }

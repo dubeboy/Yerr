@@ -56,7 +56,8 @@ enum AppStrings {
             static let cameraPaused = "Camera session has been paused. reason %s"
             static let cameraResumed = "Camera session interuption has ended."
             static let configrationFailed = "Something went wrong camera configuration."
-
+            static let notAuthOrDet = "Access to photos is not Determined or denied"
+            static let unknown = "Access to photos has an unkown state"
         }
         
     }
