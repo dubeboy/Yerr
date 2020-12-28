@@ -24,7 +24,7 @@ class CaptureStatusViewController: UIViewController {
     }
     
     private enum CaptureState {
-        case idle, 
+        case idle, start, capuring, end
     }
     
     var coordinator: PhotosGalleryCoordinator!
@@ -41,7 +41,13 @@ class CaptureStatusViewController: UIViewController {
     
     private var previewLayer: AVCaptureVideoPreviewLayer!
     private var videoOutput: AVCaptureVideoDataOutput!
+    private var assetWritter: AVAssetWriter?
+    private var assetWritterInput: AVAssetWriterInput?
+    private var adapter: AVAssetWriterInputPixelBufferAdaptor?
+    private var fileName = ""
+    private var time: Double = 0
     
+    private var captureState = CaptureState.idle
     private var takePicture = false
     private var takeVideo = false
     
@@ -82,6 +88,8 @@ class CaptureStatusViewController: UIViewController {
                 Logger.log(AppStrings.Error.CaptureStatus.configrationFailed)
                 presentAlert(title: AppStrings.CaptureStatus.alertTitle, message: AppStrings.CaptureStatus.configrationFailed, actions: okAction)
         }
+        
+        captureState = .start
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -95,7 +103,29 @@ class CaptureStatusViewController: UIViewController {
     }
     
     @objc func takePictureAction() {
-        takePicture = true
+        Logger.i("Taking picture")
+//        takePicture = true
+        captureState = .end
+    }
+    
+    @objc func takeVideoAction(gestureReconizer: UILongPressGestureRecognizer) {
+//        if gestureReconizer.state != .ended {
+//            Logger.i("starting video ")
+//            switch captureState {
+//                case .idle:
+//                    Logger.i("video idle")
+//                    captureState = .start
+////                case .capuring:
+////                    captureState = .end
+//                default:
+//                    break
+//            }
+//        } else {
+//            Logger.i("end video ")
+//            captureState = .end
+//        }
+//        captureState = .end
+        
     }
     
     @objc func openGalleryAction() {
@@ -196,6 +226,10 @@ private extension CaptureStatusViewController {
         captureButton.widthAnchor --> 60
         captureButton.heightAnchor --> 60
         captureButton.addTarget(self, action: #selector(takePictureAction), for: .touchUpInside)
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(takeVideoAction))
+        longPressRecognizer.minimumPressDuration = 0.5
+        longPressRecognizer.delaysTouchesBegan = true
+        captureButton.addGestureRecognizer(longPressRecognizer)
         // add long press to rec
     }
     
@@ -450,21 +484,17 @@ private extension CaptureStatusViewController {
     }
 }
 
+/// This is  the had way of doiung things but it gives us a bit of flexibility in case we want to overlay some draing on the live preview
+
 extension CaptureStatusViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     // This is called when there is that shutter sound!!!
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-       
         if takePicture {
             takePhoto(sampleBuffer: sampleBuffer)
-        } else if {
-            
+            takePicture = false
+        } else if captureState != .idle {
+            recordVideo(sampleBuffer: sampleBuffer)
         }
-        
-        
-    
-        
-       
-       
     }
     
     private func takePhoto(sampleBuffer: CMSampleBuffer ) {
@@ -482,7 +512,59 @@ extension CaptureStatusViewController: AVCaptureVideoDataOutputSampleBufferDeleg
         }
     }
     
-    private func recordVideo() {
+    private func recordVideo(sampleBuffer: CMSampleBuffer) {
+        let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer).seconds
+        switch captureState {
+            case .start:
+                // setup recorder
+                fileName = UUID().uuidString
+                let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(fileName).mov")  // TODO: check the trim class has aneasir way of doing this!
+                let writer = try! AVAssetWriter(outputURL: videoPath, fileType: .mov)
+                let settings = videoOutput.recommendedVideoSettingsForAssetWriter(writingTo: .mov) // this is setup in setupOutput!!!
+                let input = AVAssetWriterInput(mediaType: .video, outputSettings: settings) // [AVVideoCodecKey: AVVideoCodecType.h264, AVVideoWidthKey: 1920, AVVideoHeightKey: 1080])
+                input.mediaTimeScale = CMTimeScale(bitPattern: 600)
+                input.expectsMediaDataInRealTime = true
+                let adapter = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input, sourcePixelBufferAttributes: nil)
+                
+                if writer.canAdd(input) {
+                    writer.add(input)
+                }
+                
+                
+                writer.startWriting()
+                writer.startSession(atSourceTime: .zero)
+                
+                assetWritter = writer
+                assetWritterInput = input
+                self.adapter = adapter
+                captureState = .capuring
+                time = timestamp
+                
+            case .capuring:
+                if assetWritterInput?.isReadyForMoreMediaData == true {
+                    let time = CMTime(seconds: timestamp - self.time, preferredTimescale:CMTimeScale(600))
+                    self.adapter?.append(CMSampleBufferGetImageBuffer(sampleBuffer)!, withPresentationTime: time) // assuming this gets the image at the given time !!
+                    
+                }
+                break
+            case .end:
+                guard assetWritterInput?.isReadyForMoreMediaData == true, assetWritter!.status != .failed else { break }
+                let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(fileName).mov")
+                assetWritterInput?.markAsFinished()
+                assetWritter?.finishWriting { [weak self] in
+                    self?.captureState = .idle
+                    self?.assetWritter = nil
+                    self?.assetWritterInput = nil
+                    
+                    DispatchQueue.main.async {
+                        let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                        self?.present(activity, animated: true, completion: nil)
+                    }
+                }
+                captureState = .idle
+            default:
+                break
+        }
         
     }
 }
