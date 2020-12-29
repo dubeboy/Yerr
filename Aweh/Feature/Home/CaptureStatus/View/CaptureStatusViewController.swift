@@ -23,10 +23,10 @@ class CaptureStatusViewController: UIViewController {
         case configurationFailed
     }
     
-    private enum CaptureState {
-        case idle, start, capuring, end
+    private enum captureMode {
+        case photo, movie
     }
-    
+
     var coordinator: PhotosGalleryCoordinator!
     
     private var captureButton = CaptureButton()
@@ -34,22 +34,18 @@ class CaptureStatusViewController: UIViewController {
     
     private var captureSession = AVCaptureSession()
     
-    private var backCamera: AVCaptureDevice!
-    private var frontCamera: AVCaptureDevice!
-    private var backInput: AVCaptureInput!
-    private var frontInput: AVCaptureInput!
+//    private var backCamera: AVCaptureDevice!
+//    private var frontCamera: AVCaptureDevice!
+//    private var backInput: AVCaptureInput!
+//    private var frontInput: AVCaptureInput!
+    
+    private var inProgressPhotoCaptureDelegates = [Int64: PhotoCaptureProcessor]()
+    
+    @objc dynamic var videoDeviceInput: AVCaptureDeviceInput!
     
     private var previewLayer: AVCaptureVideoPreviewLayer!
     private var videoOutput: AVCaptureVideoDataOutput!
-    private var assetWritter: AVAssetWriter?
-    private var assetWritterInput: AVAssetWriterInput?
-    private var adapter: AVAssetWriterInputPixelBufferAdaptor?
-    private var fileName = ""
-    private var time: Double = 0
-    
-    private var captureState = CaptureState.idle
-    private var takePicture = false
-    private var takeVideo = false
+    private let photoOutput = AVCapturePhotoOutput()
     
     private var switchCameraButton: UIBarButtonItem!
      
@@ -89,7 +85,6 @@ class CaptureStatusViewController: UIViewController {
                 presentAlert(title: AppStrings.CaptureStatus.alertTitle, message: AppStrings.CaptureStatus.configrationFailed, actions: okAction)
         }
         
-        captureState = .start
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -104,28 +99,56 @@ class CaptureStatusViewController: UIViewController {
     
     @objc func takePictureAction() {
         Logger.i("Taking picture")
-//        takePicture = true
-        captureState = .end
+        sessionQueue.async {
+            // no need to set the video orintation its set in the output!!!
+            
+            var photoSettings = AVCapturePhotoSettings()
+            
+            if self.photoOutput.availablePhotoCodecTypes.contains(.hevc) {
+                photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
+            }
+            
+            if self.videoDeviceInput.device.isFlashAvailable {
+                photoSettings.flashMode = .auto // TODO: have a button to toggle this please
+            }
+            
+            photoSettings.isHighResolutionPhotoEnabled = true
+            if !photoSettings.__availablePreviewPhotoPixelFormatTypes.isEmpty {
+                photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: photoSettings.__availablePreviewPhotoPixelFormatTypes.first!]
+            }
+            
+            if #available(iOS 13.0, *) {
+                photoSettings.photoQualityPrioritization = .balanced
+            }
+            
+            let photoProcessor = PhotoCaptureProcessor(with: photoSettings, willCapturePhotoAnimation: {
+                DispatchQueue.main.async {
+                    self.flashScreen(completion: { _ in })
+                }
+            }, livePhotoCaptureHandler: { capturing in
+                
+                    
+            }, completionHandler: { photoProcessor in
+                self.sessionQueue.async {
+                    self.inProgressPhotoCaptureDelegates[photoProcessor.requestedPhotoSettings.uniqueID] = nil
+                }
+            }, photoProcessingHandler: { animate in
+                DispatchQueue.main.async {
+                    if animate {
+                        Logger.i("animating photo")
+                    }
+                }
+                
+               
+            })
+            
+            self.inProgressPhotoCaptureDelegates[photoProcessor.requestedPhotoSettings.uniqueID] = photoProcessor
+            self.photoOutput.capturePhoto(with: photoSettings, delegate: photoProcessor)
+            
+        }
     }
     
     @objc func takeVideoAction(gestureReconizer: UILongPressGestureRecognizer) {
-//        if gestureReconizer.state != .ended {
-//            Logger.i("starting video ")
-//            switch captureState {
-//                case .idle:
-//                    Logger.i("video idle")
-//                    captureState = .start
-////                case .capuring:
-////                    captureState = .end
-//                default:
-//                    break
-//            }
-//        } else {
-//            Logger.i("end video ")
-//            captureState = .end
-//        }
-//        captureState = .end
-        
     }
     
     @objc func openGalleryAction() {
@@ -345,74 +368,91 @@ private extension CaptureStatusViewController {
     
     func configureCaptureSession() {
         sessionQueue.async { [self] in
-            self.captureSession.beginConfiguration()
+            captureSession.beginConfiguration()
             if captureSession.canSetSessionPreset(.photo) {
                 captureSession.sessionPreset = .photo
             }
-            captureSession.automaticallyConfiguresApplicationAudioSession = true
-            setupInputs()
+            setupVideoInput()
+            setupAudioInput()
             
-//            DispatchQueue.main.async {
-                // setup preview layer
-//                setupPreviewLayer()
-//            }
-            
+            setupPhotoOutput()
             setupOutput()
-        
-            //  do some config
-            self.captureSession.commitConfiguration()
-//            self.captureSession.startRunning()
-//            self.isSessionRunning = self.captureSession.isRunning
+            captureSession.commitConfiguration()
         }
     }
     
-    func setupInputs() {
-        // pro models with 3 cameras
-        if let dualCameraDevice = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back) {
-            backCamera = dualCameraDevice
-        } else if let backCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
-            // If a rear dual camera is not available, default to the rear wide angle camera.
-            backCamera = backCameraDevice
+    private func setupVideoInput() {
+        do {
+            // configure device
+            var defaultVideoDevice: AVCaptureDevice?
+            
+            if let dualCameraDevice = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back) {
+                defaultVideoDevice = dualCameraDevice
+            } else if let backCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
+                defaultVideoDevice = backCameraDevice
+            } else if let frontCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) {
+                defaultVideoDevice = frontCameraDevice
+            }
+            
+            
+            guard let videoDevice = defaultVideoDevice else {
+                Logger.log(AppStrings.Error.CaptureStatus.configrationFailed)
+                setupResult = .configurationFailed
+                captureSession.commitConfiguration()
+                return
+            }
+            
+            // connect input
+            let videoDeviceInput = try AVCaptureDeviceInput(device: videoDevice)
+            
+            if captureSession.canAddInput(videoDeviceInput) {
+                captureSession.addInput(videoDeviceInput)
+                self.videoDeviceInput = videoDeviceInput
+            } else {
+                Logger.log(AppStrings.Error.CaptureStatus.configrationFailed)
+                setupResult = .configurationFailed
+                captureSession.commitConfiguration()
+                return
+            }
+        } catch {
+            Logger.log(AppStrings.Error.CaptureStatus.configrationFailed)
+            setupResult = .configurationFailed
+            captureSession.commitConfiguration()
+            return
         }
-        
-        // get camera input
-        if let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) {
-            frontCamera = device
+    }
+    
+    private func setupAudioInput() {
+        do {
+            guard let audioDevice = AVCaptureDevice.default(for: .audio) else { return }
+            let audioDeviceInput = try AVCaptureDeviceInput(device: audioDevice)
+            
+            if captureSession.canAddInput(audioDeviceInput) {
+                captureSession.addInput(audioDeviceInput)
+            } else {
+                Logger.log("Could not add audio device to the session")
+            }
+        } catch {
+            Logger.log("Could not add audio device to the session \(error)")
+
+        }
+    }
+    
+    private func setupPhotoOutput() {
+        if captureSession.canAddOutput(photoOutput) {
+            captureSession.addOutput(photoOutput)
+            
+            photoOutput.isHighResolutionCaptureEnabled = true
+            photoOutput.isPortraitEffectsMatteDeliveryEnabled = photoOutput.isPortraitEffectsMatteDeliverySupported
+            if #available(iOS 13.0, *) {
+                photoOutput.maxPhotoQualityPrioritization = .quality
+            }
         } else {
-            presentAlert(message: AppStrings.CaptureStatus.frontCameraNotAvailable)
-        }
-        
-        guard let bInput = try? AVCaptureDeviceInput(device: backCamera) else {
-            presentAlert(message: AppStrings.Error.genericError)
-            Logger.log(AppStrings.CaptureStatus.noInputDeviceForBackCamera)
+            Logger.log("cannot add photo output to session")
+            setupResult = .configurationFailed
+            captureSession.commitConfiguration()
             return
         }
-        
-        backInput = bInput
-        
-        if !captureSession.canAddInput(backInput) {
-            presentAlert(message: AppStrings.Error.genericError)
-            Logger.log(AppStrings.CaptureStatus.unableToAddBackCameraToSession)
-        }
-        
-        guard let fInput = try? AVCaptureDeviceInput(device: frontCamera) else {
-            presentAlert(message: AppStrings.Error.genericError)
-            Logger.log(AppStrings.CaptureStatus.noInputDeviceForBackCamera)
-            return
-        }
-        
-        frontInput = fInput
-        
-        addObservers()
-        
-        if !captureSession.canAddInput(frontInput) {
-            presentAlert(message: AppStrings.Error.genericError)
-            Logger.log(AppStrings.CaptureStatus.unableToAddFrontCameraToSession)
-        }
-        
-        // connect back session
-        captureSession.addInput(backInput)
-        
     }
     
     func addObservers() {
@@ -444,8 +484,6 @@ private extension CaptureStatusViewController {
     
     func setupOutput() {
         videoOutput = AVCaptureVideoDataOutput()
-        let videoQueue = DispatchQueue(label: "videoQueue", qos: .userInteractive)
-        videoOutput.setSampleBufferDelegate(self, queue: videoQueue)
         
         if captureSession.canAddOutput(videoOutput) {
             captureSession.addOutput(videoOutput)
@@ -457,23 +495,23 @@ private extension CaptureStatusViewController {
     }
     
     func switchCameraInput() {
-        switchCameraButton.isEnabled = false
-        
-        captureSession.beginConfiguration()
-        if isBackCameraOn {
-            captureSession.removeInput(backInput)
-            captureSession.addInput(frontInput)
-            isBackCameraOn = false
-        } else {
-            captureSession.removeInput(frontInput)
-            captureSession.addInput(backInput)
-            isBackCameraOn = true
-        }
-        
-        videoOutput.connections.first?.videoOrientation = .portrait
-        videoOutput.connections.first?.isVideoMirrored = !isBackCameraOn
-        captureSession.commitConfiguration()
-        switchCameraButton.isEnabled = true
+//        switchCameraButton.isEnabled = false
+//
+//        captureSession.beginConfiguration()
+//        if isBackCameraOn {
+//            captureSession.removeInput(backInput)
+//            captureSession.addInput(frontInput)
+//            isBackCameraOn = false
+//        } else {
+//            captureSession.removeInput(frontInput)
+//            captureSession.addInput(backInput)
+//            isBackCameraOn = true
+//        }
+//
+//        videoOutput.connections.first?.videoOrientation = .portrait
+//        videoOutput.connections.first?.isVideoMirrored = !isBackCameraOn
+//        captureSession.commitConfiguration()
+//        switchCameraButton.isEnabled = true
     }
     
     private func flashScreen(completion: @escaping Completion<Bool>) {
@@ -481,90 +519,5 @@ private extension CaptureStatusViewController {
         UIView.animate(withDuration: 0.25, animations: {
             self.previewLayer.opacity = 1
         }, completion: completion)
-    }
-}
-
-/// This is  the had way of doiung things but it gives us a bit of flexibility in case we want to overlay some draing on the live preview
-
-extension CaptureStatusViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
-    // This is called when there is that shutter sound!!!
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        if takePicture {
-            takePhoto(sampleBuffer: sampleBuffer)
-            takePicture = false
-        } else if captureState != .idle {
-            recordVideo(sampleBuffer: sampleBuffer)
-        }
-    }
-    
-    private func takePhoto(sampleBuffer: CMSampleBuffer ) {
-        guard let cvBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-            return
-        }
-        
-        let ciImage = CIImage(cvImageBuffer: cvBuffer)
-        let uiImage = UIImage(ciImage: ciImage)
-        
-        DispatchQueue.main.async {
-            // use the image here
-            uiImage
-            
-        }
-    }
-    
-    private func recordVideo(sampleBuffer: CMSampleBuffer) {
-        let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer).seconds
-        switch captureState {
-            case .start:
-                // setup recorder
-                fileName = UUID().uuidString
-                let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(fileName).mov")  // TODO: check the trim class has aneasir way of doing this!
-                let writer = try! AVAssetWriter(outputURL: videoPath, fileType: .mov)
-                let settings = videoOutput.recommendedVideoSettingsForAssetWriter(writingTo: .mov) // this is setup in setupOutput!!!
-                let input = AVAssetWriterInput(mediaType: .video, outputSettings: settings) // [AVVideoCodecKey: AVVideoCodecType.h264, AVVideoWidthKey: 1920, AVVideoHeightKey: 1080])
-                input.mediaTimeScale = CMTimeScale(bitPattern: 600)
-                input.expectsMediaDataInRealTime = true
-                let adapter = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input, sourcePixelBufferAttributes: nil)
-                
-                if writer.canAdd(input) {
-                    writer.add(input)
-                }
-                
-                
-                writer.startWriting()
-                writer.startSession(atSourceTime: .zero)
-                
-                assetWritter = writer
-                assetWritterInput = input
-                self.adapter = adapter
-                captureState = .capuring
-                time = timestamp
-                
-            case .capuring:
-                if assetWritterInput?.isReadyForMoreMediaData == true {
-                    let time = CMTime(seconds: timestamp - self.time, preferredTimescale:CMTimeScale(600))
-                    self.adapter?.append(CMSampleBufferGetImageBuffer(sampleBuffer)!, withPresentationTime: time) // assuming this gets the image at the given time !!
-                    
-                }
-                break
-            case .end:
-                guard assetWritterInput?.isReadyForMoreMediaData == true, assetWritter!.status != .failed else { break }
-                let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(fileName).mov")
-                assetWritterInput?.markAsFinished()
-                assetWritter?.finishWriting { [weak self] in
-                    self?.captureState = .idle
-                    self?.assetWritter = nil
-                    self?.assetWritterInput = nil
-                    
-                    DispatchQueue.main.async {
-                        let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-                        self?.present(activity, animated: true, completion: nil)
-                    }
-                }
-                captureState = .idle
-            default:
-                break
-        }
-        
     }
 }
