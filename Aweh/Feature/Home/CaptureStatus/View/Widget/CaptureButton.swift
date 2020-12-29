@@ -23,7 +23,7 @@ class CaptureButton: YerrButton {
         super.layoutSubviews()
         self.layer.cornerRadius = bounds.width / 2
         self.layer.borderWidth = Const.View.m4 + 2
-        self.layer.borderColor = Const.Color.systemWhite.cgColor
+        self.layer.borderColor = Const.Color.CaptureStatus.captureButton.cgColor
     }
     
     func setVideoClickAction(action: Completion<()>) {

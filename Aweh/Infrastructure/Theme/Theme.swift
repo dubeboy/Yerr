@@ -144,7 +144,7 @@ enum Const {
         }
         
         enum CaptureStatus {
-            static let captureButton = systemWhite.withAlphaComponent(0.5)
+            static let captureButton = UIColor.white
         }
     }
 

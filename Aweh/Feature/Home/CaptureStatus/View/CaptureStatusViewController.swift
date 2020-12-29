@@ -23,7 +23,7 @@ class CaptureStatusViewController: UIViewController {
         case configurationFailed
     }
     
-    private enum captureMode {
+    private enum CaptureMode {
         case photo, movie
     }
 
@@ -34,19 +34,14 @@ class CaptureStatusViewController: UIViewController {
     
     private var captureSession = AVCaptureSession()
     
-//    private var backCamera: AVCaptureDevice!
-//    private var frontCamera: AVCaptureDevice!
-//    private var backInput: AVCaptureInput!
-//    private var frontInput: AVCaptureInput!
-    
     private var inProgressPhotoCaptureDelegates = [Int64: PhotoCaptureProcessor]()
     
     @objc dynamic var videoDeviceInput: AVCaptureDeviceInput!
     
     private var previewLayer: AVCaptureVideoPreviewLayer!
-    private var videoOutput: AVCaptureVideoDataOutput!
     private let photoOutput = AVCapturePhotoOutput()
-    
+    private var movieFileOutput: AVCaptureMovieFileOutput!
+    private var captureMode = CaptureMode.photo
     private var switchCameraButton: UIBarButtonItem!
      
     private var isBackCameraOn: Bool = true
@@ -58,6 +53,8 @@ class CaptureStatusViewController: UIViewController {
     private var isSessionRunning = false
     
     private var setupResult: SessionSetupResult = .success
+    
+    private var backgroundRecordingID: UIBackgroundTaskIdentifier?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,6 +95,7 @@ class CaptureStatusViewController: UIViewController {
     }
     
     @objc func takePictureAction() {
+        captureMode = .photo
         Logger.i("Taking picture")
         sessionQueue.async {
             // no need to set the video orintation its set in the output!!!
@@ -149,6 +147,15 @@ class CaptureStatusViewController: UIViewController {
     }
     
     @objc func takeVideoAction(gestureReconizer: UILongPressGestureRecognizer) {
+        if gestureReconizer.state == .began {
+            Logger.i("state began")
+            captureMode = .movie
+            toggleCaptureMode()
+            recordVideo()
+        } else if gestureReconizer.state == .ended {
+            Logger.i("state ended")
+            stopRecordingVideo()
+        }
     }
     
     @objc func openGalleryAction() {
@@ -260,7 +267,7 @@ private extension CaptureStatusViewController {
         openGalleryButton.autoresizingOff()
         view.addSubview(openGalleryButton)
         openGalleryButton.image = Const.Assets.CaptureStatus.openGalleryIcon?.withRenderingMode(.alwaysTemplate)
-        openGalleryButton.tintColor = Const.Color.systemWhite
+        openGalleryButton.tintColor = Const.Color.CaptureStatus.captureButton // TODO: make button a bit thick
         openGalleryButton.leadingAnchor --> view.leadingAnchor + Const.View.m16
         openGalleryButton.centerYAnchor --> captureButton.centerYAnchor
         openGalleryButton.widthAnchor --> 40
@@ -376,7 +383,6 @@ private extension CaptureStatusViewController {
             setupAudioInput()
             
             setupPhotoOutput()
-            setupOutput()
             captureSession.commitConfiguration()
         }
     }
@@ -438,6 +444,79 @@ private extension CaptureStatusViewController {
         }
     }
     
+    private func setupVideoOutput() {
+        let movieFileOutput = AVCaptureMovieFileOutput()
+        if self.captureSession.canAddOutput(movieFileOutput) {
+            captureSession.beginConfiguration()
+            captureSession.addOutput(movieFileOutput)
+            captureSession.sessionPreset = .high
+            
+            if let connection = movieFileOutput.connection(with: .video) {
+                if connection.isVideoStabilizationSupported {
+                    connection.preferredVideoStabilizationMode = .auto
+                }
+            }
+            captureSession.commitConfiguration()
+            self.movieFileOutput = movieFileOutput
+            movieFileOutput.connections.first?.videoOrientation = .portrait
+
+        }
+    }
+    
+    private func recordVideo() {
+        
+        guard let movieFileOutput = self.movieFileOutput else {
+            return
+        }
+        
+        sessionQueue.async { [self] in
+            if !movieFileOutput.isRecording {
+                
+                if UIDevice.current.isMultitaskingSupported {
+                    backgroundRecordingID = UIApplication.shared.beginBackgroundTask(expirationHandler: nil)
+                }
+                
+                let movieFileOutputConnection = movieFileOutput.connection(with: .video)
+                movieFileOutputConnection?.videoOrientation = .portrait
+                
+                let availableVideoCodecTypes = movieFileOutput.availableVideoCodecTypes
+                
+                if availableVideoCodecTypes.contains(.hevc) {
+                    movieFileOutput.setOutputSettings([AVVideoCodecKey: AVVideoCodecType.hevc], for: movieFileOutputConnection!)
+                }
+                
+                let outputFileName = UUID().uuidString
+                let outputFilePath =  (NSTemporaryDirectory() as NSString).appendingPathComponent((outputFileName as NSString).appendingPathExtension("mov")!)
+                movieFileOutput.startRecording(to: URL(fileURLWithPath: outputFilePath), recordingDelegate: self)
+            } else {
+                movieFileOutput.stopRecording()
+            }
+        }
+    }
+    
+    private func stopRecordingVideo() {
+        guard let movieFileOutput = self.movieFileOutput else {
+            return
+        }
+        movieFileOutput.stopRecording()
+    }
+    
+    private func toggleCaptureMode() {
+        if captureMode == .photo {
+            sessionQueue.async { [self] in
+                captureSession.beginConfiguration()
+                captureSession.removeOutput(self.movieFileOutput)
+                captureSession.sessionPreset = .photo
+                
+                self.movieFileOutput = nil
+                
+                self.captureSession.commitConfiguration()
+            }
+        } else {
+            setupVideoOutput()
+        }
+    }
+    
     private func setupPhotoOutput() {
         if captureSession.canAddOutput(photoOutput) {
             captureSession.addOutput(photoOutput)
@@ -482,18 +561,6 @@ private extension CaptureStatusViewController {
         previewLayer.frame = self.view.layer.frame
     }
     
-    func setupOutput() {
-        videoOutput = AVCaptureVideoDataOutput()
-        
-        if captureSession.canAddOutput(videoOutput) {
-            captureSession.addOutput(videoOutput)
-        } else {
-            presentAlert(message: AppStrings.Error.genericError) { _ in }
-            Logger.log(AppStrings.CaptureStatus.unableToAddVideoOutputToSession)
-        }
-        videoOutput.connections.first?.videoOrientation = .portrait
-    }
-    
     func switchCameraInput() {
 //        switchCameraButton.isEnabled = false
 //
@@ -519,5 +586,64 @@ private extension CaptureStatusViewController {
         UIView.animate(withDuration: 0.25, animations: {
             self.previewLayer.opacity = 1
         }, completion: completion)
+    }
+}
+
+extension CaptureStatusViewController: AVCaptureFileOutputRecordingDelegate {
+    // didStrat recording
+    func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
+        Logger.log("did start recording")
+    }
+    
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        func cleanup() {
+            let path = outputFileURL.path
+            if FileManager.default.fileExists(atPath: path) {
+                do {
+                    try FileManager.default.removeItem(atPath: path)
+                } catch {
+                    Logger.log("Could not remove file at URL: \(outputFileURL)")
+                }
+            }
+            
+            if let currentBackgroundRecordingID = backgroundRecordingID {
+                backgroundRecordingID = UIBackgroundTaskIdentifier.invalid
+                
+                if currentBackgroundRecordingID != UIBackgroundTaskIdentifier.invalid {
+                    UIApplication.shared.endBackgroundTask(currentBackgroundRecordingID)
+                }
+            }
+        }
+        
+        var success = true
+        
+        if error != nil {
+            Logger.log("Movie file finishing error: \(String(describing: error))")
+            success = (((error! as NSError).userInfo[AVErrorRecordingSuccessfullyFinishedKey] as AnyObject).boolValue)!
+        }
+        
+        if success {
+            PHPhotoLibrary.requestAuthorization { status in
+                if status == .authorized {
+                    PHPhotoLibrary.shared().performChanges {
+                        let options = PHAssetResourceCreationOptions()
+                        options.shouldMoveFile = true
+                        let creationRequest = PHAssetCreationRequest.forAsset()
+                        creationRequest.addResource(with: .video, fileURL: outputFileURL, options: options)
+                    } completionHandler: { (success, errror) in
+                        if !success {
+                            Logger.log("Could not save photo to you library \(String(describing: errror)) success: \(success) localized desc: \(errror?.localizedDescription)")
+                        } else {
+                            Logger.log("saved video")
+                        }
+//                        cleanup()
+                    }
+
+                }
+//                cleanup()
+            }
+        } else {
+//            cleanup()
+        }
     }
 }
