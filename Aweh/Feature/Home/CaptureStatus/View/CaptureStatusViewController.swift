@@ -43,9 +43,7 @@ class CaptureStatusViewController: UIViewController {
     private var movieFileOutput: AVCaptureMovieFileOutput!
     private var captureMode = CaptureMode.photo
     private var switchCameraButton: UIBarButtonItem!
-     
-    private var isBackCameraOn: Bool = true
-    
+         
     private let overlayView = UIView()
     private let overlayLabel = UILabel()
     
@@ -55,6 +53,12 @@ class CaptureStatusViewController: UIViewController {
     private var setupResult: SessionSetupResult = .success
     
     private var backgroundRecordingID: UIBackgroundTaskIdentifier?
+    
+    private let videoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [
+                                                                                .builtInWideAngleCamera,
+                                                                                .builtInDualCamera,
+                                                                                .builtInTrueDepthCamera],
+                                                                               mediaType: .video, position: .unspecified)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -227,6 +231,10 @@ class CaptureStatusViewController: UIViewController {
                 self.overlayView.isHidden = true
             }
         }
+    }
+    
+    @objc func subjectAreaDidChange() {
+        
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -458,7 +466,9 @@ private extension CaptureStatusViewController {
             }
             captureSession.commitConfiguration()
             self.movieFileOutput = movieFileOutput
-            movieFileOutput.connections.first?.videoOrientation = .portrait
+            if movieFileOutput.connections.first?.isVideoOrientationSupported == true {
+                movieFileOutput.connections.first?.videoOrientation = .portrait
+            }
 
         }
     }
@@ -534,6 +544,75 @@ private extension CaptureStatusViewController {
         }
     }
     
+    private func switchCameraInput() {
+        switchCameraButton.isEnabled = false
+        captureButton.isEnabled = false
+        sessionQueue.async { [self] in
+            let currentVideoDevice = self.videoDeviceInput.device
+            let currentPosition = currentVideoDevice.position
+            
+            let preferedPosition: AVCaptureDevice.Position
+            let preferedDeviceType: AVCaptureDevice.DeviceType
+            
+            switch currentPosition {
+                case .unspecified, .front:
+                    preferedPosition = .back
+                    preferedDeviceType = .builtInDualCamera
+                case .back:
+                    preferedPosition = .front
+                    preferedDeviceType = .builtInTrueDepthCamera
+                @unknown default:
+                    Logger.i("Unknown capture position. Defaulting to back, dual-camera.")
+                    preferedPosition = .back
+                    preferedDeviceType = .builtInDualCamera
+            }
+            
+            let devices = self.videoDeviceDiscoverySession.devices
+            var newVideoDevice: AVCaptureDevice? = nil
+            
+            if let device = devices.first(where: {$0.position == preferedPosition && $0.deviceType == preferedDeviceType}) {
+                newVideoDevice = device
+            } else if let device = devices.first(where: {$0.position == preferedPosition }) {
+                newVideoDevice = device
+            }
+            
+            if let videoDevice = newVideoDevice {
+                do {
+                    let videoDeviceInput = try AVCaptureDeviceInput(device: videoDevice)
+                    
+                    captureSession.beginConfiguration()
+                    captureSession.removeInput(self.videoDeviceInput)
+                    
+                    if captureSession.canAddInput(videoDeviceInput) {
+                        NotificationCenter.default.removeObserver(self, name: .AVCaptureDeviceSubjectAreaDidChange, object: currentVideoDevice)
+                        NotificationCenter.default.addObserver(self, selector: #selector(self.subjectAreaDidChange), name: .AVCaptureDeviceSubjectAreaDidChange, object: videoDeviceInput.device)
+                        captureSession.addInput(videoDeviceInput)
+                        self.videoDeviceInput = videoDeviceInput
+                    } else {
+                        captureSession.addInput(self.videoDeviceInput)
+                    }
+                    
+                    if let connection = self.movieFileOutput?.connection(with: .video) {
+                        if connection.isVideoStabilizationSupported {
+                            connection.preferredVideoStabilizationMode = .auto
+                        }
+                    }
+                   
+                    captureSession.commitConfiguration()
+                } catch {
+                    Logger.log("Error occurred while creating video device input: \(error)")
+                }
+                
+                DispatchQueue.main.async {
+                    switchCameraButton.isEnabled = true
+                    captureButton.isEnabled = true
+                }
+            }
+        }
+    }
+    
+
+    
     func addObservers() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(sessionWasInterrupted),
@@ -559,26 +638,6 @@ private extension CaptureStatusViewController {
         previewLayer.videoGravity = .resizeAspectFill
         view.layer.insertSublayer(previewLayer, below: captureButton.layer)
         previewLayer.frame = self.view.layer.frame
-    }
-    
-    func switchCameraInput() {
-//        switchCameraButton.isEnabled = false
-//
-//        captureSession.beginConfiguration()
-//        if isBackCameraOn {
-//            captureSession.removeInput(backInput)
-//            captureSession.addInput(frontInput)
-//            isBackCameraOn = false
-//        } else {
-//            captureSession.removeInput(frontInput)
-//            captureSession.addInput(backInput)
-//            isBackCameraOn = true
-//        }
-//
-//        videoOutput.connections.first?.videoOrientation = .portrait
-//        videoOutput.connections.first?.isVideoMirrored = !isBackCameraOn
-//        captureSession.commitConfiguration()
-//        switchCameraButton.isEnabled = true
     }
     
     private func flashScreen(completion: @escaping Completion<Bool>) {
