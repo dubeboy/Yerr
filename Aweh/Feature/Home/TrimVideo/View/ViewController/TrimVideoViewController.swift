@@ -82,9 +82,9 @@ private extension TrimVideoViewController {
         rangeSliderView.setVideoURL(videoURL: presenter.videoURL)
         rangeSliderView.delegate = self
         rangeSliderView.minSpace = 60.0
-        
-        rangeSliderView.setStartPosition(seconds: 50.0)
-        rangeSliderView.setEndPosition(seconds: 150)
+//        
+//        rangeSliderView.setStartPosition(seconds: 50.0)
+//        rangeSliderView.setEndPosition(seconds: 150)
 
     }
     

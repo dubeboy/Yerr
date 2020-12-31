@@ -36,7 +36,11 @@ class TrimPostVideoRangeSliderView: UIView, UIGestureRecognizerDelegate {
     var videoURL = URL(fileURLWithPath: "")
     
     var progressPercentage: CGFloat = 0
-    var startTimePercentage: CGFloat = 0
+    var startTimePercentage: CGFloat = 0 {
+        didSet {
+            Logger.i("did set this \(startTimePercentage)")
+        }
+    }
     var endTimePercentage: CGFloat = 100
     
     let topBorderHeight: CGFloat = 5
@@ -71,37 +75,29 @@ class TrimPostVideoRangeSliderView: UIView, UIGestureRecognizerDelegate {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-//        startTimeView.timeLabel.text = self.secondsToFormattedString(tottalSeconds: secondsFromValue(value: self.startTimePercentage))
-//        endTimeView.timeLabel.text = self.secondsToFormattedString(tottalSeconds: secondsFromValue(value: self.endTimePercentage))
-//
-//        let startPosition = positionFromValue(value: self.startTimePercentage)
-//        let endPosition = positionFromValue(value: self.endTimePercentage)
-//        let progressPosition = positionFromValue(value: self.progressPercentage)
-//
-//        startIndicator.center = CGPoint(x: startPosition, y: startIndicator.center.y)
-//        endIndicator.center = CGPoint(x: endPosition, y: endIndicator.center.y)
-//        progressIndicator.center = CGPoint(x: progressPosition, y: progressIndicator.center.y)
-//
-//        draggableView.frame = CGRect(x: startIndicator.frame.origin.x + startIndicator.frame.size.width,
-//                                     y: 0,
-//                                     width: endIndicator.frame.origin.x - startIndicator.frame.origin.x - endIndicator.frame.size.width,
-//                                     height: self.frame.height
-//        )
-//
-//        topLine.frame = CGRect(x: startIndicator.frame.origin.x + startIndicator.frame.width,
-//                               y: -topBorderHeight,
-//                               width: endIndicator.frame.origin.x - startIndicator.frame.origin.x - endIndicator.frame.size.width,
-//                               height: topBorderHeight)
-//
-//        bottomLine.frame = CGRect(x: startIndicator.frame.origin.x + startIndicator.frame.width,
-//                                 y: self.frame.size.height,
-//                                 width: endIndicator.frame.origin.x - startIndicator.frame.origin.x - endIndicator.frame.size.width,
-//                                 height: bottomBorderHeight)
-//
-//        // update timr view
-//
-//        startTimeView.center = CGPoint(x: startIndicator.center.x, y: startTimeView.center.y)
-//        endTimeView.center = CGPoint(x: endIndicator.center.x, y: endTimeView.center.y)
+        let startPosition = positionFromValue(value: self.startTimePercentage)
+        let endPosition = positionFromValue(value: self.endTimePercentage)
+        let progressPosition = positionFromValue(value: self.progressPercentage)
+
+        startIndicator.center = CGPoint(x: startPosition, y: startIndicator.center.y)
+        endIndicator.center = CGPoint(x: endPosition, y: endIndicator.center.y)
+        progressIndicator.center = CGPoint(x: progressPosition, y: progressIndicator.center.y)
+
+        draggableView.frame = CGRect(x: startIndicator.frame.origin.x + startIndicator.frame.size.width,
+                                     y: 0,
+                                     width: endIndicator.frame.origin.x - startIndicator.frame.origin.x - endIndicator.frame.size.width,
+                                     height: self.frame.height
+        )
+
+        topLine.frame = CGRect(x: startIndicator.frame.origin.x + startIndicator.frame.width,
+                               y: -topBorderHeight,
+                               width: endIndicator.frame.origin.x - startIndicator.frame.origin.x - endIndicator.frame.size.width,
+                               height: topBorderHeight)
+
+        bottomLine.frame = CGRect(x: startIndicator.frame.origin.x + startIndicator.frame.width,
+                                 y: self.frame.size.height,
+                                 width: endIndicator.frame.origin.x - startIndicator.frame.origin.x - endIndicator.frame.size.width,
+                                 height: bottomBorderHeight)
     }
     
     func setVideoURL(videoURL: URL) {
@@ -375,7 +371,7 @@ private extension TrimPostVideoRangeSliderView {
     }
     
     func positionFromValue(value: CGFloat) -> CGFloat {
-        let position = value * self.frame.size.width / 100
+        let position = (value * self.frame.size.width) / 100
         return position
     }
     
