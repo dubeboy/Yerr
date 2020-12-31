@@ -27,7 +27,7 @@ class CaptureStatusViewController: UIViewController {
         case photo, movie
     }
 
-    var coordinator: PhotosGalleryCoordinator!
+    var coordinator: (PhotosGalleryCoordinator & TrimVideoCoordinator)!
     
     private var captureButton = CaptureButton()
     private var openGalleryButton = UIImageView()
@@ -154,7 +154,7 @@ class CaptureStatusViewController: UIViewController {
         if gestureReconizer.state == .began {
             Logger.i("state began")
             captureMode = .movie
-            toggleCaptureMode()
+            toggleCaptureMode() // TODO: remove this it is not needed!!!!
             recordVideo()
         } else if gestureReconizer.state == .ended {
             Logger.i("state ended")
@@ -203,6 +203,10 @@ class CaptureStatusViewController: UIViewController {
         
     }
     
+    @objc func popViewController() {
+        coordinator.pop()
+    }
+    
     @objc func sessionRuntimeError(notification: NSNotification) {
         guard let error = notification.userInfo?[AVCaptureSessionErrorKey] as? AVError else { return }
         if error.code == .mediaServicesWereReset {
@@ -242,6 +246,10 @@ class CaptureStatusViewController: UIViewController {
     }
     
     // TODO: check SystemPressureState here to lower frame rate!!!
+    
+    deinit {
+        Logger.i("Killed CaptureStatus")
+    }
     
 }
 
@@ -391,6 +399,7 @@ private extension CaptureStatusViewController {
             setupAudioInput()
             
             setupPhotoOutput()
+            setupVideoOutput() // remove toggle video output
             captureSession.commitConfiguration()
         }
     }
@@ -655,32 +664,39 @@ extension CaptureStatusViewController: AVCaptureFileOutputRecordingDelegate {
     }
     
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        func cleanup() {
-            let path = outputFileURL.path
-            if FileManager.default.fileExists(atPath: path) {
-                do {
-                    try FileManager.default.removeItem(atPath: path)
-                } catch {
-                    Logger.log("Could not remove file at URL: \(outputFileURL)")
-                }
-            }
-            
-            if let currentBackgroundRecordingID = backgroundRecordingID {
-                backgroundRecordingID = UIBackgroundTaskIdentifier.invalid
-                
-                if currentBackgroundRecordingID != UIBackgroundTaskIdentifier.invalid {
-                    UIApplication.shared.endBackgroundTask(currentBackgroundRecordingID)
-                }
-            }
-        }
-        
-        var success = true
+//        var success = true
         
         if error != nil {
             Logger.log("Movie file finishing error: \(String(describing: error))")
-            success = (((error! as NSError).userInfo[AVErrorRecordingSuccessfullyFinishedKey] as AnyObject).boolValue)!
+//            success = (((error! as NSError).userInfo[AVErrorRecordingSuccessfullyFinishedKey] as AnyObject).boolValue)!
         }
         
+        coordinator.startTrimVideoViewController(navigationController: navigationController, videoURL: outputFileURL, delegate: { [weak self] in
+            self?.dismiss(animated: true, completion: nil) // this will send us to the main presenting viewController
+        })
+//        saveToPhotos(success, outputFileURL)
+    }
+    
+    private func cleanup(outputFileURL: URL) {
+        let path = outputFileURL.path
+        if FileManager.default.fileExists(atPath: path) {
+            do {
+                try FileManager.default.removeItem(atPath: path)
+            } catch {
+                Logger.log("Could not remove file at URL: \(outputFileURL)")
+            }
+        }
+        
+        if let currentBackgroundRecordingID = backgroundRecordingID {
+            backgroundRecordingID = UIBackgroundTaskIdentifier.invalid
+            
+            if currentBackgroundRecordingID != UIBackgroundTaskIdentifier.invalid {
+                UIApplication.shared.endBackgroundTask(currentBackgroundRecordingID)
+            }
+        }
+    }
+    
+    private func saveToPhotos(_ success: Bool, _ outputFileURL: URL) {
         if success {
             PHPhotoLibrary.requestAuthorization { status in
                 if status == .authorized {
@@ -691,18 +707,20 @@ extension CaptureStatusViewController: AVCaptureFileOutputRecordingDelegate {
                         creationRequest.addResource(with: .video, fileURL: outputFileURL, options: options)
                     } completionHandler: { (success, errror) in
                         if !success {
-                            Logger.log("Could not save photo to you library \(String(describing: errror)) success: \(success) localized desc: \(errror?.localizedDescription)")
+                            Logger.log("Could not save photo to you library \(String(describing: errror)) success: \(success) localized desc: \(errror)")
                         } else {
                             Logger.log("saved video")
                         }
-//                        cleanup()
+                        //                        cleanup()
                     }
-
+                    
                 }
-//                cleanup()
+                //                cleanup()
             }
         } else {
-//            cleanup()
+            //            cleanup()
         }
     }
+    
+    
 }

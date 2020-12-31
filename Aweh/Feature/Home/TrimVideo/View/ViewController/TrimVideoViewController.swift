@@ -17,8 +17,10 @@ class TrimVideoViewController: UIViewController {
     var coordinator: HomeCoordinator!
     
     // MARK: video display
-    private var rangeSliderView: TrimPostVideoRangeSliderView = TrimPostVideoRangeSliderView()
+    @LateInit
+    private var rangeSliderView: TrimPostVideoRangeSliderView
     private var videoView: StatusVideoView = StatusVideoView()
+    private let playVideoButton = YerrButton()
     
     // MARK: Video manipulation
     private let composition = AVMutableComposition()
@@ -32,17 +34,27 @@ class TrimVideoViewController: UIViewController {
     @LateInit
     private var asset: AVURLAsset
     
+    private var rangeSliderHeight: CGFloat = 40
+    
 //    let progressIndicator // for when the asset need to be downloaded (selected from photos)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.getVideoURLAsUrlObject { url in
-            asset = AVURLAsset(url: url)
-        } failure: {
-            presentToast(message: AppStrings.TrimVideo.assetNotFound)
-            return
-        }
+        let rangeSliderWidth = view.frame.width - (Const.View.m16 * 4)
+        rangeSliderView = TrimPostVideoRangeSliderView(frame: CGRect(origin: CGPoint(x: Const.View.m16 * 2, y: Const.View.m16 * 2), size: CGSize(width: rangeSliderWidth, height: rangeSliderHeight)))
+        rangeSliderView.center.x = view.center.x
+        asset = AVURLAsset(url: presenter.videoURL)
         configureSelf()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureRangeSlider()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        videoView.play(videoPath: presenter.videoURL.absoluteString)
     }
     
     @objc private func addTextToVideo() {
@@ -54,19 +66,26 @@ class TrimVideoViewController: UIViewController {
 
 private extension TrimVideoViewController {
     private func configureSelf() {
-        rangeSliderView.autoresizingOff()
+//        rangeSliderView.autoresizingOff()
         videoView.autoresizingOff()
         
         videoView.hideLabel()
         view.addSubview(videoView)
         videoView --> view
         view.addSubview(rangeSliderView)
-        
-        rangeSliderView.leadingAnchor --> view.leadingAnchor + Const.View.m16
-        rangeSliderView.trailingAnchor --> view.trailingAnchor + -Const.View.m16
-        rangeSliderView.bottomAnchor --> view.bottomAnchor + -Const.View.m16 * 2
+    
         addCloseButtonItem(toLeft: true)
         navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "T", style: .plain, target: self, action: #selector(addTextToVideo))]
+    }
+    
+    private func configureRangeSlider() {
+        rangeSliderView.setVideoURL(videoURL: presenter.videoURL)
+        rangeSliderView.delegate = self
+        rangeSliderView.minSpace = 60.0
+        
+        rangeSliderView.setStartPosition(seconds: 50.0)
+        rangeSliderView.setEndPosition(seconds: 150)
+
     }
     
     private func orientation(from transform: CGAffineTransform) -> (orientation: UIImage.Orientation, isPortrait: Bool) {
@@ -266,18 +285,18 @@ private extension TrimVideoViewController {
 
 extension TrimVideoViewController: TimePostVideoRangeSliderDelegate {
     func didChangeValue(videoRangeSlider: TrimPostVideoRangeSliderView, startTime: Float64, endTime: Float64) {
-        
+
     }
-    
+
     func indicatorDidChangePosition(videoRangeSlider: TrimPostVideoRangeSliderView, position: Float64) {
-        
+
     }
-    
+
     func sliderGestureBegan() {
-        
+
     }
-    
+
     func sliderGestureEnded() {
-        
+
     }
 }

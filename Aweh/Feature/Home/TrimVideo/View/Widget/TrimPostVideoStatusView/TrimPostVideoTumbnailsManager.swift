@@ -49,11 +49,13 @@ extension TrimPostVideoTumbnailsManager {
         imageGenerator.appliesPreferredTrackTransform = true
         
         do {
+            
+            Logger.i("textracting image at time: \(time) ")
             let cgImage = try imageGenerator.copyCGImage(at: time, actualTime: nil)
             let uiImage = UIImage(cgImage: cgImage)
             return uiImage
         } catch {
-            
+            Logger.i("there was an errorextracting image \(error) ")
         }
         
         return UIImage()
@@ -96,10 +98,11 @@ extension TrimPostVideoTumbnailsManager {
     
     private func thumbnailCount(inView: UIView) -> Int {
         var num: Double = 0
-        DispatchQueue.main.async {
+        DispatchQueue.main.sync {
             num = Double(inView.frame.size.width) / Double(inView.frame.size.height)
         }
-        return Int(ceil(num))
+        Logger.i("number of items num: \(num)")
+        return Int(ceil(num)) // TODO: crashed some times
     }
     
 }

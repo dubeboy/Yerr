@@ -12,7 +12,7 @@ class TrimPostStatusBoderView: UIView {
     var imageView = UIImageView()
     
     override init(frame: CGRect) {
-        super.init(frame: .zero)
+        super.init(frame: frame)
         
         let bundle = Bundle(for: TrimPostStatusBoderView.self)
         let image = UIImage(named: "BorderLine", in: bundle, compatibleWith: nil)
@@ -20,6 +20,7 @@ class TrimPostStatusBoderView: UIView {
         imageView.frame = self.bounds
         imageView.image = image
         imageView.contentMode = .scaleToFill
+        addSubview(imageView)
     }
     
     required init?(coder: NSCoder) {

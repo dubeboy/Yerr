@@ -7,48 +7,64 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B06984FD-9373-411E-A297-16759DF9696D"
+            uuid = "F9E2F458-573D-4604-A626-499D2D909D19"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Home/CaptureStatus/View/CaptureStatusViewController.swift"
+            filePath = "Aweh/Feature/Home/TrimVideo/View/Widget/TrimPostVideoStatusView/TrimPostVideoRangeSliderView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "691"
-            endingLineNumber = "691"
-            landmarkName = "fileOutput(_:didFinishRecordingTo:from:error:)"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
+            landmarkName = "updateThumbnails()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DB5162AD-FA88-4945-8D96-DE159C8AE16F"
+            uuid = "EA365F87-0D37-4847-9F73-FEF519DEEB50"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Home/CaptureStatus/View/CaptureStatusViewController.swift"
+            filePath = "Aweh/Feature/Home/TrimVideo/View/Widget/TrimPostVideoStatusView/TrimPostVideoRangeSliderView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "694"
-            endingLineNumber = "694"
-            landmarkName = "fileOutput(_:didFinishRecordingTo:from:error:)"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
+            landmarkName = "updateThumbnails()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "469CDB25-7CAB-4C19-95CB-D342EA31A2D5"
+            uuid = "8F0230C1-FDA8-49F1-941F-006C0B36D351"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Home/CaptureStatus/View/CaptureStatusViewController.swift"
+            filePath = "Aweh/Feature/Home/TrimVideo/View/Widget/TrimPostVideoStatusView/TrimPostVideoTumbnailsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "696"
-            endingLineNumber = "696"
-            landmarkName = "fileOutput(_:didFinishRecordingTo:from:error:)"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "thumbnailCount(inView:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "70F1FAF2-1F5F-4157-BDA8-5A3F53F215E2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Aweh/Feature/Home/TrimVideo/View/Widget/TrimPostVideoStatusView/TrimPostStatusBoderView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "init(frame:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

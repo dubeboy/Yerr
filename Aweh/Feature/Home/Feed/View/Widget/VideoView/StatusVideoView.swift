@@ -15,6 +15,7 @@ class StatusVideoView: UIView {
     
     private let avPlayer: AVPlayer = AVPlayer()
     let playerLayer: AVPlayerLayer
+    let effectsView = UIView()
         
     func play(videoPath: String, status: String = "") {
         statusLabel.text = status
@@ -31,8 +32,8 @@ class StatusVideoView: UIView {
     init() {
         playerLayer = AVPlayerLayer(player: avPlayer)
         super.init(frame: .zero)
-        self.layer.addSublayer(playerLayer)
         configureSelf()
+        configureEffectsView()
     }
     
     required init?(coder: NSCoder) {
@@ -56,11 +57,10 @@ class StatusVideoView: UIView {
 
 extension StatusVideoView {
     private func configureSelf() {
-        let effectsView = UIView() // effects we can use to blur the video player
+        // effects we can use to blur the video player
         effectsView.autoresizingOff()
-        effectsView.bottomAnchor --> bottomAnchor + Const.View.m16
-        effectsView.leadingAnchor --> leadingAnchor + Const.View.m16 * 2
-        effectsView.trailingAnchor --> trailingAnchor + Const.View.m16 * -2
+        addSubview(effectsView)
+        effectsView --> self
         
         statusLabel.autoresizingOff()
         statusLabel.numberOfLines = 0
@@ -69,5 +69,11 @@ extension StatusVideoView {
         effectsView.addSubview(statusLabel)
         
         statusLabel --> effectsView
+        
+        effectsView.layer.addSublayer(playerLayer)
+    }
+    
+    private func configureEffectsView() {
+        effectsView.backgroundColor = .green
     }
 }

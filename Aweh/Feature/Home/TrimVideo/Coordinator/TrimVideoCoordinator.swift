@@ -9,18 +9,18 @@
 import UIKit
 
 protocol TrimVideoCoordinator: Coordinator {
-    func startPostStatusViewController(delegate: @escaping Completion<StatusViewModel>)
+    func startTrimVideoViewController(navigationController: UINavigationController?, videoURL: URL, delegate: @escaping Completion<()>)
 }
 
 extension HomeCoordinator: TrimVideoCoordinator  {
-    func startTrimVideoViewController(videoURL: String, delegate: @escaping Completion<()>) {
+    func startTrimVideoViewController(navigationController: UINavigationController?, videoURL: URL, delegate: @escaping Completion<()>) {
         let viewController = TrimVideoViewController()
         viewController.coordinator = self
 //        viewController.delegate = delegate
         viewController.presenter = TrimVideoViewPresenterImplementation(videoURL: videoURL)
         let trimVideoNavigationController = UINavigationController(rootViewController: viewController)
         trimVideoNavigationController.modalPresentationStyle = .fullScreen
-        navigationController.present(trimVideoNavigationController, animated: true)
+        navigationController?.pushViewController(viewController, animated: false)
     }
 }
 

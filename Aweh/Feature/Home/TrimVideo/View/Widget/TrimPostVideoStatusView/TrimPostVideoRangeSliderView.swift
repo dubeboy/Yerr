@@ -31,9 +31,6 @@ class TrimPostVideoRangeSliderView: UIView, UIGestureRecognizerDelegate {
     var progressIndicator = TrimPostVideoProgressIndicatorView()
     var draggableView = UIView()
     
-    var startTimeView = TrimPostStatusTimeView()
-    var endTimeView = TrimPostStatusTimeView()
-    
     let thumbnameManager = TrimPostVideoTumbnailsManager()
     var duration: Float64 = 0.0
     var videoURL = URL(fileURLWithPath: "")
@@ -47,7 +44,7 @@ class TrimPostVideoRangeSliderView: UIView, UIGestureRecognizerDelegate {
     
     let indicatorWidth: CGFloat = 20.0
     
-    let minSpace: Float = 1
+    var minSpace: Float = 1
     let maxSpace: Float = 0
     
     var isProgressIndicatorSticky: Bool = false
@@ -55,123 +52,63 @@ class TrimPostVideoRangeSliderView: UIView, UIGestureRecognizerDelegate {
 
     var isUpdatingThumbnails = false
     var isReceivingGesture: Bool = false
-    
+  
     public enum TimePostVideoStatusPosition {
         case top
         case bottom
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.setup()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .red
+        configureSelf()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        startTimeView.timeLabel.text = self.secondsToFormattedString(tottalSeconds: secondsFromValue(value: self.startTimePercentage))
-        endTimeView.timeLabel.text = self.secondsToFormattedString(tottalSeconds: secondsFromValue(value: self.endTimePercentage))
-        
-        let startPosition = positionFromValue(value: self.startTimePercentage)
-        let endPosition = positionFromValue(value: self.endTimePercentage)
-        let progressPosition = positionFromValue(value: self.progressPercentage)
-        
-        startIndicator.center = CGPoint(x: startPosition, y: startIndicator.center.y)
-        endIndicator.center = CGPoint(x: endPosition, y: endIndicator.center.y)
-        progressIndicator.center = CGPoint(x: progressPosition, y: progressIndicator.center.y)
-        
-        draggableView.frame = CGRect(x: startIndicator.frame.origin.x + startIndicator.frame.size.width,
-                                     y: 0,
-                                     width: endIndicator.frame.origin.x - startIndicator.frame.origin.x - endIndicator.frame.size.width,
-                                     height: self.frame.height
-        )
-        
-        topLine.frame = CGRect(x: startIndicator.frame.origin.x + startIndicator.frame.width,
-                               y: -topBorderHeight,
-                               width: endIndicator.frame.origin.x - startIndicator.frame.origin.x - endIndicator.frame.size.width,
-                               height: topBorderHeight)
-        
-        bottomLine.frame = CGRect(x: startIndicator.frame.origin.x + startIndicator.frame.width,
-                                 y: self.frame.size.height,
-                                 width: endIndicator.frame.origin.x - startIndicator.frame.origin.x - endIndicator.frame.size.width,
-                                 height: bottomBorderHeight)
-        
-        // update timr view
-        
-        startTimeView.center = CGPoint(x: startIndicator.center.x, y: startTimeView.center.y)
-        endTimeView.center = CGPoint(x: endIndicator.center.x, y: endTimeView.center.y)
-    }
-}
-
-
-// MARK: private functions
-
-private extension TrimPostVideoRangeSliderView {
-    private func setup() {
-        self.isUserInteractionEnabled = true
-        
-        // setup start indicator
-        let startDrag = UIPanGestureRecognizer(target: self, action: #selector(startDragged(recognizer:)))
-        startIndicator = TrimPostVideoStartIndicatorView(frame: CGRect(x: 0,
-                                                                   y: -topBorderHeight,
-                                                                   width: 20,
-                                                                   height: self.frame.size.height + bottomBorderHeight + topBorderHeight))
-        
-        startIndicator.layer.anchorPoint = CGPoint(x: 1, y: 0.5)
-        startIndicator.addGestureRecognizer(startDrag)
-        self.addSubview(startIndicator)
-        
-        // setup end indicator
-        let endDrag = UIPanGestureRecognizer(target: self, action: #selector(endDragged(recognizer:)))
-        endIndicator = TrimPostVideoEndIndicatorView(frame: CGRect(x: 0, y: -topBorderHeight,
-                                                               width: indicatorWidth, height: self.frame.size.height + bottomBorderHeight + topBorderHeight))
-        endIndicator.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
-        endIndicator.addGestureRecognizer(endDrag)
-        addSubview(endIndicator)
-        
-        // setup top and bottom line
-        
-        topLine = TrimPostStatusBoderView(frame: CGRect(x: 0, y: -topBorderHeight, width: indicatorWidth, height: topBorderHeight))
-        addSubview(topLine)
-        
-        bottomLine = TrimPostStatusBoderView(frame: CGRect(x: 0, y: self.frame.size.height, width: indicatorWidth, height: bottomBorderHeight))
-        
-        addSubview(bottomLine)
-        
-        addObserver(self, forKeyPath: "bounds",
-                    options: NSKeyValueObservingOptions(rawValue: 0),
-                    context: nil)
-        
-        // setup progress indicator
-        
-        let progressDrag = UIPanGestureRecognizer(target: self, action: #selector(progressDragged(recognizer:)))
-        progressIndicator = TrimPostVideoProgressIndicatorView(frame: CGRect(x: 0, y: -topBorderHeight, width: 10, height: self.frame.size.height + bottomBorderHeight + topBorderHeight))
-        
-        progressIndicator.addGestureRecognizer(progressDrag)
-        addSubview(progressIndicator)
-        
-        // setup draggable view
-        
-        let viewDrag = UIPanGestureRecognizer(target: self, action: #selector(viewDragged(recognizer:)))
-        draggableView.addGestureRecognizer(viewDrag)
-        addSubview(draggableView)
-        self.sendSubviewToBack(draggableView)
-        
-        //MARK: setup time label
-        startTimeView = TrimPostStatusTimeView(size: CGSize(width: 60, height: 30))
-        startTimeView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        addSubview(startTimeView)
-        
-        endTimeView = TrimPostStatusTimeView(size: CGSize(width: 60, height: 30))
-        endTimeView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        addSubview(endTimeView)
-        
+//        startTimeView.timeLabel.text = self.secondsToFormattedString(tottalSeconds: secondsFromValue(value: self.startTimePercentage))
+//        endTimeView.timeLabel.text = self.secondsToFormattedString(tottalSeconds: secondsFromValue(value: self.endTimePercentage))
+//
+//        let startPosition = positionFromValue(value: self.startTimePercentage)
+//        let endPosition = positionFromValue(value: self.endTimePercentage)
+//        let progressPosition = positionFromValue(value: self.progressPercentage)
+//
+//        startIndicator.center = CGPoint(x: startPosition, y: startIndicator.center.y)
+//        endIndicator.center = CGPoint(x: endPosition, y: endIndicator.center.y)
+//        progressIndicator.center = CGPoint(x: progressPosition, y: progressIndicator.center.y)
+//
+//        draggableView.frame = CGRect(x: startIndicator.frame.origin.x + startIndicator.frame.size.width,
+//                                     y: 0,
+//                                     width: endIndicator.frame.origin.x - startIndicator.frame.origin.x - endIndicator.frame.size.width,
+//                                     height: self.frame.height
+//        )
+//
+//        topLine.frame = CGRect(x: startIndicator.frame.origin.x + startIndicator.frame.width,
+//                               y: -topBorderHeight,
+//                               width: endIndicator.frame.origin.x - startIndicator.frame.origin.x - endIndicator.frame.size.width,
+//                               height: topBorderHeight)
+//
+//        bottomLine.frame = CGRect(x: startIndicator.frame.origin.x + startIndicator.frame.width,
+//                                 y: self.frame.size.height,
+//                                 width: endIndicator.frame.origin.x - startIndicator.frame.origin.x - endIndicator.frame.size.width,
+//                                 height: bottomBorderHeight)
+//
+//        // update timr view
+//
+//        startTimeView.center = CGPoint(x: startIndicator.center.x, y: startTimeView.center.y)
+//        endTimeView.center = CGPoint(x: endIndicator.center.x, y: endTimeView.center.y)
     }
     
-    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "bounds" {
-            updateThumbnails()
-        }
+    func setVideoURL(videoURL: URL) {
+        self.duration = TrimPostVideoTumbnailsManager.videoDuration(videoURL: videoURL)
+        self.videoURL = videoURL
+        self.superview?.layoutSubviews()
+        self.updateThumbnails()
     }
     
     func setProgressIndicatorImage(image: UIImage?) {
@@ -184,6 +121,85 @@ private extension TrimPostVideoRangeSliderView {
     
     func showProgressIndicator() {
         progressIndicator.isHidden = false
+    }
+    
+    func setStartPosition(seconds: Float) {
+        self.startTimePercentage = self.valueFromSeconds(seconds: seconds)
+        setNeedsDisplay()
+        setNeedsLayout()
+    }
+    
+    func setEndPosition(seconds: Float) {
+        self.endTimePercentage = self.valueFromSeconds(seconds: seconds)
+        setNeedsDisplay()
+        setNeedsLayout()
+    }
+    
+}
+
+
+// MARK: private functions
+
+private extension TrimPostVideoRangeSliderView {
+    private func configureSelf() {
+        self.isUserInteractionEnabled = true
+        
+        let widgetsHeight = self.frame.size.height + bottomBorderHeight + topBorderHeight
+        
+        // setup start indicator
+        let startDrag = UIPanGestureRecognizer(target: self, action: #selector(startDragged(recognizer:)))
+        startIndicator = TrimPostVideoStartIndicatorView(frame: CGRect(x: 0,
+                                                                   y: -topBorderHeight,
+                                                                   width: indicatorWidth,
+                                                                   height: widgetsHeight))
+        
+        startIndicator.layer.anchorPoint = CGPoint(x: 1, y: 0.5)
+//        startIndicator.addGestureRecognizer(startDrag)
+        addSubview(startIndicator)
+        
+        // setup end indicator
+        let topRightCornerX = self.frame.size.width // should be adjusted later so that it caps at 30 min
+        let endDrag = UIPanGestureRecognizer(target: self, action: #selector(endDragged(recognizer:)))
+        endIndicator = TrimPostVideoEndIndicatorView(frame: CGRect(x: topRightCornerX, y: -topBorderHeight,
+                                                               width: indicatorWidth, height: widgetsHeight))
+        endIndicator.layer.anchorPoint = CGPoint(x: 1, y: 0.5)
+//        endIndicator.addGestureRecognizer(endDrag)
+        addSubview(endIndicator)
+//
+//        // setup top and bottom line
+//
+        topLine = TrimPostStatusBoderView(frame: CGRect(x: 0, y: -topBorderHeight, width: indicatorWidth, height: topBorderHeight))
+        addSubview(topLine)
+//
+        bottomLine = TrimPostStatusBoderView(frame: CGRect(x: 0, y: self.frame.size.height, width: indicatorWidth, height: bottomBorderHeight))
+
+        addSubview(bottomLine)
+
+        addObserver(self, forKeyPath: "bounds",
+                    options: NSKeyValueObservingOptions(rawValue: 0),
+                    context: nil)
+//
+//        // setup progress indicator
+//
+        let progressDrag = UIPanGestureRecognizer(target: self, action: #selector(progressDragged(recognizer:)))
+        progressIndicator = TrimPostVideoProgressIndicatorView(frame: CGRect(x: 10, y: -topBorderHeight, width: 8, height: self.frame.size.height + bottomBorderHeight + topBorderHeight))
+
+//        progressIndicator.addGestureRecognizer(progressDrag)
+        addSubview(progressIndicator)
+//
+//        // setup draggable view
+//
+        let viewDrag = UIPanGestureRecognizer(target: self, action: #selector(viewDragged(recognizer:)))
+//        draggableView.addGestureRecognizer(viewDrag)
+        addSubview(draggableView)
+        self.sendSubviewToBack(draggableView)
+        
+    }
+    
+    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "bounds" {
+            updateThumbnails()
+        }
     }
     
     func updateProgressIndicator(seconds: Float64) {
@@ -213,18 +229,6 @@ private extension TrimPostVideoRangeSliderView {
         self.bottomLine.imageView.image = image
     }
     
-    func setTimeView(view: TrimPostStatusTimeView) {
-        startTimeView = view
-        endTimeView = view
-    }
-    
-    func setVideoURL(videoURL: URL) {
-        self.duration = TrimPostVideoTumbnailsManager.videoDuration(videoURL: videoURL)
-        self.videoURL = videoURL
-        self.superview?.layoutSubviews()
-        self.updateThumbnails()
-    }
-    
     func updateThumbnails() {
         if !isUpdatingThumbnails {
             self.isUpdatingThumbnails = true
@@ -235,18 +239,7 @@ private extension TrimPostVideoRangeSliderView {
             }
         }
     }
-    
-    func setStartPosition(seconds: Float) {
-        self.startTimePercentage = self.valueFromSeconds(seconds: seconds)
-        layoutSubviews()
-    }
-    
-    func setEndPosition(seconds: Float) {
-        self.endTimePercentage = self.valueFromSeconds(seconds: seconds)
-        layoutSubviews()
-    }
-    
-    
+  
     private func secondsFromValue(value: CGFloat) -> Float64 {
         return duration + Float64((value / 100))
     }

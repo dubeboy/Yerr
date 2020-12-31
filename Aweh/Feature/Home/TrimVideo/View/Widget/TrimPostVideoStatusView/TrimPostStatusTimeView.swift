@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: TO be removed
 class TrimPostStatusTimeView: UIView {
     let space: CGFloat = 8.0
     

@@ -125,6 +125,10 @@ extension UIViewController {
     }
     
     @objc private func dismissViewController() {
-        self.dismiss(animated: true, completion: nil)
+        if isBeingPresented {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 }

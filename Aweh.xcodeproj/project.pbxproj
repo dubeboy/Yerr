@@ -33,7 +33,6 @@
 		7116E350251AB2E100502C92 /* UserPrefrencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116E34F251AB2E100502C92 /* UserPrefrencies.swift */; };
 		7119E3A024B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7119E39F24B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard */; };
 		711E79C0256B04D70060DB76 /* PostStatusTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E79BF256B04D70060DB76 /* PostStatusTextView.swift */; };
-		711E79C5256B086D0060DB76 /* TrimPostVideoStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E79C4256B086D0060DB76 /* TrimPostVideoStatusView.swift */; };
 		711E7AB1256BFDBE0060DB76 /* PostStatusVideoPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E7AB0256BFDBE0060DB76 /* PostStatusVideoPreview.swift */; };
 		711E7AB9256C12FB0060DB76 /* TrimPostStatusBoderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E7AB8256C12FB0060DB76 /* TrimPostStatusBoderView.swift */; };
 		711E7ABC256C15100060DB76 /* TrimPostVideoEndIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E7ABB256C15100060DB76 /* TrimPostVideoEndIndicatorView.swift */; };
@@ -233,7 +232,6 @@
 		7116E34F251AB2E100502C92 /* UserPrefrencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrefrencies.swift; sourceTree = "<group>"; };
 		7119E39F24B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickInterestCollectionViewController.storyboard; sourceTree = "<group>"; };
 		711E79BF256B04D70060DB76 /* PostStatusTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStatusTextView.swift; sourceTree = "<group>"; };
-		711E79C4256B086D0060DB76 /* TrimPostVideoStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimPostVideoStatusView.swift; sourceTree = "<group>"; };
 		711E7AB0256BFDBE0060DB76 /* PostStatusVideoPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStatusVideoPreview.swift; sourceTree = "<group>"; };
 		711E7AB8256C12FB0060DB76 /* TrimPostStatusBoderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimPostStatusBoderView.swift; sourceTree = "<group>"; };
 		711E7ABB256C15100060DB76 /* TrimPostVideoEndIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimPostVideoEndIndicatorView.swift; sourceTree = "<group>"; };
@@ -641,7 +639,6 @@
 		711E79BE256B04540060DB76 /* TrimPostVideoStatusView */ = {
 			isa = PBXGroup;
 			children = (
-				711E79C4256B086D0060DB76 /* TrimPostVideoStatusView.swift */,
 				711E7AB8256C12FB0060DB76 /* TrimPostStatusBoderView.swift */,
 				711E7ABB256C15100060DB76 /* TrimPostVideoEndIndicatorView.swift */,
 				71435619256C19CE00ACAEA5 /* TrimPostVideoProgressIndicatorView.swift */,
@@ -2185,7 +2182,6 @@
 				7116CCCD2561DF5F007A61A4 /* StatusVideoView.swift in Sources */,
 				71AD2FD225694EF9007CA16C /* UIStackView+Elements.swift in Sources */,
 				71A77FD3249C373D00F8D442 /* CommentCellPresenter.swift in Sources */,
-				711E79C5256B086D0060DB76 /* TrimPostVideoStatusView.swift in Sources */,
 				71A77FCF249C33F800F8D442 /* FeedDetailCoordinator.swift in Sources */,
 				71435627256C30AF00ACAEA5 /* TrimPostVideoRangeSliderView.swift in Sources */,
 				71435621256C1C7600ACAEA5 /* TrimPostVideoTumbnailsManager.swift in Sources */,
