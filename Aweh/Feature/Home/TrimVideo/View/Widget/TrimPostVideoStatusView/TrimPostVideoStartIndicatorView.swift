@@ -16,6 +16,7 @@ class TrimPostVideoStartIndicatorView: UIView {
         super.init(frame: frame)
         
         self.isUserInteractionEnabled = true
+        imageView.isUserInteractionEnabled = true
         
         let bundle = Bundle(for: Self.self)
         let image = UIImage(named: "StartIndicator", in: bundle, compatibleWith: nil)

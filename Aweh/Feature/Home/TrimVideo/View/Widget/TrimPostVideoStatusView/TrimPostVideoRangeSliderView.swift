@@ -49,7 +49,7 @@ class TrimPostVideoRangeSliderView: UIView, UIGestureRecognizerDelegate {
     let indicatorWidth: CGFloat = 20.0
     
     var minSpace: Float = 1
-    let maxSpace: Float = 0
+    var maxSpace: Float = 0
     
     var isProgressIndicatorSticky: Bool = false
     var isProgressIndicatorDraggable: Bool = false
@@ -131,6 +131,14 @@ class TrimPostVideoRangeSliderView: UIView, UIGestureRecognizerDelegate {
         setNeedsLayout()
     }
     
+    override public func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let extendedBounds = CGRect(x: -startIndicator.frame.size.width,
+                                    y: -topLine.frame.size.height,
+                                    width: self.frame.size.width + startIndicator.frame.size.width + endIndicator.frame.size.width,
+                                    height: self.frame.size.height + topLine.frame.size.height + bottomLine.frame.size.height)
+        return extendedBounds.contains(point)
+    }
+    
 }
 
 
@@ -150,7 +158,7 @@ private extension TrimPostVideoRangeSliderView {
                                                                    height: widgetsHeight))
         
         startIndicator.layer.anchorPoint = CGPoint(x: 1, y: 0.5)
-//        startIndicator.addGestureRecognizer(startDrag)
+        startIndicator.addGestureRecognizer(startDrag)
         addSubview(startIndicator)
         
         // setup end indicator
@@ -159,14 +167,13 @@ private extension TrimPostVideoRangeSliderView {
         endIndicator = TrimPostVideoEndIndicatorView(frame: CGRect(x: topRightCornerX, y: -topBorderHeight,
                                                                width: indicatorWidth, height: widgetsHeight))
         endIndicator.layer.anchorPoint = CGPoint(x: 1, y: 0.5)
-//        endIndicator.addGestureRecognizer(endDrag)
+        endIndicator.addGestureRecognizer(endDrag)
         addSubview(endIndicator)
-//
-//        // setup top and bottom line
-//
+
+        // setup top and bottom line
+
         topLine = TrimPostStatusBoderView(frame: CGRect(x: 0, y: -topBorderHeight, width: indicatorWidth, height: topBorderHeight))
         addSubview(topLine)
-//
         bottomLine = TrimPostStatusBoderView(frame: CGRect(x: 0, y: self.frame.size.height, width: indicatorWidth, height: bottomBorderHeight))
 
         addSubview(bottomLine)
@@ -174,19 +181,20 @@ private extension TrimPostVideoRangeSliderView {
         addObserver(self, forKeyPath: "bounds",
                     options: NSKeyValueObservingOptions(rawValue: 0),
                     context: nil)
-//
-//        // setup progress indicator
-//
+
+        // setup progress indicator
+
         let progressDrag = UIPanGestureRecognizer(target: self, action: #selector(progressDragged(recognizer:)))
         progressIndicator = TrimPostVideoProgressIndicatorView(frame: CGRect(x: 10, y: -topBorderHeight, width: 8, height: self.frame.size.height + bottomBorderHeight + topBorderHeight))
+        progressIndicator.isHidden = true
 
-//        progressIndicator.addGestureRecognizer(progressDrag)
+        progressIndicator.addGestureRecognizer(progressDrag)
         addSubview(progressIndicator)
-//
-//        // setup draggable view
-//
+
+        // setup draggable view
+
         let viewDrag = UIPanGestureRecognizer(target: self, action: #selector(viewDragged(recognizer:)))
-//        draggableView.addGestureRecognizer(viewDrag)
+        draggableView.addGestureRecognizer(viewDrag)
         addSubview(draggableView)
         self.sendSubviewToBack(draggableView)
         
@@ -208,7 +216,8 @@ private extension TrimPostVideoRangeSliderView {
                 self.progressPercentage = self.valueFromSeconds(seconds: Float(seconds))
             }
             
-            layoutSubviews()
+            setNeedsDisplay()
+            setNeedsLayout()
         }
     }
     
@@ -262,13 +271,9 @@ private extension TrimPostVideoRangeSliderView {
         let startSeconds = secondsFromValue(value: self.progressPercentage)
         self.delegate?.indicatorDidChangePosition(videoRangeSlider: self, position: startSeconds)
     }
-}
-
-
-// MARK: Private functions
-
-private extension TrimPostVideoRangeSliderView {
+    
     @objc private func startDragged(recognizer: UIPanGestureRecognizer) {
+        Logger.i("start dragged yoh!!!")
         self.processHandleDrag(recognizer: recognizer, drag: .start,
                                currentPostionPercentage: self.startTimePercentage,
                                currentIndicator: startIndicator)
@@ -280,7 +285,12 @@ private extension TrimPostVideoRangeSliderView {
                                currentPostionPercentage: self.endTimePercentage,
                                currentIndicator: endIndicator)
     }
-    
+}
+
+
+// MARK: Private functions
+
+private extension TrimPostVideoRangeSliderView {
     @objc private func progressDragged(recognizer: UIPanGestureRecognizer) {
         if !isProgressIndicatorDraggable {
             return
@@ -307,6 +317,7 @@ private extension TrimPostVideoRangeSliderView {
         recognizer.setTranslation(.zero, in: self)
         
         progressIndicator.center = CGPoint(x: position, y: progressIndicator.center.y)
+        Logger.log("center baby: \(progressIndicator.center)")
         
         let percentage = progressIndicator.center.x * 100 / self.frame.width
         
@@ -315,7 +326,8 @@ private extension TrimPostVideoRangeSliderView {
         self.delegate?.indicatorDidChangePosition(videoRangeSlider: self, position: progressSeconds)
         self.progressPercentage = percentage
         
-        layoutSubviews()
+        setNeedsDisplay()
+        setNeedsLayout()
     }
     
     @objc private func viewDragged(recognizer: UIPanGestureRecognizer) {
@@ -371,7 +383,7 @@ private extension TrimPostVideoRangeSliderView {
     }
     
     func positionFromValue(value: CGFloat) -> CGFloat {
-        let position = (value * self.frame.size.width) / 100
+        let position = value * self.frame.size.width / 100
         return position
     }
     
@@ -413,6 +425,8 @@ private extension TrimPostVideoRangeSliderView {
                                    currentIndicator: UIView) {
         self.updateGestureStatus(recognizer: recognizer)
         let translation = recognizer.translation(in: self)
+        Logger.i("translation \(translation)")
+        Logger.i("currentPosition Percentage \(currentPostionPercentage)")
         var position: CGFloat = positionFromValue(value: currentPostionPercentage) // self.startPercentage or self.endPercentage
         
         position = position + translation.x
@@ -423,22 +437,24 @@ private extension TrimPostVideoRangeSliderView {
             position = self.frame.size.width
         }
         
-        let positionLimits = getPositionLimits(with: drag)
+        let positionLimits = getPositionLimits(with: drag) // Look into position limits zero it looks wrong!!!
         position = checkEdgeCaseForPosition(with: position, and: positionLimits.min, and: drag)
         
         if Float(self.duration) > self.maxSpace && self.maxSpace > 0 {
             if drag == .start {
+                Logger.i("start position limits \(positionLimits.max)")
                 if position < positionLimits.max {
                     position = positionLimits.max
                 }
             } else {
+                Logger.i("end position limits \(positionLimits.max)")
                 if position > positionLimits.max {
                     position = positionLimits.max
                 }
             }
         }
         
-        recognizer.setTranslation(.zero, in: self)
+        recognizer.setTranslation(.zero, in: self) // reset translation
         currentIndicator.center = CGPoint(x: position, y: currentIndicator.center.y)
         
         let percentage = currentIndicator.center.x * 100 / self.frame.width
@@ -467,6 +483,7 @@ private extension TrimPostVideoRangeSliderView {
         }
         
         progressIndicator.center = CGPoint(x: progressPosition, y: progressIndicator.center.y)
+        Logger.log("the center \(progressIndicator.center)")
         let progressPercentage = progressIndicator.center.x * 100 / self.frame.width
         
         if self.progressPercentage != progressPercentage {
@@ -476,7 +493,8 @@ private extension TrimPostVideoRangeSliderView {
         
         self.progressPercentage = progressPercentage
         
-        layoutSubviews()
+        setNeedsDisplay()
+        setNeedsLayout()
     }
     
     private func secondsToFormattedString(tottalSeconds: Float64) -> String {

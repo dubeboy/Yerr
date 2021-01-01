@@ -81,7 +81,7 @@ private extension TrimVideoViewController {
     private func configureRangeSlider() {
         rangeSliderView.setVideoURL(videoURL: presenter.videoURL)
         rangeSliderView.delegate = self
-        rangeSliderView.minSpace = 60.0
+//        rangeSliderView.maxSpace = 60.0
 //        
 //        rangeSliderView.setStartPosition(seconds: 50.0)
 //        rangeSliderView.setEndPosition(seconds: 150)

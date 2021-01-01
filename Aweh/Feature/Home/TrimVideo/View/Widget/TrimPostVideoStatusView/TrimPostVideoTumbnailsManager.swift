@@ -38,7 +38,9 @@ class TrimPostVideoTumbnailsManager: NSObject {
 
     static func videoDuration(videoURL: URL) -> Float64 {
         let source = AVURLAsset(url: videoURL)
-        return CMTimeGetSeconds(source.duration)
+        let timeInSeconds = CMTimeGetSeconds(source.duration)
+        Logger.i("time in seconds \(timeInSeconds)")
+        return timeInSeconds
     }
 }
 
