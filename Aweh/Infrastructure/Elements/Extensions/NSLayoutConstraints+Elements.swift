@@ -16,6 +16,8 @@ precedencegroup NSLayoutPrecedence {
 }
 
 infix operator -->: NSLayoutPrecedence
+infix operator ->=: NSLayoutPrecedence
+infix operator -<=: NSLayoutPrecedence
 infix operator +: AdditionPrecedence // Change this so can have a proper precedence for addition
 //infix operator +
 //infix operator <-- --<= -->=
@@ -25,8 +27,6 @@ infix operator +: AdditionPrecedence // Change this so can have a proper precede
 //
 //}
 
-
-
 func -->(lhs: UIView, rhs: UIView) { // wanna also be able to do somthing like v -> v2 + 16
     lhs.translatesAutoresizingMaskIntoConstraints = false
     lhs.leadingAnchor --> rhs.leadingAnchor
@@ -34,7 +34,6 @@ func -->(lhs: UIView, rhs: UIView) { // wanna also be able to do somthing like v
     lhs.topAnchor --> rhs.topAnchor
     lhs.bottomAnchor --> rhs.bottomAnchor
 }
-
 
 // tenary operators
 //https://natecook.com/blog/2014/10/ternary-operators-in-swift/
@@ -45,6 +44,36 @@ func -->(lhs: NSLayoutXAxisAnchor, rhs: NSLayoutXAxisAnchor) -> NSLayoutConstrai
     contraint.isActive = true
     return contraint
 }
+
+@discardableResult
+func ->=(lhs: NSLayoutXAxisAnchor, rhs: NSLayoutXAxisAnchor) -> NSLayoutConstraint {
+    let contraint = lhs.constraint(greaterThanOrEqualTo: rhs)
+    contraint.isActive = true
+    return contraint
+}
+
+@discardableResult
+func ->=(lhs: NSLayoutYAxisAnchor, rhs: NSLayoutYAxisAnchor) -> NSLayoutConstraint {
+    let contraint = lhs.constraint(greaterThanOrEqualTo: rhs)
+    contraint.isActive = true
+    return contraint
+}
+
+
+@discardableResult
+func -<=(lhs: NSLayoutXAxisAnchor, rhs: NSLayoutXAxisAnchor) -> NSLayoutConstraint {
+    let contraint = lhs.constraint(lessThanOrEqualTo: rhs)
+    contraint.isActive = true
+    return contraint
+}
+
+@discardableResult
+func -<=(lhs: NSLayoutYAxisAnchor, rhs: NSLayoutYAxisAnchor) -> NSLayoutConstraint {
+    let contraint = lhs.constraint(lessThanOrEqualTo: rhs)
+    contraint.isActive = true
+    return contraint
+}
+
 
 @discardableResult
 func -->(lhs: NSLayoutYAxisAnchor, rhs: NSLayoutYAxisAnchor) -> NSLayoutConstraint {

@@ -11,6 +11,7 @@ import AVFoundation
 
 //AVVideoCompositionCoreAnimationTool ::: a class that lets you combine an existing video with Core Animation layers.
 //https://warrenmoore.net/understanding-cmtime // more about CMTIME
+// Look into the cannot record error, I think it happens when we lauch the screen before we began recording!!!!
 class TrimVideoViewController: UIViewController {
     
     var presenter: TrimVideoViewPresenter!
@@ -38,6 +39,10 @@ class TrimVideoViewController: UIViewController {
     private var rangeSliderHeight: CGFloat = 40
     
 //    let progressIndicator // for when the asset need to be downloaded (selected from photos)
+    
+    private let videoTextEditorBackgroundView = UIView()
+    private let overlayTextView = UITextView()
+    private let overlayTextInput = UITextView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +53,7 @@ class TrimVideoViewController: UIViewController {
         configureSelf()
         configurePlayVideoButton()
         configureVideoView()
+        congfigureOverlayTextView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -124,6 +130,44 @@ private extension TrimVideoViewController {
         videoView.isUserInteractionEnabled = true
         videoView.addGestureRecognizer(tapGestureRecognizer)
     }
+    
+    private func congfigureOverlayTextView() {
+        overlayTextView.autoresizingOff()
+        videoTextEditorBackgroundView.autoresizingOff()
+        overlayTextInput.autoresizingOff()
+        view.addSubview(videoTextEditorBackgroundView)
+        videoTextEditorBackgroundView.topAnchor --> view.topAnchor + Const.View.m16
+        videoTextEditorBackgroundView.bottomAnchor --> view.bottomAnchor + -Const.View.m16
+        videoTextEditorBackgroundView.leadingAnchor --> view.leadingAnchor + Const.View.m16
+        videoTextEditorBackgroundView.trailingAnchor --> view.trailingAnchor + -Const.View.m16
+
+        videoTextEditorBackgroundView.backgroundColor = Const.Color.TrimVideo.videoOverlayBackGround
+       
+        videoTextEditorBackgroundView.addSubview(overlayTextInput)
+        overlayTextInput.textAlignment = .center
+        overlayTextInput.backgroundColor = .clear
+        overlayTextInput.centerYAnchor --> videoTextEditorBackgroundView.centerYAnchor
+        overlayTextInput.centerXAnchor --> videoTextEditorBackgroundView.centerXAnchor
+        overlayTextInput.trailingAnchor --> videoTextEditorBackgroundView.trailingAnchor + -Const.View.m16
+        overlayTextInput.leadingAnchor --> videoTextEditorBackgroundView.leadingAnchor + Const.View.m16
+        overlayTextInput.isScrollEnabled = false // Allows automatic height adjustment
+        overlayTextInput.sizeToFit()
+        
+        // add delegate and listen to content size changes if its >= to videoTextEditorBackgroundView then add top| bottom constrains
+        // and enable scrolling
+
+    }
+   
+    // TODO: remove video from temp
+    private func cleanup() {
+        
+    }
+
+}
+
+// MARK: private functions for video export
+
+extension TrimVideoViewController {
     
     private func orientation(from transform: CGAffineTransform) -> (orientation: UIImage.Orientation, isPortrait: Bool) {
         var assetOrientation = UIImage.Orientation.up
@@ -235,13 +279,13 @@ private extension TrimVideoViewController {
         //        addImages(to: overlayLayer, videoSize: videoSize)
         add(text: "Hello therer", to: overlayLayer, videoSize: videoSize)
         
-       
+        
         outputLayer.frame = CGRect(origin: .zero, size: videoSize)
         outputLayer.addSublayer(backgroundLayer)
         outputLayer.addSublayer(videoLayer)
         outputLayer.addSublayer(overlayLayer)
         
-       
+        
         videoComposition.renderSize = videoSize
         videoComposition.frameDuration = CMTime(value: 1, timescale: 30) // fps = 30
         videoComposition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayer: videoLayer
@@ -254,7 +298,7 @@ private extension TrimVideoViewController {
         let layerInstruction = compositionLayerInstruction(for: compositionTrack, assetTrack: assetTrack)
         instruction.layerInstructions = [layerInstruction]
         
-            
+        
     }
     
     private func exportAsset(completion: @escaping Completion<URL?>) {
@@ -318,12 +362,6 @@ private extension TrimVideoViewController {
         textLayer.displayIfNeeded()
         layer.addSublayer(textLayer)
     }
-    
-    // TODO: remove video from temp
-    private func cleanup() {
-        
-    }
-
 }
 
 extension TrimVideoViewController: TimePostVideoRangeSliderDelegate {

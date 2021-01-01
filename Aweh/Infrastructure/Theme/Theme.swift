@@ -152,6 +152,7 @@ enum Const {
         }
         enum TrimVideo {
             static let playVideo = UIColor.white
+            static let videoOverlayBackGround = UIColor.black.withAlphaComponent(0.2)
         }
     }
 

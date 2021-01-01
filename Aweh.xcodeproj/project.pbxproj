@@ -137,6 +137,7 @@
 		71ADA97B25180B92005FF2BF /* VoteEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ADA97A25180B91005FF2BF /* VoteEntity.swift */; };
 		71ADA97F25180CBC005FF2BF /* UserEntityId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ADA97E25180CBC005FF2BF /* UserEntityId.swift */; };
 		71BBCA7324B8C5DC00044629 /* GuageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BBCA7224B8C5DC00044629 /* GuageViewModel.swift */; };
+		71C09FD8259F8A4F001EA043 /* UITextView+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C09FD7259F8A4F001EA043 /* UITextView+Elements.swift */; };
 		71C46D9724B26A3A00A9DB14 /* PickInterestCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C46D9624B26A3A00A9DB14 /* PickInterestCollectionViewController.swift */; };
 		71C46DA024B26B0800A9DB14 /* PickInterestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C46D9E24B26B0800A9DB14 /* PickInterestCollectionViewCell.swift */; };
 		71C46DA124B26B0800A9DB14 /* PickInterestCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71C46D9F24B26B0800A9DB14 /* PickInterestCollectionViewCell.xib */; };
@@ -339,6 +340,7 @@
 		71ADA97A25180B91005FF2BF /* VoteEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteEntity.swift; sourceTree = "<group>"; };
 		71ADA97E25180CBC005FF2BF /* UserEntityId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntityId.swift; sourceTree = "<group>"; };
 		71BBCA7224B8C5DC00044629 /* GuageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuageViewModel.swift; sourceTree = "<group>"; };
+		71C09FD7259F8A4F001EA043 /* UITextView+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Elements.swift"; sourceTree = "<group>"; };
 		71C46D9624B26A3A00A9DB14 /* PickInterestCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickInterestCollectionViewController.swift; sourceTree = "<group>"; };
 		71C46D9E24B26B0800A9DB14 /* PickInterestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickInterestCollectionViewCell.swift; sourceTree = "<group>"; };
 		71C46D9F24B26B0800A9DB14 /* PickInterestCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickInterestCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -555,6 +557,7 @@
 				7110882125327BB400228124 /* Collection+Elements.swift */,
 				71AD2FD125694EF9007CA16C /* UIStackView+Elements.swift */,
 				7109D24B25898B5E0041ECDF /* UINavigationController+Elements.swift */,
+				71C09FD7259F8A4F001EA043 /* UITextView+Elements.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2189,6 +2192,7 @@
 				71D7675424BF808300D9507E /* CompactFeedCollectionViewCell.swift in Sources */,
 				71956FA8253B4FCB00D59D29 /* UserDefaults.swift in Sources */,
 				71FBCF2E2512BD3A00FC7557 /* CGFloat+Elements.swift in Sources */,
+				71C09FD8259F8A4F001EA043 /* UITextView+Elements.swift in Sources */,
 				71D4EBB82523D13100CEBB3A /* PostStatusViewModel.swift in Sources */,
 				7155E30E24BCE485006EBED8 /* BasePageViewController.swift in Sources */,
 				71FFECC1252F90B20019BA8C /* InterestsContainerView.swift in Sources */,
