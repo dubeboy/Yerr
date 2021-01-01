@@ -86,12 +86,19 @@ func -->(lhs: NSLayoutDimension, rhs: CGFloat) {
     lhs.constraint(equalToConstant: rhs).isActive = true
 }
 
+func ->=(lhs: NSLayoutDimension, rhs: CGFloat) {
+    lhs.constraint(greaterThanOrEqualToConstant: rhs).isActive = true
+}
+
+
 func -->(lhs: NSLayoutDimension, rhs: NSLayoutDimension) {
     lhs.constraint(equalTo: rhs).isActive = true
 }
 
-func +(lhs: NSLayoutConstraint, rhs: CGFloat) {
+@discardableResult
+func +(lhs: NSLayoutConstraint, rhs: CGFloat) -> NSLayoutConstraint  {
     lhs.constant = rhs
+    return lhs
 }
 
 // Use currying to make this better
