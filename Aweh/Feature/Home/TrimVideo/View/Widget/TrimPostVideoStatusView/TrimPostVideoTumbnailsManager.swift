@@ -39,7 +39,6 @@ class TrimPostVideoTumbnailsManager: NSObject {
     static func videoDuration(videoURL: URL) -> Float64 {
         let source = AVURLAsset(url: videoURL)
         let timeInSeconds = CMTimeGetSeconds(source.duration)
-        Logger.i("time in seconds \(timeInSeconds)")
         return timeInSeconds
     }
 }
@@ -52,12 +51,11 @@ extension TrimPostVideoTumbnailsManager {
         
         do {
             
-            Logger.i("textracting image at time: \(time) ")
             let cgImage = try imageGenerator.copyCGImage(at: time, actualTime: nil)
             let uiImage = UIImage(cgImage: cgImage)
             return uiImage
         } catch {
-            Logger.i("there was an errorextracting image \(error) ")
+           // TODO: catch this error and send to analytics
         }
         
         return UIImage()
@@ -103,7 +101,6 @@ extension TrimPostVideoTumbnailsManager {
         DispatchQueue.main.sync {
             num = Double(inView.frame.size.width) / Double(inView.frame.size.height)
         }
-        Logger.i("number of items num: \(num)")
         return Int(ceil(num)) // TODO: crashed some times
     }
     

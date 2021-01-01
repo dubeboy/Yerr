@@ -59,6 +59,10 @@ enum Const {
             static let openGalleryIcon: UIImage? = UIImage(named: "gallery")
         }
         
+        enum TrimVideo {
+            static let playVideoIcon: UIImage? = getSystemAsset(systemName: "play.circle.fill")
+        }
+        
         enum InitPhoneNumber {
             static let chevronRight: UIImage? = CommonAssets.chevronRight
         }
@@ -145,6 +149,9 @@ enum Const {
         
         enum CaptureStatus {
             static let captureButton = UIColor.white
+        }
+        enum TrimVideo {
+            static let playVideo = UIColor.white
         }
     }
 

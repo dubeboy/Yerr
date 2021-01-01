@@ -9,6 +9,11 @@
 import UIKit
 import AVFoundation
 
+protocol StatusVideoViewDelegate: class {
+    func didFinishPlayingVideo()
+    func didStartPlayingVideo()
+}
+
 class StatusVideoView: UIView {
     
     private var statusLabel: UILabel = UILabel()
@@ -16,6 +21,15 @@ class StatusVideoView: UIView {
     private let avPlayer: AVPlayer = AVPlayer()
     let playerLayer: AVPlayerLayer
     let effectsView = UIView()
+    weak var delegate: StatusVideoViewDelegate? {
+        didSet {
+            if delegate == nil {
+                NotificationCenter.default.removeObserver(self)
+            } else {
+                NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: nil)
+            }
+        }
+    }
         
     func play(videoPath: String, status: String = "") {
         statusLabel.text = status
@@ -27,6 +41,7 @@ class StatusVideoView: UIView {
         let item = AVPlayerItem(url: videoUrl)
         avPlayer.replaceCurrentItem(with: item)
         avPlayer.play()
+        delegate?.didStartPlayingVideo()
     }
     
     init() {
@@ -53,9 +68,11 @@ class StatusVideoView: UIView {
     func showLabel() {
         statusLabel.isHidden = false
     }
+    
+    
 }
 
-extension StatusVideoView {
+private extension StatusVideoView {
     private func configureSelf() {
         // effects we can use to blur the video player
         effectsView.autoresizingOff()
@@ -71,9 +88,14 @@ extension StatusVideoView {
         statusLabel --> effectsView
         
         effectsView.layer.addSublayer(playerLayer)
+        
     }
     
     private func configureEffectsView() {
         effectsView.backgroundColor = .green
+    }
+    
+    @objc private func playerDidFinishPlaying() {
+        delegate?.didFinishPlayingVideo()
     }
 }

@@ -20,7 +20,8 @@ class TrimVideoViewController: UIViewController {
     @LateInit
     private var rangeSliderView: TrimPostVideoRangeSliderView
     private var videoView: StatusVideoView = StatusVideoView()
-    private let playVideoButton = YerrButton()
+    private let playVideoButton = YerrButton() // TODO: should add some materiels behind this view, translucent glass!!!
+    
     
     // MARK: Video manipulation
     private let composition = AVMutableComposition()
@@ -45,6 +46,7 @@ class TrimVideoViewController: UIViewController {
         rangeSliderView.center.x = view.center.x
         asset = AVURLAsset(url: presenter.videoURL)
         configureSelf()
+        configurePlayVideoButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,8 +59,17 @@ class TrimVideoViewController: UIViewController {
         videoView.play(videoPath: presenter.videoURL.absoluteString)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        videoView.delegate = nil
+    }
+    
     @objc private func addTextToVideo() {
         
+    }
+    
+    @objc private func didTapPlayAction() {
+        videoView.play(videoPath: presenter.videoURL.absoluteString)
     }
 }
 
@@ -68,7 +79,7 @@ private extension TrimVideoViewController {
     private func configureSelf() {
 //        rangeSliderView.autoresizingOff()
         videoView.autoresizingOff()
-        
+        videoView.delegate = self
         videoView.hideLabel()
         view.addSubview(videoView)
         videoView --> view
@@ -86,6 +97,19 @@ private extension TrimVideoViewController {
 //        rangeSliderView.setStartPosition(seconds: 50.0)
 //        rangeSliderView.setEndPosition(seconds: 150)
 
+    }
+    
+    private func configurePlayVideoButton() {
+        playVideoButton.autoresizingOff()
+        view.addSubview(playVideoButton)
+        let image = Const.Assets.TrimVideo.playVideoIcon?.withRenderingMode(.alwaysTemplate)
+        playVideoButton.setImage(fillBoundsWith: image)
+        playVideoButton.tintColor = Const.Color.TrimVideo.playVideo
+        playVideoButton.widthAnchor --> 80
+        playVideoButton.heightAnchor --> 80
+        playVideoButton.centerYAnchor --> view.centerYAnchor + -22
+        playVideoButton.centerXAnchor --> view.centerXAnchor
+        playVideoButton.addTarget(self, action: #selector(didTapPlayAction), for: .touchUpInside)
     }
     
     private func orientation(from transform: CGAffineTransform) -> (orientation: UIImage.Orientation, isPortrait: Bool) {
@@ -106,6 +130,7 @@ private extension TrimVideoViewController {
         return (assetOrientation, isPortrait)
     }
     
+    // TODO: remove
     private func addConfetti(to layer: CALayer) {
         let images: [UIImage] = (0...5).map { UIImage(named: "confetti\($0)")! }
         let colors: [UIColor] = [.systemGreen, .systemRed, .systemBlue, .systemPink, .systemOrange, .systemPurple, .systemYellow]
@@ -285,18 +310,33 @@ private extension TrimVideoViewController {
 
 extension TrimVideoViewController: TimePostVideoRangeSliderDelegate {
     func didChangeValue(videoRangeSlider: TrimPostVideoRangeSliderView, startTime: Float64, endTime: Float64) {
-
+        Logger.i("start time \(startTime)")
+        Logger.i("end time \(endTime)")
     }
 
     func indicatorDidChangePosition(videoRangeSlider: TrimPostVideoRangeSliderView, position: Float64) {
-
+        
     }
 
     func sliderGestureBegan() {
-
+        Logger.i("sliderGestureBegan")
     }
 
     func sliderGestureEnded() {
+        Logger.i("sliderGestureEnded")
+    }
+}
 
+extension TrimVideoViewController: StatusVideoViewDelegate {
+    func didStartPlayingVideo() {
+        UIView.animate(withDuration: 0.25) { [self] in
+            playVideoButton.isHidden = true
+        }
+    }
+    
+    func didFinishPlayingVideo() {
+        UIView.animate(withDuration: 0.25) { [self] in
+            playVideoButton.isHidden = false
+        }
     }
 }

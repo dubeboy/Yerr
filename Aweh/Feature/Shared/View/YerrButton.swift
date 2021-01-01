@@ -21,6 +21,17 @@ class YerrButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setImage(fillBoundsWith image: UIImage?, for state: UIControl.State = .normal) {
+        setImage(image, for: state)
+        contentMode = .scaleAspectFill
+        imageEdgeInsets = .zero
+        contentEdgeInsets = .zero
+        contentVerticalAlignment = .fill
+        contentHorizontalAlignment = .fill
+        imageView?.contentMode = .scaleAspectFill
+        imageView?.clipsToBounds = false
+    }
+    
 //    @objc var delegate: (() -> Void)? {
 //        didSet {
 //            addTarget(self, action: #selector(getter: delegate), for: .touchUpInside)

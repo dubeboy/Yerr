@@ -36,11 +36,7 @@ class TrimPostVideoRangeSliderView: UIView, UIGestureRecognizerDelegate {
     var videoURL = URL(fileURLWithPath: "")
     
     var progressPercentage: CGFloat = 0
-    var startTimePercentage: CGFloat = 0 {
-        didSet {
-            Logger.i("did set this \(startTimePercentage)")
-        }
-    }
+    var startTimePercentage: CGFloat = 0
     var endTimePercentage: CGFloat = 100
     
     let topBorderHeight: CGFloat = 5
@@ -273,7 +269,6 @@ private extension TrimPostVideoRangeSliderView {
     }
     
     @objc private func startDragged(recognizer: UIPanGestureRecognizer) {
-        Logger.i("start dragged yoh!!!")
         self.processHandleDrag(recognizer: recognizer, drag: .start,
                                currentPostionPercentage: self.startTimePercentage,
                                currentIndicator: startIndicator)
@@ -317,7 +312,6 @@ private extension TrimPostVideoRangeSliderView {
         recognizer.setTranslation(.zero, in: self)
         
         progressIndicator.center = CGPoint(x: position, y: progressIndicator.center.y)
-        Logger.log("center baby: \(progressIndicator.center)")
         
         let percentage = progressIndicator.center.x * 100 / self.frame.width
         
@@ -425,8 +419,6 @@ private extension TrimPostVideoRangeSliderView {
                                    currentIndicator: UIView) {
         self.updateGestureStatus(recognizer: recognizer)
         let translation = recognizer.translation(in: self)
-        Logger.i("translation \(translation)")
-        Logger.i("currentPosition Percentage \(currentPostionPercentage)")
         var position: CGFloat = positionFromValue(value: currentPostionPercentage) // self.startPercentage or self.endPercentage
         
         position = position + translation.x
@@ -442,12 +434,10 @@ private extension TrimPostVideoRangeSliderView {
         
         if Float(self.duration) > self.maxSpace && self.maxSpace > 0 {
             if drag == .start {
-                Logger.i("start position limits \(positionLimits.max)")
                 if position < positionLimits.max {
                     position = positionLimits.max
                 }
             } else {
-                Logger.i("end position limits \(positionLimits.max)")
                 if position > positionLimits.max {
                     position = positionLimits.max
                 }
@@ -483,7 +473,6 @@ private extension TrimPostVideoRangeSliderView {
         }
         
         progressIndicator.center = CGPoint(x: progressPosition, y: progressIndicator.center.y)
-        Logger.log("the center \(progressIndicator.center)")
         let progressPercentage = progressIndicator.center.x * 100 / self.frame.width
         
         if self.progressPercentage != progressPercentage {
