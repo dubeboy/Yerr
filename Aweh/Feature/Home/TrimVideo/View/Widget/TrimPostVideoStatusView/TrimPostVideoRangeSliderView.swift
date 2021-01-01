@@ -242,7 +242,7 @@ private extension TrimPostVideoRangeSliderView {
     }
   
     private func secondsFromValue(value: CGFloat) -> Float64 {
-        return duration + Float64((value / 100))
+        return duration * Float64(value / 100)
     }
     
     private func valueFromSeconds(seconds: Float) -> CGFloat {

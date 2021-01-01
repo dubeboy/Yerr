@@ -27,7 +27,8 @@ class StatusCell: UICollectionViewCell {
     }
     
     func playContent(videoPath: String, statusText: String) {
-        videoPlayer.play(videoPath: videoPath, status: statusText)
+        videoPlayer.setVideoPath(videoPath: videoPath, status: statusText)
+        videoPlayer.play()
     }
 }
 

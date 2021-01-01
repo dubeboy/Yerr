@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 //AVVideoCompositionCoreAnimationTool ::: a class that lets you combine an existing video with Core Animation layers.
-
+//https://warrenmoore.net/understanding-cmtime // more about CMTIME
 class TrimVideoViewController: UIViewController {
     
     var presenter: TrimVideoViewPresenter!
@@ -47,6 +47,7 @@ class TrimVideoViewController: UIViewController {
         asset = AVURLAsset(url: presenter.videoURL)
         configureSelf()
         configurePlayVideoButton()
+        configureVideoView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,12 +57,13 @@ class TrimVideoViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        videoView.play(videoPath: presenter.videoURL.absoluteString)
+        videoView.play()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         videoView.delegate = nil
+        cleanup()
     }
     
     @objc private func addTextToVideo() {
@@ -69,7 +71,11 @@ class TrimVideoViewController: UIViewController {
     }
     
     @objc private func didTapPlayAction() {
-        videoView.play(videoPath: presenter.videoURL.absoluteString)
+        videoView.play()
+    }
+    
+    @objc private func didTapVideoViewAction() {
+        videoView.pause()
     }
 }
 
@@ -110,6 +116,13 @@ private extension TrimVideoViewController {
         playVideoButton.centerYAnchor --> view.centerYAnchor + -22
         playVideoButton.centerXAnchor --> view.centerXAnchor
         playVideoButton.addTarget(self, action: #selector(didTapPlayAction), for: .touchUpInside)
+    }
+    
+    private func configureVideoView() {
+        videoView.setVideoPath(videoPath: presenter.videoURL.absoluteString)
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapVideoViewAction))
+        videoView.isUserInteractionEnabled = true
+        videoView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     private func orientation(from transform: CGAffineTransform) -> (orientation: UIImage.Orientation, isPortrait: Bool) {
@@ -305,6 +318,11 @@ private extension TrimVideoViewController {
         textLayer.displayIfNeeded()
         layer.addSublayer(textLayer)
     }
+    
+    // TODO: remove video from temp
+    private func cleanup() {
+        
+    }
 
 }
 
@@ -312,6 +330,16 @@ extension TrimVideoViewController: TimePostVideoRangeSliderDelegate {
     func didChangeValue(videoRangeSlider: TrimPostVideoRangeSliderView, startTime: Float64, endTime: Float64) {
         Logger.i("start time \(startTime)")
         Logger.i("end time \(endTime)")
+        
+        presenter.startTime = startTime
+        presenter.startTime = endTime
+        
+        videoView.endTIme = endTime
+        videoView.startTime = startTime
+        
+        // play video!!!
+        playVideoButton.isHidden = true
+        videoView.play(shouldNotify: false)
     }
 
     func indicatorDidChangePosition(videoRangeSlider: TrimPostVideoRangeSliderView, position: Float64) {
@@ -328,6 +356,10 @@ extension TrimVideoViewController: TimePostVideoRangeSliderDelegate {
 }
 
 extension TrimVideoViewController: StatusVideoViewDelegate {
+    func currentlyPlaying(seconds: Double) {
+//        Logger.i("currentlyPlaying. seconds:  \(seconds)")
+    }
+    
     func didStartPlayingVideo() {
         UIView.animate(withDuration: 0.25) { [self] in
             playVideoButton.isHidden = true

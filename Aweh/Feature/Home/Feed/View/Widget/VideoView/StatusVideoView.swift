@@ -12,6 +12,7 @@ import AVFoundation
 protocol StatusVideoViewDelegate: class {
     func didFinishPlayingVideo()
     func didStartPlayingVideo()
+    func currentlyPlaying(seconds: Double)
 }
 
 class StatusVideoView: UIView {
@@ -20,7 +21,12 @@ class StatusVideoView: UIView {
     
     private let avPlayer: AVPlayer = AVPlayer()
     let playerLayer: AVPlayerLayer
-    let effectsView = UIView()
+    private let effectsView = UIView()
+    var endTIme: Float64 = 0
+    var startTime: Float64 = .zero
+    
+    private var timeObserver: AnyObject!
+
     weak var delegate: StatusVideoViewDelegate? {
         didSet {
             if delegate == nil {
@@ -31,7 +37,7 @@ class StatusVideoView: UIView {
         }
     }
         
-    func play(videoPath: String, status: String = "") {
+    func setVideoPath(videoPath: String, status: String = "") {
         statusLabel.text = status
         guard let videoUrl = URL(string: videoPath) else {
             Logger.log(AppStrings.Error.StatusVideoPlayer.invalidURL)
@@ -40,8 +46,22 @@ class StatusVideoView: UIView {
         // TODO: log when this fails to play video
         let item = AVPlayerItem(url: videoUrl)
         avPlayer.replaceCurrentItem(with: item)
+        endTIme = videoDurationSeconds()
+    }
+    
+    func play(shouldNotify: Bool = true) {
+        let timescale = self.avPlayer.currentItem?.asset.duration.timescale
+        let myTime = CMTime(seconds: startTime, preferredTimescale: timescale ?? 60000)
+        avPlayer.seek(to: myTime, toleranceBefore: .zero, toleranceAfter: .zero)
         avPlayer.play()
-        delegate?.didStartPlayingVideo()
+        if shouldNotify {
+            delegate?.didStartPlayingVideo()
+        }
+    }
+    
+    func pause() {
+        avPlayer.pause()
+        delegate?.didFinishPlayingVideo()
     }
     
     init() {
@@ -49,6 +69,7 @@ class StatusVideoView: UIView {
         super.init(frame: .zero)
         configureSelf()
         configureEffectsView()
+        configureAVPlayer()
     }
     
     required init?(coder: NSCoder) {
@@ -69,7 +90,9 @@ class StatusVideoView: UIView {
         statusLabel.isHidden = false
     }
     
-    
+    func videoDurationSeconds() -> Float64 {
+        CMTimeGetSeconds(avPlayer.currentItem!.duration)
+    }
 }
 
 private extension StatusVideoView {
@@ -89,6 +112,14 @@ private extension StatusVideoView {
         
         effectsView.layer.addSublayer(playerLayer)
         
+        
+    }
+    
+    private func configureAVPlayer() {
+        let timeInterval: CMTime = CMTimeMakeWithSeconds(0.01, preferredTimescale: 100)
+        timeObserver = avPlayer.addPeriodicTimeObserver(forInterval: timeInterval, queue: .main, using: { [weak self] elapsedTime in
+            self?.observeTime(elapsedTime: elapsedTime)
+        }) as AnyObject
     }
     
     private func configureEffectsView() {
@@ -98,4 +129,15 @@ private extension StatusVideoView {
     @objc private func playerDidFinishPlaying() {
         delegate?.didFinishPlayingVideo()
     }
+    
+    private func observeTime(elapsedTime: CMTime) {
+        let elapsedTime = CMTimeGetSeconds(elapsedTime)
+        delegate?.currentlyPlaying(seconds: elapsedTime)
+        if avPlayer.currentTime().seconds > self.endTIme {
+            avPlayer.pause()
+            delegate?.didFinishPlayingVideo()
+        }
+    }
+    
+  
 }
