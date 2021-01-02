@@ -84,7 +84,7 @@ class TrimVideoViewController: UIViewController {
     }
     
     @objc func keyboardWillAppear(notification: NSNotification) {
-        guard let frame = keyboardFrame(from: notification) else { return }
+        guard keyboardFrame(from: notification) != nil else { return }
 //        videoTextEditorBottomAnchor.constant = -frame.size.height - Const.View.m16
         // use this to change the center of the text and then reset it back
         
@@ -102,7 +102,7 @@ class TrimVideoViewController: UIViewController {
     }
     
     @objc private func addTextToVideo() {
-        addOverlayTextView()
+        addOverlayTextView(color: .cyan)
     }
     
     @objc private func didTapPlayAction() {
@@ -115,6 +115,35 @@ class TrimVideoViewController: UIViewController {
     
     @objc private func didTapEndEditingAction() {
         view.endEditing(true)
+    }
+    
+    @objc private func didMoveOverlayTextView(recognizer: UIPanGestureRecognizer) {
+        let translation = recognizer.translation(in: view)
+        guard let overlayTextView = recognizer.view as? UITextView else { return }
+            Logger.i("PAN state began changed ")
+            overlayTextView.center = CGPoint(x: overlayTextView.center.x + translation.x, y: overlayTextView.center.y + translation.y)
+            recognizer.setTranslation(.zero, in: view)
+
+    
+    }
+    
+    @objc private func didRotateOverlayTextView(recognizer: UIRotationGestureRecognizer) {
+        Logger.i("ROT: state began ")
+        let rotation = recognizer.rotation
+        guard let overlayTextView = recognizer.view as? UITextView else { return }
+        overlayTextView.transform = overlayTextView.transform.rotated(by: rotation)
+        recognizer.rotation = 0
+       
+    }
+    
+    @objc func  didPichOverlayTextView(recognizer: UIPinchGestureRecognizer) {
+        Logger.i("Pinch: state began ")
+        let scale = recognizer.scale
+        guard let overlayTextView = recognizer.view as? UITextView else { return }
+
+        let currentTransform = overlayTextView.transform
+        overlayTextView.transform = currentTransform.scaledBy(x: scale, y: scale)
+        recognizer.scale = 1.0
     }
 }
 
@@ -144,16 +173,15 @@ private extension TrimVideoViewController {
 
     }
     
-    private func addOverlayTextView() {
+    private func addOverlayTextView(color: UIColor) {
         let tag = presenter.appendEditableTextAndGetTag(text: overlayTextInput.text)
-        let overlayTextView = UITextView()
+        let overlayTextView = UITextView() // set frame rather!!
         overlayTextView.autoresizingOff()
-        overlayTextView.backgroundColor = UIColor.cyan.withAlphaComponent(0.6)
+        overlayTextView.backgroundColor = color.withAlphaComponent(0.6)
         overlayTextView.isScrollEnabled = false
         overlayTextView.tag = tag
         overlayTextView.textAlignment = .center
         overlayTextView.sizeToFit()
-        overlayTextView.text = overlayTextInput.text
         overlayTextViews[tag] = overlayTextView
         overlayTextView.addShadow()
         overlayTextView.layer.cornerRadius = Const.View.radius
@@ -166,6 +194,18 @@ private extension TrimVideoViewController {
         view.addSubview(overlayTextView)
         overlayTextView.centerXAnchor --> view.centerXAnchor
         overlayTextView.centerYAnchor --> view.centerYAnchor
+//        overlayTextView.center = view.center
+        
+        
+        // also add the capability to add font here!!!!
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didMoveOverlayTextView(recognizer:)))
+        overlayTextView.addGestureRecognizer(panGesture)
+        let rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(didRotateOverlayTextView(recognizer:)))
+        overlayTextView.addGestureRecognizer(rotationGesture)
+        let pinchGesture = UIPinchGestureRecognizer(target: self , action: #selector(didPichOverlayTextView(recognizer:)))
+        overlayTextView.addGestureRecognizer(pinchGesture)hh
+        
         
         overlayTextView.becomeFirstResponder()
     }
@@ -193,6 +233,8 @@ private extension TrimVideoViewController {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapVideoViewAction))
         videoView.isUserInteractionEnabled = true
         videoView.addGestureRecognizer(tapGestureRecognizer)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEndEditingAction))
+        videoView.addGestureRecognizer(tapGesture)
     }
     
     // 1st iteration we add this!!§! so that we cater to the small phones
