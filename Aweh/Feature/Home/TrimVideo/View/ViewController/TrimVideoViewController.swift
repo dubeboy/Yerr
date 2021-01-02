@@ -55,7 +55,7 @@ class TrimVideoViewController: UIViewController {
         configureSelf()
         configurePlayVideoButton()
         configureVideoView()
-        congfigureOverlayTextView()
+//        congfigureOverlayTextView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,12 +79,14 @@ class TrimVideoViewController: UIViewController {
     
     @objc func keyboardWillHide(notification: NSNotification) {
 //        guard let frame = keyboardFrame(from: notification) else { return }
-        videoTextEditorBottomAnchor.constant = -Const.View.m16
+//        videoTextEditorBottomAnchor.constant = -Const.View.m16
+        // use this to change the center of the text and then reset it back
     }
     
     @objc func keyboardWillAppear(notification: NSNotification) {
         guard let frame = keyboardFrame(from: notification) else { return }
-        videoTextEditorBottomAnchor.constant = -frame.size.height - Const.View.m16
+//        videoTextEditorBottomAnchor.constant = -frame.size.height - Const.View.m16
+        // use this to change the center of the text and then reset it back
         
     }
     
@@ -100,7 +102,7 @@ class TrimVideoViewController: UIViewController {
     }
     
     @objc private func addTextToVideo() {
-        
+        addOverlayTextView()
     }
     
     @objc private func didTapPlayAction() {
@@ -111,23 +113,8 @@ class TrimVideoViewController: UIViewController {
         videoView.pause()
     }
     
-    @objc private func didTapTextEditorBackgroundAction() {
+    @objc private func didTapEndEditingAction() {
         view.endEditing(true)
-        let tag = presenter.appendEditableTextAndGetTag(text: overlayTextInput.text)
-        let overlayTextView = UITextView()
-        overlayTextView.autoresizingOff()
-        overlayTextView.backgroundColor = .cyan
-        overlayTextView.isScrollEnabled = false
-        overlayTextView.tag = tag
-        overlayTextView.sizeToFit()
-        overlayTextView.text = overlayTextInput.text
-        overlayTextViews[tag] = overlayTextView
-        
-        doneEditingText()
-        
-        view.addSubview(overlayTextView)
-        overlayTextView.centerXAnchor --> view.centerXAnchor
-        overlayTextView.centerYAnchor --> view.centerYAnchor
     }
 }
 
@@ -144,7 +131,7 @@ private extension TrimVideoViewController {
         view.addSubview(rangeSliderView)
     
         addCloseButtonItem(toLeft: true)
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "T", style: .plain, target: self, action: #selector(addTextToVideo))]
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Add Text", style: .plain, target: self, action: #selector(addTextToVideo))]
     }
     
     private func configureRangeSlider() {
@@ -155,6 +142,32 @@ private extension TrimVideoViewController {
 //        rangeSliderView.setStartPosition(seconds: 50.0)
 //        rangeSliderView.setEndPosition(seconds: 150)
 
+    }
+    
+    private func addOverlayTextView() {
+        let tag = presenter.appendEditableTextAndGetTag(text: overlayTextInput.text)
+        let overlayTextView = UITextView()
+        overlayTextView.autoresizingOff()
+        overlayTextView.backgroundColor = UIColor.cyan.withAlphaComponent(0.6)
+        overlayTextView.isScrollEnabled = false
+        overlayTextView.tag = tag
+        overlayTextView.textAlignment = .center
+        overlayTextView.sizeToFit()
+        overlayTextView.text = overlayTextInput.text
+        overlayTextViews[tag] = overlayTextView
+        overlayTextView.addShadow()
+        overlayTextView.layer.cornerRadius = Const.View.radius
+        let blurEffect = UIBlurEffect(style: .prominent)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.autoresizingOff()
+        overlayTextView.addSubview(blurEffectView)
+        overlayTextView.sendSubviewToBack(blurEffectView)
+                
+        view.addSubview(overlayTextView)
+        overlayTextView.centerXAnchor --> view.centerXAnchor
+        overlayTextView.centerYAnchor --> view.centerYAnchor
+        
+        overlayTextView.becomeFirstResponder()
     }
     
     private func doneEditingText() {
@@ -193,7 +206,7 @@ private extension TrimVideoViewController {
         videoTextEditorBackgroundView.leadingAnchor --> view.leadingAnchor + Const.View.m16
         videoTextEditorBackgroundView.trailingAnchor --> view.trailingAnchor + -Const.View.m16
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTextEditorBackgroundAction))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEndEditingAction))
         videoTextEditorBackgroundView.addGestureRecognizer(tapGesture)
 
         videoTextEditorBackgroundView.backgroundColor = Const.Color.TrimVideo.videoOverlayBackGround
