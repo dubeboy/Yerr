@@ -204,7 +204,11 @@ private extension TrimVideoViewController {
         let rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(didRotateOverlayTextView(recognizer:)))
         overlayTextView.addGestureRecognizer(rotationGesture)
         let pinchGesture = UIPinchGestureRecognizer(target: self , action: #selector(didPichOverlayTextView(recognizer:)))
-        overlayTextView.addGestureRecognizer(pinchGesture)hh
+        overlayTextView.addGestureRecognizer(pinchGesture)
+        
+        panGesture.delegate = self
+        rotationGesture.delegate = self
+        pinchGesture.delegate = self
         
         
         overlayTextView.becomeFirstResponder()
@@ -521,5 +525,11 @@ extension TrimVideoViewController: StatusVideoViewDelegate {
         UIView.animate(withDuration: 0.25) { [self] in
             playVideoButton.isHidden = false
         }
+    }
+}
+
+extension TrimVideoViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
