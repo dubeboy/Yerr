@@ -12,7 +12,7 @@ class EditPhotoViewController: UIViewController {
     var presenter: EditPhotoPresenter!
     var coordinator: EditPhotoCoordinator!
     
-    private let imageView: UIImageView = UIImageView()
+    private let imageView = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +23,7 @@ class EditPhotoViewController: UIViewController {
     }
 
     @objc func didTapAddText() {
-        let overlayTextView = OverlayTextView(parent: view)
+        let overlayTextView = OverlayTextView(parent: imageView)
         overlayTextView.addToParent()
         overlayTextView.becomeFirstResponder()
     }
@@ -78,6 +78,7 @@ extension EditPhotoViewController {
         imageView --> view
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEndEditing))
         imageView.addGestureRecognizer(tapGesture)
+        imageView.isUserInteractionEnabled = true
     }
     private func configureImageView() {
         imageView.contentMode = .scaleAspectFit

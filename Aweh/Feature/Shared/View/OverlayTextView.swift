@@ -53,8 +53,8 @@ class OverlayTextView: UITextView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        blurEffectView.autoresizingOff()
-        blurEffectView --> self
+//        blurEffectView.autoresizingOff()
+//        blurEffectView --> self
     }
     
     func addToParent() {
