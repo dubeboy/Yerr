@@ -10,6 +10,9 @@ import UIKit
 
 class OverlayTextView: UITextView {
     let parent: UIView
+    
+    var blurEffectView: UIVisualEffectView!
+    
     init(parent: UIView, backgroundColor: UIColor = .cyan, tag: Int = 0) {
         self.parent = parent
         super.init(frame: .zero, textContainer: nil)
@@ -23,8 +26,10 @@ class OverlayTextView: UITextView {
         self.addShadow()
         self.layer.cornerRadius = Const.View.radius
         let blurEffect = UIBlurEffect(style: .prominent)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.autoresizingOff()
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.frame
+        blurEffectView.clipsToBounds = true
+//        blurEffectView.autoresizingOff()
 
         self.addSubview(blurEffectView)
         self.sendSubviewToBack(blurEffectView)
@@ -44,6 +49,12 @@ class OverlayTextView: UITextView {
         // add a hit test to see what the user is trying to do and assign that action this view
         // animatye gestures when below the keyboad
         
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        blurEffectView.autoresizingOff()
+        blurEffectView --> self
     }
     
     func addToParent() {

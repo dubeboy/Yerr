@@ -23,7 +23,47 @@ class EditPhotoViewController: UIViewController {
     }
 
     @objc func didTapAddText() {
+        let overlayTextView = OverlayTextView(parent: view)
+        overlayTextView.addToParent()
+        overlayTextView.becomeFirstResponder()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.endEditing(true)
+        listenToEvent(
+            name: .keyboardWillShow,
+            selector: #selector(keyboardWillAppear(notification:))
+        )
         
+        listenToEvent(
+            name: .keyboardWillHide,
+            selector: #selector(keyboardWillHide(notification:))
+        )
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        view.endEditing(true)
+        removeSelfFromNotificationObserver()
+    }
+    
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        //        guard let frame = keyboardFrame(from: notification) else { return }
+        //        videoTextEditorBottomAnchor.constant = -Const.View.m16
+        // use this to change the center of the text and then reset it back
+    }
+    
+    @objc func keyboardWillAppear(notification: NSNotification) {
+        guard keyboardFrame(from: notification) != nil else { return }
+        //        videoTextEditorBottomAnchor.constant = -frame.size.height - Const.View.m16
+        // use this to change the center of the text and then reset it back
+        
+    }
+    
+    @objc func  didTapEndEditing() {
+        view.endEditing(true)
     }
 }
 
@@ -36,6 +76,8 @@ extension EditPhotoViewController {
         imageView.autoresizingOff()
         view.addSubview(imageView)
         imageView --> view
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEndEditing))
+        imageView.addGestureRecognizer(tapGesture)
     }
     private func configureImageView() {
         imageView.contentMode = .scaleAspectFit
