@@ -74,8 +74,6 @@ struct FeedInteractor: StatusesUseCase {
                     return result(.failure(FeedError.noInternetConnection))
             }
         }
-        
-        
     }
     
     func postLike(voteEntity: VoteEntity, result: @escaping (Result<Bool, Error>) -> Void) {

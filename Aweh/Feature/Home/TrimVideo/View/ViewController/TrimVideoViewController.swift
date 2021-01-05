@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Photos
 
 //AVVideoCompositionCoreAnimationTool ::: a class that lets you combine an existing video with Core Animation layers.
 //https://warrenmoore.net/understanding-cmtime // more about CMTIME
@@ -32,11 +33,14 @@ class TrimVideoViewController: UIViewController {
     
     private let videoComposition = AVMutableVideoComposition()
     private let outputLayer = CALayer()
+    @LateInit
+    private var overlayView: UIView
     
     @LateInit
-    private var asset: AVURLAsset
+    private var asset: AVURLAsset // maybe this should go to the presenter!!!
     
     private var rangeSliderHeight: CGFloat = 40
+    var firstTime = true
     
 //    let progressIndicator // for when the asset need to be downloaded (selected from photos)
     
@@ -50,15 +54,28 @@ class TrimVideoViewController: UIViewController {
         super.viewDidLoad()
         let rangeSliderWidth = view.frame.width - (Const.View.m16 * 4)
         rangeSliderView = TrimPostVideoRangeSliderView(frame: CGRect(origin: CGPoint(x: Const.View.m16 * 2, y: Const.View.m16 * 2), size: CGSize(width: rangeSliderWidth, height: rangeSliderHeight)))
-        rangeSliderView.center.x = view.center.x
         asset = AVURLAsset(url: presenter.videoURL)
+        videoSize = getVideoSize()
+       
+        
         configureSelf()
         configurePlayVideoButton()
         configureVideoView()
 //        congfigureOverlayTextView()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if firstTime {
+            overlayView = UIView(frame: CGRect(origin: .zero, size: videoView.bounds.size))
+            configureOverlayView()
+            firstTime = false
+        }
+       
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
+        view.endEditing(true)
         super.viewWillAppear(animated)
         configureRangeSlider()
         listenToEvent(
@@ -74,6 +91,7 @@ class TrimVideoViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        view.endEditing(true)
         removeSelfFromNotificationObserver()
     }
     
@@ -120,7 +138,6 @@ class TrimVideoViewController: UIViewController {
     @objc private func didMoveOverlayTextView(recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: view)
         guard let overlayTextView = recognizer.view as? UITextView else { return }
-            Logger.i("PAN state began changed ")
             overlayTextView.center = CGPoint(x: overlayTextView.center.x + translation.x, y: overlayTextView.center.y + translation.y)
             recognizer.setTranslation(.zero, in: view)
 
@@ -128,7 +145,6 @@ class TrimVideoViewController: UIViewController {
     }
     
     @objc private func didRotateOverlayTextView(recognizer: UIRotationGestureRecognizer) {
-        Logger.i("ROT: state began ")
         let rotation = recognizer.rotation
         guard let overlayTextView = recognizer.view as? UITextView else { return }
         overlayTextView.transform = overlayTextView.transform.rotated(by: rotation)
@@ -137,7 +153,6 @@ class TrimVideoViewController: UIViewController {
     }
     
     @objc func  didPichOverlayTextView(recognizer: UIPinchGestureRecognizer) {
-        Logger.i("Pinch: state began ")
         let scale = recognizer.scale
         guard let overlayTextView = recognizer.view as? UITextView else { return }
 
@@ -157,20 +172,16 @@ private extension TrimVideoViewController {
         videoView.hideLabel()
         view.addSubview(videoView)
         videoView --> view
-        view.addSubview(rangeSliderView)
+        videoView.addSubview(rangeSliderView)
     
         addCloseButtonItem(toLeft: true)
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Add Text", style: .plain, target: self, action: #selector(addTextToVideo))]
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Export(Sent)", style: .plain, target: self, action: #selector(didTapSendAction)),
+                                              UIBarButtonItem(title: "Add Text", style: .plain, target: self, action: #selector(addTextToVideo))]
     }
     
     private func configureRangeSlider() {
         rangeSliderView.setVideoURL(videoURL: presenter.videoURL)
         rangeSliderView.delegate = self
-//        rangeSliderView.maxSpace = 60.0
-//        
-//        rangeSliderView.setStartPosition(seconds: 50.0)
-//        rangeSliderView.setEndPosition(seconds: 150)
-
     }
     
     private func addOverlayTextView(color: UIColor) {
@@ -191,12 +202,11 @@ private extension TrimVideoViewController {
         overlayTextView.addSubview(blurEffectView)
         overlayTextView.sendSubviewToBack(blurEffectView)
                 
-        view.addSubview(overlayTextView)
-        overlayTextView.centerXAnchor --> view.centerXAnchor
+        overlayView.addSubview(overlayTextView)
+        overlayTextView.centerXAnchor --> view.centerXAnchor // TODO: this needs to be made better
+        // tamic overlayView? change view to overlayView?
         overlayTextView.centerYAnchor --> view.centerYAnchor
 //        overlayTextView.center = view.center
-        
-        
         // also add the capability to add font here!!!!
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didMoveOverlayTextView(recognizer:)))
@@ -210,6 +220,9 @@ private extension TrimVideoViewController {
         rotationGesture.delegate = self
         pinchGesture.delegate = self
         
+        // add dymanic font too so that when the view inccrease al the text increases
+        // add a hit test to see what the user is trying to do and assign that action this view
+        // animatye gestures when below the keyboad
         
         overlayTextView.becomeFirstResponder()
     }
@@ -219,9 +232,41 @@ private extension TrimVideoViewController {
         videoTextEditorBackgroundView.isHidden = true
     }
     
+    @objc private func didTapSendAction() {
+        exportAsset { [self] tmpURL in
+            guard let outputFileURL = tmpURL else { return }
+            presenter.postVideo(videoURL: outputFileURL, completion: {
+//                coordinator.start
+                self.dismiss(animated: true, completion: nil)
+            }, failure: { errorString in
+                presentToast(message: errorString)
+            })
+            
+            PHPhotoLibrary.requestAuthorization { status in
+                if status == .authorized {
+                    PHPhotoLibrary.shared().performChanges {
+                        let options = PHAssetResourceCreationOptions()
+                        //                        options.shouldMoveFile = true // will  clean up manually
+                        let creationRequest = PHAssetCreationRequest.forAsset()
+                        creationRequest.addResource(with: .video, fileURL: outputFileURL, options: options)
+                    } completionHandler: { (success, errror) in
+                        if !success {
+                            Logger.log("Could not save photo to you library \(String(describing: errror)) success: \(success) localized desc: \(errror)")
+                        } else {
+                            Logger.log("saved video")
+                        }
+                        //                        cleanup()
+                    }
+                    
+                }
+                //                cleanup()
+            }
+        }
+    }
+    
     private func configurePlayVideoButton() {
         playVideoButton.autoresizingOff()
-        view.addSubview(playVideoButton)
+        videoView.insertSubview(playVideoButton, aboveSubview: rangeSliderView)
         let image = Const.Assets.TrimVideo.playVideoIcon?.withRenderingMode(.alwaysTemplate)
         playVideoButton.setImage(fillBoundsWith: image)
         playVideoButton.tintColor = Const.Color.TrimVideo.playVideo
@@ -234,11 +279,16 @@ private extension TrimVideoViewController {
     
     private func configureVideoView() {
         videoView.setVideoPath(videoPath: presenter.videoURL.absoluteString)
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapVideoViewAction))
         videoView.isUserInteractionEnabled = true
-        videoView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    private func configureOverlayView() {
+        videoView.insertSubview(overlayView, belowSubview: rangeSliderView)
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapVideoViewAction))
+        overlayView.isUserInteractionEnabled = true
+        overlayView.addGestureRecognizer(tapGestureRecognizer)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEndEditingAction))
-        videoView.addGestureRecognizer(tapGesture)
+        overlayView.addGestureRecognizer(tapGesture)
     }
     
     // 1st iteration we add this!!§! so that we cater to the small phones
@@ -246,7 +296,7 @@ private extension TrimVideoViewController {
     private func congfigureOverlayTextView() {
         videoTextEditorBackgroundView.autoresizingOff()
         overlayTextInput.autoresizingOff()
-        view.addSubview(videoTextEditorBackgroundView)
+        videoView.addSubview(videoTextEditorBackgroundView)
         videoTextEditorBackgroundView.topAnchor --> view.topAnchor + Const.View.m16
         videoTextEditorBottomAnchor = videoTextEditorBackgroundView.bottomAnchor --> view.bottomAnchor + -Const.View.m16
         videoTextEditorBackgroundView.leadingAnchor --> view.leadingAnchor + Const.View.m16
@@ -282,55 +332,12 @@ private extension TrimVideoViewController {
 
 }
 
-// MARK: private functions for video export
+// MARK: private functions for video composion and export
 
 extension TrimVideoViewController {
     
-    private func orientation(from transform: CGAffineTransform) -> (orientation: UIImage.Orientation, isPortrait: Bool) {
-        var assetOrientation = UIImage.Orientation.up
-        var isPortrait = false
-        if transform.a == 0 && transform.b == 1.0 && transform.c == -1.0 && transform.d == 0 {
-            assetOrientation = .right
-            isPortrait = true
-        } else if transform.a == 0 && transform.b == -1.0 && transform.c == 1.0 && transform.d == 0 {
-            assetOrientation = .left
-            isPortrait = true
-        } else if transform.a == 1.0 && transform.b == 0 && transform.c == 0 && transform.d == 1.0 {
-            assetOrientation = .up
-        } else if transform.a == -1.0 && transform.b == 0 && transform.c == 0 && transform.d == -1.0 {
-            assetOrientation = .down
-        }
-        
-        return (assetOrientation, isPortrait)
-    }
-    
-    // TODO: remove
-    private func addConfetti(to layer: CALayer) {
-        let images: [UIImage] = (0...5).map { UIImage(named: "confetti\($0)")! }
-        let colors: [UIColor] = [.systemGreen, .systemRed, .systemBlue, .systemPink, .systemOrange, .systemPurple, .systemYellow]
-        let cells: [CAEmitterCell] = (0...16).map { i in
-            let cell = CAEmitterCell()
-            cell.contents = images.randomElement()?.cgImage
-            cell.birthRate = 3
-            cell.lifetime = 12
-            cell.lifetimeRange = 0
-            cell.velocity = CGFloat.random(in: 100...200)
-            cell.velocityRange = 0
-            cell.emissionLongitude = 0
-            cell.emissionRange = 0.8
-            cell.spin = 4
-            cell.color = colors.randomElement()?.cgColor
-            cell.scale = CGFloat.random(in: 0.2...0.8)
-            return cell
-        }
-        
-        let emitter = CAEmitterLayer()
-        emitter.emitterPosition = CGPoint(x: layer.frame.size.width / 2, y: layer.frame.size.height + 5)
-        emitter.emitterShape = .line
-        emitter.emitterSize = CGSize(width: layer.frame.size.width, height: 2)
-        emitter.emitterCells = cells
-        
-        layer.addSublayer(emitter)
+    private func orientation(from transform: CGAffineTransform) -> (orientation: UIImage.Orientation, isPortrait: Bool) { // TODO: should just return
+        return (UIImage.Orientation.up, true)
     }
     
     private func compositionLayerInstruction(for track: AVCompositionTrack, assetTrack: AVAssetTrack) -> AVMutableVideoCompositionLayerInstruction {
@@ -342,7 +349,12 @@ extension TrimVideoViewController {
         return instruction
     }
     
-    private func makeEditableVideoView(fromVideoAt videoURL: URL) {
+    private func getVideoSize() -> CGSize {
+        guard let assetTrack  = asset.tracks(withMediaType: .video).first else { return .zero }
+        return CGSize(width: assetTrack.naturalSize.height, height: assetTrack.naturalSize.width)
+    }
+    
+    private func setupVideoOverlayAndExportLayers() {
         // extract video from asset and add it to track
         guard
             let compositionTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid),
@@ -370,6 +382,7 @@ extension TrimVideoViewController {
         compositionTrack.preferredTransform = assetTrack.preferredTransform
         let videoInfo = orientation(from: assetTrack.preferredTransform)
         
+        Logger.i("Is video portrait: \(videoInfo.isPortrait) and video ifno is \(videoInfo)")
         // set video size
         if videoInfo.isPortrait { // if portraint you need to reverse the width and height
             videoSize = CGSize(width: assetTrack.naturalSize.height, height: assetTrack.naturalSize.width)
@@ -394,8 +407,18 @@ extension TrimVideoViewController {
         let overlayLayer = CALayer()
         overlayLayer.frame = CGRect(origin: .zero, size: videoSize)
         //        addImages(to: overlayLayer, videoSize: videoSize)
-        add(text: "Hello therer", to: overlayLayer, videoSize: videoSize)
-        
+//        add(text: "Hello therer", to: overlayLayer, videoSize: videoSize)
+        overlayView.layer.sublayers?.reverse() // put them the way they where added
+        if let overlayLayers = overlayView.layer.sublayers {
+            for layer in overlayLayers {
+                layer.removeFromSuperlayer()
+                let frame = layer.convert(layer.frame, to: overlayLayer)
+                layer.frame = CGRect(x: frame.origin.y, y: frame.origin.x , width: frame.size.width, height: frame.size.width)
+//                layer.transform = CATransform3DMakeScale(UIScreen.main.scale, UIScreen.main.scale, 1)
+                overlayLayer.addSublayer(layer)
+                
+            }
+        }
         
         outputLayer.frame = CGRect(origin: .zero, size: videoSize)
         outputLayer.addSublayer(backgroundLayer)
@@ -419,6 +442,8 @@ extension TrimVideoViewController {
     }
     
     private func exportAsset(completion: @escaping Completion<URL?>) {
+        setupVideoOverlayAndExportLayers()
+        
         guard let export = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality)
         else {
             Logger.log(AppStrings.Error.TrimVideo.exportFailed)
@@ -432,6 +457,7 @@ extension TrimVideoViewController {
             .appendingPathExtension("mov")
         
         export.videoComposition = videoComposition
+        export.shouldOptimizeForNetworkUse = true
         export.outputFileType = .mov
         export.outputURL = exportURL
         
@@ -449,6 +475,7 @@ extension TrimVideoViewController {
         }
     }
     
+    
     private func addImages(to layer: CALayer, videoSize: CGSize) {
         let image = UIImage(named: "1")!
         let imageLayer = CALayer()
@@ -462,6 +489,7 @@ extension TrimVideoViewController {
         layer.addSublayer(imageLayer)
     }
     
+    // instead of UITextView use this please!
     private func add(text: String, to layer: CALayer, videoSize: CGSize) {
         let attributedText = NSAttributedString(string: text,  attributes: [
                                                     .font: UIFont(name: "ArialRoundedMTBold", size: 60) as Any,

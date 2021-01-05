@@ -697,12 +697,12 @@ extension CaptureStatusViewController: AVCaptureFileOutputRecordingDelegate {
     }
     
     private func saveToPhotos(_ success: Bool, _ outputFileURL: URL) {
-        if success {
+        if success {            
             PHPhotoLibrary.requestAuthorization { status in
                 if status == .authorized {
                     PHPhotoLibrary.shared().performChanges {
                         let options = PHAssetResourceCreationOptions()
-                        options.shouldMoveFile = true
+//                        options.shouldMoveFile = true // will  clean up manually
                         let creationRequest = PHAssetCreationRequest.forAsset()
                         creationRequest.addResource(with: .video, fileURL: outputFileURL, options: options)
                     } completionHandler: { (success, errror) in
