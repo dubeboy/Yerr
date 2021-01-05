@@ -13,6 +13,10 @@ import Photos
 //AVVideoCompositionCoreAnimationTool ::: a class that lets you combine an existing video with Core Animation layers.
 //https://warrenmoore.net/understanding-cmtime // more about CMTIME
 // Look into the cannot record error, I think it happens when we lauch the screen before we began recording!!!!
+//https://www.raywenderlich.com/2734-avfoundation-tutorial-adding-overlays-and-animations-to-videos
+//https://medium.com/@andy.nguyen.1993/add-overlay-image-to-video-21d9cc03c9eb
+// https://github.com/inspace-io/VideoOverlayProcessor
+//https://github.com/jiayilin/SafeWalk/blob/master/My_Camera_App/AVFoundation.framework/Headers/AVVideoComposition.h
 class TrimVideoViewController: UIViewController {
     
     var presenter: TrimVideoViewPresenter!
@@ -21,7 +25,7 @@ class TrimVideoViewController: UIViewController {
     // MARK: video display
     @LateInit
     private var rangeSliderView: TrimPostVideoRangeSliderView
-    private var videoView: StatusVideoView = StatusVideoView()
+    private let videoView: StatusVideoView = StatusVideoView()
     private let playVideoButton = YerrButton() // TODO: should add some materiels behind this view, translucent glass!!!
     
     
@@ -134,32 +138,6 @@ class TrimVideoViewController: UIViewController {
     @objc private func didTapEndEditingAction() {
         view.endEditing(true)
     }
-    
-    @objc private func didMoveOverlayTextView(recognizer: UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: view)
-        guard let overlayTextView = recognizer.view as? UITextView else { return }
-            overlayTextView.center = CGPoint(x: overlayTextView.center.x + translation.x, y: overlayTextView.center.y + translation.y)
-            recognizer.setTranslation(.zero, in: view)
-
-    
-    }
-    
-    @objc private func didRotateOverlayTextView(recognizer: UIRotationGestureRecognizer) {
-        let rotation = recognizer.rotation
-        guard let overlayTextView = recognizer.view as? UITextView else { return }
-        overlayTextView.transform = overlayTextView.transform.rotated(by: rotation)
-        recognizer.rotation = 0
-       
-    }
-    
-    @objc func  didPichOverlayTextView(recognizer: UIPinchGestureRecognizer) {
-        let scale = recognizer.scale
-        guard let overlayTextView = recognizer.view as? UITextView else { return }
-
-        let currentTransform = overlayTextView.transform
-        overlayTextView.transform = currentTransform.scaledBy(x: scale, y: scale)
-        recognizer.scale = 1.0
-    }
 }
 
 // MARK: private functions
@@ -185,45 +163,9 @@ private extension TrimVideoViewController {
     }
     
     private func addOverlayTextView(color: UIColor) {
-        let tag = presenter.appendEditableTextAndGetTag(text: overlayTextInput.text)
-        let overlayTextView = UITextView() // set frame rather!!
-        overlayTextView.autoresizingOff()
-        overlayTextView.backgroundColor = color.withAlphaComponent(0.6)
-        overlayTextView.isScrollEnabled = false
-        overlayTextView.tag = tag
-        overlayTextView.textAlignment = .center
-        overlayTextView.sizeToFit()
-        overlayTextViews[tag] = overlayTextView
-        overlayTextView.addShadow()
-        overlayTextView.layer.cornerRadius = Const.View.radius
-        let blurEffect = UIBlurEffect(style: .prominent)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.autoresizingOff()
-        overlayTextView.addSubview(blurEffectView)
-        overlayTextView.sendSubviewToBack(blurEffectView)
-                
-        overlayView.addSubview(overlayTextView)
-        overlayTextView.centerXAnchor --> view.centerXAnchor // TODO: this needs to be made better
-        // tamic overlayView? change view to overlayView?
-        overlayTextView.centerYAnchor --> view.centerYAnchor
-//        overlayTextView.center = view.center
-        // also add the capability to add font here!!!!
-        
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didMoveOverlayTextView(recognizer:)))
-        overlayTextView.addGestureRecognizer(panGesture)
-        let rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(didRotateOverlayTextView(recognizer:)))
-        overlayTextView.addGestureRecognizer(rotationGesture)
-        let pinchGesture = UIPinchGestureRecognizer(target: self , action: #selector(didPichOverlayTextView(recognizer:)))
-        overlayTextView.addGestureRecognizer(pinchGesture)
-        
-        panGesture.delegate = self
-        rotationGesture.delegate = self
-        pinchGesture.delegate = self
-        
-        // add dymanic font too so that when the view inccrease al the text increases
-        // add a hit test to see what the user is trying to do and assign that action this view
-        // animatye gestures when below the keyboad
-        
+        let tag = presenter.appendEditableTextAndGetTag(text: " ")
+        let overlayTextView = OverlayTextView(parent: view, backgroundColor: color, tag: tag)
+        overlayTextView.addToParent()
         overlayTextView.becomeFirstResponder()
     }
     
@@ -553,11 +495,5 @@ extension TrimVideoViewController: StatusVideoViewDelegate {
         UIView.animate(withDuration: 0.25) { [self] in
             playVideoButton.isHidden = false
         }
-    }
-}
-
-extension TrimVideoViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
     }
 }

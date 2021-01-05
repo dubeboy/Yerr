@@ -12,9 +12,9 @@
       },
       {
         "package": "Merchant",
-        "repositoryURL": "/Users/divine.dube/Developer/iOS/Merchant/",
+        "repositoryURL": "/Users/divine.dube/Developer/iOS/Merchant",
         "state": {
-          "branch": null,
+          "branch": "allow-data-uploads",
           "revision": "6e53dfb3cb1d752c9b2346776e671384671e3d57",
           "version": null
         }
@@ -26,15 +26,6 @@
           "branch": null,
           "revision": "8ff37ffda243669ba7827f639f91f99b53fa4b49",
           "version": "2.4.0"
-        }
-      },
-      {
-        "package": "Proton",
-        "repositoryURL": "https://github.com/rajdeep/proton.git",
-        "state": {
-          "branch": null,
-          "revision": "e9257e11ff2a708f6b6ea98a9d593ab3bef7ea1b",
-          "version": "0.5.0"
         }
       }
     ]

@@ -169,6 +169,8 @@ enum AppStrings {
             enum UIAlertViewController {
                 static let alertTitle = appName
                 static let alertOk = ok
+                static let alertCancel = cancel
+                
             }
         }
 

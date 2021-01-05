@@ -17,7 +17,7 @@ class PhotoCaptureProcessor: NSObject {
     
     lazy var context = CIContext()
     
-    private let completionHandler: (PhotoCaptureProcessor) -> Void
+    private let completionHandler: (PhotoCaptureProcessor, Data?) -> Void
     
     private let photoProcessingHandler: (Bool) -> Void
     
@@ -34,7 +34,7 @@ class PhotoCaptureProcessor: NSObject {
     init(with requestedPhotoSettings: AVCapturePhotoSettings,
          willCapturePhotoAnimation: @escaping () -> Void,
          livePhotoCaptureHandler: @escaping (Bool) -> Void,
-         completionHandler: @escaping (PhotoCaptureProcessor) -> Void,
+         completionHandler: @escaping (PhotoCaptureProcessor, Data?) -> Void,
          photoProcessingHandler: @escaping (Bool) -> Void) {
         self.requestedPhotoSettings = requestedPhotoSettings
         self.willCapturePhotoAnimation = willCapturePhotoAnimation
@@ -54,7 +54,7 @@ class PhotoCaptureProcessor: NSObject {
             }
         }
         
-        completionHandler(self)
+        completionHandler(self, photoData)
     }
     
 }

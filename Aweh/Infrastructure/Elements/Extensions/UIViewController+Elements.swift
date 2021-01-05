@@ -41,9 +41,9 @@ extension UIViewController {
     }
     
     func presentAlert(title: String = "", message: String, ok: ((UIAlertAction) -> Void)?, cancel: ((UIAlertAction) -> Void)? = nil) {
-//        let okAction = UIAlertAction(title: AppStrings.Shared.Extensions.UIAlertViewController.alertOk, style: .cancel, handler: ok)
-//        let cancelAction = UIAlertAction(title: AppStrings.Shared.Extensions.UIAlertViewController.settings, style: .de, handler: cancel)
-//        presentAlert(title: title, message: message, T##actions: UIAlertAction...##UIAlertAction)
+        let okAction = UIAlertAction(title: AppStrings.Shared.Extensions.UIAlertViewController.alertOk, style: .default, handler: ok)
+        let cancelAction = UIAlertAction(title: AppStrings.Shared.Extensions.UIAlertViewController.alertCancel, style: .cancel, handler: cancel)
+        presentAlert(title: title, message: message, actions: okAction, cancelAction )
     }
     
     func presentAlert(title: String = "", message: String, actions: UIAlertAction...) {

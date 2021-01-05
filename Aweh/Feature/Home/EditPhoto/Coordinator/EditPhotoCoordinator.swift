@@ -9,15 +9,15 @@
 import UIKit
 
 protocol EditPhotoCoordinator: Coordinator {
-    func startEditPhotoCoordinator(navigationController: UINavigationController?, imageAssetURL: URL)
+    func startEditPhotoCoordinator(navigationController: UINavigationController?, imageAssetData: [Data])
 }
 
 
 extension HomeCoordinator: EditPhotoCoordinator {
-    func startEditPhotoCoordinator(navigationController: UINavigationController?, imageAssetURL: URL) {
+    func startEditPhotoCoordinator(navigationController: UINavigationController?, imageAssetData: [Data]) {
         let viewController = EditPhotoViewController()
         viewController.coordinator = self
-        viewController.presenter = EditPhotoPresenterImplementation(assetURL: imageAssetURL)
+        viewController.presenter = EditPhotoPresenterImplementation(imageData: imageAssetData)
         navigationController?.pushViewController(viewController, animated: false)
     }
 }

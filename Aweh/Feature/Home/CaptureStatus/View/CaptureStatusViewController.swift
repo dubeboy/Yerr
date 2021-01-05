@@ -12,6 +12,7 @@ import Photos
 
 //https://medium.com/@barbulescualex/making-a-custom-camera-in-ios-ea44e3087563
 //https://gist.github.com/yusuke024/b5cd3909d9d7f9e919291491f6b381f0
+// create a small image preview view that shows up above the capture button
 
 class CaptureStatusViewController: UIViewController {
     
@@ -27,7 +28,8 @@ class CaptureStatusViewController: UIViewController {
         case photo, movie
     }
 
-    var coordinator: (PhotosGalleryCoordinator & TrimVideoCoordinator)!
+    var coordinator: (PhotosGalleryCoordinator & TrimVideoCoordinator & EditPhotoCoordinator)!
+    var presenter: CaptureStatusPresenter!
     
     private var captureButton = CaptureButton()
     private var openGalleryButton = UIImageView()
@@ -130,9 +132,14 @@ class CaptureStatusViewController: UIViewController {
             }, livePhotoCaptureHandler: { capturing in
                 
                     
-            }, completionHandler: { photoProcessor in
+            }, completionHandler: { photoProcessor, data in
                 self.sessionQueue.async {
                     self.inProgressPhotoCaptureDelegates[photoProcessor.requestedPhotoSettings.uniqueID] = nil
+                }
+                DispatchQueue.main.async {
+                    guard let data = data else { return }
+                   // TODO: show progress bar here
+                    self.coordinator.startEditPhotoCoordinator(navigationController: self.navigationController, imageAssetData: [data])
                 }
             }, photoProcessingHandler: { animate in
                 DispatchQueue.main.async {
@@ -162,8 +169,25 @@ class CaptureStatusViewController: UIViewController {
         }
     }
     
+    func startEditPhotoViewController(images: [Data]) {
+        coordinator.startEditPhotoCoordinator(navigationController: navigationController, imageAssetData: images)
+    }
+    
     @objc func openGalleryAction() {
-        coordinator.startPhotosGalleryViewController(navigationController: navigationController, completion: { _ in })
+        
+        coordinator.startPhotosGalleryViewController(navigationController: navigationController) { photoAsset in
+            self.presenter.getImages(avAssets: photoAsset) { didFailOnce, images in
+                if didFailOnce {
+                    self.presentAlert(title: "Could not get all images", message: "Could not get some images. Do you want to continue?") { _ in
+                        self.startEditPhotoViewController(images: images)
+                    } cancel: { _ in
+                        return
+                    }
+                } else {
+                    self.startEditPhotoViewController(images: images)
+                }
+            }
+        }
     }
     
     @objc func sessionWasInterrupted(notification: NSNotification) {
