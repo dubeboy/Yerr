@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: delete please
 class VideoViewController: UIViewController {
     
     private var videoView: StatusVideoView = StatusVideoView()

@@ -124,6 +124,9 @@
 		7198AC7F24918B36002029CF /* PhotosCollectionViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7198AC7E24918B36002029CF /* PhotosCollectionViewPresenter.swift */; };
 		7198AC8124918BBD002029CF /* PhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7198AC8024918BBD002029CF /* PhotosCollectionViewController.swift */; };
 		7198AC8324918C1A002029CF /* PhotosCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7198AC8224918C1A002029CF /* PhotosCollectionViewModel.swift */; };
+		719CEA3525A4BC2A00A65385 /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719CEA3425A4BC2A00A65385 /* EditPhotoViewController.swift */; };
+		719CEA3925A4BC3D00A65385 /* EditPhotoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719CEA3825A4BC3D00A65385 /* EditPhotoPresenter.swift */; };
+		719CEA3C25A4BC6300A65385 /* EditPhotoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719CEA3B25A4BC6300A65385 /* EditPhotoCoordinator.swift */; };
 		71A5C2D42523ADF000029C7D /* UIEdgeInsets+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A5C2D32523ADF000029C7D /* UIEdgeInsets+Elements.swift */; };
 		71A77FCF249C33F800F8D442 /* FeedDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A77FCE249C33F800F8D442 /* FeedDetailCoordinator.swift */; };
 		71A77FD1249C345E00F8D442 /* FeedDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A77FD0249C345E00F8D442 /* FeedDetailViewModel.swift */; };
@@ -327,6 +330,9 @@
 		7198AC7E24918B36002029CF /* PhotosCollectionViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewPresenter.swift; sourceTree = "<group>"; };
 		7198AC8024918BBD002029CF /* PhotosCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewController.swift; sourceTree = "<group>"; };
 		7198AC8224918C1A002029CF /* PhotosCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewModel.swift; sourceTree = "<group>"; };
+		719CEA3425A4BC2A00A65385 /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
+		719CEA3825A4BC3D00A65385 /* EditPhotoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoPresenter.swift; sourceTree = "<group>"; };
+		719CEA3B25A4BC6300A65385 /* EditPhotoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoCoordinator.swift; sourceTree = "<group>"; };
 		71A5C2D32523ADF000029C7D /* UIEdgeInsets+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Elements.swift"; sourceTree = "<group>"; };
 		71A77FCE249C33F800F8D442 /* FeedDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailCoordinator.swift; sourceTree = "<group>"; };
 		71A77FD0249C345E00F8D442 /* FeedDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewModel.swift; sourceTree = "<group>"; };
@@ -1017,6 +1023,7 @@
 		71585EDB24A2929900092D6E /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				719CEA2F25A4B6A000A65385 /* EditPhoto */,
 				71237A2D2584D5F50095C6B7 /* VideoPreview */,
 				712C06912571F3950073DDC1 /* CaptureStatus */,
 				712C067B2571E2F50073DDC1 /* TrimVideo */,
@@ -1498,6 +1505,48 @@
 				71EECEA22494734200902181 /* PhotoGrid */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		719CEA2F25A4B6A000A65385 /* EditPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				719CEA3225A4B6BA00A65385 /* View */,
+				719CEA3125A4B6B100A65385 /* Presenter */,
+				719CEA3025A4B6A900A65385 /* Coordinator */,
+			);
+			path = EditPhoto;
+			sourceTree = "<group>";
+		};
+		719CEA3025A4B6A900A65385 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				719CEA3B25A4BC6300A65385 /* EditPhotoCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		719CEA3125A4B6B100A65385 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				719CEA3825A4BC3D00A65385 /* EditPhotoPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		719CEA3225A4B6BA00A65385 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				719CEA3325A4BC0B00A65385 /* Widget */,
+				719CEA3425A4BC2A00A65385 /* EditPhotoViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		719CEA3325A4BC0B00A65385 /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Widget;
 			sourceTree = "<group>";
 		};
 		71A77FCD249C33E400F8D442 /* Coordinator */ = {
@@ -2121,6 +2170,7 @@
 				71ADA97F25180CBC005FF2BF /* UserEntityId.swift in Sources */,
 				713549B1248BE45A0009EE6A /* UICollectionView+Elements.swift in Sources */,
 				716DA6C4248D7E69001B74E2 /* PostStatusPresenter.swift in Sources */,
+				719CEA3925A4BC3D00A65385 /* EditPhotoPresenter.swift in Sources */,
 				71D5B9C225114A5A0077DB09 /* PresenterCompletion.swift in Sources */,
 				7198AC7F24918B36002029CF /* PhotosCollectionViewPresenter.swift in Sources */,
 				7167C5C324959A9200B49096 /* ToastAlert.swift in Sources */,
@@ -2177,6 +2227,7 @@
 				71FBCF312512C06F00FC7557 /* PulseLayer.swift in Sources */,
 				71F46CEE24995610002B8EFC /* LivePhotoView.swift in Sources */,
 				7110882225327BB400228124 /* Collection+Elements.swift in Sources */,
+				719CEA3525A4BC2A00A65385 /* EditPhotoViewController.swift in Sources */,
 				71A77FD1249C345E00F8D442 /* FeedDetailViewModel.swift in Sources */,
 				7145AADE25197CB600657062 /* ProfileInteractor.swift in Sources */,
 				71956FA4253A7A0500D59D29 /* UserRepository.swift in Sources */,
@@ -2221,6 +2272,7 @@
 				71297FE2254105EB00E8440F /* InitAcceptTcsAndCsPresenter.swift in Sources */,
 				B85A2BA78118ED22F3A3D94D /* DateValue.swift in Sources */,
 				B85A2D91728D4B52F08C4010 /* DefaultFalse.swift in Sources */,
+				719CEA3C25A4BC6300A65385 /* EditPhotoCoordinator.swift in Sources */,
 				71237A372584D6910095C6B7 /* VideoViewPresenter.swift in Sources */,
 				B85A267A8160EDABE988DDAB /* ISO8601Strategy.swift in Sources */,
 				B85A2AE1DB5B240B2DB09E68 /* DefaultEmptyArray.swift in Sources */,
