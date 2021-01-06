@@ -12,11 +12,12 @@ import Photos
 
 //AVVideoCompositionCoreAnimationTool ::: a class that lets you combine an existing video with Core Animation layers.
 //https://warrenmoore.net/understanding-cmtime // more about CMTIME
-// Look into the cannot record error, I think it happens when we lauch the screen before we began recording!!!!
+// Look into the cannot rec§ord error, I think it happens when we lauch the screen before we began recording!!!!
 //https://www.raywenderlich.com/2734-avfoundation-tutorial-adding-overlays-and-animations-to-videos
 //https://medium.com/@andy.nguyen.1993/add-overlay-image-to-video-21d9cc03c9eb
 // https://github.com/inspace-io/VideoOverlayProcessor
 //https://github.com/jiayilin/SafeWalk/blob/master/My_Camera_App/AVFoundation.framework/Headers/AVVideoComposition.h
+//http://bradgayman.com/blog/recordingAView/index.html
 class TrimVideoViewController: UIViewController {
     
     var presenter: TrimVideoViewPresenter!
@@ -446,7 +447,7 @@ extension TrimVideoViewController {
         textLayer.backgroundColor = UIColor.clear.cgColor
         textLayer.alignmentMode = .center
         textLayer.frame = CGRect(x: 0, y: videoSize.height * 0.66, width: videoSize.width, height: 150)
-        textLayer.displayIfNeeded()
+        textLayer.displayIfNeeded() // This is becuase UIView can async sometimes
         layer.addSublayer(textLayer)
     }
 }
