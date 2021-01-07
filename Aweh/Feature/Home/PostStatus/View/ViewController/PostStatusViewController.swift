@@ -31,12 +31,15 @@ class PostStatusViewController: UIViewController {
     private var statusTextBottomConstraint: NSLayoutConstraint
     @LateInit
     private var statusTextTopConstraint: NSLayoutConstraint
+    @LateInit
+    private var actionsToolbarBottomConstraint: NSLayoutConstraint
     
     var assets: [String: PHAsset] = [:]
 
-    private var profileImage: UIImageView = UIImageView()
+    private let profileImage: UIImageView = UIImageView()
     private let backgroundColorView = UIView()
-    private var statusTextView = UITextView()
+    private let statusTextView = UITextView()
+    private let actionsToolbar = UIToolbar()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +48,7 @@ class PostStatusViewController: UIViewController {
         title = AppStrings.PostStatus.title
         configureSelf()
         configureStatusTextiew()
+        configureActionsToolbar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(captureStatus))
         addCloseButtonItem(toLeft: true)
     }
@@ -96,15 +100,13 @@ class PostStatusViewController: UIViewController {
     
     @objc func keyboardWillHide(notification: NSNotification) {
         bottomConstraint.constant = 0
-//        statusTextBottomConstraint.constant = -(Const.View.m16 + view.safeAreaInsets.bottom)
-//        statusTextBottomConstraint.constant = -Const.View.m16
+        actionsToolbarBottomConstraint.constant = -(Const.View.m16 + view.safeAreaInsets.bottom)
     }
     
     @objc func keyboardWillAppear(notification: NSNotification) {
         guard let frame = keyboardFrame(from: notification) else { return }
         bottomConstraint.constant = -frame.size.height
-//        statusTextBottomConstraint.constant = -Const.View.m16
-//        statusTextBottomConstraint.constant = -frame.size.height - Const.View.m16
+        actionsToolbarBottomConstraint.constant = -frame.size.height
     }
     
     
@@ -171,6 +173,15 @@ extension PostStatusViewController {
         statusTextView.textAlignment = .center
     }
     
+    private func configureActionsToolbar() {
+        actionsToolbar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+        actionsToolbar.autoresizingOff()
+        view.addSubview(actionsToolbar)
+        actionsToolbar.leadingAnchor --> view.leadingAnchor
+        actionsToolbar.trailingAnchor --> view.trailingAnchor
+        actionsToolbarBottomConstraint = actionsToolbar.bottomAnchor --> view.bottomAnchor + -(Const.View.m16 + view.safeAreaInsets.bottom)
+    }
+    
     private func loadPhotos() {
         // TODO: - test this out for string reference cycles
         coordinator?.startPhotosGalleryViewController(navigationController: navigationController) { assets in
@@ -199,7 +210,7 @@ extension PostStatusViewController: GeoLocationServicesDelegate {
 
 extension PostStatusViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        textView.centerVerticalText()
+//        textView.centerVerticalText()
     }
     
     func textViewDidChange(_ textView: UITextView) {
