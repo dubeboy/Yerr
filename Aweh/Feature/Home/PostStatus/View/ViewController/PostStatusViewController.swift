@@ -10,6 +10,9 @@ import UIKit
 import Photos
 
 // This view gives you the ability to add text above a video or just normal text
+// https://www.raywenderlich.com/5960-text-kit-tutorial-getting-started
+// https://stackoverflow.com/questions/42842215/attributed-text-with-uitextfield
+// https://www.xspdf.com/resolution/50437458.html
 class PostStatusViewController: UIViewController {
     
     var presenter: PostStatusPresenter!
@@ -24,19 +27,24 @@ class PostStatusViewController: UIViewController {
     private var location: GeoLocationServices
     @LateInit
     private var bottomConstraint: NSLayoutConstraint
+    @LateInit
+    private var statusTextBottomConstraint: NSLayoutConstraint
+    @LateInit
+    private var statusTextTopConstraint: NSLayoutConstraint
     
     var assets: [String: PHAsset] = [:]
 
-    private var statusTextView: UITextView = UITextView()
     private var profileImage: UIImageView = UIImageView()
-   
+    private let backgroundColorView = UIView()
+    private var statusTextView = UITextView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         location = GeoLocationServices(delegate: self)
         profileImage.makeImageRound()
         title = AppStrings.PostStatus.title
         configureSelf()
-        setupStatusTextiew()
+        configureStatusTextiew()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(captureStatus))
         addCloseButtonItem(toLeft: true)
     }
@@ -62,26 +70,41 @@ class PostStatusViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        statusTextView.centerVerticalText()
         listenToEvent(
             name: .keyboardWillShow,
             selector: #selector(keyboardWillAppear(notification:))
+        )
+        
+        listenToEvent(
+            name: .keyboardWillHide,
+            selector: #selector(keyboardWillHide(notification:))
         )
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+       
+        statusTextView.becomeFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        statusTextView.endEditing(true)
         removeSelfFromNotificationObserver()
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        bottomConstraint.constant = 0
+//        statusTextBottomConstraint.constant = -(Const.View.m16 + view.safeAreaInsets.bottom)
+//        statusTextBottomConstraint.constant = -Const.View.m16
     }
     
     @objc func keyboardWillAppear(notification: NSNotification) {
         guard let frame = keyboardFrame(from: notification) else { return }
-        // TODO: fix this is unaccaptable
-        bottomConstraint.constant = -(frame.size.height - spookyKeyboardHeightConstant + 20)
+        bottomConstraint.constant = -frame.size.height
+//        statusTextBottomConstraint.constant = -Const.View.m16
+//        statusTextBottomConstraint.constant = -frame.size.height - Const.View.m16
     }
     
     
@@ -90,7 +113,7 @@ class PostStatusViewController: UIViewController {
         let status = PHPhotoLibrary.authorizationStatus()
         switch status {
             case .authorized:
-            loadPhotos() // ask coordinator to opne the grid view
+                loadPhotos() // ask coordinator to opne the grid view
             case .denied, .notDetermined:
             // request permission
             PHPhotoLibrary.requestAuthorization { [weak self] status in
@@ -123,13 +146,29 @@ extension PostStatusViewController {
     }
     
     private func configureSelf() {
-//        view.addSubview(commentBox)
-//        setUpCommentBox()
+        backgroundColorView.autoresizingOff()
+        view.addSubview(backgroundColorView)
+        let (_, _, bottomBackgroundConstraint, _) = backgroundColorView --> view
+        bottomConstraint = bottomBackgroundConstraint
+        backgroundColorView.backgroundColor = .cyan
     }
     
-    private func setupStatusTextiew() {
-        statusTextView.text = placeHolderText
-        statusTextView.clipsToBounds = true
+    private func configureStatusTextiew() {
+        statusTextView.autoresizingOff()
+        backgroundColorView.addSubview(statusTextView)
+        statusTextView.isScrollEnabled = false
+        statusTextView.leadingAnchor --> backgroundColorView.leadingAnchor + Const.View.m16
+        statusTextView.trailingAnchor --> backgroundColorView.trailingAnchor + -Const.View.m16
+        statusTextView.centerYAnchor --> backgroundColorView.centerYAnchor
+        statusTextView.text = "Hello there"
+        statusTextView.delegate = self
+        statusTextTopConstraint = statusTextView.topAnchor --> backgroundColorView.topAnchor + (Const.View.m16 + view.safeAreaInsets.top)
+        statusTextBottomConstraint =  statusTextView.bottomAnchor -->  backgroundColorView.bottomAnchor + -Const.View.m16
+        statusTextTopConstraint.isActive = false
+
+        statusTextBottomConstraint.isActive = false
+        statusTextView.backgroundColor = .clear
+        statusTextView.textAlignment = .center
     }
     
     private func loadPhotos() {
@@ -156,4 +195,22 @@ extension PostStatusViewController: GeoLocationServicesDelegate {
         presentToast(message: AppStrings.Shared.GeoLocationServices.failedToGetLocation)
     }
     
+}
+
+extension PostStatusViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textView.centerVerticalText()
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.contentSize.height >= backgroundColorView.bounds.height {
+            textView.isScrollEnabled = true
+            statusTextTopConstraint.isActive = true
+            statusTextBottomConstraint.isActive = true
+        } else {
+            textView.isScrollEnabled = false
+            statusTextTopConstraint.isActive = false
+            statusTextBottomConstraint.isActive = false
+        }
+    }
 }

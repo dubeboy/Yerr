@@ -13,6 +13,8 @@ import Photos
 //https://medium.com/@barbulescualex/making-a-custom-camera-in-ios-ea44e3087563
 //https://gist.github.com/yusuke024/b5cd3909d9d7f9e919291491f6b381f0
 // create a small image preview view that shows up above the capture button
+// record the number od people use this screen to just selecl an image from gallary and those who take picture
+// also drop out rate from taking image and not sending it
 
 class CaptureStatusViewController: UIViewController {
     

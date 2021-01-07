@@ -27,12 +27,14 @@ infix operator +: AdditionPrecedence // Change this so can have a proper precede
 //
 //}
 
-func -->(lhs: UIView, rhs: UIView) { // wanna also be able to do somthing like v -> v2 + 16
+@discardableResult
+func -->(lhs: UIView, rhs: UIView) -> (NSLayoutConstraint, NSLayoutConstraint, NSLayoutConstraint, NSLayoutConstraint) { // wanna also be able to do somthing like v -> v2 + 16
     lhs.translatesAutoresizingMaskIntoConstraints = false
-    lhs.leadingAnchor --> rhs.leadingAnchor
-    lhs.trailingAnchor --> rhs.trailingAnchor
-    lhs.topAnchor --> rhs.topAnchor
-    lhs.bottomAnchor --> rhs.bottomAnchor
+    let leading = lhs.leadingAnchor --> rhs.leadingAnchor
+    let trailing = lhs.trailingAnchor --> rhs.trailingAnchor
+    let top = lhs.topAnchor --> rhs.topAnchor
+    let bottom = lhs.bottomAnchor --> rhs.bottomAnchor
+    return (top, leading, bottom, trailing)
 }
 
 // tenary operators

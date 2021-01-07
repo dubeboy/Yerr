@@ -98,7 +98,6 @@
 		7170EA002495EB9C00B1D15F /* AssetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7170E9FF2495EB9C00B1D15F /* AssetDetailViewController.swift */; };
 		7170EA042495EBF800B1D15F /* AssetDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7170EA032495EBF800B1D15F /* AssetDetailPresenter.swift */; };
 		7172D613248F0CC90083B7F6 /* PostStatusCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7172D612248F0CC90083B7F6 /* PostStatusCoordinator.swift */; };
-		7172D615248F1E420083B7F6 /* PostStatusViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7172D614248F1E420083B7F6 /* PostStatusViewController.storyboard */; };
 		7172D617248F2D700083B7F6 /* UIView+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7172D616248F2D700083B7F6 /* UIView+Elements.swift */; };
 		7175E7122516C40C0073AC47 /* TextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7175E7112516C40C0073AC47 /* TextViewDelegate.swift */; };
 		71777B6A24C662470075F4F7 /* String+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71777B6924C662470075F4F7 /* String+Elements.swift */; };
@@ -303,7 +302,6 @@
 		7170EA012495EBBD00B1D15F /* AssetDetailViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AssetDetailViewController.storyboard; sourceTree = "<group>"; };
 		7170EA032495EBF800B1D15F /* AssetDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetDetailPresenter.swift; sourceTree = "<group>"; };
 		7172D612248F0CC90083B7F6 /* PostStatusCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStatusCoordinator.swift; sourceTree = "<group>"; };
-		7172D614248F1E420083B7F6 /* PostStatusViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PostStatusViewController.storyboard; sourceTree = "<group>"; };
 		7172D616248F2D700083B7F6 /* UIView+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Elements.swift"; sourceTree = "<group>"; };
 		7175E7112516C40C0073AC47 /* TextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewDelegate.swift; sourceTree = "<group>"; };
 		71777B6924C662470075F4F7 /* String+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Elements.swift"; sourceTree = "<group>"; };
@@ -1471,7 +1469,6 @@
 			isa = PBXGroup;
 			children = (
 				716DA6C1248D7E55001B74E2 /* PostStatusViewController.swift */,
-				7172D614248F1E420083B7F6 /* PostStatusViewController.storyboard */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2096,7 +2093,6 @@
 				71138AA624B4F9C700AC7D1C /* GaugeView.xib in Resources */,
 				7119E3A024B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard in Resources */,
 				7116C11024A2AD4200749620 /* SingleStatusViewController.storyboard in Resources */,
-				7172D615248F1E420083B7F6 /* PostStatusViewController.storyboard in Resources */,
 				71F46CEB24994CA3002B8EFC /* AssetDetailViewController.storyboard in Resources */,
 				71ECFDFC2487187000943917 /* FeedCollectionViewCell.xib in Resources */,
 				71CCF0DB249C23B30054C210 /* CommentCollectionViewCell.xib in Resources */,

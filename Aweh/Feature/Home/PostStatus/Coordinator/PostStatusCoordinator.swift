@@ -14,7 +14,7 @@ protocol PostStatusCoordinator: Coordinator {
 
 extension HomeCoordinator: PostStatusCoordinator  {
     func startPostStatusViewController(delegate: @escaping Completion<StatusViewModel>) {
-        let viewController = PostStatusViewController.instantiate()
+        let viewController = PostStatusViewController()
         viewController.coordinator = self
         navigationController.delegate = self
         viewController.delegate = delegate
