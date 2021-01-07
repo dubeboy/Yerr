@@ -75,6 +75,16 @@ enum Const {
             static let chevronRight: UIImage? = CommonAssets.chevronRight
         }
         
+        enum PostStatus {
+            static let color: UIImage? = getSystemAsset(systemName: "circle.fill")
+            static let textAlignmentCenter: UIImage? = getSystemAsset(systemName: "text.aligncenter")
+            static let testAlignmentLeft: UIImage? = getSystemAsset(systemName: "text.alignleft")
+            static let testAlignmentRight: UIImage? = getSystemAsset(systemName: "text.alignright")
+            static let boldText: UIImage? = getSystemAsset(systemName: "bold")
+            static let changeTextBackgroundSelected: UIImage? = getSystemAsset(systemName: "eyedropper.halffull")
+            static let changeTextBackground: UIImage? = getSystemAsset(systemName: "eyedropper")
+        }
+        
         private static func getSystemAsset(systemName: String) -> UIImage? {
             if #available(iOS 13, *) {
                 let image = UIImage(systemName: systemName)

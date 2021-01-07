@@ -40,6 +40,7 @@ class PostStatusViewController: UIViewController {
     private let backgroundColorView = UIView()
     private let statusTextView = UITextView()
     private let actionsToolbar = UIToolbar()
+    private let secondaryAcationsToolbar = UIToolbar()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,8 +50,6 @@ class PostStatusViewController: UIViewController {
         configureSelf()
         configureStatusTextiew()
         configureActionsToolbar()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(captureStatus))
-        addCloseButtonItem(toLeft: true)
     }
     
     @objc func captureStatus() {
@@ -132,8 +131,32 @@ class PostStatusViewController: UIViewController {
         }
     }
     
+    @objc func didTapDoneButton() {
+        statusTextView.endEditing(true)
+    }
+    
+    @objc func didChangeBackgroundColorButton() {
+        statusTextView.endEditing(true)
+    }
+    
+    @objc func didTapTextAlignment() {
+        statusTextView.endEditing(true)
+    }
+    
+    @objc func didTapBoldText() {
+        statusTextView.endEditing(true)
+    }
+    
+    @objc func didTapChangeTextbackground() {
+        statusTextView.endEditing(true)
+    }
+    
     deinit {
         print("ahhhhhh❌") // TODO not being deinit!!!
+    }
+    
+    @objc func closeViewController() {
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -153,6 +176,12 @@ extension PostStatusViewController {
         let (_, _, bottomBackgroundConstraint, _) = backgroundColorView --> view
         bottomConstraint = bottomBackgroundConstraint
         backgroundColorView.backgroundColor = .cyan
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapDoneButton))
+        backgroundColorView.addGestureRecognizer(tapGesture)
+        view.backgroundColor = .cyan
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(closeViewController))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(captureStatus))
+
     }
     
     private func configureStatusTextiew() {
@@ -167,7 +196,6 @@ extension PostStatusViewController {
         statusTextTopConstraint = statusTextView.topAnchor --> backgroundColorView.topAnchor + (Const.View.m16 + view.safeAreaInsets.top)
         statusTextBottomConstraint =  statusTextView.bottomAnchor -->  backgroundColorView.bottomAnchor + -Const.View.m16
         statusTextTopConstraint.isActive = false
-
         statusTextBottomConstraint.isActive = false
         statusTextView.backgroundColor = .clear
         statusTextView.textAlignment = .center
@@ -180,6 +208,29 @@ extension PostStatusViewController {
         actionsToolbar.leadingAnchor --> view.leadingAnchor
         actionsToolbar.trailingAnchor --> view.trailingAnchor
         actionsToolbarBottomConstraint = actionsToolbar.bottomAnchor --> view.bottomAnchor + -(Const.View.m16 + view.safeAreaInsets.bottom)
+        let doneButton = YerrButton(type: .system)
+        doneButton.frame = CGRect(x: 0, y: 0, width: 40, height: 50)
+        doneButton.setTitle("Done", for: .normal)
+        doneButton.autoresizesSubviews = true
+        doneButton.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        doneButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        // TODO : style button here!!!
+        doneButton.addTarget(self, action: #selector(didTapDoneButton), for: .touchUpInside)
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let barButton = UIBarButtonItem(customView: doneButton)
+        let barButtonBackgroundColor = UIBarButtonItem(image: Const.Assets.PostStatus.color, style: .plain, target: self, action: #selector(didChangeBackgroundColorButton))
+        let batButtomTextAlignment = UIBarButtonItem(image: Const.Assets.PostStatus.textAlignmentCenter, style: .plain, target: self, action: #selector(didTapTextAlignment))
+        let barButtonBoldText = UIBarButtonItem(image: Const.Assets.PostStatus.boldText, style: .plain, target: self, action: #selector(didTapBoldText))
+        let barButtonChangeTextBackground = UIBarButtonItem(image: Const.Assets.PostStatus.changeTextBackground, style: .plain, target: self, action: #selector(didTapChangeTextbackground))
+        
+        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        fixedSpace.width = Const.View.m12
+        
+        actionsToolbar.setItems([barButtonBackgroundColor, fixedSpace, batButtomTextAlignment, fixedSpace, barButtonBoldText, fixedSpace, barButtonChangeTextBackground, spacer, barButton], animated: false)
+    }
+    
+    private func configureSecondaryAcationsToolbar() {
+        
     }
     
     private func loadPhotos() {
@@ -216,7 +267,7 @@ extension PostStatusViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         if textView.contentSize.height >= backgroundColorView.bounds.height {
             textView.isScrollEnabled = true
-            statusTextTopConstraint.isActive = true
+            statusTextTopConstraint.isActive = true // TODO: activate constrainst when need
             statusTextBottomConstraint.isActive = true
         } else {
             textView.isScrollEnabled = false
