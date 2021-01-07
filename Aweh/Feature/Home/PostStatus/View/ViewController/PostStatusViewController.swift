@@ -50,6 +50,7 @@ class PostStatusViewController: UIViewController {
         configureSelf()
         configureStatusTextiew()
         configureActionsToolbar()
+        configureSecondaryActionsToolbar()
     }
     
     @objc func captureStatus() {
@@ -132,7 +133,11 @@ class PostStatusViewController: UIViewController {
     }
     
     @objc func didTapDoneButton() {
-        statusTextView.endEditing(true)
+        if statusTextView.isFirstResponder {
+            statusTextView.endEditing(true)
+        } else {
+            statusTextView.becomeFirstResponder()
+        }
     }
     
     @objc func didChangeBackgroundColorButton() {
@@ -191,7 +196,7 @@ extension PostStatusViewController {
         statusTextView.leadingAnchor --> backgroundColorView.leadingAnchor + Const.View.m16
         statusTextView.trailingAnchor --> backgroundColorView.trailingAnchor + -Const.View.m16
         statusTextView.centerYAnchor --> backgroundColorView.centerYAnchor
-        statusTextView.text = "Hello there"
+        statusTextView.heightAnchor ->= 50
         statusTextView.delegate = self
         statusTextTopConstraint = statusTextView.topAnchor --> backgroundColorView.topAnchor + (Const.View.m16 + view.safeAreaInsets.top)
         statusTextBottomConstraint =  statusTextView.bottomAnchor -->  backgroundColorView.bottomAnchor + -Const.View.m16
@@ -208,29 +213,46 @@ extension PostStatusViewController {
         actionsToolbar.leadingAnchor --> view.leadingAnchor
         actionsToolbar.trailingAnchor --> view.trailingAnchor
         actionsToolbarBottomConstraint = actionsToolbar.bottomAnchor --> view.bottomAnchor + -(Const.View.m16 + view.safeAreaInsets.bottom)
+        
         let doneButton = YerrButton(type: .system)
-        doneButton.frame = CGRect(x: 0, y: 0, width: 40, height: 50)
+        doneButton.frame = CGRect(x: 0, y: 0, width: 60, height: 50)
         doneButton.setTitle("Done", for: .normal)
         doneButton.autoresizesSubviews = true
         doneButton.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         doneButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-        // TODO : style button here!!!
         doneButton.addTarget(self, action: #selector(didTapDoneButton), for: .touchUpInside)
+        // TODO : style button here!!!
+        
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let barButton = UIBarButtonItem(customView: doneButton)
-        let barButtonBackgroundColor = UIBarButtonItem(image: Const.Assets.PostStatus.color, style: .plain, target: self, action: #selector(didChangeBackgroundColorButton))
-        let batButtomTextAlignment = UIBarButtonItem(image: Const.Assets.PostStatus.textAlignmentCenter, style: .plain, target: self, action: #selector(didTapTextAlignment))
-        let barButtonBoldText = UIBarButtonItem(image: Const.Assets.PostStatus.boldText, style: .plain, target: self, action: #selector(didTapBoldText))
-        let barButtonChangeTextBackground = UIBarButtonItem(image: Const.Assets.PostStatus.changeTextBackground, style: .plain, target: self, action: #selector(didTapChangeTextbackground))
-        
+        let barButtonBackgroundColor = UIBarButtonItem(image: Const.Assets.PostStatus.color, style: .plain,
+                                                       target: self, action: #selector(didChangeBackgroundColorButton))
+        let batButtomTextAlignment = UIBarButtonItem(image: Const.Assets.PostStatus.textAlignmentCenter, style: .plain,
+                                                     target: self, action: #selector(didTapTextAlignment))
+        let barButtonBoldText = UIBarButtonItem(image: Const.Assets.PostStatus.boldText, style: .plain,
+                                                target: self, action: #selector(didTapBoldText))
+        let barButtonChangeTextBackground = UIBarButtonItem(image: Const.Assets.PostStatus.changeTextBackground, style: .plain,
+                                                            target: self, action: #selector(didTapChangeTextbackground))
         let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         fixedSpace.width = Const.View.m12
-        
-        actionsToolbar.setItems([barButtonBackgroundColor, fixedSpace, batButtomTextAlignment, fixedSpace, barButtonBoldText, fixedSpace, barButtonChangeTextBackground, spacer, barButton], animated: false)
+        actionsToolbar.setItems([barButtonBackgroundColor,
+                                 fixedSpace,
+                                 batButtomTextAlignment,
+                                 fixedSpace, barButtonBoldText,
+                                 fixedSpace,
+                                 barButtonChangeTextBackground,
+                                 spacer,
+                                 barButton], animated: false)
     }
     
-    private func configureSecondaryAcationsToolbar() {
+    private func configureSecondaryActionsToolbar() {
+        secondaryAcationsToolbar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+        secondaryAcationsToolbar.autoresizingOff()
+        view.addSubview(secondaryAcationsToolbar)
+        secondaryAcationsToolbar.leadingAnchor --> view.leadingAnchor
+        secondaryAcationsToolbar.trailingAnchor --> view.trailingAnchor
         
+        secondaryAcationsToolbar.bottomAnchor --> actionsToolbar.topAnchor
     }
     
     private func loadPhotos() {
