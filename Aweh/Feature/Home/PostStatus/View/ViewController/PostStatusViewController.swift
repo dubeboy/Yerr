@@ -13,6 +13,7 @@ import Photos
 // https://www.raywenderlich.com/5960-text-kit-tutorial-getting-started
 // https://stackoverflow.com/questions/42842215/attributed-text-with-uitextfield
 // https://www.xspdf.com/resolution/50437458.html
+// https://pspdfkit.com/blog/2020/blur-effect-materials-on-ios/
 class PostStatusViewController: UIViewController {
     
     var presenter: PostStatusPresenter!
@@ -40,7 +41,9 @@ class PostStatusViewController: UIViewController {
     private let backgroundColorView = UIView()
     private let statusTextView = UITextView()
     private let actionsToolbar = UIToolbar()
-    private let secondaryAcationsToolbar = UIToolbar()
+    private let secondaryActionsToolbar = UIView()
+    private let secondarySctionsScrollView = UIScrollView()
+    private let contantsStackView = UIStackView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,20 +143,21 @@ class PostStatusViewController: UIViewController {
         }
     }
     
-    @objc func didChangeBackgroundColorButton() {
-        statusTextView.endEditing(true)
+    @objc func didChangeBackgroundColorButton(_ sender: UITapGestureRecognizer) {
+        
+       
     }
     
-    @objc func didTapTextAlignment() {
-        statusTextView.endEditing(true)
+    @objc func didTapTextAlignment(_ sender: UITapGestureRecognizer) {
+        
     }
     
-    @objc func didTapBoldText() {
-        statusTextView.endEditing(true)
+    @objc func didTapBoldText(_ sender: UITapGestureRecognizer) {
+        
     }
     
-    @objc func didTapChangeTextbackground() {
-        statusTextView.endEditing(true)
+    @objc func didTapChangeTextbackground(_ sender: UITapGestureRecognizer) {
+        
     }
     
     deinit {
@@ -246,13 +250,23 @@ extension PostStatusViewController {
     }
     
     private func configureSecondaryActionsToolbar() {
-        secondaryAcationsToolbar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
-        secondaryAcationsToolbar.autoresizingOff()
-        view.addSubview(secondaryAcationsToolbar)
-        secondaryAcationsToolbar.leadingAnchor --> view.leadingAnchor
-        secondaryAcationsToolbar.trailingAnchor --> view.trailingAnchor
+       
+        let blurEffectView = UIVisualEffectView(effect: nil)
+        blurEffectView.autoresizingOff()
+        secondaryActionsToolbar.autoresizingOff()
         
-        secondaryAcationsToolbar.bottomAnchor --> actionsToolbar.topAnchor
+//        blurEffectView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+        view.addSubview(blurEffectView)
+        blurEffectView.autoresizingOff()
+        blurEffectView.leadingAnchor --> view.leadingAnchor
+        blurEffectView.trailingAnchor --> view.trailingAnchor
+        blurEffectView.heightAnchor --> actionsToolbar.bounds.height
+        blurEffectView.bottomAnchor --> actionsToolbar.topAnchor
+        blurEffectView.contentView.addSubview(secondaryActionsToolbar)
+        blurEffectView.effect = UIBlurEffect(style: .prominent) // TODO: change blur effect
+            
+        secondaryActionsToolbar --> blurEffectView
+        secondaryActionsToolbar.isHidden = false
     }
     
     private func loadPhotos() {
