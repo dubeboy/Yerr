@@ -46,6 +46,8 @@ class PostStatusViewController: UIViewController {
     private let secondaryActionsView = UIView()
     private let secondaryActionsScrollView = UIScrollView()
     private let contantsStackView = UIStackView()
+    private let blurEffectView = UIVisualEffectView(effect: nil)
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -146,7 +148,7 @@ class PostStatusViewController: UIViewController {
     }
     
     @objc func didTapChangeBackgroundColorButton(_ sender: UIBarButtonItem) {
-        
+        blurEffectView.isHidden = false
         if presenter.tagForDidTapBackgroundColor != contantsStackView.tag {
             contantsStackView.arrangedSubviews.forEach {
                 $0.removeFromSuperview()
@@ -167,8 +169,19 @@ class PostStatusViewController: UIViewController {
        
     }
     
-    @objc func didTapTextAlignment() {
-       
+    // TODO: record how many people click this button to find the prefred text alignment
+    @objc func didTapTextAlignment(_ sender: UIBarButtonItem) {
+        blurEffectView.isHidden = true
+        if sender.image == Const.Assets.PostStatus.testAlignmentLeft {
+            sender.image = Const.Assets.PostStatus.textAlignmentCenter
+            statusTextView.textAlignment = .center
+        } else if sender.image == Const.Assets.PostStatus.textAlignmentCenter {
+            sender.image = Const.Assets.PostStatus.testAlignmentRight
+            statusTextView.textAlignment = .right
+        } else if  sender.image == Const.Assets.PostStatus.testAlignmentRight {
+            sender.image = Const.Assets.PostStatus.testAlignmentLeft
+            statusTextView.textAlignment = .left
+        }
     }
     
     @objc private func didTapColorToChange(_ sender: UIButton) {
@@ -280,7 +293,6 @@ extension PostStatusViewController {
     
     private func configureSecondaryActionsToolbar() {
        
-        let blurEffectView = UIVisualEffectView(effect: nil)
         blurEffectView.autoresizingOff()
         secondaryActionsView.autoresizingOff()
         
@@ -300,12 +312,12 @@ extension PostStatusViewController {
         
         configureStackView()
         secondaryActionsScrollView.addSubview(contantsStackView)
-        contantsStackView.leadingAnchor --> secondaryActionsScrollView.leadingAnchor + Const.View.m8
+        contantsStackView.leadingAnchor --> secondaryActionsScrollView.leadingAnchor + (Const.View.m8 + 2.5)
         contantsStackView.heightAnchor --> secondaryActionsScrollView.heightAnchor
         contantsStackView.centerYAnchor --> secondaryActionsScrollView.centerYAnchor
             
         secondaryActionsView --> blurEffectView
-        secondaryActionsView.isHidden = false
+        blurEffectView.isHidden = true
     }
     
     private func configureScrollView() {

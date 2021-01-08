@@ -126,8 +126,8 @@
             filePath = "Aweh/Feature/Home/PostStatus/View/ViewController/PostStatusViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
             landmarkName = "didTapColorToChange(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -142,8 +142,8 @@
             filePath = "Aweh/Feature/Home/PostStatus/View/ViewController/PostStatusViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
             landmarkName = "didTapChangeBackgroundColorButton(_:)"
             landmarkType = "7">
             <Locations>
