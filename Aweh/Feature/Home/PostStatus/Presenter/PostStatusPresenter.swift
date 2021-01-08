@@ -10,8 +10,14 @@ import Photos
 import Merchant // TODO should not import this here
 
 protocol PostStatusPresenter {
+    var colors: [String] { get }
+    var textColors: [String] { get }
     var placeHolderText: String { get }
     var numberOfAllowedChars: String { get }
+    var tagForDidTapBackgroundColor: Int { get }
+    var tagForChangeTextAlignment: Int { get }
+    var tagForBoldText: Int { get }
+    var tagForChangeTextColor: Int { get }
     
     func saveCurrentLocation(location: Location)
     
@@ -27,13 +33,25 @@ protocol PostStatusPresenter {
 
 
 class PostStatusPresenterImplementation: PostStatusPresenter {
-   
+    
+    let tagForDidTapBackgroundColor: Int = 1001
+    let tagForChangeTextAlignment: Int = 2001
+    let tagForBoldText: Int = 3001
+    let tagForChangeTextColor: Int = 4001
+    
+    var colors: [String]
+    var textColors: [String]
     
     let feedInteractor: StatusesUseCase = FeedInteractor()
     var viewModel = PostStatusViewModel()
-    
+   
     var placeHolderText: String {
         viewModel.placeHolderText
+    }
+    
+    init() {
+        colors = viewModel.colors
+        textColors = viewModel.textColors
     }
     
     // is it still in use

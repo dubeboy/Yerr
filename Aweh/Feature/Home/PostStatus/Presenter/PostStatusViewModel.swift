@@ -14,6 +14,8 @@ struct PostStatusViewModel {
     let numberOfAllowedChars = 240
     var locationState: LocationStateViewModel = .waiting
     var selectedImages: [String: PHAsset] = [:]
+    let colors = ["264653", "2A9D8F", "e9c46a", "f4a261", "e76f51"]
+    let textColors = ["000000", "14213d", "fca311", "e5e5e5", "ffffff"]
     
     var currentLocation: Location? = nil {
         didSet {

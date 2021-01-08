@@ -14,6 +14,8 @@ import Photos
 // https://stackoverflow.com/questions/42842215/attributed-text-with-uitextfield
 // https://www.xspdf.com/resolution/50437458.html
 // https://pspdfkit.com/blog/2020/blur-effect-materials-on-ios/
+// maybe we could allow the user add some maerials to their own contant and also add a materils background???
+// definetly need so add some vibrancy and some diagnally cut background images
 class PostStatusViewController: UIViewController {
     
     var presenter: PostStatusPresenter!
@@ -34,15 +36,15 @@ class PostStatusViewController: UIViewController {
     private var statusTextTopConstraint: NSLayoutConstraint
     @LateInit
     private var actionsToolbarBottomConstraint: NSLayoutConstraint
-    
+        
     var assets: [String: PHAsset] = [:]
 
     private let profileImage: UIImageView = UIImageView()
     private let backgroundColorView = UIView()
     private let statusTextView = UITextView()
     private let actionsToolbar = UIToolbar()
-    private let secondaryActionsToolbar = UIView()
-    private let secondarySctionsScrollView = UIScrollView()
+    private let secondaryActionsView = UIView()
+    private let secondaryActionsScrollView = UIScrollView()
     private let contantsStackView = UIStackView()
 
     override func viewDidLoad() {
@@ -143,20 +145,47 @@ class PostStatusViewController: UIViewController {
         }
     }
     
-    @objc func didChangeBackgroundColorButton(_ sender: UITapGestureRecognizer) {
+    @objc func didTapChangeBackgroundColorButton(_ sender: UIBarButtonItem) {
         
+        if presenter.tagForDidTapBackgroundColor != contantsStackView.tag {
+            contantsStackView.arrangedSubviews.forEach {
+                $0.removeFromSuperview()
+            }
+            for (index, color) in presenter.colors.enumerated() {
+                let button = YerrButton()
+                guard let image = Const.Assets.PostStatus.color?.withRenderingMode(.alwaysTemplate) else { return }
+                button.setImage(image, for: .normal)
+                button.tag = index
+                button.tintColor = UIColor(hex: color)
+                button.addTarget(self, action: #selector(didTapColorToChange(_:)), for: .touchUpInside)
+                
+                self.contantsStackView.addArrangedSubview(button)
+            }
+            secondaryActionsScrollView.contentSize = CGSize(width: (30) * presenter.colors.count , height: 50)
+            contantsStackView.tag = presenter.tagForDidTapBackgroundColor
+        }
        
     }
     
-    @objc func didTapTextAlignment(_ sender: UITapGestureRecognizer) {
+    @objc func didTapTextAlignment() {
+       
+    }
+    
+    @objc private func didTapColorToChange(_ sender: UIButton) {
+        guard let button = sender as? YerrButton else {
+            return
+        }
+
+        backgroundColorView.backgroundColor = UIColor(hex: presenter.colors[button.tag])
+        view.backgroundColor = UIColor(hex: presenter.colors[button.tag])
+    
+    }
+    
+    @objc func didTapBoldText() {
         
     }
     
-    @objc func didTapBoldText(_ sender: UITapGestureRecognizer) {
-        
-    }
-    
-    @objc func didTapChangeTextbackground(_ sender: UITapGestureRecognizer) {
+    @objc func didTapChangeTextbackground() {
         
     }
     
@@ -169,7 +198,7 @@ class PostStatusViewController: UIViewController {
     }
 }
 
-// MARK: PRIVATE Functions
+// MARK: - PRIVATE Functions
 
 extension PostStatusViewController {
     private func noAuthorised() {
@@ -230,7 +259,7 @@ extension PostStatusViewController {
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let barButton = UIBarButtonItem(customView: doneButton)
         let barButtonBackgroundColor = UIBarButtonItem(image: Const.Assets.PostStatus.color, style: .plain,
-                                                       target: self, action: #selector(didChangeBackgroundColorButton))
+                                                       target: self, action: #selector(didTapChangeBackgroundColorButton))
         let batButtomTextAlignment = UIBarButtonItem(image: Const.Assets.PostStatus.textAlignmentCenter, style: .plain,
                                                      target: self, action: #selector(didTapTextAlignment))
         let barButtonBoldText = UIBarButtonItem(image: Const.Assets.PostStatus.boldText, style: .plain,
@@ -253,7 +282,7 @@ extension PostStatusViewController {
        
         let blurEffectView = UIVisualEffectView(effect: nil)
         blurEffectView.autoresizingOff()
-        secondaryActionsToolbar.autoresizingOff()
+        secondaryActionsView.autoresizingOff()
         
 //        blurEffectView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
         view.addSubview(blurEffectView)
@@ -262,11 +291,34 @@ extension PostStatusViewController {
         blurEffectView.trailingAnchor --> view.trailingAnchor
         blurEffectView.heightAnchor --> actionsToolbar.bounds.height
         blurEffectView.bottomAnchor --> actionsToolbar.topAnchor
-        blurEffectView.contentView.addSubview(secondaryActionsToolbar)
+        blurEffectView.contentView.addSubview(secondaryActionsView)
         blurEffectView.effect = UIBlurEffect(style: .prominent) // TODO: change blur effect
+        
+        configureScrollView()
+        secondaryActionsView.addSubview(secondaryActionsScrollView)
+        secondaryActionsScrollView --> secondaryActionsView
+        
+        configureStackView()
+        secondaryActionsScrollView.addSubview(contantsStackView)
+        contantsStackView.leadingAnchor --> secondaryActionsScrollView.leadingAnchor + Const.View.m8
+        contantsStackView.heightAnchor --> secondaryActionsScrollView.heightAnchor
+        contantsStackView.centerYAnchor --> secondaryActionsScrollView.centerYAnchor
             
-        secondaryActionsToolbar --> blurEffectView
-        secondaryActionsToolbar.isHidden = false
+        secondaryActionsView --> blurEffectView
+        secondaryActionsView.isHidden = false
+    }
+    
+    private func configureScrollView() {
+        secondaryActionsScrollView.autoresizingOff()
+//        secondaryActionsScrollView.isPagingEnabled = true
+    }
+    
+    private func configureStackView() {
+        contantsStackView.autoresizingOff()
+        contantsStackView.alignment = .fill
+        contantsStackView.distribution = .fillEqually
+        contantsStackView.axis = .horizontal
+        contantsStackView.spacing = Const.View.m8
     }
     
     private func loadPhotos() {

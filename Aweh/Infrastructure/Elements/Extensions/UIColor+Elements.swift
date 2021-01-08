@@ -60,7 +60,7 @@ extension UIColor {
     }
     
     convenience init(hex: String, alpha: CGFloat = 1.0) {
-        guard let colorHex = UInt32(hex) else {
+        guard let colorHex = UInt32(hex, radix: 16) else {
             preconditionFailure(AppStrings.Error.invalideColor)
         }
         self.init(
