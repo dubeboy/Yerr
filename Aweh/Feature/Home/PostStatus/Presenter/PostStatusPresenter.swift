@@ -8,6 +8,7 @@
 
 import Photos
 import Merchant // TODO should not import this here
+import UIKit
 
 protocol PostStatusPresenter {
     var colors: [String] { get }
@@ -18,6 +19,8 @@ protocol PostStatusPresenter {
     var tagForChangeTextAlignment: Int { get }
     var tagForBoldText: Int { get }
     var tagForChangeTextColor: Int { get }
+    var selectedTextAlignment: PostStatusViewModel.TextAlignment { get set }
+    var textWeight: PostStatusViewModel.TextWeight { get set }
     
     func saveCurrentLocation(location: Location)
     
@@ -123,6 +126,24 @@ class PostStatusPresenterImplementation: PostStatusPresenter {
 // MARK: Private functions
 
 extension PostStatusPresenterImplementation {
+    var selectedTextAlignment: PostStatusViewModel.TextAlignment {
+        get {
+            viewModel.selectedTextAlignment
+        }
+        set {
+            viewModel.selectedTextAlignment = newValue
+        }
+    }
+    
+    var textWeight: PostStatusViewModel.TextWeight {
+        get {
+            viewModel.textWeight
+        }
+        set {
+            viewModel.textWeight = newValue
+        }
+    }
+    
     private func createMultipartBody() -> [MultipartBody] {
         var multipartImages = [MultipartBody]()
         

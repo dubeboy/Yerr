@@ -25,6 +25,7 @@ enum Const {
         static let m4: CGFloat = 2
         static let radius: CGFloat = 10
         static let borderWidth: CGFloat = m2
+        
     }
     
     // MARK: App assets
@@ -80,7 +81,17 @@ enum Const {
             static let textAlignmentCenter: UIImage? = getSystemAsset(systemName: "text.aligncenter")
             static let testAlignmentLeft: UIImage? = getSystemAsset(systemName: "text.alignleft")
             static let testAlignmentRight: UIImage? = getSystemAsset(systemName: "text.alignright")
-            static let boldText: UIImage? = getSystemAsset(systemName: "bold")
+            static let normalText: UIImage? = getSystemAsset(systemName: "bold")
+            static let boldText: UIImage? = {
+                let image: UIImage?
+                if #available(iOS 13.0, *) {
+                   image =  UIImage(systemName: "bold", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))
+                } else {
+                   image = UIImage(named: "icon.bold")
+                }
+                return image
+            }()
+            static let italicText: UIImage? = getSystemAsset(systemName: "italic")
             static let changeTextBackgroundSelected: UIImage? = getSystemAsset(systemName: "eyedropper.halffull")
             static let changeTextBackground: UIImage? = getSystemAsset(systemName: "eyedropper")
         }

@@ -16,6 +16,7 @@ import Photos
 // https://pspdfkit.com/blog/2020/blur-effect-materials-on-ios/
 // maybe we could allow the user add some maerials to their own contant and also add a materils background???
 // definetly need so add some vibrancy and some diagnally cut background images
+//https://developer.apple.com/documentation/uikit/uifont/scaling_fonts_automatically
 class PostStatusViewController: UIViewController {
     
     var presenter: PostStatusPresenter!
@@ -174,13 +175,16 @@ class PostStatusViewController: UIViewController {
         blurEffectView.isHidden = true
         if sender.image == Const.Assets.PostStatus.testAlignmentLeft {
             sender.image = Const.Assets.PostStatus.textAlignmentCenter
+            presenter.selectedTextAlignment = .center
             statusTextView.textAlignment = .center
         } else if sender.image == Const.Assets.PostStatus.textAlignmentCenter {
             sender.image = Const.Assets.PostStatus.testAlignmentRight
+            presenter.selectedTextAlignment = .right
             statusTextView.textAlignment = .right
         } else if  sender.image == Const.Assets.PostStatus.testAlignmentRight {
             sender.image = Const.Assets.PostStatus.testAlignmentLeft
             statusTextView.textAlignment = .left
+            presenter.selectedTextAlignment = .left
         }
     }
     
@@ -194,8 +198,22 @@ class PostStatusViewController: UIViewController {
     
     }
     
-    @objc func didTapBoldText() {
-        
+    @objc func didTapBoldText(_ sender: UIBarButtonItem) {
+//        statusTextView.font = UIFont.preferredFont(forTextStyle: .body)
+//        statusTextView.adjustsFontForContentSizeCategory = true
+        if presenter.textWeight == .normal {
+            statusTextView.font = UIFont.boldSystemFont(ofSize: 16)
+            sender.image = Const.Assets.PostStatus.boldText
+            presenter.textWeight = .bold
+        } else if presenter.textWeight == .bold {
+            statusTextView.font = UIFont.italicSystemFont(ofSize: 16)
+            sender.image = Const.Assets.PostStatus.italicText
+            presenter.textWeight = .italic
+        } else {
+            statusTextView.font = UIFont.systemFont(ofSize: 16)
+            sender.image = Const.Assets.PostStatus.normalText
+            presenter.textWeight = .normal
+        }
     }
     
     @objc func didTapChangeTextbackground() {

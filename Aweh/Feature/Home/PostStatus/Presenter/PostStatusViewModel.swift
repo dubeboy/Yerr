@@ -10,12 +10,22 @@ import Photos
 
 struct PostStatusViewModel {
     
+    enum TextAlignment: Int {
+        case left, right, center
+    }
+    
+    enum TextWeight: Int {
+        case bold, italic, normal
+    }
+    
     let placeHolderText: String = "Aweh!!! What's poppin'?"
     let numberOfAllowedChars = 240
     var locationState: LocationStateViewModel = .waiting
     var selectedImages: [String: PHAsset] = [:]
     let colors = ["264653", "2A9D8F", "e9c46a", "f4a261", "e76f51"]
     let textColors = ["000000", "14213d", "fca311", "e5e5e5", "ffffff"]
+    var selectedTextAlignment: TextAlignment = .center
+    var textWeight: TextWeight = .normal
     
     var currentLocation: Location? = nil {
         didSet {
