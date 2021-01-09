@@ -46,8 +46,8 @@
             filePath = "Aweh/Feature/Home/CaptureStatus/Presenter/CaptureStatusPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
             landmarkName = "getImages(avAssets:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "Aweh/Feature/Home/CaptureStatus/Presenter/CaptureStatusPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
             landmarkName = "getImages(avAssets:completion:)"
             landmarkType = "7">
          </BreakpointContent>

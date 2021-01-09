@@ -58,6 +58,7 @@ enum Const {
         
         enum CaptureStatus {
             static let openGalleryIcon: UIImage? = UIImage(named: "gallery")
+            static let chevronUp: UIImage? = UIImage(named: "chevron.up")
         }
         
         enum TrimVideo {

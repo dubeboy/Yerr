@@ -21,7 +21,7 @@ class EditPhotoViewController: UIViewController {
         super.viewDidLoad()
         configureSelf()
         configureImageView()
-        let image = UIImage(data: presenter.imageData[0])
+        let image = UIImage(data: presenter.imageData[0]) // TODO: crash here
         imageView.image = image
     }
 

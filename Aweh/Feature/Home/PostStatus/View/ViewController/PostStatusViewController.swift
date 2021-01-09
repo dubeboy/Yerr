@@ -149,7 +149,7 @@ class PostStatusViewController: UIViewController {
     }
     
     @objc func didTapChangeBackgroundColorButton(_ sender: UIBarButtonItem) {
-        blurEffectView.isHidden = false
+        blurEffectView.isHidden = !blurEffectView.isHidden
         if presenter.tagForDidTapBackgroundColor != contantsStackView.tag {
             contantsStackView.arrangedSubviews.forEach {
                 $0.removeFromSuperview()

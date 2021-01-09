@@ -24,7 +24,6 @@ extension HomeCoordinator: PhotosGalleryCoordinator {
         // TODO: check if iOS 14 then lauch the phos iOS 14
         
         let photosNavigationController = UINavigationController(rootViewController: viewController)
-        photosNavigationController.modalPresentationStyle = .fullScreen
         navigationController?.present(photosNavigationController, animated: true, completion: nil)
     }
     

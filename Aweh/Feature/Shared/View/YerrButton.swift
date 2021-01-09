@@ -19,12 +19,12 @@ class YerrButton: UIButton {
     
     func setImage(fillBoundsWith image: UIImage?, for state: UIControl.State = .normal) {
         setImage(image, for: state)
-        contentMode = .scaleToFill
+        contentMode = .scaleAspectFit
         imageEdgeInsets = .zero
         contentEdgeInsets = .zero
         contentVerticalAlignment = .fill
         contentHorizontalAlignment = .fill
-        imageView?.contentMode = .scaleToFill
+        imageView?.contentMode = .scaleAspectFit
         imageView?.clipsToBounds = false
     }
     

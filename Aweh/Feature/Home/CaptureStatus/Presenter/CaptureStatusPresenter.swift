@@ -11,9 +11,11 @@ import Photos
 
 protocol CaptureStatusPresenter {
     func getImages(avAssets: [String: PHAsset], completion: @escaping (Bool, [Data]) -> Void)
+    var photosCollectionViewPresenter: PhotosCollectionViewPresenter { get }
 }
 
 class CaptureStatusPresenterImplementation {
+    let photosCollectionViewPresenter: PhotosCollectionViewPresenter = PhotosCollectionViewPresenterImplemantation()
     private let manager = PHImageManager.default()
 }
 

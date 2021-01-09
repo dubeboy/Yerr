@@ -47,7 +47,6 @@
 		712C06882571E4730073DDC1 /* TrimVideoViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712C06872571E4730073DDC1 /* TrimVideoViewPresenter.swift */; };
 		712C068C2571E65B0073DDC1 /* TrimVideoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712C068B2571E65B0073DDC1 /* TrimVideoCoordinator.swift */; };
 		712C06972571F3E00073DDC1 /* CaptureStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712C06962571F3E00073DDC1 /* CaptureStatusViewController.swift */; };
-		712C069C2571F4F50073DDC1 /* CaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712C069B2571F4F50073DDC1 /* CaptureButton.swift */; };
 		712D257B2569165E0071C82C /* StatusesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712D257A2569165E0071C82C /* StatusesView.swift */; };
 		712FC38F2545F70E00B7D7D4 /* InitPhoneNumberVerficationCodeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712FC38E2545F70E00B7D7D4 /* InitPhoneNumberVerficationCodeCoordinator.swift */; };
 		713549B1248BE45A0009EE6A /* UICollectionView+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */; };
@@ -142,6 +141,8 @@
 		71C09FD8259F8A4F001EA043 /* UITextView+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C09FD7259F8A4F001EA043 /* UITextView+Elements.swift */; };
 		71C1048B25A4F841007434CF /* Merchant in Frameworks */ = {isa = PBXBuildFile; productRef = 71C1048A25A4F841007434CF /* Merchant */; };
 		71C1048E25A4FEA2007434CF /* OverlayTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C1048D25A4FEA2007434CF /* OverlayTextView.swift */; };
+		71C1049825AA2007007434CF /* ImagesPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C1049725AA2006007434CF /* ImagesPreviewView.swift */; };
+		71C1049B25AA2799007434CF /* CaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C1049A25AA2799007434CF /* CaptureButton.swift */; };
 		71C46D9724B26A3A00A9DB14 /* PickInterestCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C46D9624B26A3A00A9DB14 /* PickInterestCollectionViewController.swift */; };
 		71C46DA024B26B0800A9DB14 /* PickInterestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C46D9E24B26B0800A9DB14 /* PickInterestCollectionViewCell.swift */; };
 		71C46DA124B26B0800A9DB14 /* PickInterestCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71C46D9F24B26B0800A9DB14 /* PickInterestCollectionViewCell.xib */; };
@@ -250,7 +251,6 @@
 		712C06872571E4730073DDC1 /* TrimVideoViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimVideoViewPresenter.swift; sourceTree = "<group>"; };
 		712C068B2571E65B0073DDC1 /* TrimVideoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimVideoCoordinator.swift; sourceTree = "<group>"; };
 		712C06962571F3E00073DDC1 /* CaptureStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureStatusViewController.swift; sourceTree = "<group>"; };
-		712C069B2571F4F50073DDC1 /* CaptureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureButton.swift; sourceTree = "<group>"; };
 		712D257A2569165E0071C82C /* StatusesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusesView.swift; sourceTree = "<group>"; };
 		712FC38E2545F70E00B7D7D4 /* InitPhoneNumberVerficationCodeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPhoneNumberVerficationCodeCoordinator.swift; sourceTree = "<group>"; };
 		713549B0248BE45A0009EE6A /* UICollectionView+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Elements.swift"; sourceTree = "<group>"; };
@@ -347,6 +347,8 @@
 		71BBCA7224B8C5DC00044629 /* GuageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuageViewModel.swift; sourceTree = "<group>"; };
 		71C09FD7259F8A4F001EA043 /* UITextView+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Elements.swift"; sourceTree = "<group>"; };
 		71C1048D25A4FEA2007434CF /* OverlayTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayTextView.swift; sourceTree = "<group>"; };
+		71C1049725AA2006007434CF /* ImagesPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesPreviewView.swift; sourceTree = "<group>"; };
+		71C1049A25AA2799007434CF /* CaptureButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureButton.swift; sourceTree = "<group>"; };
 		71C46D9624B26A3A00A9DB14 /* PickInterestCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickInterestCollectionViewController.swift; sourceTree = "<group>"; };
 		71C46D9E24B26B0800A9DB14 /* PickInterestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickInterestCollectionViewCell.swift; sourceTree = "<group>"; };
 		71C46D9F24B26B0800A9DB14 /* PickInterestCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickInterestCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -840,7 +842,8 @@
 		712C069A2571F4E60073DDC1 /* Widget */ = {
 			isa = PBXGroup;
 			children = (
-				712C069B2571F4F50073DDC1 /* CaptureButton.swift */,
+				71C1049A25AA2799007434CF /* CaptureButton.swift */,
+				71C1049725AA2006007434CF /* ImagesPreviewView.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -2128,9 +2131,9 @@
 				716A0C7F24A2BE3200F18ED6 /* IntrestsPresenter.swift in Sources */,
 				7172D617248F2D700083B7F6 /* UIView+Elements.swift in Sources */,
 				712C06882571E4730073DDC1 /* TrimVideoViewPresenter.swift in Sources */,
+				71C1049B25AA2799007434CF /* CaptureButton.swift in Sources */,
 				7116C10E24A2AD3100749620 /* SingleStatusViewController.swift in Sources */,
 				7116E350251AB2E100502C92 /* UserPrefrencies.swift in Sources */,
-				712C069C2571F4F50073DDC1 /* CaptureButton.swift in Sources */,
 				71CCF0DA249C23B30054C210 /* CommentCollectionViewCell.swift in Sources */,
 				712D257B2569165E0071C82C /* StatusesView.swift in Sources */,
 				71FFED0D25324D660019BA8C /* CirclesInterator.swift in Sources */,
@@ -2150,6 +2153,7 @@
 				7162C60B24884BAB002D8ED4 /* FeedPresenter.swift in Sources */,
 				711E7ABC256C15100060DB76 /* TrimPostVideoEndIndicatorView.swift in Sources */,
 				7109D9BE2543D6B3005579AF /* InfoInputCoordinator.swift in Sources */,
+				71C1049825AA2007007434CF /* ImagesPreviewView.swift in Sources */,
 				7162C60D24884BBB002D8ED4 /* StatusViewModel.swift in Sources */,
 				71E0E759254E05FD0040930C /* PresenterCountryCell.swift in Sources */,
 				71C1048E25A4FEA2007434CF /* OverlayTextView.swift in Sources */,

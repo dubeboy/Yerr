@@ -15,7 +15,7 @@ import Photos
 // create a small image preview view that shows up above the capture button
 // record the number od people use this screen to just selecl an image from gallary and those who take picture
 // also drop out rate from taking image and not sending it
-
+// Change videoGravity by folloing the HIGs 
 class CaptureStatusViewController: UIViewController {
     
     // MARK: Session Management
@@ -63,6 +63,9 @@ class CaptureStatusViewController: UIViewController {
                                                                                 .builtInDualCamera,
                                                                                 .builtInTrueDepthCamera],
                                                                                mediaType: .video, position: .unspecified)
+    
+    @LateInit
+    private var imagesPreview: ImagesPreviewView
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,13 +75,16 @@ class CaptureStatusViewController: UIViewController {
         configureOverlayView()
         setupPreviewLayer()
         configureCaptureSession()
+        configureImagesPreview()
         checkCameraPermission()
+        
         setNeedsStatusBarAppearanceUpdate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.makeTransparent()
+        imagesPreview.reloadData()
         switch setupResult {
             case .success:
                 startCaptureSession()
@@ -280,7 +286,7 @@ class CaptureStatusViewController: UIViewController {
 }
 
 //
-// MARK: Private helper functions
+// MARK: - Private helper functions
 //
 
 private extension CaptureStatusViewController {
@@ -318,6 +324,17 @@ private extension CaptureStatusViewController {
         openGalleryButton.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openGalleryAction))
         openGalleryButton.addGestureRecognizer(tapGesture)
+    }
+    
+    func configureImagesPreview() {
+        imagesPreview = ImagesPreviewView(itemSize: CGSize(width: 80, height: 80), presenter: presenter.photosCollectionViewPresenter)
+        imagesPreview.autoresizingOff()
+        view.addSubview(imagesPreview)
+        imagesPreview.heightAnchor --> 80
+        imagesPreview.leadingAnchor --> view.leadingAnchor
+        imagesPreview.trailingAnchor --> view.trailingAnchor
+        imagesPreview.bottomAnchor --> captureButton.topAnchor + -Const.View.m16
+        
     }
     
     func configureOverlayView() {
@@ -371,7 +388,7 @@ private extension CaptureStatusViewController {
 }
 
 //
-// MARK: Private Session functions
+// MARK: - Private Session functions
 //
 
 private extension CaptureStatusViewController {
