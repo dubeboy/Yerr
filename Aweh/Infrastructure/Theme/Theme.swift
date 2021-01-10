@@ -28,7 +28,7 @@ enum Const {
         
     }
     
-    // MARK: App assets
+    // MARK: - App assets
     enum Assets {
         
         private enum CommonAssets {
@@ -58,7 +58,7 @@ enum Const {
         
         enum CaptureStatus {
             static let openGalleryIcon: UIImage? = UIImage(named: "gallery")
-            static let chevronUp: UIImage? = UIImage(named: "chevron.up")
+            static let chevronUp: UIImage? = getSystemAsset(systemName: "chevron.up")
         }
         
         enum TrimVideo {
@@ -123,7 +123,7 @@ enum Const {
 //    
 //    https://colorhunt.co/palette/201882 dark theme baby
 //    https://colorhunt.co/palette/196113
-    // MARK: Colors
+    // MARK: - Colors
     /// Note: these color must support dark mode
     /// default naming: light mode
     
