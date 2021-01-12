@@ -214,7 +214,7 @@ private extension TrimVideoViewController {
                         creationRequest.addResource(with: .video, fileURL: outputFileURL, options: options)
                     } completionHandler: { (success, errror) in
                         if !success {
-                            Logger.log("Could not save photo to you library \(String(describing: errror)) success: \(success) localized desc: \(errror)")
+                            Logger.log("Could not save photo to you library \(String(describing: errror)) success: \(success) localized desc: \(String(describing: errror))")
                         } else {
                             Logger.log("saved video")
                         }
