@@ -18,6 +18,7 @@ import Photos
 // https://github.com/inspace-io/VideoOverlayProcessor
 //https://github.com/jiayilin/SafeWalk/blob/master/My_Camera_App/AVFoundation.framework/Headers/AVVideoComposition.h
 //http://bradgayman.com/blog/recordingAView/index.html
+//https://stackoverflow.com/questions/28813339/move-a-view-up-only-when-the-keyboard-covers-an-input-field?noredirect=1&lq=1
 class TrimVideoViewController: UIViewController {
     
     var presenter: TrimVideoViewPresenter!
@@ -54,11 +55,17 @@ class TrimVideoViewController: UIViewController {
     private let overlayTextInput = UITextView()
     @LateInit
     private var videoTextEditorBottomAnchor: NSLayoutConstraint
+    
+    @LateInit
+    private var actionsToolbar: TextViewActionsView
+    @LateInit
+    private var actionsToolbarBottomConstraint: NSLayoutConstraint
 
     override func viewDidLoad() {
         super.viewDidLoad()
         let rangeSliderWidth = view.frame.width - (Const.View.m16 * 4)
         rangeSliderView = TrimPostVideoRangeSliderView(frame: CGRect(origin: CGPoint(x: Const.View.m16 * 2, y: Const.View.m16 * 2), size: CGSize(width: rangeSliderWidth, height: rangeSliderHeight)))
+        actionsToolbar = TextViewActionsView(delegate: self, colors: presenter.colors)
         asset = AVURLAsset(url: presenter.videoURL)
         videoSize = getVideoSize()
        
@@ -66,6 +73,7 @@ class TrimVideoViewController: UIViewController {
         configureSelf()
         configurePlayVideoButton()
         configureVideoView()
+        configureActionsToolBar()
 //        congfigureOverlayTextView()
     }
     
@@ -104,12 +112,16 @@ class TrimVideoViewController: UIViewController {
 //        guard let frame = keyboardFrame(from: notification) else { return }
 //        videoTextEditorBottomAnchor.constant = -Const.View.m16
         // use this to change the center of the text and then reset it back
+        actionsToolbarBottomConstraint.constant = -(Const.View.m16 + view.safeAreaInsets.bottom)
+
     }
     
     @objc func keyboardWillAppear(notification: NSNotification) {
-        guard keyboardFrame(from: notification) != nil else { return }
+        guard let frame = keyboardFrame(from: notification) else { return }
 //        videoTextEditorBottomAnchor.constant = -frame.size.height - Const.View.m16
         // use this to change the center of the text and then reset it back
+        
+        actionsToolbarBottomConstraint.constant = -frame.size.height
         
     }
     
@@ -141,7 +153,7 @@ class TrimVideoViewController: UIViewController {
     }
 }
 
-// MARK: private functions
+// MARK: - private functions
 
 private extension TrimVideoViewController {
     private func configureSelf() {
@@ -166,13 +178,21 @@ private extension TrimVideoViewController {
     private func addOverlayTextView(color: UIColor) {
         let tag = presenter.appendEditableTextAndGetTag(text: " ")
         let overlayTextView = OverlayTextView(parent: view, backgroundColor: color, tag: tag)
-        overlayTextView.addToParent()
+        overlayTextView.addToParent() // TODO: needs fix
         overlayTextView.becomeFirstResponder()
     }
     
     private func doneEditingText() {
         overlayTextInput.text = ""
         videoTextEditorBackgroundView.isHidden = true
+    }
+    
+    private func configureActionsToolBar() {
+        actionsToolbar.autoresizingOff()
+        view.addSubview(actionsToolbar)
+        actionsToolbar.leadingAnchor --> view.leadingAnchor
+        actionsToolbar.trailingAnchor --> view.trailingAnchor
+        actionsToolbarBottomConstraint = actionsToolbar.bottomAnchor --> view.bottomAnchor + -(Const.View.m16 + view.safeAreaInsets.bottom)
     }
     
     @objc private func didTapSendAction() {
@@ -234,39 +254,39 @@ private extension TrimVideoViewController {
         overlayView.addGestureRecognizer(tapGesture)
     }
     
-    // 1st iteration we add this!!§! so that we cater to the small phones
-    // secend we should be able to edit in screen!!!
-    private func congfigureOverlayTextView() {
-        videoTextEditorBackgroundView.autoresizingOff()
-        overlayTextInput.autoresizingOff()
-        videoView.addSubview(videoTextEditorBackgroundView)
-        videoTextEditorBackgroundView.topAnchor --> view.topAnchor + Const.View.m16
-        videoTextEditorBottomAnchor = videoTextEditorBackgroundView.bottomAnchor --> view.bottomAnchor + -Const.View.m16
-        videoTextEditorBackgroundView.leadingAnchor --> view.leadingAnchor + Const.View.m16
-        videoTextEditorBackgroundView.trailingAnchor --> view.trailingAnchor + -Const.View.m16
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEndEditingAction))
-        videoTextEditorBackgroundView.addGestureRecognizer(tapGesture)
-
-        videoTextEditorBackgroundView.backgroundColor = Const.Color.TrimVideo.videoOverlayBackGround
-       
-        videoTextEditorBackgroundView.addSubview(overlayTextInput)
-        overlayTextInput.textAlignment = .center
-        overlayTextInput.backgroundColor = .gray
-        overlayTextInput.centerYAnchor --> videoTextEditorBackgroundView.centerYAnchor
-        overlayTextInput.centerXAnchor --> videoTextEditorBackgroundView.centerXAnchor
-        overlayTextInput.trailingAnchor --> videoTextEditorBackgroundView.trailingAnchor + -Const.View.m16
-        overlayTextInput.leadingAnchor --> videoTextEditorBackgroundView.leadingAnchor + Const.View.m16
-        overlayTextInput.heightAnchor ->= 50
-        overlayTextInput.isScrollEnabled = false // Allows automatic height adjustment
-//        overlayTextInput.contentInset = .equalEdgeInsets(Const.View.m16)
-        
-        overlayTextInput.sizeToFit()
-        
-        // add delegate and listen to content size changes if its >= to videoTextEditorBackgroundView then add top| bottom constrains
-        // and enable scrolling and if it exceed a certain number of chars it automatically goes to the bottom of screen like whatsapp
-
-    }
+//    // 1st iteration we add this!!§! so that we cater to the small phones
+//    // secend we should be able to edit in screen!!!
+//    private func congfigureOverlayTextView() {
+//        videoTextEditorBackgroundView.autoresizingOff()
+//        overlayTextInput.autoresizingOff()
+//        videoView.addSubview(videoTextEditorBackgroundView)
+//        videoTextEditorBackgroundView.topAnchor --> view.topAnchor + Const.View.m16
+//        videoTextEditorBottomAnchor = videoTextEditorBackgroundView.bottomAnchor --> view.bottomAnchor + -Const.View.m16
+//        videoTextEditorBackgroundView.leadingAnchor --> view.leadingAnchor + Const.View.m16
+//        videoTextEditorBackgroundView.trailingAnchor --> view.trailingAnchor + -Const.View.m16
+//
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEndEditingAction))
+//        videoTextEditorBackgroundView.addGestureRecognizer(tapGesture)
+//
+//        videoTextEditorBackgroundView.backgroundColor = Const.Color.TrimVideo.videoOverlayBackGround
+//
+//        videoTextEditorBackgroundView.addSubview(overlayTextInput)
+//        overlayTextInput.textAlignment = .center
+//        overlayTextInput.backgroundColor = .gray
+//        overlayTextInput.centerYAnchor --> videoTextEditorBackgroundView.centerYAnchor
+//        overlayTextInput.centerXAnchor --> videoTextEditorBackgroundView.centerXAnchor
+//        overlayTextInput.trailingAnchor --> videoTextEditorBackgroundView.trailingAnchor + -Const.View.m16
+//        overlayTextInput.leadingAnchor --> videoTextEditorBackgroundView.leadingAnchor + Const.View.m16
+//        overlayTextInput.heightAnchor ->= 50
+//        overlayTextInput.isScrollEnabled = false // Allows automatic height adjustment
+////        overlayTextInput.contentInset = .equalEdgeInsets(Const.View.m16)
+//
+//        overlayTextInput.sizeToFit()
+//
+//        // add delegate and listen to content size changes if its >= to videoTextEditorBackgroundView then add top| bottom constrains
+//        // and enable scrolling and if it exceed a certain number of chars it automatically goes to the bottom of screen like whatsapp
+//
+//    }
    
     // TODO: remove video from temp
     private func cleanup() {
@@ -275,7 +295,7 @@ private extension TrimVideoViewController {
 
 }
 
-// MARK: private functions for video composion and export
+// MARK: - private functions for video composion and export
 
 extension TrimVideoViewController {
     
@@ -497,4 +517,47 @@ extension TrimVideoViewController: StatusVideoViewDelegate {
             playVideoButton.isHidden = false
         }
     }
+}
+
+extension TrimVideoViewController: TextViewActionsViewDelegate {
+    func didTapTextAlignment(alignment: PostStatusViewModel.TextAlignment) {
+        let overlayTextView = getFirstResponsderTextView()
+        switch alignment {
+            case .center:
+                overlayTextView?.textAlignment = .center
+            case .left:
+                overlayTextView?.textAlignment = .left
+            case .right:
+                overlayTextView?.textAlignment = .right
+        }
+    }
+    
+    func didTapColorToChange(tag: Int) {
+        let overlayTextView = getFirstResponsderTextView()
+        overlayTextView?.backgroundColor = UIColor(hex: presenter.colors[tag])
+    }
+    
+    func didTapBoldText(textWeight: PostStatusViewModel.TextWeight) {
+        let overlayTextView = getFirstResponsderTextView()
+        switch textWeight {
+            case .bold:
+                overlayTextView?.font = UIFont.boldSystemFont(ofSize: 16) // TODO: get these values from Const
+            case .italic:
+                
+                overlayTextView?.font = UIFont.italicSystemFont(ofSize: 16)
+                
+            case .normal:
+                overlayTextView?.font = UIFont.systemFont(ofSize: 16)
+        }
+    }
+    
+    func didTapDoneActionButton() {
+        view.endEditing(true)
+    }
+    
+    private func getFirstResponsderTextView() -> OverlayTextView? {
+        guard let textView = view.firstResponder as? OverlayTextView else { return nil }
+        return textView
+    }
+
 }

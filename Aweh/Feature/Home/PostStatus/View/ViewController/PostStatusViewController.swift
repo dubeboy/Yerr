@@ -17,7 +17,7 @@ import Photos
 // maybe we could allow the user add some maerials to their own contant and also add a materils background???
 // definetly need so add some vibrancy and some diagnally cut background images
 //https://developer.apple.com/documentation/uikit/uifont/scaling_fonts_automatically
-//https://developer.apple.com/documentation/uikit/uiviewcontroller/1621430-presentingviewcontroller?language=objc // to blur the current view controller when images is shown
+//https://developer.apple.com/docume ntation/uikit/uiviewcontroller/1621430-presentingviewcontroller?language=objc // to blur the current view controller when images is shown
 // add a recording timer
 class PostStatusViewController: UIViewController {
     
@@ -51,7 +51,7 @@ class PostStatusViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         location = GeoLocationServices(delegate: self)
-        actionsToolbar = TextViewActionsView(statusTextView: statusTextView, delegate: self, colors: presenter.colors)
+        actionsToolbar = TextViewActionsView(delegate: self, colors: presenter.colors)
         profileImage.makeImageRound()
         title = AppStrings.PostStatus.title
         configureSelf()

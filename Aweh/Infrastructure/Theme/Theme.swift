@@ -155,6 +155,12 @@ enum Const {
         static let labelColor = getColor(color: .label)
         static let linkColor = getColor(color: .link)
         
+        private static let colors = ["264653", "2A9D8F", "e9c46a", "f4a261", "e76f51"]
+        
+        enum PostStatus {
+            static let textBackgroundColors = colors
+        }
+        
         enum Feed {
             static let commentBox = lightGray
             static let trackColor = Color.actionButtonColor
@@ -175,6 +181,7 @@ enum Const {
         enum TrimVideo {
             static let playVideo = UIColor.white
             static let videoOverlayBackGround = UIColor.black.withAlphaComponent(0.2)
+            static let textBackgroundColors = colors
         }
     }
 

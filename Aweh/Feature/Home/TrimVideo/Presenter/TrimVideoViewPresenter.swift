@@ -15,6 +15,7 @@ struct TrimVideoViewModel {
     var endTime: Float64
     var textBeingEdited: [String]
     var locationState: LocationStateViewModel = .waiting
+    var colors: [String] = Const.Color.TrimVideo.textBackgroundColors
     
     var currentLocation: Location? = nil {
         didSet {
@@ -31,6 +32,7 @@ protocol TrimVideoViewPresenter {
     var videoURL: URL { get }
     var startTime: Float64 { get set }
     var endTime: Float64 { get set }
+    var colors: [String] { get }
    
     func appendEditableTextAndGetTag(text: String) -> Int
     func postVideo(videoURL: URL, completion: @escaping Completion<()>, failure: @escaping Completion<String>)
@@ -47,6 +49,10 @@ class TrimVideoViewPresenterImplementation {
 }
 
 extension TrimVideoViewPresenterImplementation: TrimVideoViewPresenter {
+    var colors: [String] {
+        viewModel.colors
+    }
+    
     func postVideo(videoURL: URL, completion: @escaping Completion<()>, failure: @escaping Completion<String>) {
         
         let location = viewModel.currentLocation == nil ? {
@@ -70,7 +76,7 @@ extension TrimVideoViewPresenterImplementation: TrimVideoViewPresenter {
                                       circleName: "Food")
             postStatusInteractor.postStatuses(status: statusEntity, statusMultipart: [multipartBody]) { result in
                 switch result {
-                    case .success(let status):
+                    case .success( _):
                         completion(())
                     case .failure(let error):
                         failure(error.localizedDescription)

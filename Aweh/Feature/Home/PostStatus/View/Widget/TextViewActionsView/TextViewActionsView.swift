@@ -27,12 +27,10 @@ class TextViewActionsView: UIView {
     private let tagForDidTapBackgroundColor = 1001
     private var selectedTextAlignment: PostStatusViewModel.TextAlignment = .center
     private var textWeight: PostStatusViewModel.TextWeight = .normal
-    private let statusTextView: UITextView
     private let delegate: TextViewActionsViewDelegate
     
-    init(statusTextView: UITextView, delegate: TextViewActionsViewDelegate, colors: [String]) {
+    init(delegate: TextViewActionsViewDelegate, colors: [String]) {
         self.colors = colors
-        self.statusTextView = statusTextView
         self.delegate = delegate
         super.init(frame: .zero)
         configureActionsToolbar()
