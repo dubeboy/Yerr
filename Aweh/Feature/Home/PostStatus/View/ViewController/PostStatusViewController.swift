@@ -17,6 +17,8 @@ import Photos
 // maybe we could allow the user add some maerials to their own contant and also add a materils background???
 // definetly need so add some vibrancy and some diagnally cut background images
 //https://developer.apple.com/documentation/uikit/uifont/scaling_fonts_automatically
+//https://developer.apple.com/documentation/uikit/uiviewcontroller/1621430-presentingviewcontroller?language=objc // to blur the current view controller when images is shown
+// add a recording timer
 class PostStatusViewController: UIViewController {
     
     var presenter: PostStatusPresenter!
@@ -43,22 +45,18 @@ class PostStatusViewController: UIViewController {
     private let profileImage: UIImageView = UIImageView()
     private let backgroundColorView = UIView()
     private let statusTextView = UITextView()
-    private let actionsToolbar = UIToolbar()
-    private let secondaryActionsView = UIView()
-    private let secondaryActionsScrollView = UIScrollView()
-    private let contantsStackView = UIStackView()
-    private let blurEffectView = UIVisualEffectView(effect: nil)
+    @LateInit
+    private var actionsToolbar: TextViewActionsView
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         location = GeoLocationServices(delegate: self)
+        actionsToolbar = TextViewActionsView(statusTextView: statusTextView, delegate: self, colors: presenter.colors)
         profileImage.makeImageRound()
         title = AppStrings.PostStatus.title
         configureSelf()
         configureStatusTextiew()
         configureActionsToolbar()
-        configureSecondaryActionsToolbar()
     }
     
     @objc func captureStatus() {
@@ -117,7 +115,6 @@ class PostStatusViewController: UIViewController {
         actionsToolbarBottomConstraint.constant = -frame.size.height
     }
     
-    
     // TODO: - move to the presenter
     @objc func requestAuthorisation() {
         let status = PHPhotoLibrary.authorizationStatus()
@@ -148,78 +145,6 @@ class PostStatusViewController: UIViewController {
         }
     }
     
-    @objc func didTapChangeBackgroundColorButton(_ sender: UIBarButtonItem) {
-        blurEffectView.isHidden = !blurEffectView.isHidden
-        if presenter.tagForDidTapBackgroundColor != contantsStackView.tag {
-            contantsStackView.arrangedSubviews.forEach {
-                $0.removeFromSuperview()
-            }
-            for (index, color) in presenter.colors.enumerated() {
-                let button = YerrButton()
-                guard let image = Const.Assets.PostStatus.color?.withRenderingMode(.alwaysTemplate) else { return }
-                button.setImage(image, for: .normal)
-                button.tag = index
-                button.tintColor = UIColor(hex: color)
-                button.addTarget(self, action: #selector(didTapColorToChange(_:)), for: .touchUpInside)
-                
-                self.contantsStackView.addArrangedSubview(button)
-            }
-            secondaryActionsScrollView.contentSize = CGSize(width: (30) * presenter.colors.count , height: 50)
-            contantsStackView.tag = presenter.tagForDidTapBackgroundColor
-        }
-       
-    }
-    
-    // TODO: record how many people click this button to find the prefred text alignment
-    @objc func didTapTextAlignment(_ sender: UIBarButtonItem) {
-        blurEffectView.isHidden = true
-        if sender.image == Const.Assets.PostStatus.testAlignmentLeft {
-            sender.image = Const.Assets.PostStatus.textAlignmentCenter
-            presenter.selectedTextAlignment = .center
-            statusTextView.textAlignment = .center
-        } else if sender.image == Const.Assets.PostStatus.textAlignmentCenter {
-            sender.image = Const.Assets.PostStatus.testAlignmentRight
-            presenter.selectedTextAlignment = .right
-            statusTextView.textAlignment = .right
-        } else if  sender.image == Const.Assets.PostStatus.testAlignmentRight {
-            sender.image = Const.Assets.PostStatus.testAlignmentLeft
-            statusTextView.textAlignment = .left
-            presenter.selectedTextAlignment = .left
-        }
-    }
-    
-    @objc private func didTapColorToChange(_ sender: UIButton) {
-        guard let button = sender as? YerrButton else {
-            return
-        }
-
-        backgroundColorView.backgroundColor = UIColor(hex: presenter.colors[button.tag])
-        view.backgroundColor = UIColor(hex: presenter.colors[button.tag])
-    
-    }
-    
-    @objc func didTapBoldText(_ sender: UIBarButtonItem) {
-//        statusTextView.font = UIFont.preferredFont(forTextStyle: .body)
-//        statusTextView.adjustsFontForContentSizeCategory = true
-        if presenter.textWeight == .normal {
-            statusTextView.font = UIFont.boldSystemFont(ofSize: 16)
-            sender.image = Const.Assets.PostStatus.boldText
-            presenter.textWeight = .bold
-        } else if presenter.textWeight == .bold {
-            statusTextView.font = UIFont.italicSystemFont(ofSize: 16)
-            sender.image = Const.Assets.PostStatus.italicText
-            presenter.textWeight = .italic
-        } else {
-            statusTextView.font = UIFont.systemFont(ofSize: 16)
-            sender.image = Const.Assets.PostStatus.normalText
-            presenter.textWeight = .normal
-        }
-    }
-    
-    @objc func didTapChangeTextbackground() {
-        
-    }
-    
     deinit {
         print("ahhhhhh❌") // TODO not being deinit!!!
     }
@@ -245,8 +170,8 @@ extension PostStatusViewController {
         let (_, _, bottomBackgroundConstraint, _) = backgroundColorView --> view
         bottomConstraint = bottomBackgroundConstraint
         backgroundColorView.backgroundColor = .cyan
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapDoneButton))
-        backgroundColorView.addGestureRecognizer(tapGesture)
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapDoneButton))
+//        backgroundColorView.addGestureRecognizer(tapGesture)
         view.backgroundColor = .cyan
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(closeViewController))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(captureStatus))
@@ -270,87 +195,6 @@ extension PostStatusViewController {
         statusTextView.textAlignment = .center
     }
     
-    private func configureActionsToolbar() {
-        actionsToolbar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
-        actionsToolbar.autoresizingOff()
-        view.addSubview(actionsToolbar)
-        actionsToolbar.leadingAnchor --> view.leadingAnchor
-        actionsToolbar.trailingAnchor --> view.trailingAnchor
-        actionsToolbarBottomConstraint = actionsToolbar.bottomAnchor --> view.bottomAnchor + -(Const.View.m16 + view.safeAreaInsets.bottom)
-        
-        let doneButton = YerrButton(type: .system)
-        doneButton.frame = CGRect(x: 0, y: 0, width: 60, height: 50)
-        doneButton.setTitle("Done", for: .normal)
-        doneButton.autoresizesSubviews = true
-        doneButton.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        doneButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-        doneButton.addTarget(self, action: #selector(didTapDoneButton), for: .touchUpInside)
-        // TODO : style button here!!!
-        
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let barButton = UIBarButtonItem(customView: doneButton)
-        let barButtonBackgroundColor = UIBarButtonItem(image: Const.Assets.PostStatus.color, style: .plain,
-                                                       target: self, action: #selector(didTapChangeBackgroundColorButton))
-        let batButtomTextAlignment = UIBarButtonItem(image: Const.Assets.PostStatus.textAlignmentCenter, style: .plain,
-                                                     target: self, action: #selector(didTapTextAlignment))
-        let barButtonBoldText = UIBarButtonItem(image: Const.Assets.PostStatus.boldText, style: .plain,
-                                                target: self, action: #selector(didTapBoldText))
-        let barButtonChangeTextBackground = UIBarButtonItem(image: Const.Assets.PostStatus.changeTextBackground, style: .plain,
-                                                            target: self, action: #selector(didTapChangeTextbackground))
-        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        fixedSpace.width = Const.View.m12
-        actionsToolbar.setItems([barButtonBackgroundColor,
-                                 fixedSpace,
-                                 batButtomTextAlignment,
-                                 fixedSpace, barButtonBoldText,
-                                 fixedSpace,
-                                 barButtonChangeTextBackground,
-                                 spacer,
-                                 barButton], animated: false)
-    }
-    
-    private func configureSecondaryActionsToolbar() {
-       
-        blurEffectView.autoresizingOff()
-        secondaryActionsView.autoresizingOff()
-        
-//        blurEffectView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
-        view.addSubview(blurEffectView)
-        blurEffectView.autoresizingOff()
-        blurEffectView.leadingAnchor --> view.leadingAnchor
-        blurEffectView.trailingAnchor --> view.trailingAnchor
-        blurEffectView.heightAnchor --> actionsToolbar.bounds.height
-        blurEffectView.bottomAnchor --> actionsToolbar.topAnchor
-        blurEffectView.contentView.addSubview(secondaryActionsView)
-        blurEffectView.effect = UIBlurEffect(style: .prominent) // TODO: change blur effect
-        
-        configureScrollView()
-        secondaryActionsView.addSubview(secondaryActionsScrollView)
-        secondaryActionsScrollView --> secondaryActionsView
-        
-        configureStackView()
-        secondaryActionsScrollView.addSubview(contantsStackView)
-        contantsStackView.leadingAnchor --> secondaryActionsScrollView.leadingAnchor + (Const.View.m8 + 2.5)
-        contantsStackView.heightAnchor --> secondaryActionsScrollView.heightAnchor
-        contantsStackView.centerYAnchor --> secondaryActionsScrollView.centerYAnchor
-            
-        secondaryActionsView --> blurEffectView
-        blurEffectView.isHidden = true
-    }
-    
-    private func configureScrollView() {
-        secondaryActionsScrollView.autoresizingOff()
-//        secondaryActionsScrollView.isPagingEnabled = true
-    }
-    
-    private func configureStackView() {
-        contantsStackView.autoresizingOff()
-        contantsStackView.alignment = .fill
-        contantsStackView.distribution = .fillEqually
-        contantsStackView.axis = .horizontal
-        contantsStackView.spacing = Const.View.m8
-    }
-    
     private func loadPhotos() {
         // TODO: - test this out for string reference cycles
         coordinator?.startPhotosGalleryViewController(navigationController: navigationController) { assets in
@@ -362,8 +206,16 @@ extension PostStatusViewController {
         self.assets = assets
         presenter.appendSelectedImages(assets: assets)
     }
+    
+    private func configureActionsToolbar() {
+        actionsToolbar.autoresizingOff()
+        view.addSubview(actionsToolbar)
+        actionsToolbar.leadingAnchor --> view.leadingAnchor
+        actionsToolbar.trailingAnchor --> view.trailingAnchor
+        actionsToolbarBottomConstraint = actionsToolbar.bottomAnchor --> view.bottomAnchor + -(Const.View.m16 + view.safeAreaInsets.bottom)
+    }
 }
-
+//MARK: - GeoLocationServicesDelegate
 extension PostStatusViewController: GeoLocationServicesDelegate {
     
     func didFetchCurrentLocation(_ location: Location) {
@@ -376,7 +228,7 @@ extension PostStatusViewController: GeoLocationServicesDelegate {
     }
     
 }
-
+// MARK: - UITextViewDelegate
 extension PostStatusViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
 //        textView.centerVerticalText()
@@ -391,6 +243,46 @@ extension PostStatusViewController: UITextViewDelegate {
             textView.isScrollEnabled = false
             statusTextTopConstraint.isActive = false
             statusTextBottomConstraint.isActive = false
+        }
+    }
+}
+
+// MARK: - TextViewActionsView Delegate
+
+extension PostStatusViewController: TextViewActionsViewDelegate {
+    func didTapDoneActionButton() {
+        view.endEditing(true)
+    }
+    
+    func didTapTextAlignment(alignment: PostStatusViewModel.TextAlignment) {
+        switch alignment {
+            case .center:
+                presenter.selectedTextAlignment = .center
+                statusTextView.textAlignment = .center
+            case .left:
+                statusTextView.textAlignment = .left
+                presenter.selectedTextAlignment = .left
+            case .right:
+                presenter.selectedTextAlignment = .right
+                statusTextView.textAlignment = .right
+        }
+    }
+    
+    func didTapColorToChange(tag: Int) {
+        backgroundColorView.backgroundColor = UIColor(hex: presenter.colors[tag])
+        view.backgroundColor = UIColor(hex: presenter.colors[tag])
+    }
+    
+    func didTapBoldText(textWeight: PostStatusViewModel.TextWeight) {
+        switch textWeight {
+            case .bold:
+                    statusTextView.font = UIFont.boldSystemFont(ofSize: 16) // TODO: get these values from Const
+            case .italic:
+                    
+                statusTextView.font = UIFont.italicSystemFont(ofSize: 16)
+
+            case .normal:
+                statusTextView.font = UIFont.systemFont(ofSize: 16)
         }
     }
 }

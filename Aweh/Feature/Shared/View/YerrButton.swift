@@ -38,10 +38,10 @@ class YerrButton: UIButton {
 extension YerrButton {
     private func configureSelf() {
 //        self.translatesAutoresizingMaskIntoConstraints = false
-        self.setTitleColor(Const.Color.lightGray, for: .highlighted)
-        self.setTitleColor(Const.Color.lightGray, for: .selected)
-        self.layer.cornerRadius = Const.View.radius
-        self.layer.masksToBounds = true
-        self.contentEdgeInsets = Self.buttonEdgeInset
+//        self.setTitleColor(Const.Color.lightGray, for: .highlighted)
+//        self.setTitleColor(Const.Color.lightGray, for: .selected)
+//        self.layer.cornerRadius = Const.View.radius
+//        self.layer.masksToBounds = true
+//        self.contentEdgeInsets = Self.buttonEdgeInset
     }
 }
