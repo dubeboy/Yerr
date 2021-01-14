@@ -12,12 +12,21 @@ class OverlayTextView: UITextView {
     let parent: UIView
     
     var blurEffectView: UIVisualEffectView!
+    let newLayoutManager = LayoutManager()
+    let storage = NSTextStorage()
     
     init(parent: UIView, backgroundColor: UIColor = .cyan, tag: Int = 0) {
         self.parent = parent
-        super.init(frame: .zero, textContainer: nil)
-                
-        self.backgroundColor = backgroundColor.withAlphaComponent(0.6)
+        storage.addLayoutManager(newLayoutManager)
+        let container = NSTextContainer(size: .zero)
+        container.widthTracksTextView = true
+        container.heightTracksTextView = true
+        newLayoutManager.addTextContainer(container)
+        
+        super.init(frame: .zero, textContainer: container)
+        newLayoutManager.addTextContainer(textContainer)
+        self.textContainer.replaceLayoutManager(newLayoutManager)
+//        self.backgroundColor = backgroundColor.withAlphaComponent(0.6)
         self.isScrollEnabled = false
         self.tag = tag
         self.textAlignment = .center
@@ -41,16 +50,35 @@ class OverlayTextView: UITextView {
         let pinchGesture = UIPinchGestureRecognizer(target: self , action: #selector(didPichOverlayTextView(recognizer:)))
         self.addGestureRecognizer(pinchGesture)
         
+//        self.layoutManager.delegate = self
+        self.attributedText = NSAttributedString(string: "Text Sring with some lemon \n SOme new things",  attributes: [NSAttributedString.Key.backgroundColor: UIColor.green])
+        
         panGesture.delegate = self
         rotationGesture.delegate = self
         pinchGesture.delegate = self
+       
         
         // add dymanic font too so that when the view inccrease al the text increases
         // add a hit test to see what the user is trying to do and assign that action this view
         // animatye gestures when below the keyboad
         
+        
+        
     }
     
+//    let textViewPadding: CGFloat = 7.0
+//
+//    override func draw(_ rect: CGRect) {
+//        self.layoutManager.enumerateLineFragments(forGlyphRange: NSMakeRange(0, self.text.count)) { (rect, usedRect, textContainer, glyphRange, Bool) in
+//
+//            let rect = CGRect(x: usedRect.origin.x, y: usedRect.origin.y + self.textViewPadding, width: usedRect.size.width, height: usedRect.size.height*1.2)
+//            let rectanglePath = UIBezierPath(roundedRect: rect, cornerRadius: 3)
+//            UIColor.red.setFill()
+//            rectanglePath.fill()
+//            self.setNeedsDisplay()
+//        }
+//    }
+//
     override func layoutSubviews() {
         super.layoutSubviews()
 //        blurEffectView.autoresizingOff()
@@ -98,6 +126,21 @@ class OverlayTextView: UITextView {
 
 extension OverlayTextView: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
+extension OverlayTextView:  NSLayoutManagerDelegate {
+    func layoutManager(_ layoutManager: NSLayoutManager, lineSpacingAfterGlyphAt glyphIndex: Int, withProposedLineFragmentRect rect: CGRect) -> CGFloat {
+        return CGFloat(floorf(Float(glyphIndex / 100)))
+    }
+    
+    func layoutManager(_ layoutManager: NSLayoutManager, shouldSetLineFragmentRect lineFragmentRect: UnsafeMutablePointer<CGRect>, lineFragmentUsedRect: UnsafeMutablePointer<CGRect>, baselineOffset: UnsafeMutablePointer<CGFloat>, in textContainer: NSTextContainer, forGlyphRange glyphRange: NSRange) -> Bool {
+        let context = UIGraphicsGetCurrentContext()
+        context?.setShouldAntialias(true)
+        let rectanglePath = UIBezierPath(roundedRect: lineFragmentRect.pointee, cornerRadius: 3)
+        UIColor.red.setFill()
+        rectanglePath.fill()
         return true
     }
 }

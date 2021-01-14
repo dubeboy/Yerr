@@ -10,15 +10,19 @@ import UIKit
 import AVFoundation
 import Photos
 
-//AVVideoCompositionCoreAnimationTool ::: a class that lets you combine an existing video with Core Animation layers.
-//https://warrenmoore.net/understanding-cmtime // more about CMTIME
+// AVVideoCompositionCoreAnimationTool ::: a class that lets you combine an existing video with Core Animation layers.
+// https://warrenmoore.net/understanding-cmtime // more about CMTIME
 // Look into the cannot rec§ord error, I think it happens when we lauch the screen before we began recording!!!!
-//https://www.raywenderlich.com/2734-avfoundation-tutorial-adding-overlays-and-animations-to-videos
-//https://medium.com/@andy.nguyen.1993/add-overlay-image-to-video-21d9cc03c9eb
+// https://www.raywenderlich.com/2734-avfoundation-tutorial-adding-overlays-and-animations-to-videos
+// https://medium.com/@andy.nguyen.1993/add-overlay-image-to-video-21d9cc03c9eb
 // https://github.com/inspace-io/VideoOverlayProcessor
-//https://github.com/jiayilin/SafeWalk/blob/master/My_Camera_App/AVFoundation.framework/Headers/AVVideoComposition.h
-//http://bradgayman.com/blog/recordingAView/index.html
-//https://stackoverflow.com/questions/28813339/move-a-view-up-only-when-the-keyboard-covers-an-input-field?noredirect=1&lq=1
+// https://github.com/jiayilin/SafeWalk/blob/master/My_Camera_App/AVFoundation.framework/Headers/AVVideoComposition.h
+// http://bradgayman.com/blog/recordingAView/index.html
+// https://stackoverflow.com/questions/28813339/move-a-view-up-only-when-the-keyboard-covers-an-input-field?noredirect=1&lq=1
+// https://stackoverflow.com/questions/49070965/colored-text-background-with-rounded-corners
+// https://stackoverflow.com/questions/48088956/text-background-with-round-corner-like-instagram-does
+// https://instagram-engineering.com/building-type-mode-for-stories-on-ios-and-android-8804e927feba
+// https://stackoverflow.com/questions/16362407/nsattributedstring-background-color-and-rounded-corners?rq=1
 class TrimVideoViewController: UIViewController {
     
     var presenter: TrimVideoViewPresenter!

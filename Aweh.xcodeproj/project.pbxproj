@@ -112,6 +112,7 @@
 		71956FA4253A7A0500D59D29 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71956FA3253A7A0500D59D29 /* UserRepository.swift */; };
 		71956FA8253B4FCB00D59D29 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71956FA7253B4FCB00D59D29 /* UserDefaults.swift */; };
 		71956FAB253B598A00D59D29 /* KeychainBacked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71956FAA253B598A00D59D29 /* KeychainBacked.swift */; };
+		71965ADE25AE899A004FCD60 /* LayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71965ADD25AE899A004FCD60 /* LayoutManager.swift */; };
 		7196DD1024B083A600384B84 /* Notification+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DD0F24B083A600384B84 /* Notification+Elements.swift */; };
 		7196DD1424B0B6D700384B84 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DD1324B0B6D700384B84 /* ProfileViewController.swift */; };
 		7196DD1624B0B6EC00384B84 /* ProfileViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7196DD1524B0B6EC00384B84 /* ProfileViewController.storyboard */; };
@@ -320,6 +321,7 @@
 		71956FA3253A7A0500D59D29 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		71956FA7253B4FCB00D59D29 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		71956FAA253B598A00D59D29 /* KeychainBacked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainBacked.swift; sourceTree = "<group>"; };
+		71965ADD25AE899A004FCD60 /* LayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutManager.swift; sourceTree = "<group>"; };
 		7196DD0F24B083A600384B84 /* Notification+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Elements.swift"; sourceTree = "<group>"; };
 		7196DD1324B0B6D700384B84 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7196DD1524B0B6EC00384B84 /* ProfileViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileViewController.storyboard; sourceTree = "<group>"; };
@@ -1330,9 +1332,9 @@
 		7175E7102516C3E20073AC47 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				71965ADC25AE897E004FCD60 /* OverlayTextView */,
 				7175E7112516C40C0073AC47 /* TextViewDelegate.swift */,
 				71ADA9772517D4BF005FF2BF /* YerrButton.swift */,
-				71C1048D25A4FEA2007434CF /* OverlayTextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1424,6 +1426,15 @@
 				71956FA3253A7A0500D59D29 /* UserRepository.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		71965ADC25AE897E004FCD60 /* OverlayTextView */ = {
+			isa = PBXGroup;
+			children = (
+				71C1048D25A4FEA2007434CF /* OverlayTextView.swift */,
+				71965ADD25AE899A004FCD60 /* LayoutManager.swift */,
+			);
+			path = OverlayTextView;
 			sourceTree = "<group>";
 		};
 		7196DD1724B0DF4500384B84 /* Coordinator */ = {
@@ -2211,6 +2222,7 @@
 				7109D9B72543D68B005579AF /* InfoInputViewController.swift in Sources */,
 				71ADA9782517D4BF005FF2BF /* YerrButton.swift in Sources */,
 				71D6BAE12495737100F4B5D8 /* AssetsHorizontalListView.swift in Sources */,
+				71965ADE25AE899A004FCD60 /* LayoutManager.swift in Sources */,
 				71FBCF2C2512B9A100FC7557 /* CircleProgressIndicatorView.swift in Sources */,
 				71CCF0CB249AB1450054C210 /* FeedDetailViewController.swift in Sources */,
 				711E7AB1256BFDBE0060DB76 /* PostStatusVideoPreview.swift in Sources */,
