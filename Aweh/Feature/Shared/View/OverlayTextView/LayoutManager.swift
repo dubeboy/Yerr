@@ -27,9 +27,8 @@ class LayoutManager: NSLayoutManager {
                     // Glyphs can take space outside of the line fragment, and we cannot draw outside of it.
                     // So it is best to restrict the height just to the line fragment.
                     rect.origin.y = usedRect.origin.y
-                    rect.size.height = usedRect.height
-//                    let insetTop = self.layoutManagerDelegate?.textContainerInset.top ?? 0
-                    rects.append(rect.offsetBy(dx: 0, dy: 10))
+                    rect.size.height = usedRect.height * 1.2
+                    rects.append(rect.offsetBy(dx: 0, dy:  usedRect.height / 2))
                 }
                 drawBackground(rects: rects, currentCGContext: currentCGContext)
         }

@@ -46,7 +46,7 @@ class OverlayTextView: UITextView {
         let pinchGesture = UIPinchGestureRecognizer(target: self , action: #selector(didPichOverlayTextView(recognizer:)))
         self.addGestureRecognizer(pinchGesture)
         
-//        self.layoutManager.delegate = self
+        self.layoutManager.delegate = self
         self.attributedText = NSAttributedString(string: "Text Sring with some lemon \n SOme new things",  attributes: [NSAttributedString.Key.backgroundColor: UIColor.green])
         self.textAlignment = .center
 
@@ -129,16 +129,11 @@ extension OverlayTextView: UIGestureRecognizerDelegate {
 }
 
 extension OverlayTextView:  NSLayoutManagerDelegate {
-    func layoutManager(_ layoutManager: NSLayoutManager, lineSpacingAfterGlyphAt glyphIndex: Int, withProposedLineFragmentRect rect: CGRect) -> CGFloat {
-        return CGFloat(floorf(Float(glyphIndex / 100)))
-    }
-    
     func layoutManager(_ layoutManager: NSLayoutManager, shouldSetLineFragmentRect lineFragmentRect: UnsafeMutablePointer<CGRect>, lineFragmentUsedRect: UnsafeMutablePointer<CGRect>, baselineOffset: UnsafeMutablePointer<CGFloat>, in textContainer: NSTextContainer, forGlyphRange glyphRange: NSRange) -> Bool {
-        let context = UIGraphicsGetCurrentContext()
-        context?.setShouldAntialias(true)
-        let rectanglePath = UIBezierPath(roundedRect: lineFragmentRect.pointee, cornerRadius: 3)
-        UIColor.red.setFill()
-        rectanglePath.fill()
+        
+        lineFragmentRect.pointee = CGRect(origin: lineFragmentRect.pointee.origin, size: CGSize(width: lineFragmentRect.pointee.size.width, height: lineFragmentRect.pointee.size.height + 10))
+        lineFragmentUsedRect.pointee = CGRect(origin: lineFragmentUsedRect.pointee.origin, size: CGSize(width: lineFragmentUsedRect.pointee.size.width, height: lineFragmentUsedRect.pointee.size.height + 10))
+        baselineOffset.pointee = lineFragmentUsedRect.pointee.size.height
         return true
     }
 }

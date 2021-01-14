@@ -600,7 +600,7 @@ private extension CaptureStatusViewController {
         switchCameraButton.isEnabled = false
         captureButton.isEnabled = false
         sessionQueue.async { [self] in
-            let currentVideoDevice = self.videoDeviceInput.device
+            let currentVideoDevice = self.videoDeviceInput.device // crashes when there are no camera should guard against that and I switch
             let currentPosition = currentVideoDevice.position
             
             let preferedPosition: AVCaptureDevice.Position
