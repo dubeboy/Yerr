@@ -67,8 +67,12 @@ class LayoutManager: NSLayoutManager {
 //            if let shadowStyle = backgroundStyle.shadow {
 //                currentCGContext.setShadow(offset: shadowStyle.offset, blur: shadowStyle.blur, color: shadowStyle.color.cgColor)
 //            }
-//
-            currentCGContext.setFillColor(color.cgColor)
+            if currentRect.width <= 10 { // TODO: not cool we are supposed to get the smalled gly width
+                currentCGContext.setFillColor(UIColor.clear.cgColor)
+            } else {
+                currentCGContext.setFillColor(color.cgColor)
+
+            }
             currentCGContext.addPath(rectanglePath.cgPath)
             currentCGContext.drawPath(using: .fill)
             
