@@ -15,14 +15,15 @@ class LayoutManager: NSLayoutManager {
               let currentCGContext = UIGraphicsGetCurrentContext() else {
             return
         }
-        
+
         let characterRange = self.characterRange(forGlyphRange: glyphsToShow, actualGlyphRange: nil)
         textStorage.enumerateAttribute(.backgroundColor, in: characterRange) { attr, bgStyleRange, _ in
             var rects = [CGRect]()
                 let bgStyleGlyphRange = self.glyphRange(forCharacterRange: bgStyleRange, actualCharacterRange: nil)
                 enumerateLineFragments(forGlyphRange: bgStyleGlyphRange) { _, usedRect, textContainer, lineRange, _ in
                     let rangeIntersection = NSIntersectionRange(bgStyleGlyphRange, lineRange)
-                    var rect = self.boundingRect(forGlyphRange: rangeIntersection, in: textContainer)
+//                    var rect = self.boundingRect(forGlyphRange: rangeIntersection, in: textContainer)
+                    var rect = usedRect
                     // Glyphs can take space outside of the line fragment, and we cannot draw outside of it.
                     // So it is best to restrict the height just to the line fragment.
                     rect.origin.y = usedRect.origin.y

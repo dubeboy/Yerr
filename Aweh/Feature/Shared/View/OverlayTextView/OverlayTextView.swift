@@ -20,29 +20,25 @@ class OverlayTextView: UITextView {
         storage.addLayoutManager(newLayoutManager)
         let container = NSTextContainer(size: .zero)
         container.widthTracksTextView = true
-        container.heightTracksTextView = true
         newLayoutManager.addTextContainer(container)
         
         super.init(frame: .zero, textContainer: container)
-        newLayoutManager.addTextContainer(textContainer)
-        self.textContainer.replaceLayoutManager(newLayoutManager)
 //        self.backgroundColor = backgroundColor.withAlphaComponent(0.6)
         self.isScrollEnabled = false
         self.tag = tag
-        self.textAlignment = .center
-        self.sizeToFit()
-        
-        self.addShadow()
-        self.layer.cornerRadius = Const.View.radius
-        let blurEffect = UIBlurEffect(style: .prominent)
-        blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = self.frame
-        blurEffectView.clipsToBounds = true
-//        blurEffectView.autoresizingOff()
-
-        self.addSubview(blurEffectView)
-        self.sendSubviewToBack(blurEffectView)
-        
+//        self.sizeToFit()
+//
+//        self.addShadow()
+//        self.layer.cornerRadius = Const.View.radius
+//        let blurEffect = UIBlurEffect(style: .prominent)
+//        blurEffectView = UIVisualEffectView(effect: blurEffect)
+//        blurEffectView.frame = self.frame
+//        blurEffectView.clipsToBounds = true
+////        blurEffectView.autoresizingOff()
+//
+//        self.addSubview(blurEffectView)
+//        self.sendSubviewToBack(blurEffectView)
+//
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didMoveOverlayTextView(recognizer:)))
         self.addGestureRecognizer(panGesture)
         let rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(didRotateOverlayTextView(recognizer:)))
@@ -52,6 +48,8 @@ class OverlayTextView: UITextView {
         
 //        self.layoutManager.delegate = self
         self.attributedText = NSAttributedString(string: "Text Sring with some lemon \n SOme new things",  attributes: [NSAttributedString.Key.backgroundColor: UIColor.green])
+        self.textAlignment = .center
+
         
         panGesture.delegate = self
         rotationGesture.delegate = self

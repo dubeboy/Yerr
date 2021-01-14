@@ -28,6 +28,7 @@ class EditPhotoViewController: UIViewController {
     @objc func didTapAddText() {
         let overlayTextView = OverlayTextView(parent: imageView)
         overlayTextView.addToParent()
+//        overlayTextView.textAlignment = .center
         textViews.append(overlayTextView)
         overlayTextView.becomeFirstResponder()
     }
