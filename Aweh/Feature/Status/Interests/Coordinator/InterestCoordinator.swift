@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol InterestCoordinator {
+protocol InterestCoordinator: AnyObject {
     func startInterestViewController(with presenter: InterestsPresenter)
     func createInterestViewController(
         presenter: InterestsPresenter
@@ -26,9 +26,9 @@ extension StatusCoordinator: InterestCoordinator {
     ) -> InterestsViewController {
         navigationController.delegate = self
         let mainViewController = InterestsViewController.instantiate()
-        mainViewController.coordinator = self
+//        mainViewController.coordinator = self // TODO: why is this needed
         mainViewController.presenter = presenter
-        mainViewController.title = "Status"
+        mainViewController.title = AppStrings.Interests.title
         return mainViewController
     }
 }

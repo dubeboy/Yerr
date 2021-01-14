@@ -10,10 +10,12 @@ import UIKit
 import Photos
 
 private let reuseIdentifier = "Cell"
+// TODO: should reload collectionVie wwafter  the user has gratented permisyion
+// PHPhotoLibrary.requestAuthorization { status in
 
 class PhotosCollectionViewController: UICollectionViewController {
 
-    var coordinator: AssetDetailCoordinator?
+    weak var coordinator: AssetDetailCoordinator?
     var presenter: PhotosCollectionViewPresenter!
     var selectButton: UIBarButtonItem!
     var completion: (([String: PHAsset]) -> Void)?
@@ -66,7 +68,7 @@ class PhotosCollectionViewController: UICollectionViewController {
         collectionView.delaysContentTouches = false
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = Const.Color.backgroundColor
     
         presenter.loadImages(for: size) { count in
             collectionView.reloadData()

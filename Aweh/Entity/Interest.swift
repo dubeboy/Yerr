@@ -7,8 +7,7 @@ import Foundation
 
 struct Interest: Codable {
     let name: String
-    let hasNewStatus: Bool
+    var description: String? = nil
     @DefaultEmptyArray
-    var topPeopleImages: [Media] // TODO: If its empty then we just create an image using the name
-    let isSubscribed: Bool
+    var users: [User] // TODO: If its empty then we just create an image using the name
 }

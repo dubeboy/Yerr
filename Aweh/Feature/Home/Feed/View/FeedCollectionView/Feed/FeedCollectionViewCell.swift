@@ -10,45 +10,53 @@ import UIKit
 
 class FeedCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var main: UIView!
+    @IBOutlet weak var canvas: UIView!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var distanceAndTime: UILabel!
-    @IBOutlet weak var statusText: UILabel!
-    @IBOutlet weak var containerStackView: UIStackView!
+    @IBOutlet weak var distance: UILabel!
+    @IBOutlet weak var songsView: UIView!
+    @IBOutlet weak var circlesView: UIView!
+    @IBOutlet weak var circlesContainer: UIView!
     
-    @LateInit
-    var likeAndUpVoteHStack: LikeAndVotesHStask
+    var likeAndUpVoteVStack: LikeAndVotesVStask = LikeAndVotesVStask()
+    
+    var statusesView: StatusesView = StatusesView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        likeAndUpVoteHStack = LikeAndVotesHStask()
         self.clipsToBounds = true
         translatesAutoresizingMaskIntoConstraints = false
-        configureContentView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        main.widthAnchor --> contentView.widthAnchor
         configureCell()
     }
     
-    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        setNeedsLayout()
-        layoutIfNeeded()
-        let contentViewSize = contentView.bounds
-        let size = contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-        let attr = super.preferredLayoutAttributesFitting(layoutAttributes)
-        let newSize = CGSize(width: contentViewSize.width, height: size.height)
-        var newFrame = attr.frame
-
-        newFrame.size = newSize
-        attr.frame = newFrame
-        return attr
+    override func prepareForReuse() {
+        super.prepareForReuse()
     }
     
+    func setViewModel(viewModel: StatusPageViewModel) {
+        statusesView.setViewModel(viewModel: viewModel)
+    }
+}
+
+extension FeedCollectionViewCell {
     private func configureCell() {
         configureContentView()
         configureProfileImage()
         configureLikeAndUpVoteButtons()
+        configureCirclesContainer()
+        configureStatusesView()
+    }
+    
+    private func configureStatusesView() {
+        statusesView.autoresizingOff()
+        canvas.addSubview(statusesView)
+        statusesView --> canvas
+    }
+    
+    private func configureCirclesContainer() {
+        circlesContainer.layer.cornerRadius = Const.View.radius
+        circlesContainer.backgroundColor = Const.Color.lightGray
     }
     
     private func configureProfileImage() {
@@ -56,7 +64,9 @@ class FeedCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureLikeAndUpVoteButtons() {
-        likeAndUpVoteHStack.translatesAutoresizingMaskIntoConstraints = false
-        containerStackView.addArrangedSubview(likeAndUpVoteHStack)
+        likeAndUpVoteVStack.autoresizingOff()
+        contentView.addSubview(likeAndUpVoteVStack)
+        likeAndUpVoteVStack.bottomAnchor --> circlesContainer.bottomAnchor 
+        likeAndUpVoteVStack.trailingAnchor --> contentView.trailingAnchor + -Const.View.m8
     }
 }

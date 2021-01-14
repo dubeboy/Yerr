@@ -64,7 +64,7 @@ class TextViewDelegateImplementation: NSObject, UITextViewDelegate {
     
     private func applyPlaceholderStyle(_ textView: UITextView, placeholderText: String) {
         textView.text = placeholderText
-        textView.textColor = UIColor.systemGray2
+        textView.textColor = Const.Color.labelColor
     }
     
     private func applyNonPlaceholderStyle(_ textView: UITextView) {

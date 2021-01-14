@@ -9,7 +9,9 @@
 import Foundation
 
 protocol FeedCoordinator: AnyObject {
+    func startFeedViewController(forInterestName: String)
     func startFeedViewController()
+
     func createFeedViewController() -> FeedViewController
 }
 
@@ -24,6 +26,14 @@ extension HomeCoordinator: FeedCoordinator {
         let mainViewController = FeedViewController.instantiate()
         mainViewController.coordinator = self
         mainViewController.title = "Feed"
+        mainViewController.presenter = FeedPresenterImplemantation()
+        mainViewController.introCoordinator = InitScreensCoordinator(completionViewController: mainViewController, navigationController: navigationController)
         return mainViewController
+    }
+    
+    func startFeedViewController(forInterestName: String) {
+        let mainViewController = createFeedViewController()
+        mainViewController.interestName = forInterestName
+        navigationController.pushViewController(mainViewController, animated: true)
     }
 }

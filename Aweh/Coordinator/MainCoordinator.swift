@@ -18,25 +18,27 @@ protocol Coordinator: AnyObject {
     func dismiss()
 }
 
-// TODO:  make this an abstract class
-// TODO: This class should also hide the navigation bar if its not the main navigation
+// TODO: make this an abstract class
 open class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
   
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
+//    var presentingNavigationController: UINavigationController?
     var tabBarController: UITabBarController? // TODO:  Not sure if I need to pass this one
     // maybe be able to pass in a corrdinator
     init(_ tabBarController: UITabBarController? = nil,
          navigationController: UINavigationController = UINavigationController()) {
         self.navigationController = navigationController
         self.tabBarController = tabBarController
+        super.init()
+        self.navigationController.delegate = self
     }
     
     /// Default Implementation does nothing
     func start() -> Self {
         self
     }
-    
+
     func childDidFinish(child: Coordinator?) {
         for (index, coordinator) in childCoordinators.enumerated() {
             if coordinator === child {
@@ -78,18 +80,50 @@ class HomeCoordinator: MainCoordinator {
     }    
 }
 
+class InitScreensCoordinator: MainCoordinator {
+    
+
+    @UserDefaultsBacked(key: .currentViewController, defaultValue: 0)
+    var lastViewController: Int
+    
+    var completionViewController: SetupCompleteDelegate
+    
+    init(completionViewController: SetupCompleteDelegate, navigationController: UINavigationController) {
+        self.completionViewController = completionViewController
+        super.init(navigationController: navigationController)
+    }
+    
+    @discardableResult
+    override func start() -> Self {
+        switch lastViewController {
+            case 0:
+                startAcceptTermsAndConditionsViewController()
+            case 1:
+                startInitPhoneNumberCoordinatorViewController()
+            case 2:
+                startInfoInputViewController()
+            default:
+                startAcceptTermsAndConditionsViewController()
+        }
+       return self
+    }
+}
+
 class StatusCoordinator: MainCoordinator {
     
+    lazy var mainCoordinator: InterestCoordinator =
+        StatusCoordinator(navigationController: navigationController)
     lazy var homeCoordinator: HomeCoordinator =
         HomeCoordinator(navigationController: navigationController)
     
     override func start() -> Self {
         // TODO: Fix these so that they look like feed viewController
         navigationController.delegate = self
-        let mainViewController = MainStatusViewController()
-        mainViewController.coordinator = self
-        mainViewController.feedCoordinator = homeCoordinator
-        mainViewController.title = "Notifications"
+        let mainViewController = mainCoordinator.createInterestViewController(
+            presenter: InterestsPresenterImplemantation()
+        )
+//        mainViewController.coordinator = self
+        mainViewController.homeCoordinator = homeCoordinator
         navigationController.pushViewController(mainViewController, animated: true)
         return self
     }

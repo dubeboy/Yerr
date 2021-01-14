@@ -56,16 +56,20 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>The app needs to access to your media so that you can select photos and video you would to share.</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The app needs to access to your media so that you can select photos and video you would to share.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Needed so that you can share your statuses to people who are nearest to you.</string>
 	<key>Privacy – Location Usage Description</key>
 	<string>Needed so that you can share your statuses to people who are nearest to you two.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need access to you microphone so that we can record videos</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to your camera so that so that we can record your statuses</string>
 </dict>
 </plist>

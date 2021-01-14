@@ -8,10 +8,19 @@
 
 import Photos
 import Merchant // TODO should not import this here
+import UIKit
 
 protocol PostStatusPresenter {
+    var colors: [String] { get }
+    var textColors: [String] { get }
     var placeHolderText: String { get }
     var numberOfAllowedChars: String { get }
+    var tagForDidTapBackgroundColor: Int { get }
+    var tagForChangeTextAlignment: Int { get }
+    var tagForBoldText: Int { get }
+    var tagForChangeTextColor: Int { get }
+    var selectedTextAlignment: PostStatusViewModel.TextAlignment { get set }
+    var textWeight: PostStatusViewModel.TextWeight { get set }
     
     func saveCurrentLocation(location: Location)
     
@@ -27,13 +36,25 @@ protocol PostStatusPresenter {
 
 
 class PostStatusPresenterImplementation: PostStatusPresenter {
-   
+    
+    let tagForDidTapBackgroundColor: Int = 1001
+    let tagForChangeTextAlignment: Int = 2001
+    let tagForBoldText: Int = 3001
+    let tagForChangeTextColor: Int = 4001
+    
+    var colors: [String]
+    var textColors: [String]
     
     let feedInteractor: StatusesUseCase = FeedInteractor()
     var viewModel = PostStatusViewModel()
-    
+   
     var placeHolderText: String {
         viewModel.placeHolderText
+    }
+    
+    init() {
+        colors = viewModel.colors
+        textColors = viewModel.textColors
     }
     
     // is it still in use
@@ -69,7 +90,8 @@ class PostStatusPresenterImplementation: PostStatusPresenter {
                                   media: [],
                                   likes: 0,
                                   votes: 0,
-                                  createdAt: Date())
+                                  createdAt: Date(),
+                                  circleName: "Food") // Please change this
                 
         feedInteractor.postStatuses(status: statusEntity, statusMultipart: multipartBody) { result in
             switch result {
@@ -104,6 +126,24 @@ class PostStatusPresenterImplementation: PostStatusPresenter {
 // MARK: Private functions
 
 extension PostStatusPresenterImplementation {
+    var selectedTextAlignment: PostStatusViewModel.TextAlignment {
+        get {
+            viewModel.selectedTextAlignment
+        }
+        set {
+            viewModel.selectedTextAlignment = newValue
+        }
+    }
+    
+    var textWeight: PostStatusViewModel.TextWeight {
+        get {
+            viewModel.textWeight
+        }
+        set {
+            viewModel.textWeight = newValue
+        }
+    }
+    
     private func createMultipartBody() -> [MultipartBody] {
         var multipartImages = [MultipartBody]()
         

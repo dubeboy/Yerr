@@ -10,7 +10,6 @@ import UIKit
 import Photos
 
 protocol PhotosGalleryCoordinator: Coordinator {
-    // TODO: should get previously selected images so that we do not got
     func startPhotosGalleryViewController(navigationController: UINavigationController?,
                                           completion: @escaping (([String: PHAsset]) -> Void))
 }
@@ -25,7 +24,6 @@ extension HomeCoordinator: PhotosGalleryCoordinator {
         // TODO: check if iOS 14 then lauch the phos iOS 14
         
         let photosNavigationController = UINavigationController(rootViewController: viewController)
-        photosNavigationController.modalPresentationStyle = .fullScreen
         navigationController?.present(photosNavigationController, animated: true, completion: nil)
     }
     

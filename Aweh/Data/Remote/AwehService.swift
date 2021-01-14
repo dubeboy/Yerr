@@ -11,13 +11,15 @@ import Merchant
 
 struct AwehService: Service {
         
-    let baseURL: String = "http://localhost:8080/"
-    var query = ["key" : "hdsdt662266gbeww666", "os": "ios"]
+    let baseURL: String = "http://192.168.88.247:8080/"
+    var query = ["key" : "hdsdt662266gbeww666", "os": "ios"] // TODO: does not log this
+    // there should be a headers parameter
     // TODO: pass back an static instace here? [Merchant]
+    // TODO: prettiyfy
 
-    /// --------------------
+    // --------------------
     // MARK: Statuses
-    /// --------------------
+    // --------------------
     
     @GET("statuses")
     var getStatuses: StatusResponseEntity<[Status]>
@@ -37,9 +39,9 @@ struct AwehService: Service {
     @POST("statuses/{status_id}/files", body: [MultipartBody].self, formURLEncoded: true)
     var postStatusMedia: StatusResponseEntity<Status>
     
-    /// --------------------
+    // --------------------
     // MARK: Status Comments
-    /// --------------------
+    // --------------------
     
     @GET("statuses/{status_id}/comments")
     var getComments: StatusResponseEntity<[Comment]>
@@ -47,8 +49,37 @@ struct AwehService: Service {
     @POST("statuses/{status_id}/comments", body: Comment.self)
     var postComment: StatusResponseEntity<String>
     
-}
+    // --------------------
+    // MARK: Circles
+    // --------------------
+    
+    @GET("circles")
+    var getAllCircles: StatusResponseEntity<[Interest]>
+    
+    @POST("circles/join", body: UserCircleRequestObject.self)
+    var postJoinCircle: StatusResponseEntity<Bool>
+    
+    @GET("circles/my_circles")
+    var getMyCircles: StatusResponseEntity<[Interest]>
 
+    @GET("circles/statuses")
+    var getStatusesForInterest: StatusResponseEntity<[Status]>
+    
+    // --------------------
+    // MARK: User
+    // --------------------
+    
+    @GET("users/statuses")
+    var getUserStatuses: StatusResponseEntity<[Status]>
+    
+    @POST("users/signIn", body: User.self)
+    var signInUser:  StatusResponseEntity<User>
+    
+    @GET("user_exists")
+    var userExists: StatusResponseEntity<User>
+    
+
+}
 
 /// We maintain a static reference to our service
 @propertyWrapper

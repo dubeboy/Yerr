@@ -15,7 +15,7 @@ struct LateInit<T> {
     var wrappedValue: T {
         get {
            guard let storage = storage else {
-               let errorMessage = "Trying to access LateInit value before setting it."
+            let errorMessage = "Trying to access LateInit value before setting it. -- Nil object -- \(String(describing: self.storage.self))"
                Logger.log(errorMessage)
                preconditionFailure(errorMessage)
            }
@@ -32,19 +32,10 @@ struct LateInit<T> {
     
     var projectedValue: Self { self }
 
+    // Change to isNil or add this function
     var isInitialized: Bool {  storage != nil }
     
     mutating func release() {
         self.storage = nil
-    }
-}
-
-class J {
-
-    @LateInit
-    var s: Int
-
-    func sss() {
-        print(s)
     }
 }

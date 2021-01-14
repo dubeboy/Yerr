@@ -11,8 +11,8 @@ import Foundation
 protocol InterestsPresenter {
     var numberOfItems: Int { get }
     var isMultiSelectEnabled: Bool { get }
-    func fetchInterests(completion: @escaping () -> Void)
-    func configure(cell: InterestsCollectionViewCell, at indexPath: IndexPath)
+    func fetchInterests(completion: @escaping () -> Void, failure: @escaping (String) -> Void)
+    func configure(cell: InterestsCollectionViewCell, at indexPath: IndexPath, delegate: SingleInterestViewDelegate)
     func didSelect(at item: IndexPath, completion: (SelectAction) -> Void)
 }
 
@@ -23,10 +23,11 @@ enum SelectAction {
 
 class InterestsPresenterImplemantation: InterestsPresenter {
     // inject user defaults here
-    private var viewModel: [InterestViewModel]?
+    private var viewModel: [InterestViewModel] = []
     private let interestCellPresenter = InterestsCellPresenter()
     private let user: UserViewModel?
     private var selectedInterests: Set<InterestViewModel> = Set()
+    private var circlesInteractor: CirclesUseCase = CirclesInteractor()
     
     var isMultiSelectEnabled: Bool {
         user != nil
@@ -37,7 +38,7 @@ class InterestsPresenterImplemantation: InterestsPresenter {
     }
     
     var numberOfItems: Int {
-        viewModel?.count ?? 0
+        viewModel.count
     }
     
     func configure() {
@@ -45,7 +46,6 @@ class InterestsPresenterImplemantation: InterestsPresenter {
     }
     
     func didSelect(at item: IndexPath, completion: (SelectAction) -> Void) {
-        guard let viewModel = viewModel else { return }
         switch isMultiSelectEnabled {
             case true:
                 let interestItem = viewModel[item.item]
@@ -59,39 +59,21 @@ class InterestsPresenterImplemantation: InterestsPresenter {
         }
     }
     
-    func configure(cell: InterestsCollectionViewCell, at indexPath: IndexPath) {
-        guard let viewModel = viewModel else { return }
-        interestCellPresenter.configure(cell, with: viewModel[indexPath.item] )
+    func configure(cell: InterestsCollectionViewCell, at indexPath: IndexPath, delegate: SingleInterestViewDelegate) {
+        interestCellPresenter.configure(cell, with: viewModel[indexPath.item], delegate: delegate)
     }
     
-    func fetchInterests(completion: @escaping () -> Void) {
-//        viewModel = Self.stub()
-        completion()
+    func fetchInterests(completion: @escaping () -> Void,
+                        failure: @escaping (String) -> Void) {
+        circlesInteractor.getMyCircles(userId: User.dummyUser.id!) { response in
+            switch response {
+                case .success(let interests):
+                    let interestsViewModel = InterestViewModel.transform(from: interests)
+                    self.viewModel.append(contentsOf: interestsViewModel)
+                    completion()
+                case .failure(let error):
+                    failure(error.localizedDescription)
+            }
+        }
     }
-}
-
-extension InterestsPresenterImplemantation {
-//    static func stub() -> [InterestViewModel] {
-//        dummy().map(InterestViewModel.transform(from:))
-//    }
-    
-//    static func dummy() -> [Interest] {
-//        [
-//            Interest(interestName: "General",
-//                     hasNewStatus: true,
-//                     interestImageLink: "1",
-//                     users: [User(name: "John", profilePictureUrl: "2", statuses: FeedPresenterImplemantation.status()),
-//                             User(name: "Rahim Stelling", profilePictureUrl: "1", statuses: FeedPresenterImplemantation.status())
-//            ]),
-//            Interest(interestName: "Food", hasNewStatus: true, interestImageLink: "1"),
-//            Interest(interestName: "Morning Jog", hasNewStatus: false, interestImageLink: "2"),
-//            Interest(interestName: "Sale", hasNewStatus: true, interestImageLink: "1"),
-//            Interest(interestName: "Sports", hasNewStatus: false, interestImageLink: "1"),
-//            Interest(interestName: "Dating", hasNewStatus: true, interestImageLink: "1"),
-//            Interest(interestName: "Bussines", hasNewStatus: false, interestImageLink: "1"),
-//            Interest(interestName: "Ride Share", hasNewStatus: true, interestImageLink: "1"),
-//            Interest(interestName: "My Community", hasNewStatus: true, interestImageLink: "1"),
-//            Interest(interestName: "Comunity Sevices", hasNewStatus: true, interestImageLink: "1"),
-//        ]
-//    }
 }

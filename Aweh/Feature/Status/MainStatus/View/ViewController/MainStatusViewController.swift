@@ -12,8 +12,8 @@ import UIKit
 class MainStatusViewController: UIViewController {
     
     var presenter: MainStatusPresenter!
-    var coordinator: InterestCoordinator!
-    var feedCoordinator: FeedCoordinator!
+    weak var coordinator: InterestCoordinator!
+    weak var feedCoordinator: FeedCoordinator!
     
     override func viewDidLoad() {
         super.viewDidLoad()

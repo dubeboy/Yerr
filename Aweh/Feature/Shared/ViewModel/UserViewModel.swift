@@ -9,10 +9,24 @@
 import Foundation
 import UIKit
 
+
+struct PointsViewModel: Hashable {
+    let score: Int
+    let badge: String
+    let colorHex: String
+}
+
+extension PointsViewModel {
+    static func transform(point: Point) -> Self {
+        PointsViewModel(score: point.score, badge: point.badge, colorHex: point.colorHex)
+    }
+}
+
 struct UserViewModel: Hashable {
     let profilePicture: String // TODO change this to imageLink
     let name: String
-    let point: GuageViewViewModel?
+    let point: PointsViewModel
+    var statuses: [StatusViewModel] = []
 }
 
 extension UserViewModel {
@@ -20,12 +34,13 @@ extension UserViewModel {
         UserViewModel(
             profilePicture: user.profilePicture?.location ?? "",
             name: user.name,
-            point: nil
+            point: .transform(point: user.point)
         )
     }
 }
 
 extension User {
+    // TODO: need to set values that can be nil nil here
     static func transform(user: UserViewModel) -> Self {
         User(id: nil, name: user.name, handle: "", phoneNumber: "", profilePicture:
                 Media(name: "",
@@ -33,6 +48,6 @@ extension User {
                       location: "",
                       createAt: Date(),
                       size: 0),
-             point: Point(score: 0, badge: ""))
+             point: Point(score: 0, badge: "", colorHex: ""))
     }
 }

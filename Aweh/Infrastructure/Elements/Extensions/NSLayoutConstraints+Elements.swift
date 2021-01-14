@@ -16,7 +16,9 @@ precedencegroup NSLayoutPrecedence {
 }
 
 infix operator -->: NSLayoutPrecedence
-infix operator +: AdditionPrecedence
+infix operator ->=: NSLayoutPrecedence
+infix operator -<=: NSLayoutPrecedence
+infix operator +: AdditionPrecedence // Change this so can have a proper precedence for addition
 //infix operator +
 //infix operator <-- --<= -->=
 
@@ -25,15 +27,18 @@ infix operator +: AdditionPrecedence
 //
 //}
 
-
-
-func -->(lhs: UIView, rhs: UIView) { // wanna also be able to do somthing like v -> v2 + 16
+@discardableResult
+func -->(lhs: UIView, rhs: UIView) -> (NSLayoutConstraint, NSLayoutConstraint, NSLayoutConstraint, NSLayoutConstraint) { // wanna also be able to do somthing like v -> v2 + 16
     lhs.translatesAutoresizingMaskIntoConstraints = false
-    lhs.leadingAnchor --> rhs.leadingAnchor
-    lhs.trailingAnchor --> rhs.trailingAnchor
-    lhs.topAnchor --> rhs.topAnchor
-    lhs.bottomAnchor --> rhs.bottomAnchor
+    let leading = lhs.leadingAnchor --> rhs.leadingAnchor
+    let trailing = lhs.trailingAnchor --> rhs.trailingAnchor
+    let top = lhs.topAnchor --> rhs.topAnchor
+    let bottom = lhs.bottomAnchor --> rhs.bottomAnchor
+    return (top, leading, bottom, trailing)
 }
+
+// tenary operators
+//https://natecook.com/blog/2014/10/ternary-operators-in-swift/
 
 @discardableResult
 func -->(lhs: NSLayoutXAxisAnchor, rhs: NSLayoutXAxisAnchor) -> NSLayoutConstraint {
@@ -41,6 +46,36 @@ func -->(lhs: NSLayoutXAxisAnchor, rhs: NSLayoutXAxisAnchor) -> NSLayoutConstrai
     contraint.isActive = true
     return contraint
 }
+
+@discardableResult
+func ->=(lhs: NSLayoutXAxisAnchor, rhs: NSLayoutXAxisAnchor) -> NSLayoutConstraint {
+    let contraint = lhs.constraint(greaterThanOrEqualTo: rhs)
+    contraint.isActive = true
+    return contraint
+}
+
+@discardableResult
+func ->=(lhs: NSLayoutYAxisAnchor, rhs: NSLayoutYAxisAnchor) -> NSLayoutConstraint {
+    let contraint = lhs.constraint(greaterThanOrEqualTo: rhs)
+    contraint.isActive = true
+    return contraint
+}
+
+
+@discardableResult
+func -<=(lhs: NSLayoutXAxisAnchor, rhs: NSLayoutXAxisAnchor) -> NSLayoutConstraint {
+    let contraint = lhs.constraint(lessThanOrEqualTo: rhs)
+    contraint.isActive = true
+    return contraint
+}
+
+@discardableResult
+func -<=(lhs: NSLayoutYAxisAnchor, rhs: NSLayoutYAxisAnchor) -> NSLayoutConstraint {
+    let contraint = lhs.constraint(lessThanOrEqualTo: rhs)
+    contraint.isActive = true
+    return contraint
+}
+
 
 @discardableResult
 func -->(lhs: NSLayoutYAxisAnchor, rhs: NSLayoutYAxisAnchor) -> NSLayoutConstraint {
@@ -53,12 +88,19 @@ func -->(lhs: NSLayoutDimension, rhs: CGFloat) {
     lhs.constraint(equalToConstant: rhs).isActive = true
 }
 
+func ->=(lhs: NSLayoutDimension, rhs: CGFloat) {
+    lhs.constraint(greaterThanOrEqualToConstant: rhs).isActive = true
+}
+
+
 func -->(lhs: NSLayoutDimension, rhs: NSLayoutDimension) {
     lhs.constraint(equalTo: rhs).isActive = true
 }
 
-func +(lhs: NSLayoutConstraint, rhs: CGFloat) {
+@discardableResult
+func +(lhs: NSLayoutConstraint, rhs: CGFloat) -> NSLayoutConstraint  {
     lhs.constant = rhs
+    return lhs
 }
 
 // Use currying to make this better

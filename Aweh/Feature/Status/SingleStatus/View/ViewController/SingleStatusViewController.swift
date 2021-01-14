@@ -22,13 +22,13 @@ class SingleStatusViewController: UIViewController {
     @IBOutlet weak var commentDividerLine: UIView!
     
     var presenter: SingleStatusPresenter!
-    var coordinator: Coordinator!
+    weak var coordinator: Coordinator!
    
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.getStatus { [weak self] viewModel in
             guard let self = self else { return }
-            self.statusLabel.text = viewModel.status
+//            self.statusLabel.text = viewModel.status
 //            self.statusImage.downloadImage(fromUrl: viewModel.media?.uuid)
         }
     }

@@ -21,7 +21,7 @@ class StatusPageViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = presenter.title
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
         
         createPageViewControllers(page: presenter.currentPagesCount())
     }
@@ -39,39 +39,7 @@ class StatusPageViewController: UIPageViewController {
         dataSource = self
         delegate = self
     }
-    
-    private func setupStatusIndicatorView(bar: UINavigationBar, itemCount: Int) {
-        statusView = StatusIndicator(itemCount: itemCount, delegate: self)
-        bar.addSubview(statusView)
-        statusView.translatesAutoresizingMaskIntoConstraints = false
-        statusView.bottomAnchor.constraint(equalTo: bar.topAnchor, constant: 0).isActive = true
-        statusView.leadingAnchor --> bar.leadingAnchor + 8
-        statusView.trailingAnchor --> bar.trailingAnchor + -8
-        statusView.centerYAnchor --> bar.centerYAnchor
-        statusView.centerXAnchor --> bar.centerXAnchor
-        statusView.heightAnchor --> 16
-    }
-    
-    private func createPageViewControllers(page: Int) {
-        presenter.getUserStatus(
-        page: page) { [weak self] userViewModel in
-            guard
-                let self = self,
-                let coordinator = self.coordinator
-            else { return }
-//            let singleStatusViewControllers = userViewModel.statuses.map(
-//                coordinator
-//                .createSingleStatusViewController(_:)
-//            )
-//            self.presenter.setViewControllers(singleStatusViewControllers)
-//            self.setViewControllers(
-//                [singleStatusViewControllers[0]],
-//                direction: .forward,
-//                animated: true,
-//                completion: nil
-//            )
-        }
-    }
+
 
     override var prefersStatusBarHidden: Bool {
         return true
@@ -82,6 +50,15 @@ class StatusPageViewController: UIPageViewController {
         statusView.removeFromSuperview()
         navigationController?.hidesBarsOnTap = false
         navigationController?.navigationBar.isTranslucent = false
+    }
+    
+    
+    func setViewModel(viewModel: StatusPageViewModel) {
+        presenter.setViewModel(viewModel: viewModel)
+    }
+    
+    func resetView() {
+        // show a loader of some sort
     }
 }
 
@@ -142,12 +119,52 @@ extension StatusPageViewController: UIPageViewControllerDelegate {
     }
 }
 
+// MARK: pager timout delegate
+
 extension StatusPageViewController: StatusTimoutDelegate {
     func timeout() {
         if let currentIndex = currentIndex {
             guard let viewController = presenter.viewController(at: currentIndex + 1) else { return }
             statusView.setCurrentStatusAt(statusIndex: currentIndex + 1)
             setViewControllers([viewController], direction: .forward, animated: true, completion: nil)
+        }
+    }
+}
+
+// MARK: Helper functions
+
+extension StatusPageViewController {
+    
+    private func setupStatusIndicatorView(bar: UINavigationBar, itemCount: Int) {
+        statusView = StatusIndicator(delegate: self)
+        bar.addSubview(statusView)
+        statusView.translatesAutoresizingMaskIntoConstraints = false
+        statusView.bottomAnchor.constraint(equalTo: bar.topAnchor, constant: 0).isActive = true
+        statusView.leadingAnchor --> bar.leadingAnchor + 8
+        statusView.trailingAnchor --> bar.trailingAnchor + -8
+        statusView.centerYAnchor --> bar.centerYAnchor
+        statusView.centerXAnchor --> bar.centerXAnchor
+        statusView.heightAnchor --> 16
+    }
+    
+    private func createPageViewControllers(page: Int) {
+        presenter.getUserStatus(
+            page: page) { [weak self] userViewModel in
+            guard
+                let self = self,
+                let coordinator = self.coordinator
+            else { return }
+            //            let singleStatusViewControllers = userViewModel.statuses.map(
+            //                coordinator
+            //                .createSingleStatusViewController(_:)
+            //            )
+            //            self.presenter.setViewControllers(singleStatusViewControllers)
+            //            self.setViewControllers(
+            //                [singleStatusViewControllers[0]],
+            //                direction: .forward,
+            //                animated: true,
+            //                completion: nil
+            //            )
         }
     }
 }

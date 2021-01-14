@@ -18,7 +18,13 @@ extension UIView {
         makeRound()
         contentMode = .scaleAspectFill
         layer.borderWidth = 0.03
-        layer.backgroundColor = UIColor.systemGray6.cgColor
+        layer.backgroundColor = Const.Color.lightGray.cgColor
+    }
+}
+
+extension UIView {
+    func autoresizingOff() {
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
 }
 
@@ -74,17 +80,59 @@ extension UIView {
 
 
 extension UIView {
-    func shadow() {
-//        self.contentView.layer.cornerRadius = 2.0
-//        self.contentView.layer.borderWidth = 1.0
-//        self.contentView.layer.borderColor = UIColor.clear.cgColor
-//        self.contentView.layer.masksToBounds = true
-//        
-//        self.layer.shadowColor = UIColor.black.cgColor
-//        self.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-//        self.layer.shadowRadius = 2.0
-//        self.layer.shadowOpacity = 0.5
-//        self.layer.masksToBounds = false
-//        self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.contentView.layer.cornerRadius).cgPath
+    func addShadow() {
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+        self.layer.shadowRadius = 2.0
+        self.layer.shadowOpacity = 0.5
+        self.layer.masksToBounds = false
+    }
+}
+
+// Confetti!!! commented out because its not being used!!!
+
+extension UIView {
+//    private func addConfetti(to layer: CALayer) {
+//        let images: [UIImage] = (0...5).map { UIImage(named: "confetti\($0)")! }
+//        let colors: [UIColor] = [.systemGreen, .systemRed, .systemBlue, .systemPink, .systemOrange, .systemPurple, .systemYellow]
+//        let cells: [CAEmitterCell] = (0...16).map { i in
+//            let cell = CAEmitterCell()
+//            cell.contents = images.randomElement()?.cgImage
+//            cell.birthRate = 3
+//            cell.lifetime = 12
+//            cell.lifetimeRange = 0
+//            cell.velocity = CGFloat.random(in: 100...200)
+//            cell.velocityRange = 0
+//            cell.emissionLongitude = 0
+//            cell.emissionRange = 0.8
+//            cell.spin = 4
+//            cell.color = colors.randomElement()?.cgColor
+//            cell.scale = CGFloat.random(in: 0.2...0.8)
+//            return cell
+//        }
+//
+//        let emitter = CAEmitterLayer()
+//        emitter.emitterPosition = CGPoint(x: layer.frame.size.width / 2, y: layer.frame.size.height + 5)
+//        emitter.emitterShape = .line
+//        emitter.emitterSize = CGSize(width: layer.frame.size.width, height: 2)
+//        emitter.emitterCells = cells
+//
+//        layer.addSublayer(emitter)
+//    }
+}
+
+// MARK: - Find first responder
+
+extension UIView {
+    var firstResponder: UIView? {
+        guard !isFirstResponder else { return self }
+        
+        for subview in subviews {
+            if let firstResponder = subview.firstResponder {
+                return firstResponder
+            }
+        }
+        
+        return nil
     }
 }

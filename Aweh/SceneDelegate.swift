@@ -8,26 +8,24 @@
 
 import UIKit
 
+@available(iOS 13.0, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var coordinators: [Coordinator]?
+    @UserDefaultsBacked(key: .didFinishLaunching, defaultValue: false)
+    var didCompleteSetup: Bool
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
+        let window = UIWindow(windowScene: scene)
         
         let tabBarController = UITabBarController()
         
-        coordinators = [
-            HomeCoordinator(tabBarController), // pass in the tab bar controller
-            StatusCoordinator(tabBarController),
-            ProfileCoordinator(tabBarController)
-        ].map { $0.start() }
-        
+        coordinators = createTabBarCoordinators(tabBarController: tabBarController).map { $0.start() }
         tabBarController.viewControllers = coordinators?.map { $0.navigationController }
-        
-        let window = UIWindow(windowScene: scene)
         window.rootViewController = tabBarController
+       
         self.window = window
         window.makeKeyAndVisible()
     }
@@ -39,6 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
     }
 
+    @available(iOS 13.0, *)
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.

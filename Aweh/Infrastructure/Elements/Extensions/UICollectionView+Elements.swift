@@ -29,6 +29,13 @@ extension UICollectionView {
         )
     }
     
+    func registerClass<T: UICollectionViewCell>(_ `class`: T.Type) {
+        register(
+            `class`,
+            forCellWithReuseIdentifier: T.reuseIdentifier
+        )
+    }
+    
     func registerHeader<T: UICollectionViewCell>(_ fromNib: T.Type) {
         register(
             UINib(nibName: T.reuseIdentifier, bundle: Bundle.main),
@@ -49,7 +56,7 @@ extension UICollectionViewCell {
 
 extension UICollectionViewCell {
     func configureContentView() {
-        contentView.backgroundColor = .systemBackground
+        contentView.backgroundColor = Const.Color.backgroundColor
         contentView.clipsToBounds = true
     }
 }

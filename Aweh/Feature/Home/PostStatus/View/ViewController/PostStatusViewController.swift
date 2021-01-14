@@ -9,93 +9,118 @@
 import UIKit
 import Photos
 
+// This view gives you the ability to add text above a video or just normal text
+// https://www.raywenderlich.com/5960-text-kit-tutorial-getting-started
+// https://stackoverflow.com/questions/42842215/attributed-text-with-uitextfield
+// https://www.xspdf.com/resolution/50437458.html
+// https://pspdfkit.com/blog/2020/blur-effect-materials-on-ios/
+// maybe we could allow the user add some maerials to their own contant and also add a materils background???
+// definetly need so add some vibrancy and some diagnally cut background images
+//https://developer.apple.com/documentation/uikit/uifont/scaling_fonts_automatically
+//https://developer.apple.com/docume ntation/uikit/uiviewcontroller/1621430-presentingviewcontroller?language=objc // to blur the current view controller when images is shown
+// add a recording timer
 class PostStatusViewController: UIViewController {
     
     var presenter: PostStatusPresenter!
-    weak var coordinator: PhotosGalleryCoordinator?
+    weak var coordinator: (PhotosGalleryCoordinator & CaptureStatusCoordinator)!
     var delegate: Completion<StatusViewModel>!
-    
-    @LateInit
-    var location: GeoLocationServices
-    @LateInit
-    var numberOfCharactorsButton: UIBarButtonItem
-    @LateInit
-    var commentBox: CommentBoxView
     
     var placeHolderText: String {
         presenter.placeHolderText
     }
     
-//    var postButton = UIBarButtonItem(title: "Post", style: .plain, target: self, action: #selector(post))
-    var postButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closs))
-
+    @LateInit
+    private var location: GeoLocationServices
+    @LateInit
+    private var bottomConstraint: NSLayoutConstraint
+    @LateInit
+    private var statusTextBottomConstraint: NSLayoutConstraint
+    @LateInit
+    private var statusTextTopConstraint: NSLayoutConstraint
+    @LateInit
+    private var actionsToolbarBottomConstraint: NSLayoutConstraint
+        
     var assets: [String: PHAsset] = [:]
 
-    var bottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var statusTextView: UITextView!
-    @IBOutlet weak var profileImage: UIImageView! {
-        didSet {
-            profileImage.makeImageRound()
-        }
-    }
-   
+    private let profileImage: UIImageView = UIImageView()
+    private let backgroundColorView = UIView()
+    private let statusTextView = UITextView()
+    @LateInit
+    private var actionsToolbar: TextViewActionsView
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         location = GeoLocationServices(delegate: self)
-        commentBox = CommentBoxView(displayType: .compact(statusTextView))
+        actionsToolbar = TextViewActionsView(delegate: self, colors: presenter.colors)
+        profileImage.makeImageRound()
         title = AppStrings.PostStatus.title
         configureSelf()
-        setupStatusTextiew()
-        navigationItem.rightBarButtonItem = postButton       
+        configureStatusTextiew()
+        configureActionsToolbar()
     }
+    
+    @objc func captureStatus() {
+        coordinator.startCaptureStatusViewController(navigationController: navigationController)
+    }
+    
     
     @objc func post() {
-        let status = commentBox.commentText()
-        presenter.postStatus(status: status) { [weak self] status in
-            guard let self = self else { return }
-            self.closs()
-            self.delegate(status)
-        } error: { errorMessage in
-            self.presentToast(message: errorMessage)
-        }
+//        presenter.postStatus(status: status) { [weak self] status in
+//            guard let self = self else { return }
+//            self.close()
+//            self.delegate(status)
+//        } error: { errorMessage in
+//            self.presentToast(message: errorMessage)
+//        }
     }
     
-    @objc private func closs() {
+    @objc func close() {
         self.dismiss(animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        statusTextView.centerVerticalText()
         listenToEvent(
             name: .keyboardWillShow,
             selector: #selector(keyboardWillAppear(notification:))
+        )
+        
+        listenToEvent(
+            name: .keyboardWillHide,
+            selector: #selector(keyboardWillHide(notification:))
         )
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        commentBox.becomeFirstResponder()
+       
+        statusTextView.becomeFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        statusTextView.endEditing(true)
         removeSelfFromNotificationObserver()
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        bottomConstraint.constant = 0
+        actionsToolbarBottomConstraint.constant = -(Const.View.m16 + view.safeAreaInsets.bottom)
     }
     
     @objc func keyboardWillAppear(notification: NSNotification) {
         guard let frame = keyboardFrame(from: notification) else { return }
-        // TODO: fix this is unaccaptable
-        bottomConstraint.constant = -(frame.size.height - spookyKeyboardHeightConstant + 20)
+        bottomConstraint.constant = -frame.size.height
+        actionsToolbarBottomConstraint.constant = -frame.size.height
     }
-    
     
     // TODO: - move to the presenter
     @objc func requestAuthorisation() {
         let status = PHPhotoLibrary.authorizationStatus()
         switch status {
             case .authorized:
-            loadPhotos() // ask coordinator to opne the grid view
+                loadPhotos() // ask coordinator to opne the grid view
             case .denied, .notDetermined:
             // request permission
             PHPhotoLibrary.requestAuthorization { [weak self] status in
@@ -112,12 +137,24 @@ class PostStatusViewController: UIViewController {
         }
     }
     
+    @objc func didTapDoneButton() {
+        if statusTextView.isFirstResponder {
+            statusTextView.endEditing(true)
+        } else {
+            statusTextView.becomeFirstResponder()
+        }
+    }
+    
     deinit {
         print("ahhhhhh❌") // TODO not being deinit!!!
     }
+    
+    @objc func closeViewController() {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
-// MARK: PRIVATE Functions
+// MARK: - PRIVATE Functions
 
 extension PostStatusViewController {
     private func noAuthorised() {
@@ -128,13 +165,34 @@ extension PostStatusViewController {
     }
     
     private func configureSelf() {
-        view.addSubview(commentBox)
-        setUpCommentBox()
+        backgroundColorView.autoresizingOff()
+        view.addSubview(backgroundColorView)
+        let (_, _, bottomBackgroundConstraint, _) = backgroundColorView --> view
+        bottomConstraint = bottomBackgroundConstraint
+        backgroundColorView.backgroundColor = .cyan
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapDoneButton))
+//        backgroundColorView.addGestureRecognizer(tapGesture)
+        view.backgroundColor = .cyan
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(closeViewController))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(captureStatus))
+
     }
     
-    private func setupStatusTextiew() {
-        statusTextView.text = placeHolderText
-        statusTextView.clipsToBounds = true
+    private func configureStatusTextiew() {
+        statusTextView.autoresizingOff()
+        backgroundColorView.addSubview(statusTextView)
+        statusTextView.isScrollEnabled = false
+        statusTextView.leadingAnchor --> backgroundColorView.leadingAnchor + Const.View.m16
+        statusTextView.trailingAnchor --> backgroundColorView.trailingAnchor + -Const.View.m16
+        statusTextView.centerYAnchor --> backgroundColorView.centerYAnchor
+        statusTextView.heightAnchor ->= 50
+        statusTextView.delegate = self
+        statusTextTopConstraint = statusTextView.topAnchor --> backgroundColorView.topAnchor + (Const.View.m16 + view.safeAreaInsets.top)
+        statusTextBottomConstraint =  statusTextView.bottomAnchor -->  backgroundColorView.bottomAnchor + -Const.View.m16
+        statusTextTopConstraint.isActive = false
+        statusTextBottomConstraint.isActive = false
+        statusTextView.backgroundColor = .clear
+        statusTextView.textAlignment = .center
     }
     
     private func loadPhotos() {
@@ -144,25 +202,20 @@ extension PostStatusViewController {
         }
     }
     
-    private func setUpCommentBox() {
-        commentBox.replyButton.setTitle(AppStrings.PostStatus.postStatusButtonTitle, for: .normal)
-        commentBox.placeHolderText = placeHolderText
-        commentBox.translatesAutoresizingMaskIntoConstraints = false
-        commentBox.topAnchor --> statusTextView.bottomAnchor + Const.View.m16
-        bottomConstraint = commentBox.bottomAnchor --> view.safeAreaLayoutGuide.bottomAnchor
-        commentBox.trailingAnchor --> view.trailingAnchor
-        commentBox.leadingAnchor --> view.leadingAnchor
-        commentBox.replyButton.addTarget(self, action: #selector(post), for: .touchUpInside)
-        commentBox.selectPhotosButton.addTarget(self, action: #selector(requestAuthorisation), for: .touchUpInside)
-    }
-    
     private func didGetAssets(assets: [String: PHAsset]) {
         self.assets = assets
         presenter.appendSelectedImages(assets: assets)
-        commentBox.showImageAssets(assets: assets)
+    }
+    
+    private func configureActionsToolbar() {
+        actionsToolbar.autoresizingOff()
+        view.addSubview(actionsToolbar)
+        actionsToolbar.leadingAnchor --> view.leadingAnchor
+        actionsToolbar.trailingAnchor --> view.trailingAnchor
+        actionsToolbarBottomConstraint = actionsToolbar.bottomAnchor --> view.bottomAnchor + -(Const.View.m16 + view.safeAreaInsets.bottom)
     }
 }
-
+//MARK: - GeoLocationServicesDelegate
 extension PostStatusViewController: GeoLocationServicesDelegate {
     
     func didFetchCurrentLocation(_ location: Location) {
@@ -174,4 +227,62 @@ extension PostStatusViewController: GeoLocationServicesDelegate {
         presentToast(message: AppStrings.Shared.GeoLocationServices.failedToGetLocation)
     }
     
+}
+// MARK: - UITextViewDelegate
+extension PostStatusViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+//        textView.centerVerticalText()
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.contentSize.height >= backgroundColorView.bounds.height {
+            textView.isScrollEnabled = true
+            statusTextTopConstraint.isActive = true // TODO: activate constrainst when need
+            statusTextBottomConstraint.isActive = true
+        } else {
+            textView.isScrollEnabled = false
+            statusTextTopConstraint.isActive = false
+            statusTextBottomConstraint.isActive = false
+        }
+    }
+}
+
+// MARK: - TextViewActionsView Delegate
+
+extension PostStatusViewController: TextViewActionsViewDelegate {
+    func didTapDoneActionButton() {
+        view.endEditing(true)
+    }
+    
+    func didTapTextAlignment(alignment: PostStatusViewModel.TextAlignment) {
+        switch alignment {
+            case .center:
+                presenter.selectedTextAlignment = .center
+                statusTextView.textAlignment = .center
+            case .left:
+                statusTextView.textAlignment = .left
+                presenter.selectedTextAlignment = .left
+            case .right:
+                presenter.selectedTextAlignment = .right
+                statusTextView.textAlignment = .right
+        }
+    }
+    
+    func didTapColorToChange(tag: Int) {
+        backgroundColorView.backgroundColor = UIColor(hex: presenter.colors[tag])
+        view.backgroundColor = UIColor(hex: presenter.colors[tag])
+    }
+    
+    func didTapBoldText(textWeight: PostStatusViewModel.TextWeight) {
+        switch textWeight {
+            case .bold:
+                    statusTextView.font = UIFont.boldSystemFont(ofSize: 16) // TODO: get these values from Const
+            case .italic:
+                    
+                statusTextView.font = UIFont.italicSystemFont(ofSize: 16)
+
+            case .normal:
+                statusTextView.font = UIFont.systemFont(ofSize: 16)
+        }
+    }
 }

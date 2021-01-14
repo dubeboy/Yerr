@@ -31,6 +31,7 @@ extension UIViewController: Storyborded {
 // MARK: TOASTS
 extension UIViewController {
     // TODO: - should be bale to show image animation
+    // TODO: should be able to blur view controller below and should appear on top
     func presentToast(message: String) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         present(alert, animated: true, completion: nil)
@@ -39,8 +40,18 @@ extension UIViewController {
         })
     }
     
-    func presentAlert(message: String, cancel: () -> Void, ok: () -> Void) {
-        
+    func presentAlert(title: String = "", message: String, ok: ((UIAlertAction) -> Void)?, cancel: ((UIAlertAction) -> Void)? = nil) {
+        let okAction = UIAlertAction(title: AppStrings.Shared.Extensions.UIAlertViewController.alertOk, style: .default, handler: ok)
+        let cancelAction = UIAlertAction(title: AppStrings.Shared.Extensions.UIAlertViewController.alertCancel, style: .cancel, handler: cancel)
+        presentAlert(title: title, message: message, actions: okAction, cancelAction )
+    }
+    
+    func presentAlert(title: String = "", message: String, actions: UIAlertAction...) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        actions.forEach { action in
+            alert.addAction(action)
+        }
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -81,7 +92,7 @@ extension UIViewController {
 }
 
 // MARK: View Controller addition
-
+// TODO: mention source!!!
 extension UIViewController {
     func add(_ child: UIViewController) {
         addChild(child)
@@ -102,3 +113,22 @@ extension UIViewController {
     }
 }
 
+// MARK navigation item additions
+
+extension UIViewController {
+    func addCloseButtonItem(toLeft: Bool = false, alertOnClose: Bool = false) {
+        if toLeft {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissViewController))
+        } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissViewController))
+        }
+    }
+    
+    @objc private func dismissViewController() {
+        if isBeingPresented {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+}

@@ -11,7 +11,6 @@ import Foundation
 protocol FeedDetailPresenter {
     var commentsCount: Int { get }
     var title: String { get }
-    func configure(_ cell: FeedDetailCollectionViewCell)
     func configure(_ cell: CommentCollectionViewCell, for indexPath: IndexPath)
     func fetchComments(page: Int,
                        completion: @escaping (Int) -> Void,
@@ -22,7 +21,7 @@ protocol FeedDetailPresenter {
 }
 
 class FeedDetailPresenterImplemantation: FeedDetailPresenter {
-    let title: String = "Status"
+    let title: String = AppStrings.FeedDetail.title
     let feedDetailCellPresenter: FeedDetailCellPresenter = FeedDetailCellPresenter()
     let commentsPresenter: CommentCellPresenter = CommentCellPresenter()
     var viewModel: FeedDetailViewModel
@@ -35,13 +34,9 @@ class FeedDetailPresenterImplemantation: FeedDetailPresenter {
     init(statusViewModel: FeedDetailViewModel) {
         self.viewModel = statusViewModel
     }
-    
-    func configure(_ cell: FeedDetailCollectionViewCell) {
-        feedDetailCellPresenter.configure(with: cell, forDisplaying: viewModel)
-    }
-    
+
     func configure(_ cell: CommentCollectionViewCell, for indexPath: IndexPath) {
-        let commentViewModel = viewModel.comments[indexPath.item - 1]
+        let commentViewModel = viewModel.comments[indexPath.item]
         commentsPresenter.configure(with: cell, forDisplaying: commentViewModel)
     }
     
