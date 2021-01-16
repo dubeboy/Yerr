@@ -169,6 +169,7 @@
 		71D7674D24BF587600D9507E /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7674C24BF587600D9507E /* FeedCoordinator.swift */; };
 		71D7675424BF808300D9507E /* CompactFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D7675224BF808300D9507E /* CompactFeedCollectionViewCell.swift */; };
 		71D7675524BF808300D9507E /* CompactFeedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71D7675324BF808300D9507E /* CompactFeedCollectionViewCell.xib */; };
+		71DDF07C25B2D24100372434 /* CGSize+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DDF07B25B2D24100372434 /* CGSize+Elements.swift */; };
 		71E0C5B025487BFB00B69FB9 /* InitPhoneNumberCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E0C5AF25487BFB00B69FB9 /* InitPhoneNumberCoordinator.swift */; };
 		71E0E744254DE3270040930C /* OPTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E0E743254DE3270040930C /* OPTView.swift */; };
 		71E0E74B254E046E0040930C /* InitCountryListsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E0E74A254E046E0040930C /* InitCountryListsCoordinator.swift */; };
@@ -377,6 +378,7 @@
 		71D7674C24BF587600D9507E /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
 		71D7675224BF808300D9507E /* CompactFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactFeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		71D7675324BF808300D9507E /* CompactFeedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompactFeedCollectionViewCell.xib; sourceTree = "<group>"; };
+		71DDF07B25B2D24100372434 /* CGSize+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Elements.swift"; sourceTree = "<group>"; };
 		71E0C5AF25487BFB00B69FB9 /* InitPhoneNumberCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPhoneNumberCoordinator.swift; sourceTree = "<group>"; };
 		71E0E743254DE3270040930C /* OPTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPTView.swift; sourceTree = "<group>"; };
 		71E0E74A254E046E0040930C /* InitCountryListsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitCountryListsCoordinator.swift; sourceTree = "<group>"; };
@@ -569,6 +571,7 @@
 				71AD2FD125694EF9007CA16C /* UIStackView+Elements.swift */,
 				7109D24B25898B5E0041ECDF /* UINavigationController+Elements.swift */,
 				71C09FD7259F8A4F001EA043 /* UITextView+Elements.swift */,
+				71DDF07B25B2D24100372434 /* CGSize+Elements.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2254,6 +2257,7 @@
 				71FBCF312512C06F00FC7557 /* PulseLayer.swift in Sources */,
 				71F46CEE24995610002B8EFC /* LivePhotoView.swift in Sources */,
 				7110882225327BB400228124 /* Collection+Elements.swift in Sources */,
+				71DDF07C25B2D24100372434 /* CGSize+Elements.swift in Sources */,
 				719CEA3525A4BC2A00A65385 /* EditPhotoViewController.swift in Sources */,
 				71A77FD1249C345E00F8D442 /* FeedDetailViewModel.swift in Sources */,
 				7145AADE25197CB600657062 /* ProfileInteractor.swift in Sources */,

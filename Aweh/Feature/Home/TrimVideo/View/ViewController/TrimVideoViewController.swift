@@ -23,6 +23,11 @@ import Photos
 // https://stackoverflow.com/questions/48088956/text-background-with-round-corner-like-instagram-does
 // https://instagram-engineering.com/building-type-mode-for-stories-on-ios-and-android-8804e927feba
 // https://stackoverflow.com/questions/16362407/nsattributedstring-background-color-and-rounded-corners?rq=1
+
+// https://github.com/search?q=AVMutableVideoComposition+language%3ASwift&type=Code
+// https://github.com/themisterholliday/assetplayer/blob/7b68dbb519f6271df1eabcfaf3fa94a3d1555c4d/AssetPlayer/Classes/VideoExportManager.swift
+// https://github.com/master-nevi/WWDC-2010/blob/master/AVEditDemo/Classes/SimpleEditor.m
+// AVMutableVideoComposition CAtextLayer wwdc
 class TrimVideoViewController: UIViewController {
     
     var presenter: TrimVideoViewPresenter!
@@ -181,7 +186,7 @@ private extension TrimVideoViewController {
     
     private func addOverlayTextView(color: UIColor) {
         let tag = presenter.appendEditableTextAndGetTag(text: " ")
-        let overlayTextView = OverlayTextView(parent: view, backgroundColor: color, tag: tag)
+        let overlayTextView = OverlayTextView(parent: overlayView, backgroundColor: color, tag: tag)
         overlayTextView.addToParent() // TODO: needs fix
         overlayTextView.becomeFirstResponder()
     }
@@ -296,7 +301,13 @@ private extension TrimVideoViewController {
     private func cleanup() {
         
     }
+}
 
+public extension CGAffineTransform {
+    init(from: CGRect, toRect to: CGRect) {
+        self.init(translationX: to.minX-from.minX, y: to.minY-from.minY)
+        self = self.scaledBy(x: to.width/from.width, y: to.height/from.height)
+    }
 }
 
 // MARK: - private functions for video composion and export
@@ -310,12 +321,12 @@ extension TrimVideoViewController {
     private func compositionLayerInstruction(for track: AVCompositionTrack, assetTrack: AVAssetTrack) -> AVMutableVideoCompositionLayerInstruction {
         let instruction = AVMutableVideoCompositionLayerInstruction(assetTrack: track)
         let transform = assetTrack.preferredTransform
-        
+
         instruction.setTransform(transform, at: .zero)
-        
+
         return instruction
     }
-    
+
     private func getVideoSize() -> CGSize {
         guard let assetTrack  = asset.tracks(withMediaType: .video).first else { return .zero }
         return CGSize(width: assetTrack.naturalSize.height, height: assetTrack.naturalSize.width)
@@ -347,15 +358,6 @@ extension TrimVideoViewController {
         }
         
         compositionTrack.preferredTransform = assetTrack.preferredTransform
-        let videoInfo = orientation(from: assetTrack.preferredTransform)
-        
-        Logger.i("Is video portrait: \(videoInfo.isPortrait) and video ifno is \(videoInfo)")
-        // set video size
-        if videoInfo.isPortrait { // if portraint you need to reverse the width and height
-            videoSize = CGSize(width: assetTrack.naturalSize.height, height: assetTrack.naturalSize.width)
-        } else {
-            videoSize = assetTrack.naturalSize
-        }
         
         let backgroundLayer = CALayer() // TODO: this sould be equal to the view bounds!!!
         backgroundLayer.frame = CGRect(origin: .zero, size: videoSize)
@@ -373,18 +375,20 @@ extension TrimVideoViewController {
         
         let overlayLayer = CALayer()
         overlayLayer.frame = CGRect(origin: .zero, size: videoSize)
-        //        addImages(to: overlayLayer, videoSize: videoSize)
+//                addImages(to: overlayLayer, videoSize: videoSize)
 //        add(text: "Hello therer", to: overlayLayer, videoSize: videoSize)
         overlayView.layer.sublayers?.reverse() // put them the way they where added
-        if let overlayLayers = overlayView.layer.sublayers {
-            for layer in overlayLayers {
-                layer.removeFromSuperlayer()
-                let frame = layer.convert(layer.frame, to: overlayLayer)
-                layer.frame = CGRect(x: frame.origin.y, y: frame.origin.x , width: frame.size.width, height: frame.size.width)
-//                layer.transform = CATransform3DMakeScale(UIScreen.main.scale, UIScreen.main.scale, 1)
-                overlayLayer.addSublayer(layer)
-                
-            }
+        let overlayLayers = overlayView.subviews
+        for layer in overlayLayers {
+//            layer.transform = CGAffineTransform(from: layer.frame, toRect: overlayView.frame)
+            let layer = layer.layer
+            layer.removeFromSuperlayer()
+//            layer.shouldRasterize = true
+            layer.frame = CGRect(origin: .zero, size: layer.frame.size)
+//            layer.rasterizationScale = UIScreen.main.scale
+            layer.backgroundColor = UIColor.clear.cgColor
+            overlayLayer.displayIfNeeded() // This is becuase UIView can async sometimes
+            overlayLayer.addSublayer(layer)
         }
         
         outputLayer.frame = CGRect(origin: .zero, size: videoSize)
@@ -404,11 +408,10 @@ extension TrimVideoViewController {
         
         let layerInstruction = compositionLayerInstruction(for: compositionTrack, assetTrack: assetTrack)
         instruction.layerInstructions = [layerInstruction]
-        
-        
     }
     
     private func exportAsset(completion: @escaping Completion<URL?>) {
+            
         setupVideoOverlayAndExportLayers()
         
         guard let export = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality)
@@ -460,7 +463,7 @@ extension TrimVideoViewController {
     private func add(text: String, to layer: CALayer, videoSize: CGSize) {
         let attributedText = NSAttributedString(string: text,  attributes: [
                                                     .font: UIFont(name: "ArialRoundedMTBold", size: 60) as Any,
-                                                    .foregroundColor: UIColor(named: "rw-green")!,
+                                                    .foregroundColor: UIColor.green,
                                                     .strokeColor: UIColor.white,
                                                     .strokeWidth: -3])
         
