@@ -257,41 +257,7 @@ private extension TrimVideoViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEndEditingAction))
         overlayView.addGestureRecognizer(tapGesture)
     }
-    
-//    // 1st iteration we add this!!§! so that we cater to the small phones
-//    // secend we should be able to edit in screen!!!
-//    private func congfigureOverlayTextView() {
-//        videoTextEditorBackgroundView.autoresizingOff()
-//        overlayTextInput.autoresizingOff()
-//        videoView.addSubview(videoTextEditorBackgroundView)
-//        videoTextEditorBackgroundView.topAnchor --> view.topAnchor + Const.View.m16
-//        videoTextEditorBottomAnchor = videoTextEditorBackgroundView.bottomAnchor --> view.bottomAnchor + -Const.View.m16
-//        videoTextEditorBackgroundView.leadingAnchor --> view.leadingAnchor + Const.View.m16
-//        videoTextEditorBackgroundView.trailingAnchor --> view.trailingAnchor + -Const.View.m16
-//
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEndEditingAction))
-//        videoTextEditorBackgroundView.addGestureRecognizer(tapGesture)
-//
-//        videoTextEditorBackgroundView.backgroundColor = Const.Color.TrimVideo.videoOverlayBackGround
-//
-//        videoTextEditorBackgroundView.addSubview(overlayTextInput)
-//        overlayTextInput.textAlignment = .center
-//        overlayTextInput.backgroundColor = .gray
-//        overlayTextInput.centerYAnchor --> videoTextEditorBackgroundView.centerYAnchor
-//        overlayTextInput.centerXAnchor --> videoTextEditorBackgroundView.centerXAnchor
-//        overlayTextInput.trailingAnchor --> videoTextEditorBackgroundView.trailingAnchor + -Const.View.m16
-//        overlayTextInput.leadingAnchor --> videoTextEditorBackgroundView.leadingAnchor + Const.View.m16
-//        overlayTextInput.heightAnchor ->= 50
-//        overlayTextInput.isScrollEnabled = false // Allows automatic height adjustment
-////        overlayTextInput.contentInset = .equalEdgeInsets(Const.View.m16)
-//
-//        overlayTextInput.sizeToFit()
-//
-//        // add delegate and listen to content size changes if its >= to videoTextEditorBackgroundView then add top| bottom constrains
-//        // and enable scrolling and if it exceed a certain number of chars it automatically goes to the bottom of screen like whatsapp
-//
-//    }
-   
+
     // TODO: remove video from temp
     private func cleanup() {
         

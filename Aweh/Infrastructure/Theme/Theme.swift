@@ -50,8 +50,8 @@ enum Const {
         }
         
         enum Feed {
-            static let upVoteArrow: UIImage? = getSystemAsset(systemName: "arrow.up")
-            static let downVoteArrow: UIImage? = getSystemAsset(systemName: "arrow.down")
+            static let upVoteArrow: UIImage? = getSystemAsset(systemName: "hand.thumbsup.fill")
+            static let downVoteArrow: UIImage? = getSystemAsset(systemName: "hand.thumbsdown.fill")
             static let likeFill: UIImage? = getSystemAsset(systemName: "heart.fill")
             static let like: UIImage? = getSystemAsset(systemName: "heart")
         }

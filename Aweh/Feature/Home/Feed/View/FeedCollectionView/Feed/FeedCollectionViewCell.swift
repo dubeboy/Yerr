@@ -66,7 +66,7 @@ extension FeedCollectionViewCell {
     private func configureLikeAndUpVoteButtons() {
         likeAndUpVoteVStack.autoresizingOff()
         contentView.addSubview(likeAndUpVoteVStack)
-        likeAndUpVoteVStack.bottomAnchor --> circlesContainer.bottomAnchor 
+        likeAndUpVoteVStack.bottomAnchor --> circlesContainer.bottomAnchor
         likeAndUpVoteVStack.trailingAnchor --> contentView.trailingAnchor + -Const.View.m8
     }
 }

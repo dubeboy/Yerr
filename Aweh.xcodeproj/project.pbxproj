@@ -101,7 +101,6 @@
 		7175E7122516C40C0073AC47 /* TextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7175E7112516C40C0073AC47 /* TextViewDelegate.swift */; };
 		71777B6A24C662470075F4F7 /* String+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71777B6924C662470075F4F7 /* String+Elements.swift */; };
 		71777B6D24C664D10075F4F7 /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71777B6C24C664D10075F4F7 /* AppStrings.swift */; };
-		717C0FE12569B1A400C0192B /* BottomLabelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717C0FE02569B1A400C0192B /* BottomLabelButton.swift */; };
 		718757882517C9D500598E4B /* LikeVoteVStaskPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718757872517C9D500598E4B /* LikeVoteVStaskPanel.swift */; };
 		718BE80B2486BA8000CA328B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718BE80A2486BA8000CA328B /* AppDelegate.swift */; };
 		718BE80D2486BA8000CA328B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718BE80C2486BA8000CA328B /* SceneDelegate.swift */; };
@@ -308,7 +307,6 @@
 		7175E7112516C40C0073AC47 /* TextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewDelegate.swift; sourceTree = "<group>"; };
 		71777B6924C662470075F4F7 /* String+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Elements.swift"; sourceTree = "<group>"; };
 		71777B6C24C664D10075F4F7 /* AppStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
-		717C0FE02569B1A400C0192B /* BottomLabelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomLabelButton.swift; sourceTree = "<group>"; };
 		718757872517C9D500598E4B /* LikeVoteVStaskPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeVoteVStaskPanel.swift; sourceTree = "<group>"; };
 		718BE8072486BA8000CA328B /* Aweh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aweh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		718BE80A2486BA8000CA328B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1351,7 +1349,6 @@
 			isa = PBXGroup;
 			children = (
 				718757872517C9D500598E4B /* LikeVoteVStaskPanel.swift */,
-				717C0FE02569B1A400C0192B /* BottomLabelButton.swift */,
 			);
 			path = LikeAndVotesHStack;
 			sourceTree = "<group>";
@@ -2312,7 +2309,6 @@
 				B85A2948B2C3E5A01E9F0608 /* Flagged.swift in Sources */,
 				B85A2A46793CFAE0F678D100 /* Location.swift in Sources */,
 				B85A20466A2089397D8C4CD3 /* User.swift in Sources */,
-				717C0FE12569B1A400C0192B /* BottomLabelButton.swift in Sources */,
 				719CEA4325A4E5A700A65385 /* CaptureStatusPresenter.swift in Sources */,
 				B85A27C138A8C4738AEE9B58 /* Interest.swift in Sources */,
 				7175E7122516C40C0073AC47 /* TextViewDelegate.swift in Sources */,
