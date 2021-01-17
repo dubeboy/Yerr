@@ -20,7 +20,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
     
     var likeAndUpVoteVStack: LikeAndVotesVStask = LikeAndVotesVStask()
     
-    var statusesView: StatusesView = StatusesView()
+    let statusesView: StatusesView = StatusesView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -46,6 +46,7 @@ extension FeedCollectionViewCell {
         configureLikeAndUpVoteButtons()
         configureCirclesContainer()
         configureStatusesView()
+        canvas.layer.cornerRadius = 10
     }
     
     private func configureStatusesView() {

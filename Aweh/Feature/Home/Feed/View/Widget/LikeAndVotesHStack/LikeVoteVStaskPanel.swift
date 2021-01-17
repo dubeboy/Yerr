@@ -10,15 +10,14 @@ import UIKit
 
 class LikeAndVotesVStask: UIStackView {
     
-    private var likeButton = YerrButton()
-    private var upVoteButton = YerrButton()
-    private var downVoteButton = YerrButton()
+    private let likeButton = YerrButton()
+    private let upVoteButton = YerrButton()
+    private let downVoteButton = YerrButton()
     
-    private var likeButtonText = UILabel()
-    private var upVoteButtonText = UILabel()
-    private var downVoteButtonText = UILabel()
-    
-    
+    private let likeButtonText = UILabel()
+    private let upVoteButtonText = UILabel()
+    private let downVoteButtonText = UILabel()
+        
     var didTapLikeAction: (() -> Void)?
     var didTapUpVoteAction: (() -> Void)?
     var didTapDownVoteAction: (() -> Void)?
@@ -74,6 +73,8 @@ private extension LikeAndVotesVStask {
         likeButton.addShadow(offest: 0.5, color: UIColor.black.withAlphaComponent(0.7))
         upVoteButton.tintColor = .white
         likeButton.addTarget(self, action: #selector(didTapLikeButton), for: .touchUpInside)
+        likeButton.delegate = self
+        likeButton.tag = 0
 //        likeButton.action = { [weak self] in
 //            self?.didTapLikeAction?()
 //        }
@@ -85,6 +86,8 @@ private extension LikeAndVotesVStask {
         upVoteButton.addShadow(offest: 0.5, color: UIColor.black.withAlphaComponent(0.7))
         upVoteButton.tintColor = .white
         upVoteButton.addTarget(self, action: #selector(didTapUpVoteButton), for: .touchUpInside)
+        upVoteButton.delegate = self
+        upVoteButton.tag = 1
     }
     
     private func configureDownVoteButton() {
@@ -93,6 +96,8 @@ private extension LikeAndVotesVStask {
         downVoteButton.addShadow(offest: 0.5, color: UIColor.black.withAlphaComponent(0.7))
         downVoteButton.tintColor = .white
         downVoteButton.addTarget(self, action: #selector(didTapDownVoteButton), for: .touchUpInside)
+        upVoteButton.delegate = self
+        upVoteButton.tag = 2
     }
     
     private func configureLabels(labels: UILabel...) {
@@ -103,7 +108,7 @@ private extension LikeAndVotesVStask {
            label.heightAnchor --> 15
            label.text = "0"
            label.textColor = .white
-            label.addShadow(offest: 1, color: UIColor.black.withAlphaComponent(0.7))
+           label.addShadow(offest: 1, color: UIColor.black.withAlphaComponent(0.7))
            let font = UIFont.preferredFont(forTextStyle: .footnote)
            label.font = font
 
@@ -158,5 +163,40 @@ private extension LikeAndVotesVStask {
         upVoteButton.heightAnchor --> 40
         upVoteButton.tintColor = .white
         
+    }
+}
+
+// MARK: - Yerr button delegate
+
+extension LikeAndVotesVStask: YerrButtonDelegate {
+    func startAnimate(tag: Int) {
+        UIView.animate(withDuration: 0.2) { [self] in
+            switch tag {
+                case 0:
+                    likeButtonText.alpha = 0.7
+                case 1:
+                    upVoteButtonText.alpha = 0.7
+                case 2:
+                    downVoteButtonText.alpha = 0.7
+                default:
+                    break
+            }
+        }
+    }
+    
+    func endAnimate(tag: Int) {
+        UIView.animate(withDuration: 0.2) { [self] in
+            switch tag {
+                case 0:
+                    
+                    likeButtonText.alpha = 1
+                case 1:
+                    upVoteButtonText.alpha = 1
+                case 2:
+                    downVoteButtonText.alpha = 1
+                default:
+                    break
+            }
+        }
     }
 }

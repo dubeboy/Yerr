@@ -15,7 +15,7 @@ class FeedViewController: UIViewController {
     var interestName: String?
     var introCoordinator: InitScreensCoordinator! // TODO: why is this not weak??
     weak var coordinator: (PostStatusCoordinator & FeedDetailCoordinator)!
-    private var indexOfCellBeforeDragging = 0
+    private var indexOfCellBeforeDragging: Int  = 0
     private let swipeVelocityThreshold: CGFloat = 0.5
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -94,7 +94,7 @@ extension FeedViewController: UICollectionViewDelegate {
         if didUseSwipeToSkipCell {
 //            decay animation
             let snapToIndex = indexOfCellBeforeDragging + (hasEnoughVelocityToSlideToTheNextCell ? 1 : -1)
-            let toValue = flowLayout.itemSize.height * CGFloat(snapToIndex)
+            let toValue = (flowLayout.itemSize.height * CGFloat(snapToIndex)) - 16
             // Damping equal 1 => no oscillations => decay animation:
             
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: velocity.y, options: .allowUserInteraction, animations: {
@@ -118,12 +118,11 @@ private extension FeedViewController {
         collectionView.backgroundColor = Const.Color.backgroundColor
         
         let flowLayout = UICollectionViewFlowLayout()
-        
         flowLayout.sectionInset = UIEdgeInsets(top: Const.View.m8,
                                                left: Const.View.m8,
                                                bottom: Const.View.m8,
                                                right: Const.View.m8)
-        flowLayout.minimumLineSpacing = Const.View.m8
+        flowLayout.minimumLineSpacing = 0
         flowLayout.minimumInteritemSpacing = 0
         flowLayout.scrollDirection = .vertical
         collectionView.collectionViewLayout = flowLayout
@@ -132,12 +131,10 @@ private extension FeedViewController {
         
         let leftRightInset = flowLayout.sectionInset.right + flowLayout.sectionInset.left
         let itemWidth = UIScreen.main.bounds.width - leftRightInset
-        let lineSpacing = flowLayout.minimumLineSpacing
         let itemHeight =  view.bounds.height
             - flowLayout.sectionInset.top
             - flowLayout.sectionInset.bottom
-            - (lineSpacing * 2)
-            - 60 // Peaking
+            - 80 // Peaking
             - (tabBarController?.tabBar.frame.height ?? 0)
             - (navigationController?.navigationBar.frame.size.height ?? 0)
         

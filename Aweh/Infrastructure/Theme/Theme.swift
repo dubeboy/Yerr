@@ -195,9 +195,9 @@ enum Const {
                 }
             case .background:
                 if  #available(iOS 13.0, *) {
-                    return UIColor.systemGray5
+                    return UIColor.systemBackground
                 } else {
-                    return UIColor.gray
+                    return UIColor.white
                 }
             case .widget:
                 if  #available(iOS 13.0, *) {

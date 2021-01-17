@@ -863,7 +863,6 @@
 			isa = PBXGroup;
 			children = (
 				7187578B2517CA2B00598E4B /* LikeAndVotesHStack */,
-				7116CCCB2561DF44007A61A4 /* VideoView */,
 				712D2578256915E30071C82C /* StatusesView */,
 			);
 			path = Widget;
@@ -1330,6 +1329,7 @@
 		7175E7102516C3E20073AC47 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7116CCCB2561DF44007A61A4 /* VideoView */,
 				71965ADC25AE897E004FCD60 /* OverlayTextView */,
 				7175E7112516C40C0073AC47 /* TextViewDelegate.swift */,
 				71ADA9772517D4BF005FF2BF /* YerrButton.swift */,

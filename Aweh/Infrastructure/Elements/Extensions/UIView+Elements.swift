@@ -136,3 +136,17 @@ extension UIView {
         return nil
     }
 }
+
+// MARK : - shrinkView
+
+//extension UIView {
+//    func shrink(down: Bool) {
+//        UIView.animate(withDuration: 0.6) {
+//            if down {
+//                cell.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+//            else {
+//                    cell.transform = .identity
+//            }
+//          }
+//        }
+//}
