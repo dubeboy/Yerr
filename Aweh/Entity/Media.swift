@@ -17,5 +17,5 @@ struct Media: Codable, Hashable, Equatable {
     let location: String
     @DateValue<ISO8601Strategy>
     var createAt: Date
-    var size: UInt
+    var size: UInt?
 }

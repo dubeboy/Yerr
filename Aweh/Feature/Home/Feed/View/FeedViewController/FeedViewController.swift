@@ -127,6 +127,7 @@ private extension FeedViewController {
         flowLayout.scrollDirection = .vertical
         collectionView.collectionViewLayout = flowLayout
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.contentInsetAdjustmentBehavior = .automatic
         
         
         let leftRightInset = flowLayout.sectionInset.right + flowLayout.sectionInset.left

@@ -123,7 +123,7 @@ private extension StatusVideoView {
     }
     
     private func configureEffectsView() {
-        effectsView.backgroundColor = .green
+        effectsView.backgroundColor = .clear
     }
     
     @objc private func playerDidFinishPlaying() {

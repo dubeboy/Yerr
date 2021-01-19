@@ -52,7 +52,7 @@ extension StatusIndicator {
     private func setupStackView() {
         translatesAutoresizingMaskIntoConstraints = false
         axis = .horizontal
-        alignment = .center
+        alignment = .leading
         distribution = .fillEqually
         spacing = 4
     }

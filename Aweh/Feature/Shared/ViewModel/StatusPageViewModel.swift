@@ -14,3 +14,9 @@ struct StatusPageViewModel: Hashable {
     var backgroundColor: String = "" // should be a hex color
 }
 
+extension StatusPageViewModel {
+    static func transform(media: [Media], status: String) -> StatusPageViewModel {
+        StatusPageViewModel(media: media.map(MediaViewModel.transform), status: status)
+    }
+}
+

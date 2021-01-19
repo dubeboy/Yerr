@@ -46,13 +46,15 @@ extension FeedCollectionViewCell {
         configureLikeAndUpVoteButtons()
         configureCirclesContainer()
         configureStatusesView()
-        canvas.layer.cornerRadius = 10
+        canvas.layer.cornerRadius = Const.View.radius
     }
     
     private func configureStatusesView() {
         statusesView.autoresizingOff()
         canvas.addSubview(statusesView)
         statusesView --> canvas
+        canvas.clipsToBounds = true
+        statusesView.clipsToBounds = true
     }
     
     private func configureCirclesContainer() {
