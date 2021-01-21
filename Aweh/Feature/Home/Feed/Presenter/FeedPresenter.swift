@@ -10,9 +10,11 @@ import Foundation
 
 protocol FeedPresenter {
     var statusCount: Int { get }
+    var isFetching: Bool { get set  }
+    var hasReachedEnd: Bool { get set  }
     var feedCellPresenter: FeedCellPresenter { get }
 
-    func getStatuses(interestName: String?, completion: @escaping (Int?, String?) -> Void)
+    func getStatuses(page: Int, interestName: String?, completion: @escaping (Int?, String?) -> Void)
     func getStatus(at index: IndexPath) -> StatusViewModel
     func index(for item: StatusViewModel) -> Int
     
@@ -23,6 +25,16 @@ protocol FeedPresenter {
     func didTapUpVoteButton(at indexPath: IndexPath)
     func didCompleteSetup(complete: Completion<()>, notComplete: Completion<()>)
     func setupComplete(completion: Completion<()>)
+    func refresh()
+    
+    func nextPage() -> Int
+}
+
+struct FeedViewModel {
+    var statuses: [StatusViewModel] = []
+    var page: Int = 0
+    var hasReachedEnd = false
+    var isFetching = false
 }
 
 class FeedPresenterImplemantation: FeedPresenter {
@@ -31,39 +43,63 @@ class FeedPresenterImplemantation: FeedPresenter {
     let feedIntercator: StatusesUseCase = FeedInteractor()
     var interest: InterestViewModel? = nil
     
-    var viewModel: [StatusViewModel] = []
+    private var viewModel: FeedViewModel = FeedViewModel()
+    
+    private var statuses: [StatusViewModel] {
+        get {
+            viewModel.statuses
+        }
+        set {
+            viewModel.statuses = newValue
+        }
+    }
+    
+    var isFetching: Bool {
+        get {
+            viewModel.isFetching
+        }
+        set {
+            viewModel.isFetching = newValue
+        }
+    }
     
     @UserDefaultsBacked(key: .didFinishLaunching, defaultValue: false)
     var didCompleteSetup: Bool
 
     func index(for item: StatusViewModel) -> Int {
-        viewModel.firstIndex {
+        statuses.firstIndex {
             item == $0
         } ?? 0
     }
     
     func getStatus(at index: IndexPath) -> StatusViewModel {
-        viewModel[index.item]
+        statuses[index.item]
     }
     
     var statusCount: Int {
-        viewModel.count
+        statuses.count
     }
     
-    func getStatuses(interestName: String?, completion: @escaping (Int?, String?) -> Void) {
-        if interestName == nil {
-            getFeedStatuses(completion: completion)
-        } else {
-            guard let interestName = interestName else {
-                Logger.log(AppStrings.Error.interestNameNil)
-                return
-            }
-            getFeedStatusesForInterest(name: interestName, completion: completion)
+    var hasReachedEnd: Bool { // should probably be accompanies by a refreshed state
+        get {
+            viewModel.hasReachedEnd
+        }
+        set {
+            viewModel.hasReachedEnd = newValue
         }
     }
     
-    private func getFeedStatuses(completion: @escaping (Int?, String?) -> ()) {
-        feedIntercator.getStatuses { [weak self] result in
+    func getStatuses(page: Int, interestName: String?, completion: @escaping (Int?, String?) -> Void) {
+        isFetching = true
+        if interestName == nil {
+            getFeedStatuses(page: page, completion: completion)
+        } else {
+            getFeedStatusesForInterest(name: interestName!, completion: completion)
+        }
+    }
+    
+    private func getFeedStatuses(page: Int, completion: @escaping (Int?, String?) -> ()) {
+        feedIntercator.getStatuses(page: page) { [weak self] result in
             guard let self = self else { return }
             self.handleStatusResponse(result: result, completion: completion)
         }
@@ -81,10 +117,13 @@ class FeedPresenterImplemantation: FeedPresenter {
                                       completion: @escaping (Int?, String?) -> Void) {
         switch result {
         case .success(let result):
-            self.viewModel = result.map(StatusViewModel.transform(from:))
-            completion(self.viewModel.count, nil)
+            self.statuses.append(contentsOf: result.map(StatusViewModel.transform(from:)))
+            isFetching = false
+            completion(self.statuses.count, nil)
         case .failure(let error):
+            isFetching = false
             completion(nil, error.localizedDescription)
+            
         }
     }
 
@@ -93,11 +132,11 @@ class FeedPresenterImplemantation: FeedPresenter {
     }
     
     func addNewStatus(_ statusViewModel: StatusViewModel) {
-        viewModel.insert(statusViewModel, at: 0)
+        statuses.insert(statusViewModel, at: 0)
     }
     
     func didTapLikeButton(at indexPath: IndexPath, cell: FeedCollectionViewCell) {
-        let item = viewModel[indexPath.item]
+        let item = statuses[indexPath.item]
         increamentLikes(itemIndex: indexPath.item, cell: cell)
         feedIntercator.postLike(voteEntity: createPostVoteEntity(item: item)) { [weak self] result in
             switch result {
@@ -114,22 +153,28 @@ class FeedPresenterImplemantation: FeedPresenter {
         }
     }
     
+    // clear statuses
+    // reset hasReachedEnd
+    func refresh() {
+        
+    }
+    
     private func increamentLikes(itemIndex: Int, cell: FeedCollectionViewCell) {
-        var item = viewModel[itemIndex]
+        var item = statuses[itemIndex]
         item.likes += 1
-        viewModel[itemIndex] = item
+        statuses[itemIndex] = item
         feedCellPresenter.setLikes(cell: cell, likes: item.likes)
     }
     
     private func decrementLikes(itemIndex: Int, cell: FeedCollectionViewCell) {
-        var item = viewModel[itemIndex]
+        var item = statuses[itemIndex]
         item.likes -= 1
-        viewModel[itemIndex] = item
+        statuses[itemIndex] = item
         feedCellPresenter.setLikes(cell: cell, likes: item.likes)
     }
    
     func didTapDownVoteButton(at indexPath: IndexPath) {
-        let item = viewModel[indexPath.item]
+        let item = statuses[indexPath.item]
         var postVote = createPostVoteEntity(item: item)
         postVote.direction = false
         feedIntercator.postVote(voteEntity: postVote) { result in
@@ -143,7 +188,7 @@ class FeedPresenterImplemantation: FeedPresenter {
     }
     
     func didTapUpVoteButton(at indexPath: IndexPath) {
-        let item = viewModel[indexPath.item]
+        let item = statuses[indexPath.item]
         var postVote = createPostVoteEntity(item: item)
         postVote.direction = true
         feedIntercator.postVote(voteEntity: postVote) { result in
@@ -171,8 +216,15 @@ class FeedPresenterImplemantation: FeedPresenter {
         completion(())
     }
     
+    func nextPage() -> Int {
+        var page = viewModel.page
+        page += 1
+        viewModel.page = page
+        return page
+    }
+    
     private func removeVote(at indexPath: IndexPath) {
-        let item = viewModel[indexPath.item]
+        let item = statuses[indexPath.item]
         let postVote = createPostVoteEntity(item: item)
         feedIntercator.postRemoveVote(voteEntity: postVote) { result in
             switch result {
