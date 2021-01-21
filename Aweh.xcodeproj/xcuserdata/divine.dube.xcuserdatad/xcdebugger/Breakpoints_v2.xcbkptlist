@@ -14,8 +14,8 @@
             filePath = "Aweh/Feature/Home/Feed/View/Widget/StatusesView/StatusesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
             landmarkName = "setViewModel(viewModel:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -24,14 +24,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "29FDFB4A-7AFE-4DC6-BA40-9018F6C34035"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Aweh/Feature/Home/Feed/View/Widget/StatusesView/StatusesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "collectionView(_:numberOfItemsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -39,16 +39,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BE39D1C8-FCC5-4EB3-89A5-C0E3B923FCCA"
+            uuid = "DDCC1E38-EB8D-4457-B922-2830D7149B48"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Home/Feed/View/Widget/StatusesView/StatusCell.swift"
+            filePath = "Aweh/Feature/Home/Feed/View/FeedCollectionView/Feed/FeedCellPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "init(frame:)"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "setLikes(cell:likes:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -11,7 +11,6 @@ import UIKit
 class StatusesView: UIView {
     
     var statusText = UILabel()
-    var mediaStatus = UILabel()
     
     @LateInit
     private var statusIndicatorView: StatusIndicator

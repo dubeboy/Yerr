@@ -12,6 +12,7 @@ class StatusCell: UICollectionViewCell {
     
     private let videoPlayer: StatusVideoView = StatusVideoView()
     private let imageView = UIImageView()
+    // insert a blur image view here
     
     override init(frame: CGRect) {
         super.init(frame: frame)

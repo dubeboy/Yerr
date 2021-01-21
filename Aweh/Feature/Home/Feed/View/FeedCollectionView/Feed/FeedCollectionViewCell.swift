@@ -21,6 +21,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
     var likeAndUpVoteVStack: LikeAndVotesVStask = LikeAndVotesVStask()
     
     let statusesView: StatusesView = StatusesView()
+    let mediaStatus = UILabel()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,10 +33,25 @@ class FeedCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        mediaStatus.isHidden = true
     }
     
     func setViewModel(viewModel: StatusPageViewModel) {
         statusesView.setViewModel(viewModel: viewModel)
+    }
+    
+    func setMediaText(text: String) {
+        mediaStatus.isHidden = false
+        mediaStatus.text = text
+    }
+    
+    // the below function need some api work
+    func markVotedOnStatus() {
+        
+    }
+    
+    func markLikedStatus() {
+        
     }
 }
 
@@ -46,7 +62,9 @@ extension FeedCollectionViewCell {
         configureLikeAndUpVoteButtons()
         configureCirclesContainer()
         configureStatusesView()
+        configureMediaStatusView()
         canvas.layer.cornerRadius = Const.View.radius
+//        canvas.addShadow()
     }
     
     private func configureStatusesView() {
@@ -69,7 +87,16 @@ extension FeedCollectionViewCell {
     private func configureLikeAndUpVoteButtons() {
         likeAndUpVoteVStack.autoresizingOff()
         contentView.addSubview(likeAndUpVoteVStack)
-        likeAndUpVoteVStack.bottomAnchor --> circlesContainer.bottomAnchor
-        likeAndUpVoteVStack.trailingAnchor --> contentView.trailingAnchor + -Const.View.m8
+        likeAndUpVoteVStack.bottomAnchor --> circlesContainer.topAnchor
+        likeAndUpVoteVStack.trailingAnchor --> contentView.trailingAnchor + -Const.View.m16
+    }
+    
+    private func configureMediaStatusView() {
+        mediaStatus.autoresizingOff()
+        contentView.addSubview(mediaStatus)
+        mediaStatus.bottomAnchor --> circlesContainer.topAnchor + -Const.View.m8
+        mediaStatus.leadingAnchor --> contentView.leadingAnchor + Const.View.m16
+        mediaStatus.isHidden = true
+        mediaStatus.trailingAnchor --> likeAndUpVoteVStack.leadingAnchor + -Const.View.m8
     }
 }

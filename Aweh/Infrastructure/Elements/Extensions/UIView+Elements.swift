@@ -84,8 +84,10 @@ extension UIView {
         self.layer.shadowColor = color.cgColor
         self.layer.shadowOffset = CGSize(width: offest, height: offest)
         self.layer.shadowRadius = 2.0
-        self.layer.shadowOpacity = 0.5
+        self.layer.shadowOpacity = 0.8
         self.layer.masksToBounds = false
+        self.layer.shouldRasterize = true
+        self.layer.rasterizationScale = UIScreen.main.scale
     }
 }
 

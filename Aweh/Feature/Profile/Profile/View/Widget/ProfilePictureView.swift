@@ -48,7 +48,6 @@ extension ProfilePictureView {
         imageView.bottomAnchor --> bottomAnchor + Const.View.m8
         imageView.leadingAnchor --> leadingAnchor + Const.View.m8
         imageView.trailingAnchor --> trailingAnchor + Const.View.m8
-        
     }
     
 }

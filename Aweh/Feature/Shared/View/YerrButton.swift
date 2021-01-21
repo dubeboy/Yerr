@@ -41,23 +41,8 @@ class YerrButton: UIButton {
 //        }
 //    }
     
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        super.touchesBegan(touches, with: event)
-//        UIView.animate(withDuration: 0.3) {
-//            self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-//            self.titleLabel?.alpha = 0.7
-//        }
-//    }
-//
-//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        super.touchesEnded(touches, with: event)
-//        UIView.animate(withDuration: 0.3) {
-//            self.transform = .identity
-//            self.titleLabel?.alpha = 1
-//        }
-//    }
-    
-    @objc private func tipTapViewAnimate(_ sender: UIButton) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         UIView.animate(withDuration: 0.2) { [self] in
             transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
             delegate?.startAnimate(tag: tag)
@@ -70,6 +55,6 @@ class YerrButton: UIButton {
 
 extension YerrButton {
     private func configureSelf() {
-        addTarget(self, action: #selector(tipTapViewAnimate(_:)), for: .touchUpInside)
+        
     }
 }

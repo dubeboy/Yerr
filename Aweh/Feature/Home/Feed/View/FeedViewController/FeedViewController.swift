@@ -52,7 +52,7 @@ extension FeedViewController: UICollectionViewDataSource {
         presenter.feedCellPresenter.configure(with: cell,
                                                     forDisplaying: status)
         presenter.feedCellPresenter.setLikeAndVoteButtonsActions(for: cell) { [weak self] in
-            self?.presenter.didTapLikeButton(at: indexPath)
+            self?.presenter.didTapLikeButton(at: indexPath, cell: cell)
         } didTapDownVoteButton: { [weak self] in
             self?.presenter.didTapDownVoteButton(at: indexPath)
         } didTapUpVoteButton: { [weak self] in

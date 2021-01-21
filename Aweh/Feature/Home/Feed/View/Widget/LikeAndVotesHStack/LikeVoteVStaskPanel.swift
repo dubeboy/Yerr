@@ -33,15 +33,15 @@ class LikeAndVotesVStask: UIStackView {
     }
     
     func setUpVoteText(text: String) {
-       
+        upVoteButtonText.text = text
     }
     
     func setDownVoteText(text: String) {
-//        downVoteButton.setText(text: text)
+        downVoteButtonText.text = text
     }
     
     func setLikeVoteText(text: String) {
-//        likeButton.setText(text: text)
+        likeButtonText.text = text
     }
     
     @objc private func didTapLikeButton() {

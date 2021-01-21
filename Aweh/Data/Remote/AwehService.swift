@@ -18,8 +18,12 @@ struct AwehService: Service {
     // TODO: prettiyfy
 
     // --------------------
-    // MARK: Statuses
+    // MARK: - Statuses
     // --------------------
+    
+    init() {
+        Logger.i("❌called created 🎉")
+    }
     
     @GET("statuses")
     var getStatuses: StatusResponseEntity<[Status]>
@@ -40,7 +44,7 @@ struct AwehService: Service {
     var postStatusMedia: StatusResponseEntity<Status>
     
     // --------------------
-    // MARK: Status Comments
+    // MARK: - Status Comments
     // --------------------
     
     @GET("statuses/{status_id}/comments")
@@ -50,7 +54,7 @@ struct AwehService: Service {
     var postComment: StatusResponseEntity<String>
     
     // --------------------
-    // MARK: Circles
+    // MARK: - Circles
     // --------------------
     
     @GET("circles")
@@ -66,7 +70,7 @@ struct AwehService: Service {
     var getStatusesForInterest: StatusResponseEntity<[Status]>
     
     // --------------------
-    // MARK: User
+    // MARK: - User
     // --------------------
     
     @GET("users/statuses")
@@ -78,7 +82,12 @@ struct AwehService: Service {
     @GET("user_exists")
     var userExists: StatusResponseEntity<User>
     
-
+    // --------------------
+    // MARK: - Download assets
+    // --------------------
+    
+    @GET("assets/{id}")
+    var getAsset: Data
 }
 
 /// We maintain a static reference to our service
@@ -91,6 +100,20 @@ struct SingletonServiceInstance {
     var wrappedValue: AwehService {
         Self.service
     }
+    
+    init() {
+        Logger.i("called created 🎉")
+    }
+    
+    func hello() {
+        
+    }
+    
+    var projectedValue: AwehService {
+        Self.service
+    }
+    
+    static let shared: SingletonServiceInstance = SingletonServiceInstance()
 }
 
 

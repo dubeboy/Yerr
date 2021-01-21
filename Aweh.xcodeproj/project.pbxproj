@@ -53,6 +53,7 @@
 		713549B3248BE8F10009EE6A /* FeedCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713549B2248BE8F10009EE6A /* FeedCellPresenter.swift */; };
 		7137311924BF8A34001CE972 /* CompactFeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7137311824BF8A34001CE972 /* CompactFeedPresenter.swift */; };
 		713D265224BA090400E2CFC5 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713D265124BA090400E2CFC5 /* Logger.swift */; };
+		7140CBC125B7855E007227D9 /* Merchant in Frameworks */ = {isa = PBXBuildFile; productRef = 7140CBC025B7855E007227D9 /* Merchant */; };
 		7143561A256C19CE00ACAEA5 /* TrimPostVideoProgressIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71435619256C19CE00ACAEA5 /* TrimPostVideoProgressIndicatorView.swift */; };
 		7143561E256C1B6000ACAEA5 /* TrimPostVideoStartIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7143561D256C1B6000ACAEA5 /* TrimPostVideoStartIndicatorView.swift */; };
 		71435621256C1C7600ACAEA5 /* TrimPostVideoTumbnailsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71435620256C1C7600ACAEA5 /* TrimPostVideoTumbnailsManager.swift */; };
@@ -139,7 +140,6 @@
 		71ADA97F25180CBC005FF2BF /* UserEntityId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ADA97E25180CBC005FF2BF /* UserEntityId.swift */; };
 		71BBCA7324B8C5DC00044629 /* GuageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BBCA7224B8C5DC00044629 /* GuageViewModel.swift */; };
 		71C09FD8259F8A4F001EA043 /* UITextView+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C09FD7259F8A4F001EA043 /* UITextView+Elements.swift */; };
-		71C1048B25A4F841007434CF /* Merchant in Frameworks */ = {isa = PBXBuildFile; productRef = 71C1048A25A4F841007434CF /* Merchant */; };
 		71C1048E25A4FEA2007434CF /* OverlayTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C1048D25A4FEA2007434CF /* OverlayTextView.swift */; };
 		71C1049825AA2007007434CF /* ImagesPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C1049725AA2006007434CF /* ImagesPreviewView.swift */; };
 		71C1049B25AA2799007434CF /* CaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C1049A25AA2799007434CF /* CaptureButton.swift */; };
@@ -424,7 +424,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71C1048B25A4F841007434CF /* Merchant in Frameworks */,
+				7140CBC125B7855E007227D9 /* Merchant in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2058,7 +2058,7 @@
 			);
 			name = Aweh;
 			packageProductDependencies = (
-				71C1048A25A4F841007434CF /* Merchant */,
+				7140CBC025B7855E007227D9 /* Merchant */,
 			);
 			productName = Aweh;
 			productReference = 718BE8072486BA8000CA328B /* Aweh.app */;
@@ -2090,7 +2090,7 @@
 			);
 			mainGroup = 718BE7FE2486BA8000CA328B;
 			packageReferences = (
-				71C1048925A4F841007434CF /* XCRemoteSwiftPackageReference "Merchant" */,
+				7140CBBF25B7855D007227D9 /* XCRemoteSwiftPackageReference "Merchant" */,
 			);
 			productRefGroup = 718BE8082486BA8000CA328B /* Products */;
 			projectDirPath = "";
@@ -2535,20 +2535,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		71C1048925A4F841007434CF /* XCRemoteSwiftPackageReference "Merchant" */ = {
+		7140CBBF25B7855D007227D9 /* XCRemoteSwiftPackageReference "Merchant" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "file:///Users/divine.dube/Developer/iOS/Merchant";
 			requirement = {
-				branch = "allow-data-uploads";
-				kind = branch;
+				kind = revision;
+				revision = 22384992dbcf7ff359c10286faf499faa967f9dd;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		71C1048A25A4F841007434CF /* Merchant */ = {
+		7140CBC025B7855E007227D9 /* Merchant */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 71C1048925A4F841007434CF /* XCRemoteSwiftPackageReference "Merchant" */;
+			package = 7140CBBF25B7855D007227D9 /* XCRemoteSwiftPackageReference "Merchant" */;
 			productName = Merchant;
 		};
 /* End XCSwiftPackageProductDependency section */

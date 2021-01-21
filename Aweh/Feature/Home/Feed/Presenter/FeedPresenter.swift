@@ -18,7 +18,7 @@ protocol FeedPresenter {
     
     func addNewStatus(_ statusViewModel: StatusViewModel)
     
-    func didTapLikeButton(at indexPath: IndexPath)
+    func didTapLikeButton(at indexPath: IndexPath, cell: FeedCollectionViewCell)
     func didTapDownVoteButton(at indexPath: IndexPath)
     func didTapUpVoteButton(at indexPath: IndexPath)
     func didCompleteSetup(complete: Completion<()>, notComplete: Completion<()>)
@@ -96,18 +96,37 @@ class FeedPresenterImplemantation: FeedPresenter {
         viewModel.insert(statusViewModel, at: 0)
     }
     
-    func didTapLikeButton(at indexPath: IndexPath) {
+    func didTapLikeButton(at indexPath: IndexPath, cell: FeedCollectionViewCell) {
         let item = viewModel[indexPath.item]
-        feedIntercator.postLike(voteEntity: createPostVoteEntity(item: item)) { result in
+        increamentLikes(itemIndex: indexPath.item, cell: cell)
+        feedIntercator.postLike(voteEntity: createPostVoteEntity(item: item)) { [weak self] result in
             switch result {
                 case .success(let result):
-                    Logger.i(result)
+                    if result {
+                        Logger.i(result)
+                    } else {
+                        self?.decrementLikes(itemIndex: indexPath.item, cell: cell)
+                    }
                 case .failure(let error):
                     Logger.i(error.localizedDescription)
+                    self?.decrementLikes(itemIndex: indexPath.item, cell: cell)
             }
         }
     }
     
+    private func increamentLikes(itemIndex: Int, cell: FeedCollectionViewCell) {
+        var item = viewModel[itemIndex]
+        item.likes += 1
+        viewModel[itemIndex] = item
+        feedCellPresenter.setLikes(cell: cell, likes: item.likes)
+    }
+    
+    private func decrementLikes(itemIndex: Int, cell: FeedCollectionViewCell) {
+        var item = viewModel[itemIndex]
+        item.likes -= 1
+        viewModel[itemIndex] = item
+        feedCellPresenter.setLikes(cell: cell, likes: item.likes)
+    }
    
     func didTapDownVoteButton(at indexPath: IndexPath) {
         let item = viewModel[indexPath.item]
