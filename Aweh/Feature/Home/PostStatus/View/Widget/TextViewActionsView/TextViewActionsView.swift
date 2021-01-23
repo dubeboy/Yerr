@@ -86,7 +86,6 @@ class TextViewActionsView: UIView {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapGradientColor(_:)))
             gradientView.addGestureRecognizer(tapGesture)
            
-//            button.addTarget(self, action: #selector(didTapColorToChange(_:)), for: .touchUpInside)
             self.contantsStackView.addArrangedSubview(button)
             secondaryActionsScrollView.contentSize = CGSize(width: (30) * colors.count , height: 50)
             contantsStackView.tag = tagForDidTapBackgroundColor

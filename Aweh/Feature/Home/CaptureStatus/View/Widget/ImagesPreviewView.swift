@@ -15,9 +15,6 @@ class ImagesPreviewView: UIView {
     @LateInit
     private var collectionView: UICollectionView
     private let itemSize: CGSize
-    
-    private let dragView = UIView() // This should have a disappeating text view with instruction
-    private let dragImage = UIImageView()
    
     init(itemSize: CGSize, presenter: PhotosCollectionViewPresenter) {
         self.itemSize = itemSize
@@ -25,7 +22,6 @@ class ImagesPreviewView: UIView {
         super.init(frame: .zero)
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         configureSelf()
-        configureDraggableImage()
     }
     
     required init?(coder: NSCoder) {
@@ -33,7 +29,7 @@ class ImagesPreviewView: UIView {
     }
     
     func reloadData() {
-       
+        collectionView.reloadData()
     }
 }
 
@@ -54,28 +50,9 @@ extension ImagesPreviewView {
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = Const.View.m1
         
-        presenter.loadImages(for: itemSize) { _ in }
-    }
-    
-    private func configureDraggableImage() {
-        dragView.autoresizingOff()
-        dragImage.autoresizingOff()
-        
-        let image = Const.Assets.CaptureStatus.chevronUp
-        dragImage.image = image
-        dragView.addSubview(dragImage)
-        dragImage.heightAnchor --> 30
-        dragImage.widthAnchor --> 30
-        dragImage.centerYAnchor --> dragView.centerYAnchor
-        dragImage.centerXAnchor --> dragView.centerXAnchor
-        dragImage.contentMode = .scaleAspectFit
-        dragImage.backgroundColor = .clear
-        addSubview(dragView)
-        dragView.heightAnchor --> 30
-        dragView.leadingAnchor --> leadingAnchor
-        dragView.trailingAnchor --> trailingAnchor
-        dragView.bottomAnchor --> collectionView.topAnchor + -Const.View.m8
-        dragView.backgroundColor = .clear
+        presenter.loadImages(for: itemSize) { _ in
+            self.collectionView.reloadData()
+        }
     }
 }
 

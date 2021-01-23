@@ -84,17 +84,27 @@ func -->(lhs: NSLayoutYAxisAnchor, rhs: NSLayoutYAxisAnchor) -> NSLayoutConstrai
     return contraint
 }
 
-func -->(lhs: NSLayoutDimension, rhs: CGFloat) {
-    lhs.constraint(equalToConstant: rhs).isActive = true
+@discardableResult
+func -->(lhs: NSLayoutDimension, rhs: CGFloat)-> NSLayoutConstraint  {
+    let constraint = lhs.constraint(equalToConstant: rhs)
+    constraint.isActive = true
+    return constraint
+    
 }
 
-func ->=(lhs: NSLayoutDimension, rhs: CGFloat) {
-    lhs.constraint(greaterThanOrEqualToConstant: rhs).isActive = true
+@discardableResult
+func ->=(lhs: NSLayoutDimension, rhs: CGFloat) -> NSLayoutConstraint {
+    let constraint = lhs.constraint(greaterThanOrEqualToConstant: rhs)
+    constraint.isActive = true
+    return constraint
+    
 }
 
-
-func -->(lhs: NSLayoutDimension, rhs: NSLayoutDimension) {
-    lhs.constraint(equalTo: rhs).isActive = true
+@discardableResult
+func -->(lhs: NSLayoutDimension, rhs: NSLayoutDimension) -> NSLayoutConstraint {
+    let constraint = lhs.constraint(equalTo: rhs)
+    constraint.isActive = true
+    return constraint
 }
 
 @discardableResult

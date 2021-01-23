@@ -9,17 +9,34 @@
 import Foundation
 import Photos
 
+struct CaptureStatusPresenterViewModel {
+    var isClosed: Bool = false
+}
+
 protocol CaptureStatusPresenter {
     func getImages(avAssets: [String: PHAsset], completion: @escaping (Bool, [Data]) -> Void)
     var photosCollectionViewPresenter: PhotosCollectionViewPresenter { get }
+    var isImageDrawerClosed: Bool { get set }
 }
 
 class CaptureStatusPresenterImplementation {
+    private var viewModel = CaptureStatusPresenterViewModel()
+    
     let photosCollectionViewPresenter: PhotosCollectionViewPresenter = PhotosCollectionViewPresenterImplemantation()
     private let manager = PHImageManager.default()
 }
 
 extension CaptureStatusPresenterImplementation: CaptureStatusPresenter {
+    var isImageDrawerClosed: Bool {
+        get {
+            viewModel.isClosed
+        }
+        set {
+            viewModel.isClosed = newValue
+        }
+    }
+    
+    
     func getImages(avAssets: [String: PHAsset], completion: @escaping (Bool, [Data]) -> Void) {
         let group = DispatchGroup()
         var images = [Data]()

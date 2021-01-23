@@ -64,6 +64,12 @@ class CaptureStatusViewController: UIViewController {
                                                                                 .builtInTrueDepthCamera],
                                                                                mediaType: .video, position: .unspecified)
     
+    private let dragView = UIView() // This should have a disappeating text view with instruction
+    private let dragImage = UIView()
+    
+    private var imagePreviewHeightConstraint: NSLayoutConstraint?
+    private static let IMAGE_PREVIEW_HEIGHT: CGFloat = 100
+    
     @LateInit
     private var imagesPreview: ImagesPreviewView
 
@@ -76,6 +82,7 @@ class CaptureStatusViewController: UIViewController {
         setupPreviewLayer()
         configureCaptureSession()
         configureImagesPreview()
+        configureDraggableImage()
         checkCameraPermission()
         
         setNeedsStatusBarAppearanceUpdate()
@@ -84,7 +91,6 @@ class CaptureStatusViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.makeTransparent()
-        imagesPreview.reloadData()
         switch setupResult {
             case .success:
                 startCaptureSession()
@@ -95,13 +101,32 @@ class CaptureStatusViewController: UIViewController {
                 Logger.log(AppStrings.Error.CaptureStatus.configrationFailed)
                 presentAlert(title: AppStrings.CaptureStatus.alertTitle, message: AppStrings.CaptureStatus.configrationFailed, actions: okAction)
         }
-        
+            
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         navigationController?.navigationBar.removeTransparency()
         stopCaptureSession()
+        imagePreviewHeightConstraint?.constant = Self.IMAGE_PREVIEW_HEIGHT
+        self.imagesPreview.isHidden = false
+        self.presenter.isImageDrawerClosed = false
+    }
+    
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.view.layoutIfNeeded()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            UIView.animate(withDuration:  0.25, delay: 0.5, options: []) {
+                self.imagePreviewHeightConstraint?.constant = 0
+                self.view.layoutIfNeeded()
+            } completion: { _ in
+                self.imagesPreview.isHidden = true
+               
+            }
+        }
+        self.presenter.isImageDrawerClosed = true
     }
 
     @objc func switchCamera() {
@@ -165,6 +190,51 @@ class CaptureStatusViewController: UIViewController {
         }
     }
     
+    @objc func dragImagePreview(_ sender: UIPanGestureRecognizer) {
+        let velocity = sender.velocity(in: view)
+        let translation = sender.translation(in: view)
+        
+        if velocity.y < -200 && presenter.isImageDrawerClosed {
+            UIView.animate(withDuration:  0.25) {
+                self.imagePreviewHeightConstraint?.constant = Self.IMAGE_PREVIEW_HEIGHT
+                self.view.layoutIfNeeded()
+            } completion: { _ in
+                self.imagesPreview.isHidden = false
+            }
+            if sender.state == .ended {
+                self.presenter.isImageDrawerClosed = false
+                UIView.animate(withDuration: 0.3) { [self] in
+                    self.imagesPreview.transform = .identity
+                }
+            }
+        } else if velocity.y > 200 {
+            UIView.animate(withDuration:  0.25) {
+                self.imagePreviewHeightConstraint?.constant = 0
+                self.view.layoutIfNeeded()
+            } completion: { _ in
+                self.imagesPreview.isHidden = true
+            }
+            if sender.state == .ended {
+                self.presenter.isImageDrawerClosed = true
+            }
+        } else if velocity.y < -200 && !presenter.isImageDrawerClosed {
+            // TODO: translate image to an up arrow and then after open image selector
+            let translatePercentage = abs(translation.y / view.frame.height)
+            self.imagesPreview.transform = CGAffineTransform(scaleX: 1 + translatePercentage , y: 1 + translatePercentage)
+            if translatePercentage >= 0.15 {
+                coordinator.startPhotosGalleryViewController(navigationController: self.navigationController, completion: handleSelectedImageCompletion)
+                UIView.animate(withDuration: 0.3) { [self] in
+                    self.imagesPreview.transform = .identity
+                }
+            }
+            if sender.state == .ended {
+                UIView.animate(withDuration: 0.3) { [self] in
+                    self.imagesPreview.transform = .identity
+                }
+            }
+        }
+    }
+    
     @objc func takeVideoAction(gestureReconizer: UILongPressGestureRecognizer) {
         if gestureReconizer.state == .began {
             Logger.i("state began")
@@ -182,8 +252,11 @@ class CaptureStatusViewController: UIViewController {
     }
     
     @objc func openGalleryAction() {
-        
-        coordinator.startPhotosGalleryViewController(navigationController: navigationController) { photoAsset in
+        coordinator.startPhotosGalleryViewController(navigationController: navigationController,
+                                                     completion: handleSelectedImageCompletion)
+    }
+    
+    private func handleSelectedImageCompletion(_ photoAsset: [String: PHAsset]) {
             self.presenter.getImages(avAssets: photoAsset) { didFailOnce, images in
                 if didFailOnce {
                     self.presentAlert(title: "Could not get all images", message: "Could not get some images. Do you want to continue?") { _ in
@@ -195,7 +268,6 @@ class CaptureStatusViewController: UIViewController {
                     self.startEditPhotoViewController(images: images)
                 }
             }
-        }
     }
     
     @objc func sessionWasInterrupted(notification: NSNotification) {
@@ -255,6 +327,7 @@ class CaptureStatusViewController: UIViewController {
         } else {
             self.overlayView.isHidden = false
         }
+        
     }
     
     @objc func sessionInterruptionEnded() {
@@ -286,7 +359,7 @@ class CaptureStatusViewController: UIViewController {
 }
 
 //
-// MARK: - Private helper functions
+// MARK: - Private View helper functions
 //
 
 private extension CaptureStatusViewController {
@@ -327,14 +400,36 @@ private extension CaptureStatusViewController {
     }
     
     func configureImagesPreview() {
-        imagesPreview = ImagesPreviewView(itemSize: CGSize(width: 80, height: 80), presenter: presenter.photosCollectionViewPresenter)
+        imagesPreview = ImagesPreviewView(itemSize: CGSize(width: Self.IMAGE_PREVIEW_HEIGHT, height: Self.IMAGE_PREVIEW_HEIGHT), presenter: presenter.photosCollectionViewPresenter)
         imagesPreview.autoresizingOff()
         view.addSubview(imagesPreview)
-        imagesPreview.heightAnchor --> 80
+        imagePreviewHeightConstraint = imagesPreview.heightAnchor --> Self.IMAGE_PREVIEW_HEIGHT
         imagesPreview.leadingAnchor --> view.leadingAnchor
         imagesPreview.trailingAnchor --> view.trailingAnchor
         imagesPreview.bottomAnchor --> captureButton.topAnchor + -Const.View.m16
+       
+    }
+    
+    private func configureDraggableImage() {
+        dragView.autoresizingOff()
+        dragImage.autoresizingOff()
+        dragView.addSubview(dragImage)
+        dragImage.heightAnchor --> 6
+        dragImage.widthAnchor --> (Const.View.m16 * 2.5)
+        dragImage.backgroundColor = UIColor.white
+        dragImage.centerYAnchor --> dragView.centerYAnchor
+        dragImage.centerXAnchor --> dragView.centerXAnchor
+        dragImage.layer.cornerRadius = 3
+        dragImage.smoothCornerCurve()
+        view.addSubview(dragView)
+        dragView.heightAnchor --> 30
+        dragView.leadingAnchor --> view.leadingAnchor
+        dragView.trailingAnchor --> view.trailingAnchor
+        dragView.bottomAnchor --> imagesPreview.topAnchor + -6
+        dragView.backgroundColor = .clear
         
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(dragImagePreview(_:)))
+        dragView.addGestureRecognizer(panGesture)
     }
     
     func configureOverlayView() {
