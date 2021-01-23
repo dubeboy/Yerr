@@ -43,8 +43,8 @@ class YerrButton: UIButton {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        UIView.animate(withDuration: 0.2) { [self] in
-            transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        UIView.animate(withDuration: 0.3) { [self] in
+            transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
             delegate?.startAnimate(tag: tag)
         } completion: { [self] _ in
             transform = .identity

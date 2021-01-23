@@ -89,6 +89,12 @@ extension UIView {
         self.layer.shouldRasterize = true
         self.layer.rasterizationScale = UIScreen.main.scale
     }
+    
+    func smoothCornerCurve() {
+        if #available(iOS 13, *) {
+            layer.cornerCurve = .continuous
+        }
+    }
 }
 
 // Confetti!!! commented out because its not being used!!!

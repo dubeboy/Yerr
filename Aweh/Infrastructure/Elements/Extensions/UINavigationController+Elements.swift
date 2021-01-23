@@ -14,6 +14,7 @@ extension UINavigationBar {
         shadowImage = UIImage()
         isTranslucent = true
         backgroundColor = .clear
+    
         
         if #available(iOS 13.0, *) {
             standardAppearance.backgroundColor = .clear

@@ -31,6 +31,8 @@
 		7116CCCD2561DF5F007A61A4 /* StatusVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116CCCC2561DF5F007A61A4 /* StatusVideoView.swift */; };
 		7116E350251AB2E100502C92 /* UserPrefrencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116E34F251AB2E100502C92 /* UserPrefrencies.swift */; };
 		7119E3A024B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7119E39F24B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard */; };
+		711DE17D25BC221C0048923B /* UIDevice+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711DE17C25BC221C0048923B /* UIDevice+Elements.swift */; };
+		711DE18125BC4EC50048923B /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711DE18025BC4EC50048923B /* GradientView.swift */; };
 		711E79C0256B04D70060DB76 /* PostStatusTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E79BF256B04D70060DB76 /* PostStatusTextView.swift */; };
 		711E7AB1256BFDBE0060DB76 /* PostStatusVideoPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E7AB0256BFDBE0060DB76 /* PostStatusVideoPreview.swift */; };
 		711E7AB9256C12FB0060DB76 /* TrimPostStatusBoderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E7AB8256C12FB0060DB76 /* TrimPostStatusBoderView.swift */; };
@@ -236,6 +238,8 @@
 		7116CCCC2561DF5F007A61A4 /* StatusVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusVideoView.swift; sourceTree = "<group>"; };
 		7116E34F251AB2E100502C92 /* UserPrefrencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrefrencies.swift; sourceTree = "<group>"; };
 		7119E39F24B38B2D00DFB4E7 /* PickInterestCollectionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickInterestCollectionViewController.storyboard; sourceTree = "<group>"; };
+		711DE17C25BC221C0048923B /* UIDevice+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Elements.swift"; sourceTree = "<group>"; };
+		711DE18025BC4EC50048923B /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		711E79BF256B04D70060DB76 /* PostStatusTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStatusTextView.swift; sourceTree = "<group>"; };
 		711E7AB0256BFDBE0060DB76 /* PostStatusVideoPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStatusVideoPreview.swift; sourceTree = "<group>"; };
 		711E7AB8256C12FB0060DB76 /* TrimPostStatusBoderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimPostStatusBoderView.swift; sourceTree = "<group>"; };
@@ -567,6 +571,7 @@
 				71AD2FD125694EF9007CA16C /* UIStackView+Elements.swift */,
 				7109D24B25898B5E0041ECDF /* UINavigationController+Elements.swift */,
 				71C09FD7259F8A4F001EA043 /* UITextView+Elements.swift */,
+				711DE17C25BC221C0048923B /* UIDevice+Elements.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -630,6 +635,14 @@
 				7116CCCC2561DF5F007A61A4 /* StatusVideoView.swift */,
 			);
 			path = VideoView;
+			sourceTree = "<group>";
+		};
+		711DE18325BC4EC80048923B /* GradientView */ = {
+			isa = PBXGroup;
+			children = (
+				711DE18025BC4EC50048923B /* GradientView.swift */,
+			);
+			path = GradientView;
 			sourceTree = "<group>";
 		};
 		711E79BC256B04270060DB76 /* ProgressIndicator */ = {
@@ -1749,6 +1762,7 @@
 		71D6BADF249570C200F4B5D8 /* Widget */ = {
 			isa = PBXGroup;
 			children = (
+				711DE18325BC4EC80048923B /* GradientView */,
 				71C1049D25AADE4E007434CF /* TextViewActionsView */,
 				711E79BD256B04320060DB76 /* PostTextStatusView */,
 				711E79BC256B04270060DB76 /* ProgressIndicator */,
@@ -2154,6 +2168,7 @@
 				7116C10E24A2AD3100749620 /* SingleStatusViewController.swift in Sources */,
 				7116E350251AB2E100502C92 /* UserPrefrencies.swift in Sources */,
 				71CCF0DA249C23B30054C210 /* CommentCollectionViewCell.swift in Sources */,
+				711DE18125BC4EC50048923B /* GradientView.swift in Sources */,
 				712D257B2569165E0071C82C /* StatusesView.swift in Sources */,
 				71FFED0D25324D660019BA8C /* CirclesInterator.swift in Sources */,
 				71FFECC4252FA86C0019BA8C /* UIColor+Elements.swift in Sources */,
@@ -2272,6 +2287,7 @@
 				7172D613248F0CC90083B7F6 /* PostStatusCoordinator.swift in Sources */,
 				71585EED24A2988E00092D6E /* SingleStatusCoordinator.swift in Sources */,
 				71E0E755254E05C10040930C /* CountryCell.swift in Sources */,
+				711DE17D25BC221C0048923B /* UIDevice+Elements.swift in Sources */,
 				713D265224BA090400E2CFC5 /* Logger.swift in Sources */,
 				7196DD1024B083A600384B84 /* Notification+Elements.swift in Sources */,
 				713549B3248BE8F10009EE6A /* FeedCellPresenter.swift in Sources */,

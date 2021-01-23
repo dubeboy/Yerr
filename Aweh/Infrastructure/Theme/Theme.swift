@@ -31,6 +31,10 @@ enum Const {
     // MARK: - App assets
     enum Assets {
         
+        // Global icons, usualy in extensions
+        static let closeIcon: UIImage? = getSystemAsset(systemName: "xmark")
+        static let cameraIcon = getSystemAsset(systemName: "camera")
+        
         private enum CommonAssets {
             static let chevronRight: UIImage? = getSystemAsset(systemName: "chevron.right")
         }
@@ -154,8 +158,10 @@ enum Const {
         static let actionButtonColor = getColor(color: .button) // TODO: test that these color exist
         static let labelColor = getColor(color: .label)
         static let linkColor = getColor(color: .link)
+        static let navigationBarTintColor = UIColor.white
         
         private static let colors = ["264653", "2A9D8F", "e9c46a", "f4a261", "e76f51"]
+        
         
         enum PostStatus {
             static let textBackgroundColors = colors

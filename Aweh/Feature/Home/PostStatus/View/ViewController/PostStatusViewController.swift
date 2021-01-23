@@ -45,6 +45,7 @@ class PostStatusViewController: UIViewController {
     private let profileImage: UIImageView = UIImageView()
     private let backgroundColorView = UIView()
     private let statusTextView = UITextView()
+    private let gradientView = GradientView()
     @LateInit
     private var actionsToolbar: TextViewActionsView
     
@@ -53,10 +54,9 @@ class PostStatusViewController: UIViewController {
         location = GeoLocationServices(delegate: self)
         actionsToolbar = TextViewActionsView(delegate: self, colors: presenter.colors)
         profileImage.makeImageRound()
-        title = AppStrings.PostStatus.title
+        configureActionsToolbar()
         configureSelf()
         configureStatusTextiew()
-        configureActionsToolbar()
     }
     
     @objc func captureStatus() {
@@ -81,6 +81,7 @@ class PostStatusViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         statusTextView.centerVerticalText()
+        navigationController?.navigationBar.makeTransparent()
         listenToEvent(
             name: .keyboardWillShow,
             selector: #selector(keyboardWillAppear(notification:))
@@ -94,7 +95,7 @@ class PostStatusViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-       
+        
         statusTextView.becomeFirstResponder()
     }
     
@@ -105,13 +106,13 @@ class PostStatusViewController: UIViewController {
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        bottomConstraint.constant = 0
-        actionsToolbarBottomConstraint.constant = -(Const.View.m16 + view.safeAreaInsets.bottom)
+//        bottomConstraint.constant = 0
+        actionsToolbarBottomConstraint.constant = -view.safeAreaInsets.bottom
     }
     
     @objc func keyboardWillAppear(notification: NSNotification) {
         guard let frame = keyboardFrame(from: notification) else { return }
-        bottomConstraint.constant = -frame.size.height
+//        bottomConstraint.constant = -frame.size.height
         actionsToolbarBottomConstraint.constant = -frame.size.height
     }
     
@@ -152,6 +153,15 @@ class PostStatusViewController: UIViewController {
     @objc func closeViewController() {
         dismiss(animated: true, completion: nil)
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+//        configureGradient()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    }
 }
 
 // MARK: - PRIVATE Functions
@@ -167,15 +177,34 @@ extension PostStatusViewController {
     private func configureSelf() {
         backgroundColorView.autoresizingOff()
         view.addSubview(backgroundColorView)
-        let (_, _, bottomBackgroundConstraint, _) = backgroundColorView --> view
-        bottomConstraint = bottomBackgroundConstraint
-        backgroundColorView.backgroundColor = .cyan
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapDoneButton))
-//        backgroundColorView.addGestureRecognizer(tapGesture)
-        view.backgroundColor = .cyan
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(closeViewController))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(captureStatus))
-
+        backgroundColorView.backgroundColor = UIColor(hex: presenter.colors[0])
+        backgroundColorView.leadingAnchor --> view.leadingAnchor
+        backgroundColorView.clipsToBounds = true
+//        backgroundColorView.layer.masksToBounds = true
+        backgroundColorView.trailingAnchor --> view.trailingAnchor
+        backgroundColorView.topAnchor --> view.safeAreaLayoutGuide.topAnchor + -(navigationController!.navigationBar.frame.height)
+        bottomConstraint = backgroundColorView.bottomAnchor --> actionsToolbar.topAnchor + 40
+        if UIDevice.current.hasNotch {
+            backgroundColorView.layer.cornerRadius = 30
+            backgroundColorView.smoothCornerCurve()
+        }
+        view.backgroundColor = UIColor(hex: "0B0B0B")
+        addCloseButtonItem(toLeft: true)
+        let button = createNavigationBarButton(image: Const.Assets.cameraIcon)
+        button.addTarget(self, action: #selector(captureStatus), for: .touchUpInside)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
+        self.navigationController?.navigationBar.tintColor = Const.Color.navigationBarTintColor
+        self.navigationController?.navigationBar.barStyle = .black
+        configureGradient()
+        view.sendSubviewToBack(backgroundColorView)
+    }
+    
+    private func configureGradient() {
+        gradientView.autoresizingOff()
+        backgroundColorView.addSubview(gradientView)
+        gradientView.backgroundColor = .red
+        gradientView --> backgroundColorView
+//        gradientView.isHidden = true // TODO: not best solution but will do for now
     }
     
     private func configureStatusTextiew() {
@@ -193,6 +222,7 @@ extension PostStatusViewController {
         statusTextBottomConstraint.isActive = false
         statusTextView.backgroundColor = .clear
         statusTextView.textAlignment = .center
+        statusTextView.bringSubviewToFront(backgroundColorView)
     }
     
     private func loadPhotos() {
@@ -212,7 +242,7 @@ extension PostStatusViewController {
         view.addSubview(actionsToolbar)
         actionsToolbar.leadingAnchor --> view.leadingAnchor
         actionsToolbar.trailingAnchor --> view.trailingAnchor
-        actionsToolbarBottomConstraint = actionsToolbar.bottomAnchor --> view.bottomAnchor + -(Const.View.m16 + view.safeAreaInsets.bottom)
+        actionsToolbarBottomConstraint = actionsToolbar.bottomAnchor --> view.bottomAnchor
     }
 }
 //MARK: - GeoLocationServicesDelegate
@@ -269,8 +299,12 @@ extension PostStatusViewController: TextViewActionsViewDelegate {
     }
     
     func didTapColorToChange(tag: Int) {
-        backgroundColorView.backgroundColor = UIColor(hex: presenter.colors[tag])
-        view.backgroundColor = UIColor(hex: presenter.colors[tag])
+        if tag >= 0 {
+            backgroundColorView.backgroundColor = UIColor(hex: presenter.colors[tag])
+            gradientView.isHidden = true
+        } else {
+            gradientView.isHidden = false
+        }
     }
     
     func didTapBoldText(textWeight: PostStatusViewModel.TextWeight) {
