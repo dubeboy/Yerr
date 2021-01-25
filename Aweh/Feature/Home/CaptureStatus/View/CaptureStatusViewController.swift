@@ -34,7 +34,7 @@ class CaptureStatusViewController: UIViewController {
     var presenter: CaptureStatusPresenter!
     
     private var captureButton = CaptureButton()
-    private var openGalleryButton = UIImageView()
+    private var openGalleryButton = YerrButton()
     
     private var captureSession = AVCaptureSession()
     
@@ -46,7 +46,7 @@ class CaptureStatusViewController: UIViewController {
     private let photoOutput = AVCapturePhotoOutput()
     private var movieFileOutput: AVCaptureMovieFileOutput!
     private var captureMode = CaptureMode.photo
-    private var switchCameraButton: UIBarButtonItem!
+    private var switchCameraButton: YerrButton = YerrButton()
          
     private let overlayView = UIView()
     private let overlayLabel = UILabel()
@@ -66,18 +66,23 @@ class CaptureStatusViewController: UIViewController {
     
     private let dragView = UIView() // This should have a disappeating text view with instruction
     private let dragImage = UIView()
+    private var backgroundView: UIView = UIView()
     
     private var imagePreviewHeightConstraint: NSLayoutConstraint?
     private static let IMAGE_PREVIEW_HEIGHT: CGFloat = 100
     
     @LateInit
     private var imagesPreview: ImagesPreviewView
+    
+    private static let ACTION_BUTTON_BUTTON_SIZE: CGFloat = 40
+    private static let CAPTURE_BUTTON_SIZE: CGFloat = 60
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSelf()
         configureCaptureButton()
         configureOpenGalleryButton()
+        configureSwitchCameraButton()
         configureOverlayView()
         setupPreviewLayer()
         configureCaptureSession()
@@ -117,7 +122,7 @@ class CaptureStatusViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.view.layoutIfNeeded()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // could change the alpha instead of drawingb the view
             UIView.animate(withDuration:  0.25, delay: 0.5, options: []) {
                 self.imagePreviewHeightConstraint?.constant = 0
                 self.view.layoutIfNeeded()
@@ -364,18 +369,42 @@ class CaptureStatusViewController: UIViewController {
 
 private extension CaptureStatusViewController {
     func configureSelf() {
-        switchCameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(switchCamera))
-        navigationItem.rightBarButtonItem = switchCameraButton
         addCloseButtonItem(toLeft: true)
+        
+        self.navigationController?.navigationBar.tintColor = Const.Color.navigationBarTintColor
+    }
+    
+  
+    
+    private func setupPreviewLayer() {
+        backgroundView.autoresizingOff()
+        backgroundView.backgroundColor = .brown
+        view.addSubview(backgroundView)
+        if UIDevice.current.hasNotch {
+            backgroundView.layer.cornerRadius = Const.View.viewCornerRadius
+            backgroundView.smoothCornerCurve()
+        }
+        view.backgroundColor = Const.Color.roundViewsBackground
+        backgroundView.leadingAnchor --> view.leadingAnchor
+        backgroundView.trailingAnchor --> view.trailingAnchor
+        backgroundView.topAnchor --> view.safeAreaLayoutGuide.topAnchor + -navigationController!.navigationBar.frame.height
+        backgroundView.bottomAnchor --> view.safeAreaLayoutGuide.bottomAnchor
+        backgroundView.clipsToBounds = true
+        
+        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer.videoGravity = .resizeAspectFill
+        backgroundView.layer.insertSublayer(previewLayer, below: captureButton.layer)
+        previewLayer.frame = self.view.layer.frame
+
     }
     
     func configureCaptureButton() {
         captureButton.autoresizingOff()
-        view.addSubview(captureButton)
-        captureButton.bottomAnchor --> view.bottomAnchor + -Const.View.m16 * 2
-        captureButton.centerXAnchor --> view.centerXAnchor
-        captureButton.widthAnchor --> 60
-        captureButton.heightAnchor --> 60
+        backgroundView.addSubview(captureButton)
+        captureButton.bottomAnchor --> backgroundView.bottomAnchor + -Const.View.m16 * 2
+        captureButton.centerXAnchor --> backgroundView.centerXAnchor
+        captureButton.widthAnchor --> Self.CAPTURE_BUTTON_SIZE
+        captureButton.heightAnchor --> Self.CAPTURE_BUTTON_SIZE
         captureButton.addTarget(self, action: #selector(takePictureAction), for: .touchUpInside)
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(takeVideoAction))
         longPressRecognizer.minimumPressDuration = 0.5
@@ -384,19 +413,28 @@ private extension CaptureStatusViewController {
         // add long press to rec
     }
     
+    private func configureSwitchCameraButton() {
+        switchCameraButton.autoresizingOff()
+        switchCameraButton.addTarget(self, action: #selector(switchCamera), for: .touchUpInside)
+        switchCameraButton.setImage(fillBoundsWith: Const.Assets.CaptureStatus.cameraRotate?.withRenderingMode(.alwaysTemplate))
+        switchCameraButton.tintColor = Const.Color.CaptureStatus.captureButton
+        backgroundView.addSubview(switchCameraButton)
+        switchCameraButton.heightAnchor --> Self.ACTION_BUTTON_BUTTON_SIZE
+        switchCameraButton.widthAnchor --> Self.ACTION_BUTTON_BUTTON_SIZE
+        switchCameraButton.trailingAnchor -->  backgroundView.trailingAnchor + -Const.View.m16
+        switchCameraButton.centerYAnchor --> captureButton.centerYAnchor
+    }
+    
     private func configureOpenGalleryButton() {
         openGalleryButton.autoresizingOff()
-        view.addSubview(openGalleryButton)
-        openGalleryButton.image = Const.Assets.CaptureStatus.openGalleryIcon?.withRenderingMode(.alwaysTemplate)
+        backgroundView.addSubview(openGalleryButton)
+        openGalleryButton.setImage(fillBoundsWith: Const.Assets.CaptureStatus.openGalleryIcon?.withRenderingMode(.alwaysTemplate))
         openGalleryButton.tintColor = Const.Color.CaptureStatus.captureButton // TODO: make button a bit thick
-        openGalleryButton.leadingAnchor --> view.leadingAnchor + Const.View.m16
+        openGalleryButton.leadingAnchor --> backgroundView.leadingAnchor + Const.View.m16
         openGalleryButton.centerYAnchor --> captureButton.centerYAnchor
-        openGalleryButton.widthAnchor --> 40
-        openGalleryButton.heightAnchor --> 40
-        openGalleryButton.contentMode = .scaleAspectFit
-        openGalleryButton.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openGalleryAction))
-        openGalleryButton.addGestureRecognizer(tapGesture)
+        openGalleryButton.widthAnchor --> Self.ACTION_BUTTON_BUTTON_SIZE
+        openGalleryButton.heightAnchor --> Self.ACTION_BUTTON_BUTTON_SIZE
+        openGalleryButton.addTarget(self, action: #selector(openGalleryAction), for: .touchUpInside)
     }
     
     func configureImagesPreview() {
@@ -780,12 +818,7 @@ private extension CaptureStatusViewController {
         NotificationCenter.default.removeObserver(self)
     }
 
-    func setupPreviewLayer() {
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.videoGravity = .resizeAspectFill
-        view.layer.insertSublayer(previewLayer, below: captureButton.layer)
-        previewLayer.frame = self.view.layer.frame
-    }
+   
     
     private func flashScreen(completion: @escaping Completion<Bool>) {
         previewLayer.opacity = 0

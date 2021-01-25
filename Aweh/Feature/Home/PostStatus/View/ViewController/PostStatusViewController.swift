@@ -185,10 +185,10 @@ extension PostStatusViewController {
         backgroundColorView.topAnchor --> view.safeAreaLayoutGuide.topAnchor + -(navigationController!.navigationBar.frame.height)
         bottomConstraint = backgroundColorView.bottomAnchor --> actionsToolbar.topAnchor + 40
         if UIDevice.current.hasNotch {
-            backgroundColorView.layer.cornerRadius = 30
+            backgroundColorView.layer.cornerRadius = Const.View.viewCornerRadius
             backgroundColorView.smoothCornerCurve()
         }
-        view.backgroundColor = UIColor(hex: "0B0B0B")
+        view.backgroundColor = Const.Color.roundViewsBackground
         addCloseButtonItem(toLeft: true)
         let button = createNavigationBarButton(image: Const.Assets.cameraIcon)
         button.addTarget(self, action: #selector(captureStatus), for: .touchUpInside)

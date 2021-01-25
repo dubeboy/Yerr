@@ -145,7 +145,7 @@ extension UIViewController {
     }
     
     @objc private func dismissViewController() {
-        if isBeingPresented || navigationController?.modalPresentationStyle == UIModalPresentationStyle.fullScreen {
+        if isBeingPresented {
             self.dismiss(animated: true, completion: nil)
         } else {
             self.navigationController?.popViewController(animated: true)

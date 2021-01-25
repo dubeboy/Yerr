@@ -25,6 +25,7 @@ enum Const {
         static let m4: CGFloat = 2
         static let radius: CGFloat = 10
         static let borderWidth: CGFloat = m2
+        static let viewCornerRadius: CGFloat = 30
         
     }
     
@@ -63,6 +64,7 @@ enum Const {
         enum CaptureStatus {
             static let openGalleryIcon: UIImage? = UIImage(named: "gallery")
             static let chevronUp: UIImage? = getSystemAsset(systemName: "chevron.up")
+            static let cameraRotate: UIImage? = getSystemAsset(systemName: "camera.rotate")
         }
         
         enum TrimVideo {
@@ -146,9 +148,7 @@ enum Const {
             
             case link
         }
-        
-       
-       
+
         // SHould have a private BASE
         // then put all the System colors in system
         // These should be private!!
@@ -159,6 +159,7 @@ enum Const {
         static let labelColor = getColor(color: .label)
         static let linkColor = getColor(color: .link)
         static let navigationBarTintColor = UIColor.white
+        static let roundViewsBackground = UIColor(hex: "0B0B0B")
         
         private static let colors = ["264653", "2A9D8F", "e9c46a", "f4a261", "e76f51"]
         

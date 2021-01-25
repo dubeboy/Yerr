@@ -7,225 +7,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4E6CC169-6213-437B-BF52-D4876FED0A88"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Home/Feed/View/Widget/StatusesView/StatusesView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "setViewModel(viewModel:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "29FDFB4A-7AFE-4DC6-BA40-9018F6C34035"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Home/Feed/View/Widget/StatusesView/StatusesView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "collectionView(_:numberOfItemsInSection:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DDCC1E38-EB8D-4457-B922-2830D7149B48"
+            uuid = "8EAA22B9-0AC2-46D9-AEC3-7BEB234F1663"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Home/Feed/View/FeedCollectionView/Feed/FeedCellPresenter.swift"
+            filePath = "Aweh/Feature/Home/CaptureStatus/View/CaptureStatusViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "setLikes(cell:likes:)"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4648A7A9-3AFF-4C08-BD34-5E8D5E4AC967"
+            uuid = "47451B97-9B14-45D4-A9C1-E1D979532A84"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Home/Feed/View/FeedViewController/FeedViewController.swift"
+            filePath = "Aweh/Feature/Home/CaptureStatus/View/CaptureStatusViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "199"
             endingLineNumber = "199"
-            landmarkName = "collectionView(_:prefetchItemsAt:)"
+            landmarkName = "dragImagePreview(_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "4648A7A9-3AFF-4C08-BD34-5E8D5E4AC967 - 517dc67a7442509f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Aweh.FeedViewController.collectionView(_: __C.UICollectionView, prefetchItemsAt: Swift.Array&lt;Foundation.IndexPath&gt;) -&gt; ()"
-                  moduleName = "Aweh"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/divine.dube/Developer/iOS/Aweh/Aweh/Feature/Home/Feed/View/FeedViewController/FeedViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "199"
-                  endingLineNumber = "199"
-                  offsetFromSymbolStart = "1984">
-               </Location>
-               <Location
-                  uuid = "4648A7A9-3AFF-4C08-BD34-5E8D5E4AC967 - 4bb471cbda95e35c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Int&gt;, Swift.Optional&lt;Swift.String&gt;) -&gt; () in Aweh.FeedViewController.collectionView(_: __C.UICollectionView, prefetchItemsAt: Swift.Array&lt;Foundation.IndexPath&gt;) -&gt; ()"
-                  moduleName = "Aweh"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/divine.dube/Developer/iOS/Aweh/Aweh/Feature/Home/Feed/View/FeedViewController/FeedViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "199"
-                  endingLineNumber = "199"
-                  offsetFromSymbolStart = "68">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3182C8B4-D864-4B7A-9415-4CDF2A287669"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Home/Feed/View/FeedViewController/FeedViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
-            landmarkName = "scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D5C30700-65F4-4AD1-9C58-BCE346771FAE"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Home/PostStatus/View/ViewController/PostStatusViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "306"
-            endingLineNumber = "306"
-            landmarkName = "didTapColorToChange(tag:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F34F4079-AF48-450E-B602-6CC7D935B7B8"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Home/PostStatus/View/Widget/TextViewActionsView/TextViewActionsView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "didTapColorToChange(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "28A9E8D4-EB93-4151-B492-DDA6940E9834"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Home/PostStatus/View/Widget/TextViewActionsView/TextViewActionsView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
-            landmarkName = "didTapGradientColor(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BA36B9A4-BED7-4DD4-9DBB-C98FBE3B34E1"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Home/PostStatus/View/ViewController/PostStatusViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303"
-            landmarkName = "didTapColorToChange(tag:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0608DC36-9015-4C04-905F-07EA3BA9F3FE"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Home/PostStatus/View/Widget/GradientView/GradientView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "touchesBegan(_:with:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F5AB4CF4-5C05-4A98-AE71-C32FB8D6B2DE"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Home/CaptureStatus/View/CaptureStatusViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
-            landmarkName = "viewDidDisappear(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1D5E3766-7FB6-4A90-A8BB-E1B00FDDB767"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Home/CaptureStatus/View/CaptureStatusViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
-            landmarkName = "CaptureStatusViewController"
-            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
