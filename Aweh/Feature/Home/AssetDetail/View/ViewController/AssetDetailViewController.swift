@@ -3,25 +3,12 @@ import Photos
 import PhotosUI
 // TODO: Refactor this
 class AssetDetailViewController: UIViewController {
-    
     var asset: PHAsset!
     var completion: (([String: PHAsset]) -> Void)?
     weak var coordinator: Coordinator!
     
-    @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var livePhotoView: LivePhotoView!
-    @IBOutlet weak var editButton: UIBarButtonItem!
-    @IBOutlet weak var progressView: UIProgressView!
-    
-    #if os(tvOS)
-    @IBOutlet var livePhotoPlayButton: UIBarButtonItem!
-    #endif
-    
-    @IBOutlet var playButton: UIBarButtonItem!
-    @IBOutlet var space: UIBarButtonItem!
-    @IBOutlet var trashButton: UIBarButtonItem!
-    @IBOutlet var favoriteButton: UIBarButtonItem!
     
     fileprivate var playerLayer: AVPlayerLayer!
     fileprivate var isPlayingHint = false
@@ -29,12 +16,9 @@ class AssetDetailViewController: UIViewController {
     fileprivate lazy var formatIdentifier = Bundle.main.bundleIdentifier!
     fileprivate let formatVersion = "1.0"
     fileprivate lazy var ciContext = CIContext()
-    
-    // MARK: UIViewController / Life Cycle
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        livePhotoView.delegate = self
         PHPhotoLibrary.shared().register(self)
     }
     
@@ -55,86 +39,20 @@ class AssetDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Set the appropriate toolbar items based on the media type of the asset.
-        #if os(iOS)
         navigationController?.isToolbarHidden = false
         navigationController?.hidesBarsOnTap = true
-        if asset.mediaType == .video {
-            toolbarItems = [favoriteButton, space, playButton, space, trashButton]
-        } else {
-            // In iOS, present both stills and Live Photos the same way, because
-            // PHLivePhotoView provides the same gesture-based UI as in the Photos app.
-            toolbarItems = [favoriteButton, space, trashButton]
-        }
-        #elseif os(tvOS)
-        if asset.mediaType == .video {
-            navigationItem.leftBarButtonItems = [playButton, favoriteButton, trashButton]
-        } else {
-            // In tvOS, PHLivePhotoView doesn't support playback gestures,
-            // so add a play button for Live Photos.
-            if asset.mediaSubtypes.contains(.photoLive) {
-                navigationItem.leftBarButtonItems = [favoriteButton, trashButton]
-            } else {
-                navigationItem.leftBarButtonItems = [livePhotoPlayButton, favoriteButton, trashButton]
-            }
-        }
-        #endif
-        // Enable editing buttons if the user can edit the asset.
-        editButton.isEnabled = false
-        favoriteButton.isEnabled = asset.canPerform(.properties)
-        favoriteButton.title = asset.isFavorite ? "♥︎" : "♡"
-        
-        // Enable the trash can button if the user can delete the asset.
-        
-        trashButton.isEnabled = asset.canPerform(.delete)
-        
-        // Make sure the view layout happens before requesting an image sized to fit the view.
+
         view.layoutIfNeeded()
         updateImage()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        #if os(iOS)
         navigationController?.hidesBarsOnTap = false
-        #endif
     }
-    
-    // MARK: UI Actions
-    /// - Tag: EditAlert
-    @IBAction func editAsset(_ sender: UIBarButtonItem) {
-        // Use a UIAlertController to display editing options to the user.
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        #if os(iOS)
-        alertController.modalPresentationStyle = .popover
-        if let popoverController = alertController.popoverPresentationController {
-            popoverController.barButtonItem = sender
-            popoverController.permittedArrowDirections = .up
-        }
-        #endif
-        
-        // Add a Cancel action to dismiss the alert without doing anything.
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""),
-                                                style: .cancel, handler: nil))
-        // Allow editing only if the PHAsset supports edit operations.
-        if asset.canPerform(.content) {
-            // Add actions for some canned filters.
-            alertController.addAction(UIAlertAction(title: NSLocalizedString("Sepia Tone", comment: ""),
-                                                    style: .default, handler: getFilter("CISepiaTone")))
-            alertController.addAction(UIAlertAction(title: NSLocalizedString("Chrome", comment: ""),
-                                                    style: .default, handler: getFilter("CIPhotoEffectChrome")))
-            
-            // Add actions to revert any edits that have been made to the PHAsset.
-            alertController.addAction(UIAlertAction(title: NSLocalizedString("Revert", comment: ""),
-                                                    style: .default, handler: revertAsset))
-        }
-        // Present the UIAlertController.
-        present(alertController, animated: true)
-    }
-    #if os(tvOS)
-    @IBAction func playLivePhoto(_ sender: Any) {
-        livePhotoView.startPlayback(with: .full)
-    }
-    #endif
+
+
+   
     /// - Tag: PlayVideo
     @IBAction func play(_ sender: AnyObject) {
         if playerLayer != nil {
@@ -148,7 +66,7 @@ class AssetDetailViewController: UIViewController {
                 // The handler may originate on a background queue, so
                 // re-dispatch to the main queue for UI work.
                 DispatchQueue.main.sync {
-                    self.progressView.progress = Float(progress)
+//                    self.progressView.progress = Float(progress)
                 }
             }
             // Request an AVPlayerItem for the displayed PHAsset.
@@ -174,39 +92,7 @@ class AssetDetailViewController: UIViewController {
             })
         }
     }
-    /// - Tag: RemoveAsset
-    @IBAction func removeAsset(_ sender: AnyObject) {
-        let completion = { (success: Bool, error: Error?) -> Void in
-            if success {
-                PHPhotoLibrary.shared().unregisterChangeObserver(self)
-                DispatchQueue.main.sync {
-                    _ = self.navigationController!.popViewController(animated: true)
-                }
-            } else {
-                print("Can't remove the asset: \(String(describing: error))")
-            }
-        }
-        // Delete the asset from the photo library.
-        PHPhotoLibrary.shared().performChanges({
-            PHAssetChangeRequest.deleteAssets([self.asset as Any] as NSArray)
-        }, completionHandler: completion)
-    }
-    /// - Tag: MarkFavorite
-    @IBAction func toggleFavorite(_ sender: UIBarButtonItem) {
-        PHPhotoLibrary.shared().performChanges({
-            let request = PHAssetChangeRequest(for: self.asset)
-            request.isFavorite = !self.asset.isFavorite
-        }, completionHandler: { success, error in
-            if success {
-                DispatchQueue.main.sync {
-                    sender.title = self.asset.isFavorite ? "♥︎" : "♡"
-                }
-            } else {
-                print("Can't mark the asset as a Favorite: \(String(describing: error))")
-            }
-        })
-    }
-    
+
     // MARK: Image display
     
     var targetSize: CGSize {
@@ -231,7 +117,7 @@ class AssetDetailViewController: UIViewController {
             // The handler may originate on a background queue, so
             // re-dispatch to the main queue for UI work.
             DispatchQueue.main.sync {
-                self.progressView.progress = Float(progress)
+//                self.progressView.progress = Float(progress)
             }
         }
         
@@ -239,7 +125,7 @@ class AssetDetailViewController: UIViewController {
         PHImageManager.default().requestLivePhoto(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options,
                                                   resultHandler: { livePhoto, info in
                                                     // PhotoKit finishes the request, so hide the progress view.
-                                                    self.progressView.isHidden = true
+//                                                    self.progressView.isHidden = true
                                                     
                                                     // Show the Live Photo view.
                                                     guard let livePhoto = livePhoto else { return }
@@ -266,14 +152,14 @@ class AssetDetailViewController: UIViewController {
             // The handler may originate on a background queue, so
             // re-dispatch to the main queue for UI work.
             DispatchQueue.main.sync {
-                self.progressView.progress = Float(progress)
+//                self.progressView.progress = Float(progress)
             }
         }
         
         PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options,
                                               resultHandler: { image, _ in
                                                 // PhotoKit finished the request, so hide the progress view.
-                                                self.progressView.isHidden = true
+//                                                self.progressView.isHidden = true
                                                 
                                                 // If the request succeeded, show the image view.
                                                 guard let image = image else { return }
@@ -284,18 +170,7 @@ class AssetDetailViewController: UIViewController {
                                                 self.imageView.image = image
         })
     }
-    
-    // MARK: Asset editing
-    
-    func revertAsset(sender: UIAlertAction) {
-        PHPhotoLibrary.shared().performChanges({
-            let request = PHAssetChangeRequest(for: self.asset)
-            request.revertAssetContentToOriginal()
-        }, completionHandler: { success, error in
-            if !success { print("Can't revert the asset: \(String(describing: error))") }
-        })
-    }
-    
+        
     // Returns a filter-applier function for the named filter.
     // Use the function as a handler for a UIAlertAction object.
     /// - Tag: ApplyFilter
@@ -433,16 +308,5 @@ extension AssetDetailViewController: PHPhotoLibraryChangeObserver {
                 playerLayer = nil
             }
         }
-    }
-}
-
-// MARK: PHLivePhotoViewDelegate
-extension AssetDetailViewController: PHLivePhotoViewDelegate {
-    func livePhotoView(_ livePhotoView: PHLivePhotoView, willBeginPlaybackWith playbackStyle: PHLivePhotoViewPlaybackStyle) {
-        isPlayingHint = (playbackStyle == .hint)
-    }
-    
-    func livePhotoView(_ livePhotoView: PHLivePhotoView, didEndPlaybackWith playbackStyle: PHLivePhotoViewPlaybackStyle) {
-        isPlayingHint = (playbackStyle == .hint)
     }
 }

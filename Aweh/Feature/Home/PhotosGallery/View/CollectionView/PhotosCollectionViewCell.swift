@@ -17,24 +17,15 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        imageIsSelected.image = Const.Assets.PhotoGallery.imageSelectedMark
+        imageIsSelected.contentMode = .scaleAspectFill
+        imageIsSelected.tintColor = Const.Color.PhotoGallery.photoGallery
         imageView.contentMode = .scaleAspectFill
-//        imageView.isUserInteractionEnabled = false
-//        imageIsSelected.isUserInteractionEnabled = false
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(action1))
-        imageView.addGestureRecognizer(tap)
     }
-    
-    @objc func action1() {
-        Logger.i("tapped it!!!")
-    }
-    
-    // move logic to presenter
     
     override var isSelected: Bool {
         didSet {
             if isSelected {
-                imageIsSelected.backgroundColor = .blue
                 imageIsSelected.isHidden = false
             } else {
                 imageIsSelected.isHidden = true

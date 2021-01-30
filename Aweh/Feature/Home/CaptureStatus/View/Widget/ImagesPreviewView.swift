@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import Photos
+
+protocol ImagesPreviewViewDelegate: AnyObject {
+    func didClickImage(_ photoAsset: [String: PHAsset])
+}
 
 class ImagesPreviewView: UIView {
     
@@ -15,10 +20,15 @@ class ImagesPreviewView: UIView {
     @LateInit
     private var collectionView: UICollectionView
     private let itemSize: CGSize
+    unowned var delegate: ImagesPreviewViewDelegate
    
-    init(itemSize: CGSize, presenter: PhotosCollectionViewPresenter) {
+    init(itemSize: CGSize,
+         presenter: PhotosCollectionViewPresenter,
+         delegate: ImagesPreviewViewDelegate) {
+        
         self.itemSize = itemSize
         self.presenter = presenter
+        self.delegate = delegate
         super.init(frame: .zero)
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         configureSelf()
@@ -98,7 +108,8 @@ extension ImagesPreviewView: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func showImage(at indexPath: IndexPath) {
-        
+        guard let asset = presenter.getItem(at: indexPath) else { return }
+        delegate.didClickImage(["\(indexPath.item)": asset])
     }
 }
 

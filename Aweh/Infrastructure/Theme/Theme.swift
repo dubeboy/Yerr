@@ -26,7 +26,6 @@ enum Const {
         static let radius: CGFloat = 10
         static let borderWidth: CGFloat = m2
         static let viewCornerRadius: CGFloat = 30
-        
     }
     
     // MARK: - App assets
@@ -65,6 +64,10 @@ enum Const {
             static let openGalleryIcon: UIImage? = UIImage(named: "gallery")
             static let chevronUp: UIImage? = getSystemAsset(systemName: "chevron.up")
             static let cameraRotate: UIImage? = getSystemAsset(systemName: "camera.rotate")
+        }
+        
+        enum PhotoGallery {
+            static let imageSelectedMark: UIImage? = getSystemAsset(systemName: "checkmark.circle.fill")
         }
         
         enum TrimVideo {
@@ -147,6 +150,7 @@ enum Const {
             case label
             
             case link
+            case green
         }
 
         // SHould have a private BASE
@@ -185,6 +189,11 @@ enum Const {
         enum CaptureStatus {
             static let captureButton = UIColor.white
         }
+        
+        enum PhotoGallery {
+            static let photoGallery = getColor(color: .green)
+        }
+        
         enum TrimVideo {
             static let playVideo = UIColor.white
             static let videoOverlayBackGround = UIColor.black.withAlphaComponent(0.2)
@@ -195,19 +204,19 @@ enum Const {
     private static func getColor(color: Color.AppThemeColors) -> UIColor {
         switch color {
             case .grayItem:
-                if  #available(iOS 13.0, *) {
+                if #available(iOS 13.0, *) {
                     return UIColor.systemGray6
                 } else {
                     return UIColor.lightGray
                 }
             case .background:
-                if  #available(iOS 13.0, *) {
+                if #available(iOS 13.0, *) {
                     return UIColor.systemBackground
                 } else {
                     return UIColor.white
                 }
             case .widget:
-                if  #available(iOS 13.0, *) {
+                if #available(iOS 13.0, *) {
                     return UIColor.systemBackground
                 } else {
                     return UIColor.white
@@ -215,16 +224,22 @@ enum Const {
             case .button:
                 return UIColor(named: "blueActionButton")!
             case .label:
-                if  #available(iOS 13.0, *) {
+                if #available(iOS 13.0, *) {
                     return UIColor.label
                 } else {
                     return UIColor.lightText
                 }
             case .link:
-                if  #available(iOS 13.0, *) {
+                if #available(iOS 13.0, *) {
                     return UIColor.link
                 } else {
                     return UIColor.blue
+                }
+            case .green:
+                if #available(iOS 13.0, *) {
+                    return UIColor.systemGreen
+                } else {
+                    return UIColor.green
                 }
         }
     }

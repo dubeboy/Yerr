@@ -76,9 +76,12 @@ class CaptureStatusViewController: UIViewController {
     
     private static let ACTION_BUTTON_BUTTON_SIZE: CGFloat = 40
     private static let CAPTURE_BUTTON_SIZE: CGFloat = 60
+    
+    private let selectButton: YerrButton = YerrButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagesPreview = ImagesPreviewView(itemSize: CGSize(width: Self.IMAGE_PREVIEW_HEIGHT, height: Self.IMAGE_PREVIEW_HEIGHT), presenter: presenter.photosCollectionViewPresenter, delegate: self)
         configureSelf()
         configureCaptureButton()
         configureOpenGalleryButton()
@@ -438,7 +441,7 @@ private extension CaptureStatusViewController {
     }
     
     func configureImagesPreview() {
-        imagesPreview = ImagesPreviewView(itemSize: CGSize(width: Self.IMAGE_PREVIEW_HEIGHT, height: Self.IMAGE_PREVIEW_HEIGHT), presenter: presenter.photosCollectionViewPresenter)
+       
         imagesPreview.autoresizingOff()
         view.addSubview(imagesPreview)
         imagePreviewHeightConstraint = imagesPreview.heightAnchor --> Self.IMAGE_PREVIEW_HEIGHT
@@ -894,4 +897,10 @@ extension CaptureStatusViewController: AVCaptureFileOutputRecordingDelegate {
     }
     
     
+}
+
+extension CaptureStatusViewController: ImagesPreviewViewDelegate {
+    func didClickImage(_ photoAsset: [String: PHAsset]) {
+        handleSelectedImageCompletion(photoAsset)
+    }
 }
