@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0EBF8BA9F4CC0701B3038642 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC9189450DA44193028C9404 /* Localizable.strings */; };
 		5DF83BD5B5EA8261ECF1CF38 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA5487558A5C7D94A3E5D7FE /* InfoPlist.strings */; };
+		7105220425C5B3930095268E /* UIImage+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105220325C5B3930095268E /* UIImage+Elements.swift */; };
 		710578B824BD039B0056DBA8 /* InterestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710578B724BD039B0056DBA8 /* InterestCoordinator.swift */; };
 		7109D24C25898B5E0041ECDF /* UINavigationController+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D24B25898B5E0041ECDF /* UINavigationController+Elements.swift */; };
 		7109D9AD2543BB46005579AF /* InitPhoneNumberInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109D9AC2543BB46005579AF /* InitPhoneNumberInputViewController.swift */; };
@@ -34,7 +35,6 @@
 		711DE17D25BC221C0048923B /* UIDevice+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711DE17C25BC221C0048923B /* UIDevice+Elements.swift */; };
 		711DE18125BC4EC50048923B /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711DE18025BC4EC50048923B /* GradientView.swift */; };
 		711E79C0256B04D70060DB76 /* PostStatusTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E79BF256B04D70060DB76 /* PostStatusTextView.swift */; };
-		711E7AB1256BFDBE0060DB76 /* PostStatusVideoPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E7AB0256BFDBE0060DB76 /* PostStatusVideoPreview.swift */; };
 		711E7AB9256C12FB0060DB76 /* TrimPostStatusBoderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E7AB8256C12FB0060DB76 /* TrimPostStatusBoderView.swift */; };
 		711E7ABC256C15100060DB76 /* TrimPostVideoEndIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E7ABB256C15100060DB76 /* TrimPostVideoEndIndicatorView.swift */; };
 		711EADEA249DDE8600D33072 /* Date+Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711EADE9249DDE8600D33072 /* Date+Element.swift */; };
@@ -214,6 +214,7 @@
 
 /* Begin PBXFileReference section */
 		6CABDDE37419B79E3395D4FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7105220325C5B3930095268E /* UIImage+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Elements.swift"; sourceTree = "<group>"; };
 		710578B724BD039B0056DBA8 /* InterestCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestCoordinator.swift; sourceTree = "<group>"; };
 		7109D24B25898B5E0041ECDF /* UINavigationController+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Elements.swift"; sourceTree = "<group>"; };
 		7109D9AC2543BB46005579AF /* InitPhoneNumberInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitPhoneNumberInputViewController.swift; sourceTree = "<group>"; };
@@ -239,7 +240,6 @@
 		711DE17C25BC221C0048923B /* UIDevice+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Elements.swift"; sourceTree = "<group>"; };
 		711DE18025BC4EC50048923B /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		711E79BF256B04D70060DB76 /* PostStatusTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStatusTextView.swift; sourceTree = "<group>"; };
-		711E7AB0256BFDBE0060DB76 /* PostStatusVideoPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStatusVideoPreview.swift; sourceTree = "<group>"; };
 		711E7AB8256C12FB0060DB76 /* TrimPostStatusBoderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimPostStatusBoderView.swift; sourceTree = "<group>"; };
 		711E7ABB256C15100060DB76 /* TrimPostVideoEndIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimPostVideoEndIndicatorView.swift; sourceTree = "<group>"; };
 		711EADE9249DDE8600D33072 /* Date+Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Element.swift"; sourceTree = "<group>"; };
@@ -568,6 +568,7 @@
 				7109D24B25898B5E0041ECDF /* UINavigationController+Elements.swift */,
 				71C09FD7259F8A4F001EA043 /* UITextView+Elements.swift */,
 				711DE17C25BC221C0048923B /* UIDevice+Elements.swift */,
+				7105220325C5B3930095268E /* UIImage+Elements.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -671,14 +672,6 @@
 			path = TrimPostVideoStatusView;
 			sourceTree = "<group>";
 		};
-		711E7AAF256BFD9D0060DB76 /* TrimVideoPreview */ = {
-			isa = PBXGroup;
-			children = (
-				711E7AB0256BFDBE0060DB76 /* PostStatusVideoPreview.swift */,
-			);
-			path = TrimVideoPreview;
-			sourceTree = "<group>";
-		};
 		7121DA8B2509726700EE21D5 /* CommentBox */ = {
 			isa = PBXGroup;
 			children = (
@@ -759,7 +752,6 @@
 			isa = PBXGroup;
 			children = (
 				71237A3A258511440095C6B7 /* VideoEditor */,
-				711E7AAF256BFD9D0060DB76 /* TrimVideoPreview */,
 				711E79BE256B04540060DB76 /* TrimPostVideoStatusView */,
 			);
 			path = Widget;
@@ -2117,6 +2109,7 @@
 				716A0C7F24A2BE3200F18ED6 /* IntrestsPresenter.swift in Sources */,
 				7172D617248F2D700083B7F6 /* UIView+Elements.swift in Sources */,
 				712C06882571E4730073DDC1 /* TrimVideoViewPresenter.swift in Sources */,
+				7105220425C5B3930095268E /* UIImage+Elements.swift in Sources */,
 				71C1049B25AA2799007434CF /* CaptureButton.swift in Sources */,
 				7116C10E24A2AD3100749620 /* SingleStatusViewController.swift in Sources */,
 				7116E350251AB2E100502C92 /* UserPrefrencies.swift in Sources */,
@@ -2190,7 +2183,6 @@
 				71965ADE25AE899A004FCD60 /* LayoutManager.swift in Sources */,
 				71FBCF2C2512B9A100FC7557 /* CircleProgressIndicatorView.swift in Sources */,
 				71CCF0CB249AB1450054C210 /* FeedDetailViewController.swift in Sources */,
-				711E7AB1256BFDBE0060DB76 /* PostStatusVideoPreview.swift in Sources */,
 				716DA6C2248D7E55001B74E2 /* PostStatusViewController.swift in Sources */,
 				711E79C0256B04D70060DB76 /* PostStatusTextView.swift in Sources */,
 				716A0C9424A2E54200F18ED6 /* InterestsCellPresenter.swift in Sources */,

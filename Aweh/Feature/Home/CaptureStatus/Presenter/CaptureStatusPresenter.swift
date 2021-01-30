@@ -41,9 +41,21 @@ extension CaptureStatusPresenterImplementation: CaptureStatusPresenter {
         let group = DispatchGroup()
         var images = [Data]()
         var didFailOnce = false
+        
+        let options = PHImageRequestOptions()
+        options.isNetworkAccessAllowed = true
+        options.deliveryMode = .opportunistic // should look into this please
+        options.progressHandler = { progress, _, _, _ in
+            // The handler may originate on a background queue, so
+            // re-dispatch to the main queue for UI work.
+            DispatchQueue.main.sync {
+                // self.progressView.progress = Float(progress)
+            }
+        }
+        
         for (_, value) in avAssets {
             group.enter()
-            manager.requestImageData(for: value, options: nil) { imageData,_,_,_ in
+            manager.requestImageData(for: value, options: options) { imageData,_,_,_ in
                 guard let imageData = imageData else {
                     didFailOnce = true
                     Logger.log("Got back a null image this should never happen!!!")

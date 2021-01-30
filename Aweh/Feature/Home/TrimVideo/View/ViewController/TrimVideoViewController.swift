@@ -70,13 +70,17 @@ class TrimVideoViewController: UIViewController {
         let rangeSliderWidth = view.frame.width - (Const.View.m16 * 4)
         rangeSliderView = TrimPostVideoRangeSliderView(frame: CGRect(origin: CGPoint(x: Const.View.m16 * 2, y: Const.View.m16 * 2), size: CGSize(width: rangeSliderWidth, height: rangeSliderHeight)))
         actionsToolbar = TextViewActionsView(delegate: self, colors: presenter.colors)
-        asset = AVURLAsset(url: presenter.videoURL)
-        videoSize = getVideoSize()
-       
         
+        presenter.getVideoAsset { [weak self] (avUrlAsset, url) in
+            guard let self = self else { return }
+            self.asset = avUrlAsset
+            self.videoSize = self.getVideoSize()
+            self.configureRangeSlider(videoURL: url)
+            self.configureVideoView(videoPath: url)
+        }
+      
         configureSelf()
         configurePlayVideoButton()
-        configureVideoView()
         configureActionsToolBar()
 //        congfigureOverlayTextView()
     }
@@ -94,7 +98,6 @@ class TrimVideoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         view.endEditing(true)
         super.viewWillAppear(animated)
-        configureRangeSlider()
         listenToEvent(
             name: .keyboardWillShow,
             selector: #selector(keyboardWillAppear(notification:))
@@ -174,8 +177,8 @@ private extension TrimVideoViewController {
                                               UIBarButtonItem(title: "Add Text", style: .plain, target: self, action: #selector(addTextToVideo))]
     }
     
-    private func configureRangeSlider() {
-        rangeSliderView.setVideoURL(videoURL: presenter.videoURL)
+    private func configureRangeSlider(videoURL: URL) {
+        rangeSliderView.setVideoURL(videoURL: videoURL)
         rangeSliderView.delegate = self
     }
     
@@ -244,8 +247,8 @@ private extension TrimVideoViewController {
         playVideoButton.addTarget(self, action: #selector(didTapPlayAction), for: .touchUpInside)
     }
     
-    private func configureVideoView() {
-        videoView.setVideoPath(videoPath: presenter.videoURL.absoluteString)
+    private func configureVideoView(videoPath: URL) {
+        videoView.setVideoPath(videoPath: videoPath.absoluteString)
         videoView.isUserInteractionEnabled = true
     }
     

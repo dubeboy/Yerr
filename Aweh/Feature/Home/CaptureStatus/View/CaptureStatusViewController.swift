@@ -265,6 +265,10 @@ class CaptureStatusViewController: UIViewController {
     }
     
     private func handleSelectedImageCompletion(_ photoAsset: [String: PHAsset]) {
+        guard let phAsset = photoAsset.first?.value else { return }
+        if phAsset.mediaType == .video {
+            coordinator.startTrimVideoViewController(navigationController: navigationController, photoAsset: phAsset)
+        } else {
             self.presenter.getImages(avAssets: photoAsset) { didFailOnce, images in
                 if didFailOnce {
                     self.presentAlert(title: "Could not get all images", message: "Could not get some images. Do you want to continue?") { _ in
@@ -276,6 +280,7 @@ class CaptureStatusViewController: UIViewController {
                     self.startEditPhotoViewController(images: images)
                 }
             }
+        }
     }
     
     @objc func sessionWasInterrupted(notification: NSNotification) {
@@ -845,9 +850,7 @@ extension CaptureStatusViewController: AVCaptureFileOutputRecordingDelegate {
 //            success = (((error! as NSError).userInfo[AVErrorRecordingSuccessfullyFinishedKey] as AnyObject).boolValue)!
         }
         
-        coordinator.startTrimVideoViewController(navigationController: navigationController, videoURL: outputFileURL, delegate: { [weak self] in
-            self?.dismiss(animated: true, completion: nil) // this will send us to the main presenting viewController
-        })
+        coordinator.startTrimVideoViewController(navigationController: navigationController, videoURL: outputFileURL)
 //        saveToPhotos(success, outputFileURL)
     }
     

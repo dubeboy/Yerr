@@ -159,17 +159,24 @@ private extension StatusVideoView {
     @objc private func notifyPlayerDidFinishPlaying() {
         isPlaying = false
         delegate?.didFinishPlayingVideo()
+        DispatchQueue.main.async {
         UIView.animate(withDuration: 0.25) { [self] in
-            playVideoButton.isHidden = false
+            
+                playVideoButton.isHidden = false
+            }
         }
     }
     
     private func notifyPlayerDidStartPlaying() {
         isPlaying = true
         delegate?.didStartPlayingVideo()
+        DispatchQueue.main.async {
         UIView.animate(withDuration: 0.25) { [self] in
-            playVideoButton.isHidden = true
+           
+                playVideoButton.isHidden = true
+            }
         }
+        
     }
     
     @objc private func playVideo() {

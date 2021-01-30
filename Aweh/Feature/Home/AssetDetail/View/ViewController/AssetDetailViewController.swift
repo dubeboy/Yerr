@@ -25,11 +25,9 @@ class AssetDetailViewController: UIViewController {
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
     
-    override func viewWillLayoutSubviews() {
-        let isNavigationBarHidden = navigationController?.isNavigationBarHidden ?? false
-        view.backgroundColor = isNavigationBarHidden ? .black : .white
-    }
-    
+//    override func viewWillLayoutSubviews() {
+//    }
+//
     @IBAction func addButtonClick(_ sender: UIBarButtonItem) {
         completion?([asset.localIdentifier: asset])
         coordinator.pop()
@@ -37,12 +35,12 @@ class AssetDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.hidesBarsOnTap = true
         if asset.mediaType == .video {
-//            play()
+             play()
+        } else {
+            view.layoutIfNeeded()
+            updateImage()
         }
-        view.layoutIfNeeded()
-        updateImage()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -52,6 +50,7 @@ class AssetDetailViewController: UIViewController {
    
     /// - Tag: PlayVideo
     @IBAction func play() {
+        videoView.isHidden = false
         videoView.play()
     }
 
@@ -65,7 +64,7 @@ class AssetDetailViewController: UIViewController {
     func updateImage() {
         if asset.mediaSubtypes.contains(.photoLive) {
             updateLivePhoto()
-        } else {
+        } else  {
             updateStaticImage()
         }
     }
@@ -93,10 +92,11 @@ class AssetDetailViewController: UIViewController {
                                                     guard let livePhoto = livePhoto else { return }
                                                     
                                                     // Show the Live Photo.
+                                                    self.videoView.isHidden = true
                                                     self.imageView.isHidden = true
                                                     self.livePhotoView.isHidden = false
                                                     self.livePhotoView.livePhoto = livePhoto
-                                                    
+                                                                                                        
                                                     if !self.isPlayingHint {
                                                         // Play back a short section of the Live Photo, similar to the Photos share sheet.
                                                         self.isPlayingHint = true
@@ -127,9 +127,11 @@ class AssetDetailViewController: UIViewController {
                                                 guard let image = image else { return }
                                                 
                                                 // Show the image.
+                                                self.videoView.isHidden = true
                                                 self.livePhotoView.isHidden = true
                                                 self.imageView.isHidden = false
                                                 self.imageView.image = image
+//                                                self.view.backgroundColor = image.avarageColor
         })
     }
 }
@@ -163,8 +165,14 @@ private extension AssetDetailViewController {
         videoView.hideLabel()
         view.addSubview(videoView)
         videoView --> view
-        videoView.setPHAsset(asset: asset)
-        videoView.isUserInteractionEnabled = true
+        if asset.mediaType == .video {
+            videoView.setPHAsset(asset: asset)
+            videoView.isUserInteractionEnabled = true
+        }
+        view.backgroundColor = Const.Color.roundViewsBackground
+        self.videoView.isHidden = true
+        self.imageView.isHidden = true
+        self.livePhotoView.isHidden = true
     }
     
   
