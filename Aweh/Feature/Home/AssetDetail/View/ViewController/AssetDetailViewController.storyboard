@@ -43,10 +43,11 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Select Image" id="WvD-7Y-ImX">
-                        <rightBarButtonItems>
-                            <barButtonItem title="Add" id="tGc-o5-y5Y"/>
-                            <barButtonItem systemItem="edit" id="sNW-02-GLb"/>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="tGc-o5-y5Y">
+                            <connections>
+                                <action selector="addButtonClick:" destination="CMw-rj-wf4" id="CZl-wj-Fve"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
