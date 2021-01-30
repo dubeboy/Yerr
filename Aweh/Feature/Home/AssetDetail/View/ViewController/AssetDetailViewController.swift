@@ -10,15 +10,14 @@ class AssetDetailViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var livePhotoView: LivePhotoView!
     
-    fileprivate var playerLayer: AVPlayerLayer!
-    fileprivate var isPlayingHint = false
-    
-    fileprivate lazy var formatIdentifier = Bundle.main.bundleIdentifier!
-    fileprivate let formatVersion = "1.0"
-    fileprivate lazy var ciContext = CIContext()
+    private var videoView: StatusVideoView = StatusVideoView()
+    private var isPlayingHint = false
+        
+//    private let playVideoButton = YerrButton()
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureSelf()
         PHPhotoLibrary.shared().register(self)
     }
     
@@ -38,10 +37,10 @@ class AssetDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Set the appropriate toolbar items based on the media type of the asset.
-        navigationController?.isToolbarHidden = false
         navigationController?.hidesBarsOnTap = true
-
+        if asset.mediaType == .video {
+//            play()
+        }
         view.layoutIfNeeded()
         updateImage()
     }
@@ -50,47 +49,10 @@ class AssetDetailViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.hidesBarsOnTap = false
     }
-
-
    
     /// - Tag: PlayVideo
-    @IBAction func play(_ sender: AnyObject) {
-        if playerLayer != nil {
-            // The app already created an AVPlayerLayer, so tell it to play.
-            playerLayer.player!.play()
-        } else {
-            let options = PHVideoRequestOptions()
-            options.isNetworkAccessAllowed = true
-            options.deliveryMode = .automatic
-            options.progressHandler = { progress, _, _, _ in
-                // The handler may originate on a background queue, so
-                // re-dispatch to the main queue for UI work.
-                DispatchQueue.main.sync {
-//                    self.progressView.progress = Float(progress)
-                }
-            }
-            // Request an AVPlayerItem for the displayed PHAsset.
-            // Then configure a layer for playing it.
-            PHImageManager.default().requestPlayerItem(forVideo: asset, options: options, resultHandler: { playerItem, info in
-                DispatchQueue.main.sync {
-                    guard self.playerLayer == nil else { return }
-                    
-                    // Create an AVPlayer and AVPlayerLayer with the AVPlayerItem.
-                    let player = AVPlayer(playerItem: playerItem)
-                    let playerLayer = AVPlayerLayer(player: player)
-                    
-                    // Configure the AVPlayerLayer and add it to the view.
-                    playerLayer.videoGravity = AVLayerVideoGravity.resizeAspect
-                    playerLayer.frame = self.view.layer.bounds
-                    self.view.layer.addSublayer(playerLayer)
-                    
-                    player.play()
-                    
-                    // Cache the player layer by reference, so you can remove it later.
-                    self.playerLayer = playerLayer
-                }
-            })
-        }
+    @IBAction func play() {
+        videoView.play()
     }
 
     // MARK: Image display
@@ -170,123 +132,6 @@ class AssetDetailViewController: UIViewController {
                                                 self.imageView.image = image
         })
     }
-        
-    // Returns a filter-applier function for the named filter.
-    // Use the function as a handler for a UIAlertAction object.
-    /// - Tag: ApplyFilter
-    func getFilter(_ filterName: String) -> (UIAlertAction) -> Void {
-        func applyFilter(_: UIAlertAction) {
-            // Set up a handler to handle prior edits.
-            let options = PHContentEditingInputRequestOptions()
-            options.canHandleAdjustmentData = {
-                $0.formatIdentifier == self.formatIdentifier && $0.formatVersion == self.formatVersion
-            }
-            
-            // Prepare for editing.
-            asset.requestContentEditingInput(with: options, completionHandler: { input, info in
-                guard let input = input
-                    else { fatalError("Can't get the content-editing input: \(info)") }
-                
-                // This handler executes on the main thread; dispatch to a background queue for processing.
-                DispatchQueue.global(qos: .userInitiated).async {
-                    
-                    // Create adjustment data describing the edit.
-                    let adjustmentData = PHAdjustmentData(formatIdentifier: self.formatIdentifier,
-                                                          formatVersion: self.formatVersion,
-                                                          data: filterName.data(using: .utf8)!)
-                    
-                    // Create content editing output, write the adjustment data.
-                    let output = PHContentEditingOutput(contentEditingInput: input)
-                    output.adjustmentData = adjustmentData
-                    
-                    // Select a filtering function for the asset's media type.
-                    let applyFunc: (String, PHContentEditingInput, PHContentEditingOutput, @escaping () -> Void) -> Void
-                    if self.asset.mediaSubtypes.contains(.photoLive) {
-                        applyFunc = self.applyLivePhotoFilter
-                    } else if self.asset.mediaType == .image {
-                        applyFunc = self.applyPhotoFilter
-                    } else {
-                        applyFunc = self.applyVideoFilter
-                    }
-                    
-                    // Apply the filter.
-                    applyFunc(filterName, input, output, {
-                        // When the app finishes rendering the filtered result, commit the edit to the photo library.
-                        PHPhotoLibrary.shared().performChanges({
-                            let request = PHAssetChangeRequest(for: self.asset)
-                            request.contentEditingOutput = output
-                        }, completionHandler: { success, error in
-                            if !success { print("Can't edit the asset: \(String(describing: error))") }
-                        })
-                    })
-                }
-            })
-        }
-        return applyFilter
-    }
-    
-    func applyPhotoFilter(_ filterName: String, input: PHContentEditingInput, output: PHContentEditingOutput, completion: () -> Void) {
-        
-        // Load the full-size image.
-        guard let inputImage = CIImage(contentsOf: input.fullSizeImageURL!)
-            else { fatalError("Can't load the input image to edit.") }
-        
-        // Apply the filter.
-        let outputImage = inputImage
-            .oriented(forExifOrientation: input.fullSizeImageOrientation)
-            .applyingFilter(filterName, parameters: [:])
-        
-        // Write the edited image as a JPEG.
-        do {
-            try self.ciContext.writeJPEGRepresentation(of: outputImage,
-                                                       to: output.renderedContentURL, colorSpace: inputImage.colorSpace!, options: [:])
-        } catch let error {
-            fatalError("Can't apply the filter to the image: \(error).")
-        }
-        completion()
-    }
-    
-    func applyLivePhotoFilter(_ filterName: String, input: PHContentEditingInput, output: PHContentEditingOutput, completion: @escaping () -> Void) {
-        
-        // This app filters assets only for output. In an app that previews
-        // filters while editing, create a livePhotoContext early and reuse it
-        // to render both for previewing and for final output.
-        guard let livePhotoContext = PHLivePhotoEditingContext(livePhotoEditingInput: input)
-            else { fatalError("Can't fetch the Live Photo to edit.") }
-        
-        livePhotoContext.frameProcessor = { frame, _ in
-            return frame.image.applyingFilter(filterName, parameters: [:])
-        }
-        livePhotoContext.saveLivePhoto(to: output) { success, error in
-            if success {
-                completion()
-            } else {
-                print("Can't output the Live Photo.")
-            }
-        }
-    }
-    
-    func applyVideoFilter(_ filterName: String, input: PHContentEditingInput, output: PHContentEditingOutput, completion: @escaping () -> Void) {
-        // Load the AVAsset to process from input.
-        guard let avAsset = input.audiovisualAsset
-            else { fatalError("Can't fetch the AVAsset to edit.") }
-        
-        // Set up a video composition to apply the filter.
-        let composition = AVVideoComposition(
-            asset: avAsset,
-            applyingCIFiltersWithHandler: { request in
-                let filtered = request.sourceImage.applyingFilter(filterName, parameters: [:])
-                request.finish(with: filtered, context: nil)
-        })
-        
-        // Export the video composition to the output URL.
-        guard let export = AVAssetExportSession(asset: avAsset, presetName: AVAssetExportPresetHighestQuality)
-            else { fatalError("Can't configure the AVAssetExportSession.") }
-        export.outputFileType = AVFileType.mov
-        export.outputURL = output.renderedContentURL
-        export.videoComposition = composition
-        export.exportAsynchronously(completionHandler: completion)
-    }
 }
 
 // MARK: PHPhotoLibraryChangeObserver
@@ -303,10 +148,52 @@ extension AssetDetailViewController: PHPhotoLibraryChangeObserver {
             // If the asset's content changes, update the image and stop any video playback.
             if details.assetContentChanged {
                 updateImage()
-                
-                playerLayer?.removeFromSuperlayer()
-                playerLayer = nil
+                videoView.pause() // Do we wanna pause
             }
         }
     }
 }
+
+// MARK - View helper functions
+private extension AssetDetailViewController {
+    
+    private func configureSelf() {
+        videoView.autoresizingOff()
+        videoView.delegate = self
+        videoView.hideLabel()
+        view.addSubview(videoView)
+        videoView --> view
+        videoView.setPHAsset(asset: asset)
+        videoView.isUserInteractionEnabled = true
+    }
+    
+  
+//    private func configurePlayVideoButton() {
+//        playVideoButton.autoresizingOff()
+//        view.addSubview(playVideoButton)
+//        let image = Const.Assets.TrimVideo.playVideoIcon?.withRenderingMode(.alwaysTemplate)
+//        playVideoButton.setImage(fillBoundsWith: image)
+//        playVideoButton.tintColor = Const.Color.TrimVideo.playVideo
+//        playVideoButton.widthAnchor --> 80
+//        playVideoButton.heightAnchor --> 80
+//        playVideoButton.centerYAnchor --> view.centerYAnchor + -22
+//        playVideoButton.centerXAnchor --> view.centerXAnchor
+//        playVideoButton.addTarget(self, action: #selector(play), for: .touchUpInside)
+//        playVideoButton.backgroundColor = .red
+//    }
+}
+
+extension AssetDetailViewController: StatusVideoViewDelegate {
+    func didFinishPlayingVideo() {
+        
+    }
+    
+    func didStartPlayingVideo() {
+        
+    }
+    
+    func currentlyPlaying(seconds: Double) {
+        
+    }
+}
+

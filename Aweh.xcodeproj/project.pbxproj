@@ -39,8 +39,6 @@
 		711E7ABC256C15100060DB76 /* TrimPostVideoEndIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E7ABB256C15100060DB76 /* TrimPostVideoEndIndicatorView.swift */; };
 		711EADEA249DDE8600D33072 /* Date+Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711EADE9249DDE8600D33072 /* Date+Element.swift */; };
 		7121DA8D250972BF00EE21D5 /* CommentBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7121DA8C250972BF00EE21D5 /* CommentBoxView.swift */; };
-		71237A332584D6620095C6B7 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71237A322584D6620095C6B7 /* VideoViewController.swift */; };
-		71237A372584D6910095C6B7 /* VideoViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71237A362584D6910095C6B7 /* VideoViewPresenter.swift */; };
 		71237A3C258511570095C6B7 /* VideoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71237A3B258511570095C6B7 /* VideoEditor.swift */; };
 		71297FDE254105D200E8440F /* InitAcceptTcsAndCsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71297FDD254105D200E8440F /* InitAcceptTcsAndCsViewController.swift */; };
 		71297FE2254105EB00E8440F /* InitAcceptTcsAndCsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71297FE1254105EB00E8440F /* InitAcceptTcsAndCsPresenter.swift */; };
@@ -246,8 +244,6 @@
 		711E7ABB256C15100060DB76 /* TrimPostVideoEndIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimPostVideoEndIndicatorView.swift; sourceTree = "<group>"; };
 		711EADE9249DDE8600D33072 /* Date+Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Element.swift"; sourceTree = "<group>"; };
 		7121DA8C250972BF00EE21D5 /* CommentBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentBoxView.swift; sourceTree = "<group>"; };
-		71237A322584D6620095C6B7 /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
-		71237A362584D6910095C6B7 /* VideoViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewPresenter.swift; sourceTree = "<group>"; };
 		71237A3B258511570095C6B7 /* VideoEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEditor.swift; sourceTree = "<group>"; };
 		71297FDD254105D200E8440F /* InitAcceptTcsAndCsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitAcceptTcsAndCsViewController.swift; sourceTree = "<group>"; };
 		71297FE1254105EB00E8440F /* InitAcceptTcsAndCsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitAcceptTcsAndCsPresenter.swift; sourceTree = "<group>"; };
@@ -692,47 +688,6 @@
 			path = CommentBox;
 			sourceTree = "<group>";
 		};
-		71237A2D2584D5F50095C6B7 /* VideoPreview */ = {
-			isa = PBXGroup;
-			children = (
-				71237A302584D62A0095C6B7 /* Coordinator */,
-				71237A2F2584D6250095C6B7 /* Presenter */,
-				71237A2E2584D6180095C6B7 /* View */,
-			);
-			path = VideoPreview;
-			sourceTree = "<group>";
-		};
-		71237A2E2584D6180095C6B7 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				71237A312584D63E0095C6B7 /* Widget */,
-				71237A322584D6620095C6B7 /* VideoViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		71237A2F2584D6250095C6B7 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				71237A362584D6910095C6B7 /* VideoViewPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		71237A302584D62A0095C6B7 /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Coordinator;
-			sourceTree = "<group>";
-		};
-		71237A312584D63E0095C6B7 /* Widget */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Widget;
-			sourceTree = "<group>";
-		};
 		71237A3A258511440095C6B7 /* VideoEditor */ = {
 			isa = PBXGroup;
 			children = (
@@ -1042,7 +997,6 @@
 			isa = PBXGroup;
 			children = (
 				719CEA2F25A4B6A000A65385 /* EditPhoto */,
-				71237A2D2584D5F50095C6B7 /* VideoPreview */,
 				712C06912571F3950073DDC1 /* CaptureStatus */,
 				712C067B2571E2F50073DDC1 /* TrimVideo */,
 				71CCF0C6249AB0CA0054C210 /* FeedDetail */,
@@ -2156,7 +2110,6 @@
 				71C46DA624B26CC300A9DB14 /* PickInterestCoordinator.swift in Sources */,
 				716DA6BB248C581F001B74E2 /* Theme.swift in Sources */,
 				716A0C8D24A2DA4800F18ED6 /* InterestViewModel.swift in Sources */,
-				71237A332584D6620095C6B7 /* VideoViewController.swift in Sources */,
 				7196DD1424B0B6D700384B84 /* ProfileViewController.swift in Sources */,
 				71FFED12253250BF0019BA8C /* UserCircleRequestObject.swift in Sources */,
 				71237A3C258511570095C6B7 /* VideoEditor.swift in Sources */,
@@ -2313,7 +2266,6 @@
 				B85A2BA78118ED22F3A3D94D /* DateValue.swift in Sources */,
 				B85A2D91728D4B52F08C4010 /* DefaultFalse.swift in Sources */,
 				719CEA3C25A4BC6300A65385 /* EditPhotoCoordinator.swift in Sources */,
-				71237A372584D6910095C6B7 /* VideoViewPresenter.swift in Sources */,
 				B85A267A8160EDABE988DDAB /* ISO8601Strategy.swift in Sources */,
 				B85A2AE1DB5B240B2DB09E68 /* DefaultEmptyArray.swift in Sources */,
 				B85A2880B71FACB365AADD40 /* DefaultIntEnum.swift in Sources */,

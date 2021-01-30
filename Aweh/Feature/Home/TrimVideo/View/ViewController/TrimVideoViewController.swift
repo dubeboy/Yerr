@@ -32,7 +32,7 @@ class TrimVideoViewController: UIViewController {
     @LateInit
     private var rangeSliderView: TrimPostVideoRangeSliderView
     private let videoView: StatusVideoView = StatusVideoView()
-    private let playVideoButton = YerrButton() // TODO: should add some materiels behind this view, translucent glass!!!
+    private let playVideoButton = YerrButton()
     
     
     // MARK: Video manipulation

@@ -40,7 +40,7 @@ class PhotosCollectionViewPresenterImplemantation: PhotosCollectionViewPresenter
         let options = PHFetchOptions()
         options.predicate = NSPredicate(format: "mediaType = %d || mediaType = %d",
                                          PHAssetMediaType.image.rawValue, PHAssetMediaType.video.rawValue)
-        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         images = PHAsset.fetchAssets(with: options)
     }
     

@@ -16,7 +16,7 @@ protocol AssetDetailCoordinator: Coordinator {
 
 extension HomeCoordinator: AssetDetailCoordinator {
     func startAssetDetailViewController(navigationController: UINavigationController?,
-                                        asset: PHAsset, completion: @escaping ([String: PHAsset]) -> Void) {
+                                             asset: PHAsset, completion: @escaping ([String: PHAsset]) -> Void) {
         let viewController = AssetDetailViewController.instantiate()
         viewController.coordinator = self
         viewController.asset = asset
