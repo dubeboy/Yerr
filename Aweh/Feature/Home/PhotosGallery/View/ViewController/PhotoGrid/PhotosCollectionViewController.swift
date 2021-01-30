@@ -114,6 +114,10 @@ class PhotosCollectionViewController: UICollectionViewController {
         }
     }
     
+    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        presenter.shouldBeableToSelect(item: indexPath)
+    }
+    
     private func showImage(at indexPath: IndexPath) {
         guard let asset = presenter.getItem(at: indexPath) else { return }
         // TODO: - should use the apps naviagtor delegate to move to the 

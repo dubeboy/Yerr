@@ -17,6 +17,9 @@ enum SelectionType {
 
 
 protocol PhotosCollectionViewPresenter {
+    
+    func shouldBeableToSelect(item at: IndexPath) -> Bool
+    
     func loadImages(for size: CGSize, imageCount: (_ count: Int) -> Void)
     func getImage(at indexPath: IndexPath,
                   targetSize: CGSize,
@@ -33,15 +36,38 @@ class PhotosCollectionViewPresenterImplemantation: PhotosCollectionViewPresenter
     var multiSelectionEnabled: Bool = false
     private let manager = PHImageManager.default()
     private var images: PHFetchResult<PHAsset>?
-    private var selectedImages = [String: PHAsset]()
+    private var hasVideoContent = false
+    private var selectedImages = [String: PHAsset]() {
+        didSet {
+            if selectedImages.count == 1 {
+                guard let value = selectedImages.first?.value else { return }
+                if value.mediaType == .video {
+                    hasVideoContent = true
+                } else {
+                    hasVideoContent = false
+                }
+            }
+        }
+    }
     
+    func shouldBeableToSelect(item at: IndexPath) -> Bool {
+        guard let asset = getItem(at: at) else { return false }
+        if selectedImages.count == 0 {
+            return true
+        } else if imageCount() > 0 && asset.mediaType == .video {
+            return false
+        } else {
+            return true
+        }
+    }
     // some callback arent required
     func loadImages(for size: CGSize, imageCount: (_ count: Int) -> Void) {
         let options = PHFetchOptions()
         options.predicate = NSPredicate(format: "mediaType = %d || mediaType = %d",
                                          PHAssetMediaType.image.rawValue, PHAssetMediaType.video.rawValue)
         options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        images = PHAsset.fetchAssets(with: options)
+        options.includeAssetSourceTypes = [.typeiTunesSynced, .typeUserLibrary]
+        images = PHAsset.fetchAssets(with: options) // TOCO check if all images are fetched at once
     }
     
     func getImage(at indexPath: IndexPath,
