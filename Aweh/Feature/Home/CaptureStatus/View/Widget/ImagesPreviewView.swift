@@ -15,7 +15,7 @@ protocol ImagesPreviewViewDelegate: AnyObject {
 
 class ImagesPreviewView: UIView {
     
-    let presenter: PhotosCollectionViewPresenter
+    private var presenter: PhotosCollectionViewPresenter
     
     @LateInit
     private var collectionView: UICollectionView
@@ -32,6 +32,8 @@ class ImagesPreviewView: UIView {
         super.init(frame: .zero)
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         configureSelf()
+    
+        self.presenter.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -81,14 +83,23 @@ extension ImagesPreviewView: UICollectionViewDelegate, UICollectionViewDataSourc
         let asset = presenter.getItem(at: indexPath)
         cell.representationItemIndetifier = asset?.localIdentifier ?? ""
         
+        let duration = presenter.getDuration(indexPath: indexPath)
+        cell.timeLabel.text = duration
+        
         // check memory leak
         presenter.getImage(
             at: indexPath,
             targetSize: cell.bounds.size
-        ) { image, isSelected in
+        ) { image, isSelected, isSelectable  in
             if cell.representationItemIndetifier == asset?.localIdentifier ?? "" {
                 cell.isSelected = isSelected
                 cell.imageView.image = image
+                if isSelectable {
+                    cell.viewOverlay.isHidden = true
+                } else {
+                    cell.viewOverlay.isHidden = false
+                    cell.viewOverlay.backgroundColor = UIColor.black
+                }
             }
         }
         
@@ -110,6 +121,12 @@ extension ImagesPreviewView: UICollectionViewDelegate, UICollectionViewDataSourc
     func showImage(at indexPath: IndexPath) {
         guard let asset = presenter.getItem(at: indexPath) else { return }
         delegate.didClickImage(["\(indexPath.item)": asset])
+    }
+}
+
+extension ImagesPreviewView: PhotosCollectionDelegate {
+    func didStartSelectionProcess() {
+        collectionView.reloadData()
     }
 }
 

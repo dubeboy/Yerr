@@ -13,10 +13,16 @@ private let reuseIdentifier = "Cell"
 // TODO: should reload collectionVie wwafter  the user has gratented permisyion
 // PHPhotoLibrary.requestAuthorization { status in
 
+
+
 class PhotosCollectionViewController: UICollectionViewController {
 
     weak var coordinator: AssetDetailCoordinator?
-    var presenter: PhotosCollectionViewPresenter!
+    var presenter: PhotosCollectionViewPresenter! {
+        didSet {
+            presenter.delegate = self
+        }
+    }
     var selectButton: UIBarButtonItem!
     var completion: (([String: PHAsset]) -> Void)?
     
@@ -26,6 +32,7 @@ class PhotosCollectionViewController: UICollectionViewController {
         flowLayout.minimumInteritemSpacing = Const.View.m1
         flowLayout.sectionInset = .equalEdgeInsets(Const.View.m1)
         super.init(collectionViewLayout: flowLayout)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -88,14 +95,23 @@ class PhotosCollectionViewController: UICollectionViewController {
         let asset = presenter.getItem(at: indexPath)
         cell.representationItemIndetifier = asset?.localIdentifier ?? ""
         
+        let duration = presenter.getDuration(indexPath: indexPath)
+        cell.timeLabel.text = duration
+        
         // check memory leak
-       presenter.getImage(
+        presenter.getImage(
             at: indexPath,
             targetSize: cell.bounds.size
-       ) { image, isSelected in
+        ) { image, isSelected, isSelectable  in
             if cell.representationItemIndetifier == asset?.localIdentifier ?? "" {
                 cell.isSelected = isSelected
                 cell.imageView.image = image
+                if isSelectable {
+                    cell.viewOverlay.isHidden = true
+                } else {
+                    cell.viewOverlay.isHidden = false
+                    cell.viewOverlay.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+                }
             }
         }
         
@@ -108,6 +124,7 @@ class PhotosCollectionViewController: UICollectionViewController {
             switch selectionState {
                 case .select(let isSelected):
                     cell.isSelected = isSelected
+                    // reload the collectionView here
                 case .show:
                     showImage(at: indexPath)
             }
@@ -129,6 +146,12 @@ class PhotosCollectionViewController: UICollectionViewController {
                 self.completion?(asset)
             }
         }
+    }
+}
+
+extension PhotosCollectionViewController: PhotosCollectionDelegate {
+    func didStartSelectionProcess() {
+        collectionView.reloadData()
     }
 }
 
