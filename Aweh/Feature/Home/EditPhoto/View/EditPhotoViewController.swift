@@ -17,12 +17,26 @@ class EditPhotoViewController: UIViewController {
     private let outputLayer = CALayer()
     private var textViews = [UITextView]()
     
+    @LateInit
+    private var imagePreviewView: ImagesPreviewView
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePreviewView = ImagesPreviewView(presenter: presenter.photosCollectionPresenter, delegate: self, phAssets: presenter.phAssets ?? [])
         configureSelf()
         configureImageView()
-        let image = UIImage(data: presenter.imageData[0]) // TODO: crash here
-        imageView.image = image
+        configureImagePreview()
+        if let imageData = presenter.imageData {
+            imageView.image = UIImage(data: imageData)
+        } else if let phAsset = presenter.phAssets {
+            guard let asset = phAsset.first else { return }
+            presenter.getPHAsset(asset: asset, targetSize: imageView.frame.size) { progress in
+            } completion: { imageData in
+                guard let imageData = imageData else { return }
+                self.imageView.image = imageData
+            }
+
+        }
     }
 
     @objc func didTapAddText() {
@@ -139,6 +153,15 @@ extension EditPhotoViewController {
         layer.addSublayer(imageLayer)
     }
     
+    private func configureImagePreview() {
+        imagePreviewView.autoresizingOff()
+        view.addSubview(imagePreviewView)
+        imagePreviewView.leadingAnchor --> view.leadingAnchor
+        imagePreviewView.trailingAnchor --> view.trailingAnchor
+        imagePreviewView.bottomAnchor --> view.safeAreaLayoutGuide.bottomAnchor
+        imagePreviewView.heightAnchor --> ImagesPreviewView.IMAGE_PREVIEW_HEIGHT
+    }
+    
     private func addTextLayer(from textView: OverlayTextView) {
         let attributedText = NSAttributedString(string: textView.text + " - 000",  attributes: [
                                                     .font: UIFont(name: "ArialRoundedMTBold", size: 60) as Any,
@@ -155,5 +178,16 @@ extension EditPhotoViewController {
         textLayer.frame = textView.frame
         textLayer.displayIfNeeded() // This is becuase UIView can async sometimes
         outputLayer.addSublayer(textLayer)
+    }
+}
+
+extension EditPhotoViewController: ImagesPreviewViewDelegate {
+    func didClickImage(_ photoAsset: [String : PHAsset]) {
+        guard let asset = photoAsset.first?.value else { return }
+        presenter.getPHAsset(asset: asset, targetSize: imageView.frame.size) { progress in
+            // show progress here
+        } completion: { imageData in
+            
+        }
     }
 }

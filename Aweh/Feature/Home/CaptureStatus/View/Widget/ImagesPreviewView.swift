@@ -21,14 +21,20 @@ class ImagesPreviewView: UIView {
     private var collectionView: UICollectionView
     private let itemSize: CGSize
     unowned var delegate: ImagesPreviewViewDelegate
-   
-    init(itemSize: CGSize,
-         presenter: PhotosCollectionViewPresenter,
-         delegate: ImagesPreviewViewDelegate) {
+    static let IMAGE_PREVIEW_HEIGHT: CGFloat = 80
+    private var shouldLoadFromGallery: Bool {
+        phAssets.isEmpty
+    }
+    private let phAssets: [PHAsset]
+    
+    init(presenter: PhotosCollectionViewPresenter,
+         delegate: ImagesPreviewViewDelegate,
+         phAssets: [PHAsset] = []) {
         
-        self.itemSize = itemSize
+        self.itemSize = CGSize(width: Self.IMAGE_PREVIEW_HEIGHT, height: Self.IMAGE_PREVIEW_HEIGHT)
         self.presenter = presenter
         self.delegate = delegate
+        self.phAssets = phAssets
         super.init(frame: .zero)
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         configureSelf()
@@ -61,9 +67,10 @@ extension ImagesPreviewView {
         flowLayout.itemSize = itemSize
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = Const.View.m1
-        
-        presenter.loadImages(for: itemSize) { _ in
-            self.collectionView.reloadData()
+        if shouldLoadFromGallery {
+            presenter.loadImages(for: itemSize) { _ in
+                self.collectionView.reloadData()
+            }
         }
     }
 }
@@ -72,14 +79,50 @@ extension ImagesPreviewView {
 
 extension ImagesPreviewView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        presenter.imageCount()
+        if shouldLoadFromGallery {
+            return presenter.imageCount()
+        } else {
+            return phAssets.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         // should move this to the cell presenter
         let cell = collectionView.deque(PhotosCollectionViewCell.self, at: indexPath)
+        if shouldLoadFromGallery {
+            loadFromGallery(cell: cell, indexPath: indexPath)
+        } else {
+           loadFromAssets(cell: cell, indexPath: indexPath)
+        }
         
+        return cell
+    }
+    
+    private func loadFromAssets(cell: PhotosCollectionViewCell, indexPath: IndexPath) {
+        let asset = phAssets[indexPath.item] 
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .highQualityFormat
+        options.isNetworkAccessAllowed = true
+        options.progressHandler = { progress, _, _, _ in
+            // The handler may originate on a background queue, so
+            // re-dispatch to the main queue for UI work.
+            DispatchQueue.main.sync {
+                //                self.progressView.progress = Float(progress)
+            }
+        }
+        cell.viewOverlay.isHidden = true
+        PHImageManager.default().requestImage(
+            for: asset,
+            targetSize: itemSize,
+            contentMode: .aspectFill,
+            options: options
+        ) { image, arg  in
+            cell.imageView.image = image
+        }
+    }
+    
+    private func loadFromGallery(cell: PhotosCollectionViewCell, indexPath: IndexPath) {
         let asset = presenter.getItem(at: indexPath)
         cell.representationItemIndetifier = asset?.localIdentifier ?? ""
         
@@ -102,8 +145,6 @@ extension ImagesPreviewView: UICollectionViewDelegate, UICollectionViewDataSourc
                 }
             }
         }
-        
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -24,7 +24,7 @@ class PhotosCollectionViewController: UICollectionViewController {
         }
     }
     var selectButton: UIBarButtonItem!
-    var completion: (([String: PHAsset]) -> Void)?
+    var completion: (([PHAsset]) -> Void)?
     
     init() {
         let flowLayout = UICollectionViewFlowLayout()

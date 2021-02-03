@@ -30,7 +30,7 @@ protocol PhotosCollectionViewPresenter {
     func didSelectItem(at index: IndexPath, selectionState: (_ isSelected: SelectionType) -> Void)
     func getItem(at index: IndexPath) -> PHAsset?
     func selectMode(mode: (_ selectionMode: Bool) -> Void)
-    func done(images: (_ selectedImages: [String: PHAsset]) -> Void)
+    func done(images: (_ selectedImages: [PHAsset]) -> Void)
     func getDuration(indexPath: IndexPath) -> String
     
 }
@@ -46,7 +46,7 @@ class PhotosCollectionViewPresenterImplemantation: PhotosCollectionViewPresenter
     private var images: PHFetchResult<PHAsset>?
     private var hasVideoContent = false
     
-    private var selectedImages = [String: PHAsset]() {
+    private var selectedImages = [PHAsset]() {
         didSet {
             if selectedImages.count == 1 {
                 guard let value = selectedImages.first?.value else { return }
@@ -143,7 +143,7 @@ class PhotosCollectionViewPresenterImplemantation: PhotosCollectionViewPresenter
         }
     }
 
-    
+    // use a set rather
     private func multiSelect(at index: IndexPath,
                              selectionState: (_ isSelected: SelectionType) -> Void) {
         guard let images = images else { return }
@@ -168,6 +168,7 @@ class PhotosCollectionViewPresenterImplemantation: PhotosCollectionViewPresenter
     }
     
     func done(images: (_ selectedImages: [String: PHAsset]) -> Void) {
+        var images
         images(selectedImages)
     }
 }

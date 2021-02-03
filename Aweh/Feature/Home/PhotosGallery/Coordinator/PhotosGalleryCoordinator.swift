@@ -11,12 +11,12 @@ import Photos
 
 protocol PhotosGalleryCoordinator: Coordinator {
     func startPhotosGalleryViewController(navigationController: UINavigationController?,
-                                          completion: @escaping (([String: PHAsset]) -> Void))
+                                          completion: @escaping (([PHAsset]) -> Void))
 }
 
 extension HomeCoordinator: PhotosGalleryCoordinator {
     func startPhotosGalleryViewController(navigationController: UINavigationController?,
-                                          completion: @escaping (([String: PHAsset]) -> Void)) {
+                                          completion: @escaping (([PHAsset]) -> Void)) {
         let viewController = PhotosCollectionViewController()
         viewController.coordinator = self
         viewController.completion = completion

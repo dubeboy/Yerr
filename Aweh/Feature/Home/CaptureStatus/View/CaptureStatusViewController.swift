@@ -69,7 +69,6 @@ class CaptureStatusViewController: UIViewController {
     private var backgroundView: UIView = UIView()
     
     private var imagePreviewHeightConstraint: NSLayoutConstraint?
-    private static let IMAGE_PREVIEW_HEIGHT: CGFloat = 100
     
     @LateInit
     private var imagesPreview: ImagesPreviewView
@@ -81,7 +80,7 @@ class CaptureStatusViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        imagesPreview = ImagesPreviewView(itemSize: CGSize(width: Self.IMAGE_PREVIEW_HEIGHT, height: Self.IMAGE_PREVIEW_HEIGHT), presenter: presenter.photosCollectionViewPresenter, delegate: self)
+        imagesPreview = ImagesPreviewView(presenter: presenter.photosCollectionViewPresenter, delegate: self)
         configureSelf()
         configureCaptureButton()
         configureOpenGalleryButton()
@@ -116,7 +115,7 @@ class CaptureStatusViewController: UIViewController {
         super.viewDidDisappear(animated)
         navigationController?.navigationBar.removeTransparency()
         stopCaptureSession()
-        imagePreviewHeightConstraint?.constant = Self.IMAGE_PREVIEW_HEIGHT
+        imagePreviewHeightConstraint?.constant = ImagesPreviewView.IMAGE_PREVIEW_HEIGHT
         self.imagesPreview.isHidden = false
         self.presenter.isImageDrawerClosed = false
     }
@@ -180,7 +179,7 @@ class CaptureStatusViewController: UIViewController {
                 DispatchQueue.main.async {
                     guard let data = data else { return }
                    // TODO: show progress bar here
-                    self.coordinator.startEditPhotoCoordinator(navigationController: self.navigationController, imageAssetData: [data])
+                    self.coordinator.startEditPhotoCoordinator(navigationController: self.navigationController, imageAssetData: data)
                 }
             }, photoProcessingHandler: { animate in
                 DispatchQueue.main.async {
@@ -204,7 +203,7 @@ class CaptureStatusViewController: UIViewController {
         
         if velocity.y < -200 && presenter.isImageDrawerClosed {
             UIView.animate(withDuration:  0.25) {
-                self.imagePreviewHeightConstraint?.constant = Self.IMAGE_PREVIEW_HEIGHT
+                self.imagePreviewHeightConstraint?.constant = ImagesPreviewView.IMAGE_PREVIEW_HEIGHT
                 self.view.layoutIfNeeded()
             } completion: { _ in
                 self.imagesPreview.isHidden = false
@@ -255,8 +254,8 @@ class CaptureStatusViewController: UIViewController {
         }
     }
     
-    func startEditPhotoViewController(images: [Data]) {
-        coordinator.startEditPhotoCoordinator(navigationController: navigationController, imageAssetData: images)
+    func startEditPhotoViewController(phAssets: [PHAsset]) {
+        coordinator.startEditPhotoCoordinator(navigationController: navigationController, phAsset: phAssets)
     }
     
     @objc func openGalleryAction() {
@@ -264,22 +263,12 @@ class CaptureStatusViewController: UIViewController {
                                                      completion: handleSelectedImageCompletion)
     }
     
-    private func handleSelectedImageCompletion(_ photoAsset: [String: PHAsset]) {
-        guard let phAsset = photoAsset.first?.value else { return }
+    private func handleSelectedImageCompletion(_ photoAsset: [PHAsset]) {
+        guard let phAsset = photoAsset.first else { return }
         if phAsset.mediaType == .video {
             coordinator.startTrimVideoViewController(navigationController: navigationController, photoAsset: phAsset)
         } else {
-            self.presenter.getImages(avAssets: photoAsset) { didFailOnce, images in
-                if didFailOnce {
-                    self.presentAlert(title: "Could not get all images", message: "Could not get some images. Do you want to continue?") { _ in
-                        self.startEditPhotoViewController(images: images)
-                    } cancel: { _ in
-                        return
-                    }
-                } else {
-                    self.startEditPhotoViewController(images: images)
-                }
-            }
+            self.startEditPhotoViewController(phAssets: photoAsset)
         }
     }
     
@@ -449,7 +438,7 @@ private extension CaptureStatusViewController {
        
         imagesPreview.autoresizingOff()
         view.addSubview(imagesPreview)
-        imagePreviewHeightConstraint = imagesPreview.heightAnchor --> Self.IMAGE_PREVIEW_HEIGHT
+        imagePreviewHeightConstraint = imagesPreview.heightAnchor --> ImagesPreviewView.IMAGE_PREVIEW_HEIGHT
         imagesPreview.leadingAnchor --> view.leadingAnchor
         imagesPreview.trailingAnchor --> view.trailingAnchor
         imagesPreview.bottomAnchor --> captureButton.topAnchor + -Const.View.m16
