@@ -11,12 +11,12 @@ import Photos
 
 protocol AssetDetailCoordinator: Coordinator {
     func startAssetDetailViewController(navigationController: UINavigationController?,
-                                        asset: PHAsset, completion: @escaping ([String: PHAsset]) -> Void)
+                                        asset: PHAsset, completion: @escaping (PHAsset) -> Void)
 }
 
 extension HomeCoordinator: AssetDetailCoordinator {
     func startAssetDetailViewController(navigationController: UINavigationController?,
-                                             asset: PHAsset, completion: @escaping ([String: PHAsset]) -> Void) {
+                                             asset: PHAsset, completion: @escaping (PHAsset) -> Void) {
         let viewController = AssetDetailViewController.instantiate()
         viewController.coordinator = self
         viewController.asset = asset

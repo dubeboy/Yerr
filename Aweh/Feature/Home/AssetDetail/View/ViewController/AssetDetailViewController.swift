@@ -4,7 +4,7 @@ import PhotosUI
 // TODO: Refactor this
 class AssetDetailViewController: UIViewController {
     var asset: PHAsset!
-    var completion: (([String: PHAsset]) -> Void)?
+    var completion: ((PHAsset) -> Void)?
     weak var coordinator: Coordinator!
     
     @IBOutlet weak var imageView: UIImageView!
@@ -29,7 +29,7 @@ class AssetDetailViewController: UIViewController {
 //    }
 //
     @IBAction func addButtonClick(_ sender: UIBarButtonItem) {
-        completion?([asset.localIdentifier: asset])
+        completion?(asset)
         coordinator.pop()
     }
     

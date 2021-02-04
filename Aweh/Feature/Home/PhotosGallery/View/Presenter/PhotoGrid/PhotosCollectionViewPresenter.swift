@@ -36,7 +36,7 @@ protocol PhotosCollectionViewPresenter {
 }
 
 protocol PhotosCollectionDelegate: AnyObject {
-    func didStartSelectionProcess()
+    func shouldUpdateCollectionViewState()
 }
 
 class PhotosCollectionViewPresenterImplemantation: PhotosCollectionViewPresenter {
@@ -45,19 +45,26 @@ class PhotosCollectionViewPresenterImplemantation: PhotosCollectionViewPresenter
     private let manager = PHImageManager.default()
     private var images: PHFetchResult<PHAsset>?
     private var hasVideoContent = false
+    private var doNotStopSelection = true
     
     private var selectedImages = [PHAsset]() {
         didSet {
             if selectedImages.count == 1 {
-                guard let value = selectedImages.first?.value else { return }
+                guard let value = selectedImages.first else { return }
                 if value.mediaType == .video {
                     hasVideoContent = true
                 } else {
                     hasVideoContent = false
                 }
-                delegate?.didStartSelectionProcess()
+                delegate?.shouldUpdateCollectionViewState()
             } else if selectedImages.count == 0 {
-                delegate?.didStartSelectionProcess()
+                doNotStopSelection = true
+                delegate?.shouldUpdateCollectionViewState()
+            } else if selectedImages.count >= 10 {
+                doNotStopSelection = false
+                delegate?.shouldUpdateCollectionViewState()
+            } else {
+                doNotStopSelection = true
             }
         }
     }
@@ -70,12 +77,24 @@ class PhotosCollectionViewPresenterImplemantation: PhotosCollectionViewPresenter
         guard let asset = getItem(at: at) else { return false }
         if selectedImages.count == 0 {
             return true
-        } else if imageCount() > 0 && asset.mediaType == .video {
+        } else if imageCount() > 0 && asset.mediaType == .video  {
             return false
         } else {
-            return true
+            return doNotStopSelection
         }
     }
+    
+    func shouldBeableToDeSelect(item at: IndexPath) -> Bool {
+        guard let asset = getItem(at: at) else { return false }
+        
+        if doNotStopSelection {
+            return true
+        } else if selectedImages.count >= 10 {
+            return true
+        }
+        return true
+    }
+    
     // some callback arent required
     func loadImages(for size: CGSize, imageCount: (_ count: Int) -> Void) {
         let options = PHFetchOptions()
@@ -126,7 +145,7 @@ class PhotosCollectionViewPresenterImplemantation: PhotosCollectionViewPresenter
                 contentMode: .aspectFill,
                 options: nil
             ) { image, arg  in
-                completion(image, self.selectedImages[asset.localIdentifier] != nil, isSelectable)
+                completion(image, self.containsItem(item: asset) != nil, self.doNotStopSelection && isSelectable)
             }
     }
     
@@ -143,18 +162,27 @@ class PhotosCollectionViewPresenterImplemantation: PhotosCollectionViewPresenter
         }
     }
 
-    // use a set rather
     private func multiSelect(at index: IndexPath,
                              selectionState: (_ isSelected: SelectionType) -> Void) {
         guard let images = images else { return }
         let asset = images.object(at: index.item)
-        if selectedImages[asset.localIdentifier] == nil { // it has not been selected yet
-            selectedImages[asset.localIdentifier] = asset
+        if containsItem(item: asset) == nil {
+            selectedImages.append(asset)
             selectionState(SelectionType.select(true))
         } else {
-            selectedImages.removeValue(forKey: asset.localIdentifier)
+            removeItem(item: asset)
             selectionState(SelectionType.select(false))
         }
+    }
+    
+    // O(10)
+    private func containsItem(item: PHAsset) -> PHAsset? {
+        selectedImages.first { $0.localIdentifier == item.localIdentifier }
+    }
+    
+    private func removeItem(item: PHAsset) {
+        guard let indexToRemove = selectedImages.firstIndex(of: item) else { return }
+        selectedImages.remove(at: indexToRemove)
     }
     
     func getItem(at index: IndexPath) -> PHAsset? {
@@ -167,8 +195,7 @@ class PhotosCollectionViewPresenterImplemantation: PhotosCollectionViewPresenter
         mode(multiSelectionEnabled)
     }
     
-    func done(images: (_ selectedImages: [String: PHAsset]) -> Void) {
-        var images
+    func done(images: (_ selectedImages: [PHAsset]) -> Void) {
         images(selectedImages)
     }
 }

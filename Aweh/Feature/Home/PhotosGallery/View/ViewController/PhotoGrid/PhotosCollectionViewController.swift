@@ -109,8 +109,10 @@ class PhotosCollectionViewController: UICollectionViewController {
                 if isSelectable {
                     cell.viewOverlay.isHidden = true
                 } else {
-                    cell.viewOverlay.isHidden = false
-                    cell.viewOverlay.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+                    if !isSelected {
+                        cell.viewOverlay.isHidden = false
+                        cell.viewOverlay.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+                    }
                 }
             }
         }
@@ -124,7 +126,18 @@ class PhotosCollectionViewController: UICollectionViewController {
             switch selectionState {
                 case .select(let isSelected):
                     cell.isSelected = isSelected
-                    // reload the collectionView here
+                case .show:
+                    showImage(at: indexPath)
+            }
+        }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)!
+        presenter.didSelectItem(at: indexPath) { selectionState in
+            switch selectionState {
+                case .select(let isSelected):
+                    cell.isSelected = isSelected
                 case .show:
                     showImage(at: indexPath)
             }
@@ -135,6 +148,10 @@ class PhotosCollectionViewController: UICollectionViewController {
         presenter.shouldBeableToSelect(item: indexPath)
     }
     
+    override func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
+       true
+    }
+    
     private func showImage(at indexPath: IndexPath) {
         guard let asset = presenter.getItem(at: indexPath) else { return }
         // TODO: - should use the apps naviagtor delegate to move to the 
@@ -143,14 +160,14 @@ class PhotosCollectionViewController: UICollectionViewController {
             // TODO: - can append this image to a list of selected images
            
             self.dismiss(animated: true) {
-                self.completion?(asset)
+                self.completion?([asset])
             }
         }
     }
 }
 
 extension PhotosCollectionViewController: PhotosCollectionDelegate {
-    func didStartSelectionProcess() {
+    func shouldUpdateCollectionViewState() {
         collectionView.reloadData()
     }
 }

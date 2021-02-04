@@ -38,4 +38,11 @@ class PhotosCollectionViewCell: UICollectionViewCell {
            
         }
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        isSelected = false
+        viewOverlay.isHidden = true
+        viewOverlay.backgroundColor = .clear
+    }
 }

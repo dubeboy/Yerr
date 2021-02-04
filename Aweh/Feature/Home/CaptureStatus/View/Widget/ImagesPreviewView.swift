@@ -10,7 +10,7 @@ import UIKit
 import Photos
 
 protocol ImagesPreviewViewDelegate: AnyObject {
-    func didClickImage(_ photoAsset: [String: PHAsset])
+    func didClickImage(_ photoAsset: PHAsset)
 }
 
 class ImagesPreviewView: UIView {
@@ -161,12 +161,12 @@ extension ImagesPreviewView: UICollectionViewDelegate, UICollectionViewDataSourc
     
     func showImage(at indexPath: IndexPath) {
         guard let asset = presenter.getItem(at: indexPath) else { return }
-        delegate.didClickImage(["\(indexPath.item)": asset])
+        delegate.didClickImage(asset)
     }
 }
 
 extension ImagesPreviewView: PhotosCollectionDelegate {
-    func didStartSelectionProcess() {
+    func shouldUpdateCollectionViewState() {
         collectionView.reloadData()
     }
 }

@@ -30,7 +30,7 @@ protocol PostStatusPresenter {
                     completion: @escaping Completion<StatusViewModel>,
                     error: @escaping Completion<String>)
     
-    func appendSelectedImages(assets: [String: PHAsset])
+    func appendSelectedImages(assets: [PHAsset])
     
 }
 
@@ -112,7 +112,7 @@ class PostStatusPresenterImplementation: PostStatusPresenter {
         viewModel.currentLocation = nil
     }
     
-    func appendSelectedImages(assets: [String: PHAsset]) {
+    func appendSelectedImages(assets: [PHAsset]) {
         viewModel.selectedImages = assets
        
     }
@@ -147,7 +147,7 @@ extension PostStatusPresenterImplementation {
     private func createMultipartBody() -> [MultipartBody] {
         var multipartImages = [MultipartBody]()
         
-        viewModel.selectedImages.forEach { (key, asset) in
+        viewModel.selectedImages.forEach { asset in
             let manager = PHImageManager.default()
             let options = PHImageRequestOptions()
             options.version = .original // .current for edited one

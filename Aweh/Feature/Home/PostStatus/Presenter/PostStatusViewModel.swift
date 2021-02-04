@@ -21,7 +21,7 @@ struct PostStatusViewModel {
     let placeHolderText: String = "Aweh!!! What's poppin'?"
     let numberOfAllowedChars = 240
     var locationState: LocationStateViewModel = .waiting
-    var selectedImages: [String: PHAsset] = [:]
+    var selectedImages: [PHAsset] = []
     let colors = Const.Color.PostStatus.textBackgroundColors
     let textColors = ["000000", "14213d", "fca311", "e5e5e5", "ffffff"]
     var selectedTextAlignment: TextAlignment = .center

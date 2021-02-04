@@ -182,9 +182,8 @@ extension EditPhotoViewController {
 }
 
 extension EditPhotoViewController: ImagesPreviewViewDelegate {
-    func didClickImage(_ photoAsset: [String : PHAsset]) {
-        guard let asset = photoAsset.first?.value else { return }
-        presenter.getPHAsset(asset: asset, targetSize: imageView.frame.size) { progress in
+    func didClickImage(_ photoAsset: PHAsset) {
+        presenter.getPHAsset(asset: photoAsset, targetSize: imageView.frame.size) { progress in
             // show progress here
         } completion: { imageData in
             

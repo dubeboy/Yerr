@@ -892,7 +892,7 @@ extension CaptureStatusViewController: AVCaptureFileOutputRecordingDelegate {
 }
 
 extension CaptureStatusViewController: ImagesPreviewViewDelegate {
-    func didClickImage(_ photoAsset: [String: PHAsset]) {
-        handleSelectedImageCompletion(photoAsset)
+    func didClickImage(_ photoAsset: PHAsset) {
+        handleSelectedImageCompletion([photoAsset])
     }
 }

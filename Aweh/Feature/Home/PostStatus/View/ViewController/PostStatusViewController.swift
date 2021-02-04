@@ -40,7 +40,7 @@ class PostStatusViewController: UIViewController {
     @LateInit
     private var actionsToolbarBottomConstraint: NSLayoutConstraint
         
-    var assets: [String: PHAsset] = [:]
+    var assets: [PHAsset] = []
 
     private let profileImage: UIImageView = UIImageView()
     private let backgroundColorView = UIView()
@@ -232,7 +232,7 @@ extension PostStatusViewController {
         }
     }
     
-    private func didGetAssets(assets: [String: PHAsset]) {
+    private func didGetAssets(assets: [PHAsset]) {
         self.assets = assets
         presenter.appendSelectedImages(assets: assets)
     }
