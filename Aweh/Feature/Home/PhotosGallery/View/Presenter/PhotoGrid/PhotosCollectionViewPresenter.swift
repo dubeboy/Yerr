@@ -20,6 +20,7 @@ protocol PhotosCollectionViewPresenter {
     
     var delegate: PhotosCollectionDelegate? { get set }
     func shouldBeableToSelect(item at: IndexPath) -> Bool
+    func shouldBeableToDeSelect() -> Bool
     var isSelectingImages: Bool { get }
     
     func loadImages(for size: CGSize, imageCount: (_ count: Int) -> Void)
@@ -63,6 +64,8 @@ class PhotosCollectionViewPresenterImplemantation: PhotosCollectionViewPresenter
             } else if selectedImages.count >= 10 {
                 doNotStopSelection = false
                 delegate?.shouldUpdateCollectionViewState()
+            } else if selectedImages.count == 9 {
+                delegate?.shouldUpdateCollectionViewState()
             } else {
                 doNotStopSelection = true
             }
@@ -84,12 +87,12 @@ class PhotosCollectionViewPresenterImplemantation: PhotosCollectionViewPresenter
         }
     }
     
-    func shouldBeableToDeSelect(item at: IndexPath) -> Bool {
-        guard let asset = getItem(at: at) else { return false }
-        
+    func shouldBeableToDeSelect() -> Bool {
         if doNotStopSelection {
             return true
-        } else if selectedImages.count >= 10 {
+        } else if selectedImages.count <= 10 && !doNotStopSelection {
+            doNotStopSelection = true
+//            delegate?.shouldUpdateCollectionViewState()
             return true
         }
         return true

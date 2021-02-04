@@ -104,8 +104,11 @@ class PhotosCollectionViewController: UICollectionViewController {
             targetSize: cell.bounds.size
         ) { image, isSelected, isSelectable  in
             if cell.representationItemIndetifier == asset?.localIdentifier ?? "" {
-                cell.isSelected = isSelected
                 cell.imageView.image = image
+                if isSelected && cell.isSelected == false {
+                    collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .left)
+                }
+                cell.isSelected = isSelected
                 if isSelectable {
                     cell.viewOverlay.isHidden = true
                 } else {
@@ -122,10 +125,12 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)!
+        collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .left)
         presenter.didSelectItem(at: indexPath) { selectionState in
             switch selectionState {
                 case .select(let isSelected):
                     cell.isSelected = isSelected
+                   
                 case .show:
                     showImage(at: indexPath)
             }
@@ -134,6 +139,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)!
+//        collectionView.deselectItem(at: indexPath, animated: false)
         presenter.didSelectItem(at: indexPath) { selectionState in
             switch selectionState {
                 case .select(let isSelected):
@@ -149,7 +155,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
-       true
+        presenter.shouldBeableToDeSelect()
     }
     
     private func showImage(at indexPath: IndexPath) {
