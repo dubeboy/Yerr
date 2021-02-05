@@ -103,6 +103,13 @@ extension UIView {
             layer.cornerCurve = .continuous
         }
     }
+    
+    func backgroundViewCornerRadius() {
+        layer.cornerRadius = Const.View.viewCornerRadius
+        if UIDevice.current.hasNotch {
+            smoothCornerCurve()
+        }
+    }
 }
 
 // Confetti!!! commented out because its not being used!!!

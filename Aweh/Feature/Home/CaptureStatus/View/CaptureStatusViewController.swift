@@ -377,10 +377,7 @@ private extension CaptureStatusViewController {
         backgroundView.autoresizingOff()
         backgroundView.backgroundColor = .brown
         view.addSubview(backgroundView)
-        if UIDevice.current.hasNotch {
-            backgroundView.layer.cornerRadius = Const.View.viewCornerRadius
-            backgroundView.smoothCornerCurve()
-        }
+        backgroundView.backgroundViewCornerRadius()
         view.backgroundColor = Const.Color.roundViewsBackground
         backgroundView.leadingAnchor --> view.leadingAnchor
         backgroundView.trailingAnchor --> view.trailingAnchor

@@ -19,18 +19,19 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        imageIsSelected.image = Const.Assets.PhotoGallery.imageSelectedMark
+        imageIsSelected.image = nil
         imageIsSelected.contentMode = .scaleAspectFill
         imageIsSelected.tintColor = Const.Color.PhotoGallery.photoGallery
         imageView.contentMode = .scaleAspectFill
         viewOverlay.isHidden = true
-        timeLabel.font = .boldSystemFont(ofSize: 12)
+        timeLabel.font = .boldSystemFont(ofSize: 12) // TODO: Font
         contentView.bringSubviewToFront(timeLabel)
     }
     
     override var isSelected: Bool {
         didSet {
             if isSelected {
+                imageIsSelected.image = Const.Assets.PhotoGallery.imageSelectedMark
                 imageIsSelected.isHidden = false
             } else {
                 imageIsSelected.isHidden = true

@@ -61,7 +61,7 @@ extension ImagesPreviewView {
         collectionView.delaysContentTouches = false
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = Const.Color.backgroundColor.withAlphaComponent(0.4)
+        collectionView.backgroundColor = Const.Color.backgroundColor.withAlphaComponent(0.1)
         collectionView.register(PhotosCollectionViewCell.self)
         guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         flowLayout.itemSize = itemSize
@@ -160,8 +160,15 @@ extension ImagesPreviewView: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func showImage(at indexPath: IndexPath) {
-        guard let asset = presenter.getItem(at: indexPath) else { return }
-        delegate.didClickImage(asset)
+        let asset: PHAsset?
+        if shouldLoadFromGallery {
+            asset = presenter.getItem(at: indexPath)
+        } else {
+            asset = phAssets[indexPath.item]
+        }
+       
+        guard let nonNilAsset = asset else { return }
+        delegate.didClickImage(nonNilAsset)
     }
 }
 

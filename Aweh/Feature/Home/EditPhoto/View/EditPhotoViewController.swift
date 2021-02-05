@@ -16,6 +16,7 @@ class EditPhotoViewController: UIViewController {
     private let imageView = UIImageView()
     private let outputLayer = CALayer()
     private var textViews = [UITextView]()
+    private let backgroundView = UIView()
     
     @LateInit
     private var imagePreviewView: ImagesPreviewView
@@ -24,18 +25,22 @@ class EditPhotoViewController: UIViewController {
         super.viewDidLoad()
         imagePreviewView = ImagesPreviewView(presenter: presenter.photosCollectionPresenter, delegate: self, phAssets: presenter.phAssets ?? [])
         configureSelf()
-        configureImageView()
         configureImagePreview()
+        configureImageView()
+        configureBackgroundView()
+
         if let imageData = presenter.imageData {
             imageView.image = UIImage(data: imageData)
+            imagePreviewView.isHidden = true
         } else if let phAsset = presenter.phAssets {
             guard let asset = phAsset.first else { return }
             presenter.getPHAsset(asset: asset, targetSize: imageView.frame.size) { progress in
+                
             } completion: { imageData in
                 guard let imageData = imageData else { return }
                 self.imageView.image = imageData
+                self.backgroundView.backgroundColor = imageData.avarageColor?.withAlphaComponent(0.5)
             }
-
         }
     }
 
@@ -50,6 +55,7 @@ class EditPhotoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.endEditing(true)
+        navigationController?.navigationBar.makeTransparent()
         listenToEvent(
             name: .keyboardWillShow,
             selector: #selector(keyboardWillAppear(notification:))
@@ -60,6 +66,8 @@ class EditPhotoViewController: UIViewController {
             selector: #selector(keyboardWillHide(notification:))
         )
     }
+    
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -125,22 +133,25 @@ class EditPhotoViewController: UIViewController {
     }
 }
 
+// MARK: - EditPhotoViewController
+
 extension EditPhotoViewController {
     private func configureSelf() {
         
         addCloseButtonItem(toLeft: true)
         navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Add Text", style: .plain, target: self, action: #selector(didTapAddText)),                UIBarButtonItem(title: "Create Image", style: .plain, target: self, action: #selector(didTapCreateImage))]
-        
-        imageView.autoresizingOff()
-        view.addSubview(imageView)
-        imageView --> view
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEndEditing))
-        imageView.addGestureRecognizer(tapGesture)
-        imageView.isUserInteractionEnabled = true
+        view.backgroundColor = Const.Color.roundViewsBackground
     }
     
     private func configureImageView() {
         imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.autoresizingOff()
+        backgroundView.addSubview(imageView)
+        imageView --> backgroundView
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEndEditing))
+        imageView.addGestureRecognizer(tapGesture)
+        imageView.isUserInteractionEnabled = true
     }
     
     private func addImage(to layer: CALayer) {
@@ -160,6 +171,7 @@ extension EditPhotoViewController {
         imagePreviewView.trailingAnchor --> view.trailingAnchor
         imagePreviewView.bottomAnchor --> view.safeAreaLayoutGuide.bottomAnchor
         imagePreviewView.heightAnchor --> ImagesPreviewView.IMAGE_PREVIEW_HEIGHT
+        imagePreviewView.delegate = self
     }
     
     private func addTextLayer(from textView: OverlayTextView) {
@@ -179,14 +191,27 @@ extension EditPhotoViewController {
         textLayer.displayIfNeeded() // This is becuase UIView can async sometimes
         outputLayer.addSublayer(textLayer)
     }
+    
+    private func configureBackgroundView() {
+        backgroundView.autoresizingOff()
+        view.addSubview(backgroundView)
+        backgroundView.leadingAnchor --> view.leadingAnchor
+        backgroundView.trailingAnchor --> view.trailingAnchor
+        backgroundView.bottomAnchor --> imagePreviewView.topAnchor + -(Const.View.m8)
+        backgroundView.topAnchor --> view.topAnchor + -(navigationController?.navigationBar.frame.height ?? 0)
+        view.sendSubviewToBack(backgroundView)
+        backgroundView.backgroundColor = .clear
+        backgroundView.backgroundViewCornerRadius()
+    }
 }
 
 extension EditPhotoViewController: ImagesPreviewViewDelegate {
     func didClickImage(_ photoAsset: PHAsset) {
         presenter.getPHAsset(asset: photoAsset, targetSize: imageView.frame.size) { progress in
             // show progress here
-        } completion: { imageData in
-            
+        } completion: { [weak self] imageData in
+            self?.imageView.image = imageData
+            self?.backgroundView.backgroundColor = imageData?.avarageColor
         }
     }
 }
