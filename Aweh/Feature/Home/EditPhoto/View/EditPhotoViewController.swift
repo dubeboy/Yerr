@@ -55,7 +55,6 @@ class EditPhotoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.endEditing(true)
-        navigationController?.navigationBar.makeTransparent()
         listenToEvent(
             name: .keyboardWillShow,
             selector: #selector(keyboardWillAppear(notification:))
@@ -67,7 +66,10 @@ class EditPhotoViewController: UIViewController {
         )
     }
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.navigationBar.makeTransparent()
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -133,13 +135,21 @@ class EditPhotoViewController: UIViewController {
     }
 }
 
-// MARK: - EditPhotoViewController
+// MARK: - Private helper functions
 
 extension EditPhotoViewController {
     private func configureSelf() {
         
         addCloseButtonItem(toLeft: true)
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Add Text", style: .plain, target: self, action: #selector(didTapAddText)),                UIBarButtonItem(title: "Create Image", style: .plain, target: self, action: #selector(didTapCreateImage))]
+        let editTextButton = createNavigationBarButton(image: Const.Assets.EditPhoto.addText)
+        editTextButton.addTarget(self, action: #selector(didTapAddText), for: .touchUpInside)
+        let editText = UIBarButtonItem(customView: editTextButton)
+        
+        let shareImagesButton = createNavigationBarButton(image: Const.Assets.EditPhoto.shareImages)
+        shareImagesButton.addTarget(self, action: #selector(didTapCreateImage), for: .touchUpInside)
+        let shareImages = UIBarButtonItem(customView: shareImagesButton)
+        
+        navigationItem.rightBarButtonItems = [shareImages, editText]
         view.backgroundColor = Const.Color.roundViewsBackground
     }
     
@@ -198,7 +208,7 @@ extension EditPhotoViewController {
         backgroundView.leadingAnchor --> view.leadingAnchor
         backgroundView.trailingAnchor --> view.trailingAnchor
         backgroundView.bottomAnchor --> imagePreviewView.topAnchor + -(Const.View.m8)
-        backgroundView.topAnchor --> view.topAnchor + -(navigationController?.navigationBar.frame.height ?? 0)
+        backgroundView.topAnchor --> view.safeAreaLayoutGuide.topAnchor + -(navigationController?.navigationBar.frame.height ?? 0)
         view.sendSubviewToBack(backgroundView)
         backgroundView.backgroundColor = .clear
         backgroundView.backgroundViewCornerRadius()

@@ -86,6 +86,12 @@ enum Const {
             static let chevronRight: UIImage? = CommonAssets.chevronRight
         }
         
+        enum EditPhoto {
+            static let addText: UIImage? =  getSystemAsset(systemName: "textbox")
+            static let shareImages: UIImage? =  getSystemAsset(systemName: "square.and.arrow.up")
+
+        }
+        
         enum PostStatus {
             static let color: UIImage? = getSystemAsset(systemName: "circle.fill")
             static let textAlignmentCenter: UIImage? = getSystemAsset(systemName: "text.aligncenter")
