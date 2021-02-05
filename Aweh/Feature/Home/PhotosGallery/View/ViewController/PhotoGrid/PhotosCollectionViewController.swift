@@ -25,6 +25,8 @@ class PhotosCollectionViewController: UICollectionViewController {
     }
     var selectButton: UIBarButtonItem!
     var completion: (([PHAsset]) -> Void)?
+    var bottomToolbar = UIToolbar()
+    var imageCountLabel = UILabel()
     
     init() {
         let flowLayout = UICollectionViewFlowLayout()
@@ -46,8 +48,14 @@ class PhotosCollectionViewController: UICollectionViewController {
         selectButton = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(enableSelection))
         
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
+        configureSelf()
         navigationItem.leftBarButtonItem = doneButton
         navigationItem.rightBarButtonItem = selectButton
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        collectionView.contentInset.bottom = bottomToolbar.frame.height
     }
     
     @objc func enableSelection() {
@@ -175,5 +183,43 @@ extension PhotosCollectionViewController: PhotosCollectionDelegate {
     func shouldUpdateCollectionViewState() {
         collectionView.reloadData()
     }
+    
+    func imageCountDidChange(count: Int, hasVideoContent: Bool) {
+        if count > 0 {
+            UIView.animate(withDuration: 0.25) { [self] in
+                bottomToolbar.alpha = 1
+            } completion: { [self] _ in
+                bottomToolbar.isHidden = false
+            }
+            
+            imageCountLabel.text = "\(count) \(hasVideoContent ? "Video" : (count > 1 ? "Photos" : "Photo")) Seleted"
+        } else {
+            UIView.animate(withDuration: 0.25) { [self] in
+                bottomToolbar.alpha = 0
+            } completion: { [self] _ in
+                bottomToolbar.isHidden = true
+            }
+        }
+    }
 }
 
+// MARK: - Helper functions
+
+extension PhotosCollectionViewController {
+    private func configureSelf() {
+        bottomToolbar.autoresizingOff()
+        view.addSubview(bottomToolbar)
+        bottomToolbar.bottomAnchor --> view.safeAreaLayoutGuide.bottomAnchor
+        bottomToolbar.leadingAnchor --> view.leadingAnchor
+        bottomToolbar.trailingAnchor --> view.trailingAnchor
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        imageCountLabel.autoresizingOff()
+        imageCountLabel.font = .boldSystemFont(ofSize: 18) // TODO: move to font
+        imageCountLabel.textColor = .white
+        imageCountLabel.sizeToFit()
+        
+        let imageCountToolbarItem = UIBarButtonItem(customView: imageCountLabel)
+        bottomToolbar.setItems([spacer, imageCountToolbarItem, spacer], animated: false)
+        bottomToolbar.isHidden = true
+    }
+}

@@ -20,6 +20,14 @@ extension UIView {
         layer.borderWidth = 0.03
         layer.backgroundColor = Const.Color.lightGray.cgColor
     }
+    
+    func addBlurEffect() {
+        let blurEffectView = UIVisualEffectView(effect: nil)
+        blurEffectView.effect =  UIBlurEffect(style: .prominent)
+        addSubview(blurEffectView)
+        
+        blurEffectView --> self
+    }
 }
 
 extension UIView {

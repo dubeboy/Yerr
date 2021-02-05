@@ -38,6 +38,7 @@ protocol PhotosCollectionViewPresenter {
 
 protocol PhotosCollectionDelegate: AnyObject {
     func shouldUpdateCollectionViewState()
+    func imageCountDidChange(count: Int, hasVideoContent: Bool)
 }
 
 class PhotosCollectionViewPresenterImplemantation: PhotosCollectionViewPresenter {
@@ -50,6 +51,7 @@ class PhotosCollectionViewPresenterImplemantation: PhotosCollectionViewPresenter
     
     private var selectedImages = [PHAsset]() {
         didSet {
+           
             if selectedImages.count == 1 {
                 guard let value = selectedImages.first else { return }
                 if value.mediaType == .video {
@@ -69,6 +71,9 @@ class PhotosCollectionViewPresenterImplemantation: PhotosCollectionViewPresenter
             } else {
                 doNotStopSelection = true
             }
+            
+            delegate?.imageCountDidChange(count: selectedImages.count, hasVideoContent: hasVideoContent)
+
         }
     }
     

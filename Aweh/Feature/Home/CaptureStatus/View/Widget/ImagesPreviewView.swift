@@ -166,6 +166,12 @@ extension ImagesPreviewView: UICollectionViewDelegate, UICollectionViewDataSourc
 }
 
 extension ImagesPreviewView: PhotosCollectionDelegate {
+    func imageCountDidChange(count: Int, hasVideoContent: Bool) {
+        
+    }
+    
+    
+    
     func shouldUpdateCollectionViewState() {
         collectionView.reloadData()
     }
