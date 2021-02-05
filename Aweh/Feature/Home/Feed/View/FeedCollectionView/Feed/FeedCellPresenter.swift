@@ -12,19 +12,18 @@ class FeedCellPresenter {
     func configure(with cell: FeedCollectionViewCell,
                      forDisplaying model: StatusViewModel) {
         cell.setViewModel(viewModel: model.statusPageViewModel)
+        if !model.statusPageViewModel.media.isEmpty {
+            cell.setMediaText(text: model.statusPageViewModel.status)
+        }
         cell.userName.text = model.user.name // change this to attributed string
         cell.distance.text = model.distanceFromYou + "KM・\(model.timeSincePosted)" // change this to attributed string
-        cell.likeAndUpVoteVStack.setUpVoteText(text: getVotesString(votes: model.votes))
-        cell.likeAndUpVoteVStack.setDownVoteText(text: getVotesString(votes: model.votes))
+//        cell.likeAndUpVoteVStack.setUpVoteText(text: getVotesString(votes: model.votes))
+//        cell.likeAndUpVoteVStack.setDownVoteText(text: getVotesString(votes: model.votes))
         cell.likeAndUpVoteVStack.setLikeVoteText(text: getVotesString(votes: model.likes))
     }
     
     private func getVotesString(votes: Int) -> String {
         return votes == 0 ? "" : "\(votes)"
-    }
-    
-    func didSelectItem(viewModel: StatusViewModel) {
-        // TODO: - some logic when the cell is selected
     }
     
     func setLikeAndVoteButtonsActions(for cell: FeedCollectionViewCell,
@@ -37,4 +36,7 @@ class FeedCellPresenter {
         cell.likeAndUpVoteVStack.didTapLikeAction = didTapLikeButton
     }
     
+    func setLikes(cell: FeedCollectionViewCell, likes: Int) {
+        cell.likeAndUpVoteVStack.setLikeVoteText(text: getVotesString(votes: likes))
+    }
 }

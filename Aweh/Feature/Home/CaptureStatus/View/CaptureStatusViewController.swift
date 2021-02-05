@@ -34,7 +34,7 @@ class CaptureStatusViewController: UIViewController {
     var presenter: CaptureStatusPresenter!
     
     private var captureButton = CaptureButton()
-    private var openGalleryButton = UIImageView()
+    private var openGalleryButton = YerrButton()
     
     private var captureSession = AVCaptureSession()
     
@@ -46,7 +46,7 @@ class CaptureStatusViewController: UIViewController {
     private let photoOutput = AVCapturePhotoOutput()
     private var movieFileOutput: AVCaptureMovieFileOutput!
     private var captureMode = CaptureMode.photo
-    private var switchCameraButton: UIBarButtonItem!
+    private var switchCameraButton: YerrButton = YerrButton()
          
     private let overlayView = UIView()
     private let overlayLabel = UILabel()
@@ -64,18 +64,32 @@ class CaptureStatusViewController: UIViewController {
                                                                                 .builtInTrueDepthCamera],
                                                                                mediaType: .video, position: .unspecified)
     
+    private let dragView = UIView() // This should have a disappeating text view with instruction
+    private let dragImage = UIView()
+    private var backgroundView: UIView = UIView()
+    
+    private var imagePreviewHeightConstraint: NSLayoutConstraint?
+    
     @LateInit
     private var imagesPreview: ImagesPreviewView
+    
+    private static let ACTION_BUTTON_BUTTON_SIZE: CGFloat = 40
+    private static let CAPTURE_BUTTON_SIZE: CGFloat = 60
+    
+    private let selectButton: YerrButton = YerrButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagesPreview = ImagesPreviewView(presenter: presenter.photosCollectionViewPresenter, delegate: self)
         configureSelf()
         configureCaptureButton()
         configureOpenGalleryButton()
+        configureSwitchCameraButton()
         configureOverlayView()
         setupPreviewLayer()
         configureCaptureSession()
         configureImagesPreview()
+        configureDraggableImage()
         checkCameraPermission()
         
         setNeedsStatusBarAppearanceUpdate()
@@ -84,7 +98,6 @@ class CaptureStatusViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.makeTransparent()
-        imagesPreview.reloadData()
         switch setupResult {
             case .success:
                 startCaptureSession()
@@ -95,13 +108,32 @@ class CaptureStatusViewController: UIViewController {
                 Logger.log(AppStrings.Error.CaptureStatus.configrationFailed)
                 presentAlert(title: AppStrings.CaptureStatus.alertTitle, message: AppStrings.CaptureStatus.configrationFailed, actions: okAction)
         }
-        
+            
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         navigationController?.navigationBar.removeTransparency()
         stopCaptureSession()
+        imagePreviewHeightConstraint?.constant = ImagesPreviewView.IMAGE_PREVIEW_HEIGHT
+        self.imagesPreview.isHidden = false
+        self.presenter.isImageDrawerClosed = false
+    }
+    
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.view.layoutIfNeeded()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // could change the alpha instead of drawingb the view
+            UIView.animate(withDuration:  0.25, delay: 0.5, options: []) {
+                self.imagePreviewHeightConstraint?.constant = 0
+                self.view.layoutIfNeeded()
+            } completion: { _ in
+                self.imagesPreview.isHidden = true
+               
+            }
+        }
+        self.presenter.isImageDrawerClosed = true
     }
 
     @objc func switchCamera() {
@@ -147,7 +179,7 @@ class CaptureStatusViewController: UIViewController {
                 DispatchQueue.main.async {
                     guard let data = data else { return }
                    // TODO: show progress bar here
-                    self.coordinator.startEditPhotoCoordinator(navigationController: self.navigationController, imageAssetData: [data])
+                    self.coordinator.startEditPhotoCoordinator(navigationController: self.navigationController, imageAssetData: data)
                 }
             }, photoProcessingHandler: { animate in
                 DispatchQueue.main.async {
@@ -165,6 +197,51 @@ class CaptureStatusViewController: UIViewController {
         }
     }
     
+    @objc func dragImagePreview(_ sender: UIPanGestureRecognizer) {
+        let velocity = sender.velocity(in: view)
+        let translation = sender.translation(in: view)
+        
+        if velocity.y < -200 && presenter.isImageDrawerClosed {
+            UIView.animate(withDuration:  0.25) {
+                self.imagePreviewHeightConstraint?.constant = ImagesPreviewView.IMAGE_PREVIEW_HEIGHT
+                self.view.layoutIfNeeded()
+            } completion: { _ in
+                self.imagesPreview.isHidden = false
+            }
+            if sender.state == .ended {
+                self.presenter.isImageDrawerClosed = false
+                UIView.animate(withDuration: 0.3) { [self] in
+                    self.imagesPreview.transform = .identity
+                }
+            }
+        } else if velocity.y > 200 {
+            UIView.animate(withDuration:  0.25) {
+                self.imagePreviewHeightConstraint?.constant = 0
+                self.view.layoutIfNeeded()
+            } completion: { _ in
+                self.imagesPreview.isHidden = true
+            }
+            if sender.state == .ended {
+                self.presenter.isImageDrawerClosed = true
+            }
+        } else if velocity.y < -200 && !presenter.isImageDrawerClosed {
+            // TODO: translate image to an up arrow and then after open image selector
+            let translatePercentage = abs(translation.y / view.frame.height)
+            self.imagesPreview.transform = CGAffineTransform(scaleX: 1 + translatePercentage , y: 1 + translatePercentage)
+            if translatePercentage >= 0.15 {
+                coordinator.startPhotosGalleryViewController(navigationController: self.navigationController, completion: handleSelectedImageCompletion)
+                UIView.animate(withDuration: 0.3) { [self] in
+                    self.imagesPreview.transform = .identity
+                }
+            }
+            if sender.state == .ended {
+                UIView.animate(withDuration: 0.3) { [self] in
+                    self.imagesPreview.transform = .identity
+                }
+            }
+        }
+    }
+    
     @objc func takeVideoAction(gestureReconizer: UILongPressGestureRecognizer) {
         if gestureReconizer.state == .began {
             Logger.i("state began")
@@ -177,24 +254,21 @@ class CaptureStatusViewController: UIViewController {
         }
     }
     
-    func startEditPhotoViewController(images: [Data]) {
-        coordinator.startEditPhotoCoordinator(navigationController: navigationController, imageAssetData: images)
+    func startEditPhotoViewController(phAssets: [PHAsset]) {
+        coordinator.startEditPhotoCoordinator(navigationController: navigationController, phAsset: phAssets)
     }
     
     @objc func openGalleryAction() {
-        
-        coordinator.startPhotosGalleryViewController(navigationController: navigationController) { photoAsset in
-            self.presenter.getImages(avAssets: photoAsset) { didFailOnce, images in
-                if didFailOnce {
-                    self.presentAlert(title: "Could not get all images", message: "Could not get some images. Do you want to continue?") { _ in
-                        self.startEditPhotoViewController(images: images)
-                    } cancel: { _ in
-                        return
-                    }
-                } else {
-                    self.startEditPhotoViewController(images: images)
-                }
-            }
+        coordinator.startPhotosGalleryViewController(navigationController: navigationController,
+                                                     completion: handleSelectedImageCompletion)
+    }
+    
+    private func handleSelectedImageCompletion(_ photoAsset: [PHAsset]) {
+        guard let phAsset = photoAsset.first else { return }
+        if phAsset.mediaType == .video {
+            coordinator.startTrimVideoViewController(navigationController: navigationController, photoAsset: phAsset)
+        } else {
+            self.startEditPhotoViewController(phAssets: photoAsset)
         }
     }
     
@@ -255,6 +329,7 @@ class CaptureStatusViewController: UIViewController {
         } else {
             self.overlayView.isHidden = false
         }
+        
     }
     
     @objc func sessionInterruptionEnded() {
@@ -286,23 +361,44 @@ class CaptureStatusViewController: UIViewController {
 }
 
 //
-// MARK: - Private helper functions
+// MARK: - Private View helper functions
 //
 
 private extension CaptureStatusViewController {
     func configureSelf() {
-        switchCameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(switchCamera))
-        navigationItem.rightBarButtonItem = switchCameraButton
         addCloseButtonItem(toLeft: true)
+        
+        self.navigationController?.navigationBar.tintColor = Const.Color.navigationBarTintColor
+    }
+    
+  
+    
+    private func setupPreviewLayer() {
+        backgroundView.autoresizingOff()
+        backgroundView.backgroundColor = .brown
+        view.addSubview(backgroundView)
+        backgroundView.backgroundViewCornerRadius()
+        view.backgroundColor = Const.Color.roundViewsBackground
+        backgroundView.leadingAnchor --> view.leadingAnchor
+        backgroundView.trailingAnchor --> view.trailingAnchor
+        backgroundView.topAnchor --> view.safeAreaLayoutGuide.topAnchor + -navigationController!.navigationBar.frame.height
+        backgroundView.bottomAnchor --> view.safeAreaLayoutGuide.bottomAnchor
+        backgroundView.clipsToBounds = true
+        
+        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer.videoGravity = .resizeAspectFill
+        backgroundView.layer.insertSublayer(previewLayer, below: captureButton.layer)
+        previewLayer.frame = self.view.layer.frame
+
     }
     
     func configureCaptureButton() {
         captureButton.autoresizingOff()
-        view.addSubview(captureButton)
-        captureButton.bottomAnchor --> view.bottomAnchor + -Const.View.m16 * 2
-        captureButton.centerXAnchor --> view.centerXAnchor
-        captureButton.widthAnchor --> 60
-        captureButton.heightAnchor --> 60
+        backgroundView.addSubview(captureButton)
+        captureButton.bottomAnchor --> backgroundView.bottomAnchor + -Const.View.m16 * 2
+        captureButton.centerXAnchor --> backgroundView.centerXAnchor
+        captureButton.widthAnchor --> Self.CAPTURE_BUTTON_SIZE
+        captureButton.heightAnchor --> Self.CAPTURE_BUTTON_SIZE
         captureButton.addTarget(self, action: #selector(takePictureAction), for: .touchUpInside)
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(takeVideoAction))
         longPressRecognizer.minimumPressDuration = 0.5
@@ -311,30 +407,61 @@ private extension CaptureStatusViewController {
         // add long press to rec
     }
     
+    private func configureSwitchCameraButton() {
+        switchCameraButton.autoresizingOff()
+        switchCameraButton.addTarget(self, action: #selector(switchCamera), for: .touchUpInside)
+        switchCameraButton.setImage(fillBoundsWith: Const.Assets.CaptureStatus.cameraRotate?.withRenderingMode(.alwaysTemplate))
+        switchCameraButton.tintColor = Const.Color.CaptureStatus.captureButton
+        backgroundView.addSubview(switchCameraButton)
+        switchCameraButton.heightAnchor --> Self.ACTION_BUTTON_BUTTON_SIZE
+        switchCameraButton.widthAnchor --> Self.ACTION_BUTTON_BUTTON_SIZE
+        switchCameraButton.trailingAnchor -->  backgroundView.trailingAnchor + -Const.View.m16
+        switchCameraButton.centerYAnchor --> captureButton.centerYAnchor
+    }
+    
     private func configureOpenGalleryButton() {
         openGalleryButton.autoresizingOff()
-        view.addSubview(openGalleryButton)
-        openGalleryButton.image = Const.Assets.CaptureStatus.openGalleryIcon?.withRenderingMode(.alwaysTemplate)
+        backgroundView.addSubview(openGalleryButton)
+        openGalleryButton.setImage(fillBoundsWith: Const.Assets.CaptureStatus.openGalleryIcon?.withRenderingMode(.alwaysTemplate))
         openGalleryButton.tintColor = Const.Color.CaptureStatus.captureButton // TODO: make button a bit thick
-        openGalleryButton.leadingAnchor --> view.leadingAnchor + Const.View.m16
+        openGalleryButton.leadingAnchor --> backgroundView.leadingAnchor + Const.View.m16
         openGalleryButton.centerYAnchor --> captureButton.centerYAnchor
-        openGalleryButton.widthAnchor --> 40
-        openGalleryButton.heightAnchor --> 40
-        openGalleryButton.contentMode = .scaleAspectFit
-        openGalleryButton.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openGalleryAction))
-        openGalleryButton.addGestureRecognizer(tapGesture)
+        openGalleryButton.widthAnchor --> Self.ACTION_BUTTON_BUTTON_SIZE
+        openGalleryButton.heightAnchor --> Self.ACTION_BUTTON_BUTTON_SIZE
+        openGalleryButton.addTarget(self, action: #selector(openGalleryAction), for: .touchUpInside)
     }
     
     func configureImagesPreview() {
-        imagesPreview = ImagesPreviewView(itemSize: CGSize(width: 80, height: 80), presenter: presenter.photosCollectionViewPresenter)
+       
         imagesPreview.autoresizingOff()
         view.addSubview(imagesPreview)
-        imagesPreview.heightAnchor --> 80
+        imagePreviewHeightConstraint = imagesPreview.heightAnchor --> ImagesPreviewView.IMAGE_PREVIEW_HEIGHT
         imagesPreview.leadingAnchor --> view.leadingAnchor
         imagesPreview.trailingAnchor --> view.trailingAnchor
         imagesPreview.bottomAnchor --> captureButton.topAnchor + -Const.View.m16
+       
+    }
+    
+    private func configureDraggableImage() {
+        dragView.autoresizingOff()
+        dragImage.autoresizingOff()
+        dragView.addSubview(dragImage)
+        dragImage.heightAnchor --> 6
+        dragImage.widthAnchor --> (Const.View.m16 * 2.5)
+        dragImage.backgroundColor = UIColor.white
+        dragImage.centerYAnchor --> dragView.centerYAnchor
+        dragImage.centerXAnchor --> dragView.centerXAnchor
+        dragImage.layer.cornerRadius = 3
+        dragImage.smoothCornerCurve()
+        view.addSubview(dragView)
+        dragView.heightAnchor --> 30
+        dragView.leadingAnchor --> view.leadingAnchor
+        dragView.trailingAnchor --> view.trailingAnchor
+        dragView.bottomAnchor --> imagesPreview.topAnchor + -6
+        dragView.backgroundColor = .clear
         
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(dragImagePreview(_:)))
+        dragView.addGestureRecognizer(panGesture)
     }
     
     func configureOverlayView() {
@@ -685,12 +812,7 @@ private extension CaptureStatusViewController {
         NotificationCenter.default.removeObserver(self)
     }
 
-    func setupPreviewLayer() {
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.videoGravity = .resizeAspectFill
-        view.layer.insertSublayer(previewLayer, below: captureButton.layer)
-        previewLayer.frame = self.view.layer.frame
-    }
+   
     
     private func flashScreen(completion: @escaping Completion<Bool>) {
         previewLayer.opacity = 0
@@ -714,9 +836,7 @@ extension CaptureStatusViewController: AVCaptureFileOutputRecordingDelegate {
 //            success = (((error! as NSError).userInfo[AVErrorRecordingSuccessfullyFinishedKey] as AnyObject).boolValue)!
         }
         
-        coordinator.startTrimVideoViewController(navigationController: navigationController, videoURL: outputFileURL, delegate: { [weak self] in
-            self?.dismiss(animated: true, completion: nil) // this will send us to the main presenting viewController
-        })
+        coordinator.startTrimVideoViewController(navigationController: navigationController, videoURL: outputFileURL)
 //        saveToPhotos(success, outputFileURL)
     }
     
@@ -766,4 +886,10 @@ extension CaptureStatusViewController: AVCaptureFileOutputRecordingDelegate {
     }
     
     
+}
+
+extension CaptureStatusViewController: ImagesPreviewViewDelegate {
+    func didClickImage(_ photoAsset: PHAsset) {
+        handleSelectedImageCompletion([photoAsset])
+    }
 }

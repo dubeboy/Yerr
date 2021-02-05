@@ -8,10 +8,16 @@
 
 import UIKit
 
+protocol YerrButtonDelegate: AnyObject {
+    func startAnimate(tag: Int)
+    func endAnimate(tag: Int)
+}
+
 class YerrButton: UIButton {
     
     private static let buttonEdgeInset: UIEdgeInsets = .equalEdgeInsets(Const.View.m8)
-
+    weak var delegate: YerrButtonDelegate? = nil
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         configureSelf()
@@ -26,6 +32,7 @@ class YerrButton: UIButton {
         contentHorizontalAlignment = .fill
         imageView?.contentMode = .scaleAspectFit
         imageView?.clipsToBounds = false
+
     }
     
 //    @objc var delegate: (() -> Void)? {
@@ -33,15 +40,21 @@ class YerrButton: UIButton {
 //            addTarget(self, action: #selector(getter: delegate), for: .touchUpInside)
 //        }
 //    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        UIView.animate(withDuration: 0.3) { [self] in
+            transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
+            delegate?.startAnimate(tag: tag)
+        } completion: { [self] _ in
+            transform = .identity
+            delegate?.endAnimate(tag: tag)
+        }
+    }
 }
 
 extension YerrButton {
     private func configureSelf() {
-//        self.translatesAutoresizingMaskIntoConstraints = false
-//        self.setTitleColor(Const.Color.lightGray, for: .highlighted)
-//        self.setTitleColor(Const.Color.lightGray, for: .selected)
-//        self.layer.cornerRadius = Const.View.radius
-//        self.layer.masksToBounds = true
-//        self.contentEdgeInsets = Self.buttonEdgeInset
+        
     }
 }

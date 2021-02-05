@@ -9,6 +9,7 @@
 import Foundation
 import PhotosUI
 
+// TODO: will add this later so that we can let the user choose the frame they want
 class LivePhotoView: PHLivePhotoView {
     
 }

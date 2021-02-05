@@ -23,6 +23,8 @@ import Photos
 // https://stackoverflow.com/questions/48088956/text-background-with-round-corner-like-instagram-does
 // https://instagram-engineering.com/building-type-mode-for-stories-on-ios-and-android-8804e927feba
 // https://stackoverflow.com/questions/16362407/nsattributedstring-background-color-and-rounded-corners?rq=1
+
+// fix memory leak
 class TrimVideoViewController: UIViewController {
     
     var presenter: TrimVideoViewPresenter!
@@ -32,7 +34,7 @@ class TrimVideoViewController: UIViewController {
     @LateInit
     private var rangeSliderView: TrimPostVideoRangeSliderView
     private let videoView: StatusVideoView = StatusVideoView()
-    private let playVideoButton = YerrButton() // TODO: should add some materiels behind this view, translucent glass!!!
+    private let playVideoButton = YerrButton()
     
     
     // MARK: Video manipulation
@@ -70,13 +72,17 @@ class TrimVideoViewController: UIViewController {
         let rangeSliderWidth = view.frame.width - (Const.View.m16 * 4)
         rangeSliderView = TrimPostVideoRangeSliderView(frame: CGRect(origin: CGPoint(x: Const.View.m16 * 2, y: Const.View.m16 * 2), size: CGSize(width: rangeSliderWidth, height: rangeSliderHeight)))
         actionsToolbar = TextViewActionsView(delegate: self, colors: presenter.colors)
-        asset = AVURLAsset(url: presenter.videoURL)
-        videoSize = getVideoSize()
-       
         
+        presenter.getVideoAsset { [weak self] (avUrlAsset, url) in
+            guard let self = self else { return }
+            self.asset = avUrlAsset
+            self.videoSize = self.getVideoSize()
+            self.configureRangeSlider(videoURL: url)
+            self.configureVideoView(videoPath: url)
+        }
+      
         configureSelf()
         configurePlayVideoButton()
-        configureVideoView()
         configureActionsToolBar()
 //        congfigureOverlayTextView()
     }
@@ -94,7 +100,6 @@ class TrimVideoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         view.endEditing(true)
         super.viewWillAppear(animated)
-        configureRangeSlider()
         listenToEvent(
             name: .keyboardWillShow,
             selector: #selector(keyboardWillAppear(notification:))
@@ -174,8 +179,8 @@ private extension TrimVideoViewController {
                                               UIBarButtonItem(title: "Add Text", style: .plain, target: self, action: #selector(addTextToVideo))]
     }
     
-    private func configureRangeSlider() {
-        rangeSliderView.setVideoURL(videoURL: presenter.videoURL)
+    private func configureRangeSlider(videoURL: URL) {
+        rangeSliderView.setVideoURL(videoURL: videoURL)
         rangeSliderView.delegate = self
     }
     
@@ -244,8 +249,8 @@ private extension TrimVideoViewController {
         playVideoButton.addTarget(self, action: #selector(didTapPlayAction), for: .touchUpInside)
     }
     
-    private func configureVideoView() {
-        videoView.setVideoPath(videoPath: presenter.videoURL.absoluteString)
+    private func configureVideoView(videoPath: URL) {
+        videoView.setVideoPath(videoPath: videoPath.absoluteString)
         videoView.isUserInteractionEnabled = true
     }
     
@@ -257,41 +262,7 @@ private extension TrimVideoViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEndEditingAction))
         overlayView.addGestureRecognizer(tapGesture)
     }
-    
-//    // 1st iteration we add this!!§! so that we cater to the small phones
-//    // secend we should be able to edit in screen!!!
-//    private func congfigureOverlayTextView() {
-//        videoTextEditorBackgroundView.autoresizingOff()
-//        overlayTextInput.autoresizingOff()
-//        videoView.addSubview(videoTextEditorBackgroundView)
-//        videoTextEditorBackgroundView.topAnchor --> view.topAnchor + Const.View.m16
-//        videoTextEditorBottomAnchor = videoTextEditorBackgroundView.bottomAnchor --> view.bottomAnchor + -Const.View.m16
-//        videoTextEditorBackgroundView.leadingAnchor --> view.leadingAnchor + Const.View.m16
-//        videoTextEditorBackgroundView.trailingAnchor --> view.trailingAnchor + -Const.View.m16
-//
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEndEditingAction))
-//        videoTextEditorBackgroundView.addGestureRecognizer(tapGesture)
-//
-//        videoTextEditorBackgroundView.backgroundColor = Const.Color.TrimVideo.videoOverlayBackGround
-//
-//        videoTextEditorBackgroundView.addSubview(overlayTextInput)
-//        overlayTextInput.textAlignment = .center
-//        overlayTextInput.backgroundColor = .gray
-//        overlayTextInput.centerYAnchor --> videoTextEditorBackgroundView.centerYAnchor
-//        overlayTextInput.centerXAnchor --> videoTextEditorBackgroundView.centerXAnchor
-//        overlayTextInput.trailingAnchor --> videoTextEditorBackgroundView.trailingAnchor + -Const.View.m16
-//        overlayTextInput.leadingAnchor --> videoTextEditorBackgroundView.leadingAnchor + Const.View.m16
-//        overlayTextInput.heightAnchor ->= 50
-//        overlayTextInput.isScrollEnabled = false // Allows automatic height adjustment
-////        overlayTextInput.contentInset = .equalEdgeInsets(Const.View.m16)
-//
-//        overlayTextInput.sizeToFit()
-//
-//        // add delegate and listen to content size changes if its >= to videoTextEditorBackgroundView then add top| bottom constrains
-//        // and enable scrolling and if it exceed a certain number of chars it automatically goes to the bottom of screen like whatsapp
-//
-//    }
-   
+
     // TODO: remove video from temp
     private func cleanup() {
         
@@ -476,6 +447,9 @@ extension TrimVideoViewController {
     }
 }
 
+// MARK: - TimePostVideoRangeSliderDelegate
+
+
 extension TrimVideoViewController: TimePostVideoRangeSliderDelegate {
     func didChangeValue(videoRangeSlider: TrimPostVideoRangeSliderView, startTime: Float64, endTime: Float64) {
         Logger.i("start time \(startTime)")
@@ -505,6 +479,8 @@ extension TrimVideoViewController: TimePostVideoRangeSliderDelegate {
     }
 }
 
+// MARK: - StatusVideoViewDelegate
+
 extension TrimVideoViewController: StatusVideoViewDelegate {
     func currentlyPlaying(seconds: Double) {
 //        Logger.i("currentlyPlaying. seconds:  \(seconds)")
@@ -522,6 +498,8 @@ extension TrimVideoViewController: StatusVideoViewDelegate {
         }
     }
 }
+
+// MARK: - TextViewActionsViewDelegate
 
 extension TrimVideoViewController: TextViewActionsViewDelegate {
     func didTapTextAlignment(alignment: PostStatusViewModel.TextAlignment) {

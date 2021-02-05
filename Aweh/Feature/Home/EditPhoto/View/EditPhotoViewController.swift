@@ -16,13 +16,38 @@ class EditPhotoViewController: UIViewController {
     private let imageView = UIImageView()
     private let outputLayer = CALayer()
     private var textViews = [UITextView]()
+    private let backgroundView = UIView()
+    
+    
+    @LateInit
+    private var imagePreviewHeightConstraint: NSLayoutConstraint
+    
+    @LateInit
+    private var imagePreviewView: ImagesPreviewView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePreviewView = ImagesPreviewView(presenter: presenter.photosCollectionPresenter, delegate: self, phAssets: presenter.phAssets ?? [])
         configureSelf()
+        configureImagePreview()
         configureImageView()
-        let image = UIImage(data: presenter.imageData[0]) // TODO: crash here
-        imageView.image = image
+        configureBackgroundView()
+
+        if let imageData = presenter.imageData {
+            imageView.contentMode = .scaleAspectFill
+            imageView.image = UIImage(data: imageData)
+            imagePreviewView.isHidden = true
+            imagePreviewHeightConstraint.constant = 0
+        } else if let phAsset = presenter.phAssets {
+            guard let asset = phAsset.first else { return }
+            presenter.getPHAsset(asset: asset, targetSize: imageView.frame.size) { progress in
+                
+            } completion: { imageData in
+                guard let imageData = imageData else { return }
+                self.imageView.image = imageData
+                self.backgroundView.backgroundColor = imageData.avarageColor?.withAlphaComponent(0.5)
+            }
+        }
     }
 
     @objc func didTapAddText() {
@@ -45,6 +70,11 @@ class EditPhotoViewController: UIViewController {
             name: .keyboardWillHide,
             selector: #selector(keyboardWillHide(notification:))
         )
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.navigationBar.makeTransparent()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -111,22 +141,33 @@ class EditPhotoViewController: UIViewController {
     }
 }
 
+// MARK: - Private helper functions
+
 extension EditPhotoViewController {
     private func configureSelf() {
         
         addCloseButtonItem(toLeft: true)
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Add Text", style: .plain, target: self, action: #selector(didTapAddText)),                UIBarButtonItem(title: "Create Image", style: .plain, target: self, action: #selector(didTapCreateImage))]
+        let editTextButton = createNavigationBarButton(image: Const.Assets.EditPhoto.addText)
+        editTextButton.addTarget(self, action: #selector(didTapAddText), for: .touchUpInside)
+        let editText = UIBarButtonItem(customView: editTextButton)
         
-        imageView.autoresizingOff()
-        view.addSubview(imageView)
-        imageView --> view
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEndEditing))
-        imageView.addGestureRecognizer(tapGesture)
-        imageView.isUserInteractionEnabled = true
+        let shareImagesButton = createNavigationBarButton(image: Const.Assets.EditPhoto.shareImages)
+        shareImagesButton.addTarget(self, action: #selector(didTapCreateImage), for: .touchUpInside)
+        let shareImages = UIBarButtonItem(customView: shareImagesButton)
+        
+        navigationItem.rightBarButtonItems = [shareImages, editText]
+        view.backgroundColor = Const.Color.roundViewsBackground
     }
     
     private func configureImageView() {
         imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.autoresizingOff()
+        backgroundView.addSubview(imageView)
+        imageView --> backgroundView
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEndEditing))
+        imageView.addGestureRecognizer(tapGesture)
+        imageView.isUserInteractionEnabled = true
     }
     
     private func addImage(to layer: CALayer) {
@@ -137,6 +178,16 @@ extension EditPhotoViewController {
         imageLayer.frame = imageView.frame
         imageLayer.contents = image.cgImage
         layer.addSublayer(imageLayer)
+    }
+    
+    private func configureImagePreview() {
+        imagePreviewView.autoresizingOff()
+        view.addSubview(imagePreviewView)
+        imagePreviewView.leadingAnchor --> view.leadingAnchor
+        imagePreviewView.trailingAnchor --> view.trailingAnchor
+        imagePreviewView.bottomAnchor --> view.safeAreaLayoutGuide.bottomAnchor
+        imagePreviewHeightConstraint = imagePreviewView.heightAnchor --> ImagesPreviewView.IMAGE_PREVIEW_HEIGHT
+        imagePreviewView.delegate = self
     }
     
     private func addTextLayer(from textView: OverlayTextView) {
@@ -155,5 +206,29 @@ extension EditPhotoViewController {
         textLayer.frame = textView.frame
         textLayer.displayIfNeeded() // This is becuase UIView can async sometimes
         outputLayer.addSublayer(textLayer)
+    }
+    
+    private func configureBackgroundView() {
+        backgroundView.autoresizingOff()
+        view.addSubview(backgroundView)
+        backgroundView.clipsToBounds = true
+        backgroundView.leadingAnchor --> view.leadingAnchor
+        backgroundView.trailingAnchor --> view.trailingAnchor
+        backgroundView.bottomAnchor --> imagePreviewView.topAnchor + -(Const.View.m8)
+        backgroundView.topAnchor --> view.safeAreaLayoutGuide.topAnchor + -(navigationController?.navigationBar.frame.height ?? 0)
+        view.sendSubviewToBack(backgroundView)
+        backgroundView.backgroundColor = .clear
+        backgroundView.backgroundViewCornerRadius()
+    }
+}
+
+extension EditPhotoViewController: ImagesPreviewViewDelegate {
+    func didClickImage(_ photoAsset: PHAsset) {
+        presenter.getPHAsset(asset: photoAsset, targetSize: imageView.frame.size) { progress in
+            // show progress here
+        } completion: { [weak self] imageData in
+            self?.imageView.image = imageData
+            self?.backgroundView.backgroundColor = imageData?.avarageColor
+        }
     }
 }

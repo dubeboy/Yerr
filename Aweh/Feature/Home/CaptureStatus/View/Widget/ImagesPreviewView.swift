@@ -7,25 +7,39 @@
 //
 
 import UIKit
+import Photos
+
+protocol ImagesPreviewViewDelegate: AnyObject {
+    func didClickImage(_ photoAsset: PHAsset)
+}
 
 class ImagesPreviewView: UIView {
     
-    let presenter: PhotosCollectionViewPresenter
+    private var presenter: PhotosCollectionViewPresenter
     
     @LateInit
     private var collectionView: UICollectionView
     private let itemSize: CGSize
+    unowned var delegate: ImagesPreviewViewDelegate
+    static let IMAGE_PREVIEW_HEIGHT: CGFloat = 80
+    private var shouldLoadFromGallery: Bool {
+        phAssets.isEmpty
+    }
+    private let phAssets: [PHAsset]
     
-    private let dragView = UIView() // This should have a disappeating text view with instruction
-    private let dragImage = UIImageView()
-   
-    init(itemSize: CGSize, presenter: PhotosCollectionViewPresenter) {
-        self.itemSize = itemSize
+    init(presenter: PhotosCollectionViewPresenter,
+         delegate: ImagesPreviewViewDelegate,
+         phAssets: [PHAsset] = []) {
+        
+        self.itemSize = CGSize(width: Self.IMAGE_PREVIEW_HEIGHT, height: Self.IMAGE_PREVIEW_HEIGHT)
         self.presenter = presenter
+        self.delegate = delegate
+        self.phAssets = phAssets
         super.init(frame: .zero)
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         configureSelf()
-        configureDraggableImage()
+    
+        self.presenter.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -33,7 +47,7 @@ class ImagesPreviewView: UIView {
     }
     
     func reloadData() {
-       
+        collectionView.reloadData()
     }
 }
 
@@ -47,35 +61,17 @@ extension ImagesPreviewView {
         collectionView.delaysContentTouches = false
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = Const.Color.backgroundColor.withAlphaComponent(0.4)
+        collectionView.backgroundColor = Const.Color.backgroundColor.withAlphaComponent(0.1)
         collectionView.register(PhotosCollectionViewCell.self)
         guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         flowLayout.itemSize = itemSize
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = Const.View.m1
-        
-        presenter.loadImages(for: itemSize) { _ in }
-    }
-    
-    private func configureDraggableImage() {
-        dragView.autoresizingOff()
-        dragImage.autoresizingOff()
-        
-        let image = Const.Assets.CaptureStatus.chevronUp
-        dragImage.image = image
-        dragView.addSubview(dragImage)
-        dragImage.heightAnchor --> 30
-        dragImage.widthAnchor --> 30
-        dragImage.centerYAnchor --> dragView.centerYAnchor
-        dragImage.centerXAnchor --> dragView.centerXAnchor
-        dragImage.contentMode = .scaleAspectFit
-        dragImage.backgroundColor = .clear
-        addSubview(dragView)
-        dragView.heightAnchor --> 30
-        dragView.leadingAnchor --> leadingAnchor
-        dragView.trailingAnchor --> trailingAnchor
-        dragView.bottomAnchor --> collectionView.topAnchor + -Const.View.m8
-        dragView.backgroundColor = .clear
+        if shouldLoadFromGallery {
+            presenter.loadImages(for: itemSize) { _ in
+                self.collectionView.reloadData()
+            }
+        }
     }
 }
 
@@ -83,29 +79,72 @@ extension ImagesPreviewView {
 
 extension ImagesPreviewView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        presenter.imageCount()
+        if shouldLoadFromGallery {
+            return presenter.imageCount()
+        } else {
+            return phAssets.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         // should move this to the cell presenter
         let cell = collectionView.deque(PhotosCollectionViewCell.self, at: indexPath)
+        if shouldLoadFromGallery {
+            loadFromGallery(cell: cell, indexPath: indexPath)
+        } else {
+           loadFromAssets(cell: cell, indexPath: indexPath)
+        }
         
+        return cell
+    }
+    
+    private func loadFromAssets(cell: PhotosCollectionViewCell, indexPath: IndexPath) {
+        let asset = phAssets[indexPath.item] 
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .highQualityFormat
+        options.isNetworkAccessAllowed = true
+        options.progressHandler = { progress, _, _, _ in
+            // The handler may originate on a background queue, so
+            // re-dispatch to the main queue for UI work.
+            DispatchQueue.main.sync {
+                //                self.progressView.progress = Float(progress)
+            }
+        }
+        cell.viewOverlay.isHidden = true
+        PHImageManager.default().requestImage(
+            for: asset,
+            targetSize: itemSize,
+            contentMode: .aspectFill,
+            options: options
+        ) { image, arg  in
+            cell.imageView.image = image
+        }
+    }
+    
+    private func loadFromGallery(cell: PhotosCollectionViewCell, indexPath: IndexPath) {
         let asset = presenter.getItem(at: indexPath)
         cell.representationItemIndetifier = asset?.localIdentifier ?? ""
+        
+        let duration = presenter.getDuration(indexPath: indexPath)
+        cell.timeLabel.text = duration
         
         // check memory leak
         presenter.getImage(
             at: indexPath,
             targetSize: cell.bounds.size
-        ) { image, isSelected in
+        ) { image, isSelected, isSelectable  in
             if cell.representationItemIndetifier == asset?.localIdentifier ?? "" {
                 cell.isSelected = isSelected
                 cell.imageView.image = image
+                if isSelectable {
+                    cell.viewOverlay.isHidden = true
+                } else {
+                    cell.viewOverlay.isHidden = false
+                    cell.viewOverlay.backgroundColor = UIColor.black
+                }
             }
         }
-        
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -121,7 +160,27 @@ extension ImagesPreviewView: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func showImage(at indexPath: IndexPath) {
+        let asset: PHAsset?
+        if shouldLoadFromGallery {
+            asset = presenter.getItem(at: indexPath)
+        } else {
+            asset = phAssets[indexPath.item]
+        }
+       
+        guard let nonNilAsset = asset else { return }
+        delegate.didClickImage(nonNilAsset)
+    }
+}
+
+extension ImagesPreviewView: PhotosCollectionDelegate {
+    func imageCountDidChange(count: Int, hasVideoContent: Bool) {
         
+    }
+    
+    
+    
+    func shouldUpdateCollectionViewState() {
+        collectionView.reloadData()
     }
 }
 

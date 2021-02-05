@@ -20,6 +20,14 @@ extension UIView {
         layer.borderWidth = 0.03
         layer.backgroundColor = Const.Color.lightGray.cgColor
     }
+    
+    func addBlurEffect() {
+        let blurEffectView = UIVisualEffectView(effect: nil)
+        blurEffectView.effect =  UIBlurEffect(style: .prominent)
+        addSubview(blurEffectView)
+        
+        blurEffectView --> self
+    }
 }
 
 extension UIView {
@@ -80,12 +88,27 @@ extension UIView {
 
 
 extension UIView {
-    func addShadow() {
-        self.layer.shadowColor = UIColor.gray.cgColor
-        self.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+    func addShadow(offest: CGFloat = 2.0, color: UIColor = UIColor.gray) {
+        self.layer.shadowColor = color.cgColor
+        self.layer.shadowOffset = CGSize(width: offest, height: offest)
         self.layer.shadowRadius = 2.0
-        self.layer.shadowOpacity = 0.5
+        self.layer.shadowOpacity = 0.8
         self.layer.masksToBounds = false
+        self.layer.shouldRasterize = true
+        self.layer.rasterizationScale = UIScreen.main.scale
+    }
+    
+    func smoothCornerCurve() {
+        if #available(iOS 13, *) {
+            layer.cornerCurve = .continuous
+        }
+    }
+    
+    func backgroundViewCornerRadius() {
+        layer.cornerRadius = Const.View.viewCornerRadius
+        if UIDevice.current.hasNotch {
+            smoothCornerCurve()
+        }
     }
 }
 
@@ -136,3 +159,17 @@ extension UIView {
         return nil
     }
 }
+
+// MARK : - shrinkView
+
+//extension UIView {
+//    func shrink(down: Bool) {
+//        UIView.animate(withDuration: 0.6) {
+//            if down {
+//                cell.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+//            else {
+//                    cell.transform = .identity
+//            }
+//          }
+//        }
+//}

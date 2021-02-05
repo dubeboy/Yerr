@@ -25,7 +25,7 @@ struct StatusViewModel: Equatable, Hashable, Identifiable {
     var distanceFromYou: String = ""
     
     var voteEntity: ViewModelVoteEntity? = nil
-    var likes: Int = 0
+    var likes: Int = 0 // TODO: maybe this should be in ViewModelVoteEntity
     var votes: Int = 0
 }
 
@@ -40,7 +40,7 @@ extension StatusViewModel {
         StatusViewModel(
                 id: status.id ?? "",
                 user: .transform(user: status.user), // TODO: should map to a Media viewModel
-                statusPageViewModel: StatusPageViewModel(media: status.media, status: status.body),
+                statusPageViewModel: .transform(media: status.media, status: status.body),
                 timeSincePosted: status.createdAt.relativeDate(),
                 likes: status.likes,
                 votes: status.votes

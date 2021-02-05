@@ -7,19 +7,25 @@
 //
 
 import UIKit
+import Photos
 
 protocol TrimVideoCoordinator: Coordinator {
-    func startTrimVideoViewController(navigationController: UINavigationController?, videoURL: URL, delegate: @escaping Completion<()>)
+    func startTrimVideoViewController(navigationController: UINavigationController?, videoURL: URL)
+    func startTrimVideoViewController(navigationController: UINavigationController?, photoAsset: PHAsset)
 }
 
 extension HomeCoordinator: TrimVideoCoordinator  {
-    func startTrimVideoViewController(navigationController: UINavigationController?, videoURL: URL, delegate: @escaping Completion<()>) {
+    func startTrimVideoViewController(navigationController: UINavigationController?, photoAsset: PHAsset) {
         let viewController = TrimVideoViewController()
         viewController.coordinator = self
-//        viewController.delegate = delegate
+        viewController.presenter = TrimVideoViewPresenterImplementation(photosAsset: photoAsset)
+        navigationController?.pushViewController(viewController, animated: false)
+    }
+    
+    func startTrimVideoViewController(navigationController: UINavigationController?, videoURL: URL) {
+        let viewController = TrimVideoViewController()
+        viewController.coordinator = self
         viewController.presenter = TrimVideoViewPresenterImplementation(videoURL: videoURL)
-        let trimVideoNavigationController = UINavigationController(rootViewController: viewController)
-        trimVideoNavigationController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(viewController, animated: false)
     }
 }

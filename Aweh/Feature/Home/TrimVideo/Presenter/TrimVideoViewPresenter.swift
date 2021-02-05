@@ -9,6 +9,7 @@
 import Foundation
 import Merchant
 import AVFoundation
+import Photos
 
 struct TrimVideoViewModel {
     var startTime: Float64
@@ -29,26 +30,51 @@ struct TrimVideoViewModel {
 }
 
 protocol TrimVideoViewPresenter {
-    var videoURL: URL { get }
     var startTime: Float64 { get set }
     var endTime: Float64 { get set }
     var colors: [String] { get }
    
+    
     func appendEditableTextAndGetTag(text: String) -> Int
     func postVideo(videoURL: URL, completion: @escaping Completion<()>, failure: @escaping Completion<String>)
+    func getVideoAsset(asset completion: @escaping  (AVURLAsset, URL) -> Void)
 }
 
 class TrimVideoViewPresenterImplementation {
-    let videoURL: URL
+    var videoURL: URL?
+    let photosAsset: PHAsset?
     var viewModel = TrimVideoViewModel(startTime: 0, endTime: 0, textBeingEdited: [])
     let postStatusInteractor: StatusesUseCase = FeedInteractor()
     
     init(videoURL: URL) {
         self.videoURL = videoURL
+        self.photosAsset = nil
+    }
+    
+    init(photosAsset: PHAsset) {
+        self.photosAsset = photosAsset
+        self.videoURL = nil
     }
 }
 
 extension TrimVideoViewPresenterImplementation: TrimVideoViewPresenter {
+    func getVideoAsset(asset completion: @escaping (AVURLAsset, URL) -> Void) {
+        if let videoURL = videoURL {
+            completion(AVURLAsset(url: videoURL), videoURL)
+            self.videoURL = videoURL
+        } else if let photosAsset = photosAsset {
+            let options = PHVideoRequestOptions()
+            options.isNetworkAccessAllowed = true
+            options.deliveryMode = .automatic
+            PHCachingImageManager().requestAVAsset(forVideo: photosAsset, options: options) { (avAsset, _, _) in
+                DispatchQueue.main.async {
+                    guard let urlAsset = avAsset as? AVURLAsset else { return }
+                    completion(urlAsset, urlAsset.url)
+                }
+            }
+        }
+    }
+    
     var colors: [String] {
         viewModel.colors
     }

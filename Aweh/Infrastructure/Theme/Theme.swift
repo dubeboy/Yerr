@@ -25,11 +25,15 @@ enum Const {
         static let m4: CGFloat = 2
         static let radius: CGFloat = 10
         static let borderWidth: CGFloat = m2
-        
+        static let viewCornerRadius: CGFloat = 30
     }
     
     // MARK: - App assets
     enum Assets {
+        
+        // Global icons, usualy in extensions
+        static let closeIcon: UIImage? = getSystemAsset(systemName: "xmark")
+        static let cameraIcon = getSystemAsset(systemName: "camera")
         
         private enum CommonAssets {
             static let chevronRight: UIImage? = getSystemAsset(systemName: "chevron.right")
@@ -50,8 +54,8 @@ enum Const {
         }
         
         enum Feed {
-            static let upVoteArrow: UIImage? = getSystemAsset(systemName: "arrow.up")
-            static let downVoteArrow: UIImage? = getSystemAsset(systemName: "arrow.down")
+            static let upVoteArrow: UIImage? = getSystemAsset(systemName: "hand.thumbsup.fill")
+            static let downVoteArrow: UIImage? = getSystemAsset(systemName: "hand.thumbsdown.fill")
             static let likeFill: UIImage? = getSystemAsset(systemName: "heart.fill")
             static let like: UIImage? = getSystemAsset(systemName: "heart")
         }
@@ -59,6 +63,11 @@ enum Const {
         enum CaptureStatus {
             static let openGalleryIcon: UIImage? = UIImage(named: "gallery")
             static let chevronUp: UIImage? = getSystemAsset(systemName: "chevron.up")
+            static let cameraRotate: UIImage? = getSystemAsset(systemName: "camera.rotate")
+        }
+        
+        enum PhotoGallery {
+            static let imageSelectedMark: UIImage? = getSystemAsset(systemName: "checkmark.circle.fill")
         }
         
         enum TrimVideo {
@@ -75,6 +84,12 @@ enum Const {
         
         enum InitCountryLists {
             static let chevronRight: UIImage? = CommonAssets.chevronRight
+        }
+        
+        enum EditPhoto {
+            static let addText: UIImage? =  getSystemAsset(systemName: "textbox")
+            static let shareImages: UIImage? =  getSystemAsset(systemName: "square.and.arrow.up")
+
         }
         
         enum PostStatus {
@@ -141,10 +156,9 @@ enum Const {
             case label
             
             case link
+            case green
         }
-        
-       
-       
+
         // SHould have a private BASE
         // then put all the System colors in system
         // These should be private!!
@@ -154,8 +168,11 @@ enum Const {
         static let actionButtonColor = getColor(color: .button) // TODO: test that these color exist
         static let labelColor = getColor(color: .label)
         static let linkColor = getColor(color: .link)
+        static let navigationBarTintColor = UIColor.white
+        static let roundViewsBackground = UIColor(hex: "0B0B0B")
         
         private static let colors = ["264653", "2A9D8F", "e9c46a", "f4a261", "e76f51"]
+        
         
         enum PostStatus {
             static let textBackgroundColors = colors
@@ -178,6 +195,11 @@ enum Const {
         enum CaptureStatus {
             static let captureButton = UIColor.white
         }
+        
+        enum PhotoGallery {
+            static let photoGallery = getColor(color: .green)
+        }
+        
         enum TrimVideo {
             static let playVideo = UIColor.white
             static let videoOverlayBackGround = UIColor.black.withAlphaComponent(0.2)
@@ -188,19 +210,19 @@ enum Const {
     private static func getColor(color: Color.AppThemeColors) -> UIColor {
         switch color {
             case .grayItem:
-                if  #available(iOS 13.0, *) {
+                if #available(iOS 13.0, *) {
                     return UIColor.systemGray6
                 } else {
                     return UIColor.lightGray
                 }
             case .background:
-                if  #available(iOS 13.0, *) {
-                    return UIColor.systemGray5
+                if #available(iOS 13.0, *) {
+                    return UIColor.systemBackground
                 } else {
-                    return UIColor.gray
+                    return UIColor.white
                 }
             case .widget:
-                if  #available(iOS 13.0, *) {
+                if #available(iOS 13.0, *) {
                     return UIColor.systemBackground
                 } else {
                     return UIColor.white
@@ -208,16 +230,22 @@ enum Const {
             case .button:
                 return UIColor(named: "blueActionButton")!
             case .label:
-                if  #available(iOS 13.0, *) {
+                if #available(iOS 13.0, *) {
                     return UIColor.label
                 } else {
                     return UIColor.lightText
                 }
             case .link:
-                if  #available(iOS 13.0, *) {
+                if #available(iOS 13.0, *) {
                     return UIColor.link
                 } else {
                     return UIColor.blue
+                }
+            case .green:
+                if #available(iOS 13.0, *) {
+                    return UIColor.systemGreen
+                } else {
+                    return UIColor.green
                 }
         }
     }

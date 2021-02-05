@@ -16,8 +16,8 @@ struct StatusRepository: NewInstanceInjectable {
     @SingletonServiceInstance
     var service: AwehService
     
-    func getStatuses(result: @escaping (Result<StatusResponseEntity<[Status]>, Error>) -> Void) {
-        service.$getStatuses { response in
+    func getStatuses(page: Int, result: @escaping (Result<StatusResponseEntity<[Status]>, Error>) -> Void) {
+        service.$getStatuses(["page": page]) { response in
             switch response {
             case .success(let statusReponse):
                 result(.success(statusReponse.body))

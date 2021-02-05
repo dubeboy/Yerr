@@ -16,7 +16,6 @@ class StatusesView: UIView {
     private var statusIndicatorView: StatusIndicator
     
     private var statusesCollectionView: UICollectionView
-    
     var viewModel: StatusPageViewModel?
     
     init() {
@@ -39,7 +38,6 @@ class StatusesView: UIView {
         } else {
             showStatusesCollectionView()
             statusesCollectionView.reloadData()
-            statusText.text = viewModel.status
         }
     }
     
@@ -84,6 +82,7 @@ extension StatusesView {
         statusesCollectionView.showsVerticalScrollIndicator = false
         statusesCollectionView.showsHorizontalScrollIndicator = false
         statusesCollectionView.registerClass(StatusCell.self)
+        statusesCollectionView.backgroundColor = .clear
     }
     
     private func configureStatusText() {
@@ -106,6 +105,7 @@ extension StatusesView {
         statusIndicatorView.topAnchor --> self.topAnchor
         statusIndicatorView.leadingAnchor --> self.leadingAnchor
         statusIndicatorView.trailingAnchor --> self.trailingAnchor + -Const.View.m16
+        statusIndicatorView.heightAnchor --> 2
     }
 }
 
@@ -117,8 +117,8 @@ extension StatusesView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.deque(StatusCell.self, at: indexPath)
         guard let viewModel = viewModel else { return UICollectionViewCell() }
-        let cellViewModel = viewModel.media[indexPath.item]
-        cell.playContent(videoPath: cellViewModel.location, statusText: viewModel.status)
+        let media = viewModel.media[indexPath.item]
+        cell.showContent(content: media, statusText: viewModel.status)
         return cell
     }
 }

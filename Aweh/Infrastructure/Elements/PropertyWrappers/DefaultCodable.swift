@@ -5,6 +5,8 @@
 
 import Foundation
 
+// TODO: If some things failes to decode we want to log it
+
 protocol DefaultCodableStrategy {
     associatedtype RawValue: Codable
 

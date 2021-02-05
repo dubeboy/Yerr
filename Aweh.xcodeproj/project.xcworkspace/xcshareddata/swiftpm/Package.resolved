@@ -14,8 +14,8 @@
         "package": "Merchant",
         "repositoryURL": "/Users/divine.dube/Developer/iOS/Merchant",
         "state": {
-          "branch": "allow-data-uploads",
-          "revision": "6e53dfb3cb1d752c9b2346776e671384671e3d57",
+          "branch": null,
+          "revision": "22384992dbcf7ff359c10286faf499faa967f9dd",
           "version": null
         }
       },

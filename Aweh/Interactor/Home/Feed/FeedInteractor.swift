@@ -10,7 +10,7 @@ import Foundation
 import Merchant
 
 protocol StatusesUseCase: NewInstanceInjectable {
-    func getStatuses(result: @escaping (Result<[Status], Error>) -> Void)
+    func getStatuses(page: Int, result: @escaping (Result<[Status], Error>) -> Void)
     func getStatuses(interestName: String, result: @escaping (Result<[Status], Error>) -> Void)
     func postStatuses(status: Status,  statusMultipart: [MultipartBody], result: @escaping (Result<Status, Error>) -> Void)
     func postLike(voteEntity: VoteEntity, result: @escaping (Result<Bool, Error>) -> Void)
@@ -27,8 +27,8 @@ struct FeedInteractor: StatusesUseCase {
     private var cirlesRepository: CirclesRepository
 
 
-    func getStatuses(result: @escaping (Result<[Status], Error>) -> Void) {
-        statusRepository.getStatuses { response in
+    func getStatuses(page: Int, result: @escaping (Result<[Status], Error>) -> Void) {
+        statusRepository.getStatuses(page: page) { response in
             handleStatusReponse(response: response, result: result)
         }
     }

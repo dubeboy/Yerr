@@ -116,11 +116,31 @@ extension UIViewController {
 // MARK navigation item additions
 
 extension UIViewController {
+    
+    func createNavigationBarButton(image: UIImage?) -> UIButton {
+        let button = UIButton()
+        button.setImage(image, for: .normal)
+        button.layer.cornerRadius = 10
+        button.smoothCornerCurve()
+        button.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        button.contentMode = .scaleAspectFit
+        button.contentVerticalAlignment = .center
+        button.contentHorizontalAlignment = .center
+        button.imageView?.contentMode = .scaleAspectFit
+        button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 8)
+        return button
+    }
+    
     func addCloseButtonItem(toLeft: Bool = false, alertOnClose: Bool = false) {
+        let button = createNavigationBarButton(image: Const.Assets.closeIcon)
+        button.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
+        let barButtonItem = UIBarButtonItem(customView: button)
         if toLeft {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissViewController))
+
+            navigationItem.leftBarButtonItem = barButtonItem
+
         } else {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissViewController))
+            navigationItem.rightBarButtonItem = barButtonItem
         }
     }
     
