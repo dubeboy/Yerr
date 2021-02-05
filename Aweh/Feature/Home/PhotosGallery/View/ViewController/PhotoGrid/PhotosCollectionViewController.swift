@@ -105,8 +105,8 @@ class PhotosCollectionViewController: UICollectionViewController {
         ) { image, isSelected, isSelectable  in
             if cell.representationItemIndetifier == asset?.localIdentifier ?? "" {
                 cell.imageView.image = image
-                if isSelected && cell.isSelected == false {
-                    collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .left)
+                if isSelected {
+                    collectionView.selectItem(at: indexPath, animated: false, scrollPosition: []) // replace with cell tap gesture
                 }
                 cell.isSelected = isSelected
                 if isSelectable {
@@ -125,7 +125,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)!
-        collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .left)
+        collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
         presenter.didSelectItem(at: indexPath) { selectionState in
             switch selectionState {
                 case .select(let isSelected):
@@ -139,7 +139,6 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)!
-//        collectionView.deselectItem(at: indexPath, animated: false)
         presenter.didSelectItem(at: indexPath) { selectionState in
             switch selectionState {
                 case .select(let isSelected):

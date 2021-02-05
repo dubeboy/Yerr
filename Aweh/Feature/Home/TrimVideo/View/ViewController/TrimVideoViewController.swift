@@ -23,6 +23,8 @@ import Photos
 // https://stackoverflow.com/questions/48088956/text-background-with-round-corner-like-instagram-does
 // https://instagram-engineering.com/building-type-mode-for-stories-on-ios-and-android-8804e927feba
 // https://stackoverflow.com/questions/16362407/nsattributedstring-background-color-and-rounded-corners?rq=1
+
+// fix memory leak
 class TrimVideoViewController: UIViewController {
     
     var presenter: TrimVideoViewPresenter!
@@ -445,6 +447,9 @@ extension TrimVideoViewController {
     }
 }
 
+// MARK: - TimePostVideoRangeSliderDelegate
+
+
 extension TrimVideoViewController: TimePostVideoRangeSliderDelegate {
     func didChangeValue(videoRangeSlider: TrimPostVideoRangeSliderView, startTime: Float64, endTime: Float64) {
         Logger.i("start time \(startTime)")
@@ -474,6 +479,8 @@ extension TrimVideoViewController: TimePostVideoRangeSliderDelegate {
     }
 }
 
+// MARK: - StatusVideoViewDelegate
+
 extension TrimVideoViewController: StatusVideoViewDelegate {
     func currentlyPlaying(seconds: Double) {
 //        Logger.i("currentlyPlaying. seconds:  \(seconds)")
@@ -491,6 +498,8 @@ extension TrimVideoViewController: StatusVideoViewDelegate {
         }
     }
 }
+
+// MARK: - TextViewActionsViewDelegate
 
 extension TrimVideoViewController: TextViewActionsViewDelegate {
     func didTapTextAlignment(alignment: PostStatusViewModel.TextAlignment) {

@@ -30,8 +30,8 @@
             filePath = "Aweh/Feature/Home/PhotosGallery/View/ViewController/PhotoGrid/PhotosCollectionViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
             landmarkName = "collectionView(_:didDeselectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "Aweh/Feature/Home/PhotosGallery/View/ViewController/PhotoGrid/PhotosCollectionViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "collectionView(_:didDeselectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "Aweh/Feature/Home/PhotosGallery/View/ViewController/PhotoGrid/PhotosCollectionViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
             landmarkName = "collectionView(_:shouldSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -110,58 +110,10 @@
             filePath = "Aweh/Feature/Home/PhotosGallery/View/ViewController/PhotoGrid/PhotosCollectionViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "collectionView(_:shouldDeselectItemAt:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4DD18BD2-AD28-48A0-BDF8-8DAE35274620"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Aweh/Feature/Home/PhotosGallery/View/ViewController/PhotoGrid/PhotosCollectionViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "collectionView(_:didDeselectItemAt:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "4DD18BD2-AD28-48A0-BDF8-8DAE35274620 - 2432fc6742b3b0ba"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Aweh.PhotosCollectionViewController.collectionView(_: __C.UICollectionView, didDeselectItemAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "Aweh"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/divine.dube/Developer/iOS/Aweh/Aweh/Feature/Home/PhotosGallery/View/ViewController/PhotoGrid/PhotosCollectionViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "140"
-                  endingLineNumber = "140"
-                  offsetFromSymbolStart = "508">
-               </Location>
-               <Location
-                  uuid = "4DD18BD2-AD28-48A0-BDF8-8DAE35274620 - c3382eb58e35c359"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Aweh.SelectionType) -&gt; () in Aweh.PhotosCollectionViewController.collectionView(_: __C.UICollectionView, didDeselectItemAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "Aweh"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/divine.dube/Developer/iOS/Aweh/Aweh/Feature/Home/PhotosGallery/View/ViewController/PhotoGrid/PhotosCollectionViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "142"
-                  endingLineNumber = "142"
-                  offsetFromSymbolStart = "60">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
