@@ -74,10 +74,6 @@ class PostStatusViewController: UIViewController {
 //        }
     }
     
-    @objc func close() {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         statusTextView.centerVerticalText()
@@ -103,6 +99,7 @@ class PostStatusViewController: UIViewController {
         super.viewWillDisappear(animated)
         statusTextView.endEditing(true)
         removeSelfFromNotificationObserver()
+        // reset status bar
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
@@ -186,10 +183,16 @@ extension PostStatusViewController {
         bottomConstraint = backgroundColorView.bottomAnchor --> actionsToolbar.topAnchor + 40
         backgroundColorView.backgroundViewCornerRadius()
         view.backgroundColor = Const.Color.roundViewsBackground
-        addCloseButtonItem(toLeft: true)
+        
+        let closeButton = createNavigationBarButton(image: Const.Assets.closeIcon)
+        closeButton.addTarget(self, action: #selector(closeViewController), for: .touchUpInside)
+        let barButtonItem = UIBarButtonItem(customView: closeButton)
+        navigationItem.leftBarButtonItem = barButtonItem
+        
         let button = createNavigationBarButton(image: Const.Assets.cameraIcon)
         button.addTarget(self, action: #selector(captureStatus), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
+        
         self.navigationController?.navigationBar.tintColor = Const.Color.navigationBarTintColor
         self.navigationController?.navigationBar.barStyle = .black
         configureGradient()

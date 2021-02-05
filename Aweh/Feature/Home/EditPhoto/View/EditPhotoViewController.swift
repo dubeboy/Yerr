@@ -18,6 +18,10 @@ class EditPhotoViewController: UIViewController {
     private var textViews = [UITextView]()
     private let backgroundView = UIView()
     
+    
+    @LateInit
+    private var imagePreviewHeightConstraint: NSLayoutConstraint
+    
     @LateInit
     private var imagePreviewView: ImagesPreviewView
     
@@ -30,8 +34,10 @@ class EditPhotoViewController: UIViewController {
         configureBackgroundView()
 
         if let imageData = presenter.imageData {
+            imageView.contentMode = .scaleAspectFill
             imageView.image = UIImage(data: imageData)
             imagePreviewView.isHidden = true
+            imagePreviewHeightConstraint.constant = 0
         } else if let phAsset = presenter.phAssets {
             guard let asset = phAsset.first else { return }
             presenter.getPHAsset(asset: asset, targetSize: imageView.frame.size) { progress in
@@ -180,7 +186,7 @@ extension EditPhotoViewController {
         imagePreviewView.leadingAnchor --> view.leadingAnchor
         imagePreviewView.trailingAnchor --> view.trailingAnchor
         imagePreviewView.bottomAnchor --> view.safeAreaLayoutGuide.bottomAnchor
-        imagePreviewView.heightAnchor --> ImagesPreviewView.IMAGE_PREVIEW_HEIGHT
+        imagePreviewHeightConstraint = imagePreviewView.heightAnchor --> ImagesPreviewView.IMAGE_PREVIEW_HEIGHT
         imagePreviewView.delegate = self
     }
     
@@ -205,6 +211,7 @@ extension EditPhotoViewController {
     private func configureBackgroundView() {
         backgroundView.autoresizingOff()
         view.addSubview(backgroundView)
+        backgroundView.clipsToBounds = true
         backgroundView.leadingAnchor --> view.leadingAnchor
         backgroundView.trailingAnchor --> view.trailingAnchor
         backgroundView.bottomAnchor --> imagePreviewView.topAnchor + -(Const.View.m8)

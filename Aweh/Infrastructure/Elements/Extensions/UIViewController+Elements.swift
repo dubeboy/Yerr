@@ -136,7 +136,7 @@ extension UIViewController {
         button.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
         let barButtonItem = UIBarButtonItem(customView: button)
         if toLeft {
-          
+
             navigationItem.leftBarButtonItem = barButtonItem
 
         } else {
