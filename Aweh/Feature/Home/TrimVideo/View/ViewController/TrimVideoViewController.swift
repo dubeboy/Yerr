@@ -23,6 +23,7 @@ import Photos
 // https://stackoverflow.com/questions/48088956/text-background-with-round-corner-like-instagram-does
 // https://instagram-engineering.com/building-type-mode-for-stories-on-ios-and-android-8804e927feba
 // https://stackoverflow.com/questions/16362407/nsattributedstring-background-color-and-rounded-corners?rq=1
+// https://medium.com/free-code-camp/how-to-set-up-video-streaming-in-your-app-with-avplayer-7dc21bb82f3
 
 // fix memory leak
 class TrimVideoViewController: UIViewController {
@@ -396,7 +397,7 @@ extension TrimVideoViewController {
         
         export.videoComposition = videoComposition
         export.shouldOptimizeForNetworkUse = true
-        export.outputFileType = .mov
+        export.outputFileType = .mp4
         export.outputURL = exportURL
         
         export.exportAsynchronously {

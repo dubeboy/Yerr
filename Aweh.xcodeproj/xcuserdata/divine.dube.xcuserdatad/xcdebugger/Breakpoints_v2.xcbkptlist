@@ -132,7 +132,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "9FAE8C5F-71F8-4BA5-9647-5A90381FD912 - 86cf1b1ecb597d7d"
+                  uuid = "9FAE8C5F-71F8-4BA5-9647-5A90381FD912 - 86cf1b1ecb597b32"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -142,12 +142,12 @@
                   urlString = "file:///Users/divine.dube/Developer/iOS/Aweh/Aweh/Feature/Home/EditPhoto/View/EditPhotoViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "210"
-                  endingLineNumber = "210"
+                  startingLineNumber = "227"
+                  endingLineNumber = "227"
                   offsetFromSymbolStart = "68">
                </Location>
                <Location
-                  uuid = "9FAE8C5F-71F8-4BA5-9647-5A90381FD912 - 6111b08f10e3d1bb"
+                  uuid = "9FAE8C5F-71F8-4BA5-9647-5A90381FD912 - 6111b08f10e3d748"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -157,8 +157,8 @@
                   urlString = "file:///Users/divine.dube/Developer/iOS/Aweh/Aweh/Feature/Home/EditPhoto/View/EditPhotoViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "212"
-                  endingLineNumber = "212"
+                  startingLineNumber = "229"
+                  endingLineNumber = "229"
                   offsetFromSymbolStart = "12">
                </Location>
             </Locations>
@@ -273,6 +273,22 @@
             startingLineNumber = "166"
             endingLineNumber = "166"
             landmarkName = "showImage(at:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4F969103-78FE-4A60-A7FC-D152A5A35260"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Aweh/Feature/Home/Feed/View/Widget/StatusesView/StatusCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "showContent(content:statusText:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -34,9 +34,10 @@ class StatusCell: UICollectionViewCell {
             case .picture:
                 videoPlayer.isHidden = true
                 imageView.isHidden = false
-                imageView.downloadImage(fromUrl: content.location)
+                imageView.downloadImage(fromUrl: content.path)
             case .video:
-                videoPlayer.setVideoPath(videoPath: content.location, status: statusText)
+                videoPlayer.setVideoPath(videoPath: content.path, status: statusText)
+                videoPlayer.setVideoToFillBounds()
                 videoPlayer.hideLabel()
                 imageView.isHidden = true
                 videoPlayer.isHidden = false
@@ -46,6 +47,7 @@ class StatusCell: UICollectionViewCell {
         }
       
     }
+
 }
 
 extension StatusCell {

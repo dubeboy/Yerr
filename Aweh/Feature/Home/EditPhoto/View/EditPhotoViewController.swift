@@ -121,7 +121,7 @@ class EditPhotoViewController: UIViewController {
                     creationRequest.addResource(with: .photo, data: imageData , options: options)
                 } completionHandler: { (success, errror) in
                     if !success {
-                        Logger.log("Could not save photo to you library \(String(describing: errror)) success: \(success) localized desc: \(errror)")
+                        Logger.log("Could not save photo to you library \(String(describing: errror)) success: \(success) localized desc: \(errror?.localizedDescription)")
                     } else {
                         Logger.log("saved video")
                     }

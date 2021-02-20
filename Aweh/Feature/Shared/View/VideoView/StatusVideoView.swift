@@ -1,7 +1,7 @@
 //
 //  VideoView.swift
 //  Aweh
-//
+//§
 //  Created by Divine.Dube on 2020/11/16.
 //  Copyright © 2020 com.github.aweh. All rights reserved.
 //
@@ -32,14 +32,24 @@ class StatusVideoView: UIView {
     
     private var timeObserver: AnyObject!
 
-    weak var delegate: StatusVideoViewDelegate? {
-        didSet {
-            if delegate == nil {
-                NotificationCenter.default.removeObserver(self)
-            } else {
-                NotificationCenter.default.addObserver(self, selector: #selector(notifyPlayerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: nil)
-            }
-        }
+    weak var delegate: StatusVideoViewDelegate?
+    
+    init() {
+        playerLayer = AVPlayerLayer(player: avPlayer)
+        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspect
+        super.init(frame: .zero)
+        configureSelf()
+        configureEffectsView()
+        configureAVPlayer()
+        configurePlayVideoButton()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func setVideoToFillBounds() {
+        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
     }
         
     func setVideoPath(videoPath: String, status: String = "") {
@@ -91,16 +101,6 @@ class StatusVideoView: UIView {
         notifyPlayerDidFinishPlaying()
     }
     
-    init() {
-        playerLayer = AVPlayerLayer(player: avPlayer)
-        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspect
-        super.init(frame: .zero)
-        configureSelf()
-        configureEffectsView()
-        configureAVPlayer()
-        configurePlayVideoButton()
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -143,6 +143,8 @@ private extension StatusVideoView {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(pauseVideo))
         addGestureRecognizer(tapGesture)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(notifyPlayerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: nil)
     }
     
     private func configureAVPlayer() {
@@ -161,7 +163,6 @@ private extension StatusVideoView {
         delegate?.didFinishPlayingVideo()
         DispatchQueue.main.async {
         UIView.animate(withDuration: 0.25) { [self] in
-            
                 playVideoButton.isHidden = false
             }
         }

@@ -10,8 +10,11 @@ import Foundation
 import Merchant
 
 struct AwehService: Service {
-        
-    let baseURL: String = "http://192.168.88.247:8080/"
+    
+    private static let baseURL: String = "http://192.168.88.247:8080/"
+    static let assetsBaseURL = "\(baseURL)/assets/"
+    
+    let baseURL: String = Self.baseURL
     var query = ["key" : "hdsdt662266gbeww666", "os": "ios"] // TODO: does not log this
     // there should be a headers parameter
     // TODO: pass back an static instace here? [Merchant]
@@ -103,10 +106,6 @@ struct SingletonServiceInstance {
     
     init() {
         Logger.i("called created 🎉")
-    }
-    
-    func hello() {
-        
     }
     
     var projectedValue: AwehService {
